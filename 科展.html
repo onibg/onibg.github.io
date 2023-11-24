@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<!--<head>--><!--註解以避免植入官方script-->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="manifest" href="my_manifest.json">
+  <title>交通地圖</title>
+  <link rel="icon" href="192.png">
+  <link crossorigin="anonymous" rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <!--<link crossorigin="anonymous" rel="stylesheet" href="https://cdn.orgs.live/Leaflet.awesome-numbered-marker/leaflet_awesome_number_markers.css">-->
+  <link crossorigin="anonymous" rel="stylesheet" href="./leaflet_awesome_number_markers.css">
+  <style>
+   #mapDiv{position:absolute;width:100%;height:100%;top:0px;left:0px}
+  </style>
+ </head>
+ <body style="overflow:hidden">
+<!--<button id="Keelung">基隆市</button>
+  <button id="Taipei">台北市</button>
+  <button id="NewTaipei">新北市</button>
+  <button id="Taoyuan">桃園市</button>
+  <button id="HsinchuCounty">新竹縣</button>
+  <button id="Hsinchu">新竹市</button>
+  <button id="MiaoliCounty">苗栗縣</button>
+  <button id="Taichung">台中市</button>
+  <button id="ChanghuaCounty">彰化縣</button>
+  <button id="NantouCounty">南投縣</button>
+  <button id="YunlinCounty">雲林縣</button>
+  <button id="ChiayiCounty">嘉義縣</button>
+  <button id="Chiayi">嘉義市</button>
+  <button id="Tainan">台南市</button>
+  <button id="Kaohsiung">高雄市</button>
+  <button id="PingtungCounty">屏東縣</button>
+  <button id="YilanCounty">宜蘭縣</button>
+  <button id="HualienCounty">花蓮縣</button>
+  <button id="TaitungCounty">台東縣</button>
+  <button id="LienchiangCounty">連江縣</button>
+  <button id="KinmenCounty">金門縣</button>
+  <button id="PenghuCounty">澎湖縣</button>
+  <button id="InterCity">公路客運</button>
+  <button id="TaiwanTrip">台灣好行</button>-->
+  <div id="mapDiv"></div>
+  <script crossorigin="anonymous" src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/leaflet-canvas-marker"></script>
+  <!--<script crossorigin="anonymous" src="https://cdn.orgs.live/Leaflet.awesome-numbered-marker/leaflet_awesome_number_markers.js"></script>-->
+  <script crossorigin="anonymous" src="./leaflet_awesome_number_markers.js"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/leaflet-polylinedecorator"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/crypto-js/crypto-js.js"></script>
+  <script src="./leaflet-triangle-marker.js"></script><!--2021/7/27加入，可顯示方向光標-->
+  <script>
+addEventListener('load',function(){
+ navigator.serviceWorker.register('sw.js')
+//.then(function(reg){console.log('sw.js執行的範圍:'+reg.scope)})//看這支sw.js執行範圍
+//.catch(function(err){console.log('error:',err)})
+//↓附上刪除sw.js的寫法
+/*navigator.serviceWorker.getRegistrations()
+.then(function(reg){
+for(var reg of reg)
+{reg.unregister()}
+})*/
+})
+var bike2length=0//2022/10/22加入，用來計算arr陣列之前面YouBike 2.0站點數量
+var enableFlag=true,busFlag=true,mapOnPopup=false,clickFlag=false,oldUrl=''//oldUrl可避免手機重複讀取借還車數目兩次
+var markersLayer=L.layerGroup()
+var linesLayer=L.layerGroup()
+var busLayer=L.layerGroup()
+var linesJSON={},arr=[]
+//var RouteData={}//分析某路線第n項之所有資料
+
+function addOnHoverListener(data){
+ if(!enableFlag){enableFlag=true;map.closePopup()}//2021/8/15加入，讓按滑鼠右鍵顯示的點位消失
+ if(!mapOnPopup)
+ {mapOnPopup=true//2021.1.28加入，可避免連續請求及popup
+  if(data[0].data.options.url)
+  {
+   var url=data[0].data.options.url
+   oldUrl=url//oldUrl可避免手機重複讀取借還車數目兩次
+   var xhr=new XMLHttpRequest();xhr.responseType="json"//設定回傳資料為json格式，預設為text
+   var GMTString=new Date().toGMTString()
+   var hash=CryptoJS.HmacSHA1("x-date: "+GMTString,"WkgNgfNV6MGI0QDKsnVySbECWF0").toString(CryptoJS.enc.Base64)
+   xhr.open('GET',url,true)//預設就是true(異步)
+   if(url.indexOf('call')==-1){
+    xhr.setRequestHeader('Authorization','hmac username="bf8cbf088c7a4473939368430b5fdb68", algorithm="hmac-sha1", headers="x-date", signature="'+hash+'"')
+    xhr.setRequestHeader('x-date',GMTString)
+   }
+   xhr.send()
+   xhr.onerror=function(){L.popup({autoPan:false}).setLatLng(data[0].data._latlng).setContent(data[0].data._popup._content).openOn(map)}
+   xhr.onload=function()
+   {
+    oldUrl=''//oldUrl可避免手機重複讀取借還車數目兩次
+    var obj=xhr.response
+    var msg='可借：'+obj[0].AvailableRentBikes+'，可停：'+obj[0].AvailableReturnBikes
+    let eyb=obj[0].available_spaces_detail&&obj[0].available_spaces_detail.eyb
+    if(eyb){msg+='<br>'+'電動：'+eyb}//2022/10/10加入可借電動車數量
+    if(eyb&&data[0].data.canvas_img.src.indexOf("2.png")!=-1){let tmp=document.createElement("img");tmp.setAttribute('src','單車站E.png');data[0].data.canvas_img=tmp;ciLayer.redraw()}//電動車從無→有，變更icon圖示，2022/10/16加入
+    else if(!eyb&&data[0].data.canvas_img.src.indexOf("E.png")!=-1){let tmp=document.createElement("img");tmp.setAttribute('src','單車站2.png');data[0].data.canvas_img=tmp;ciLayer.redraw()}//電動車從有→無，變更icon圖示，2022/10/16加入
+    L.popup({autoPan:false}).setLatLng(data[0].data._latlng).setContent(data[0].data._popup._content+'<br>'+msg).openOn(map)
+   }
+  }
+  else{L.popup({autoPan:false}).setLatLng(data[0].data._latlng).setContent(data[0].data._popup._content).openOn(map)}
+ }
+}
+
+var map=L.map('mapDiv',{preferCanvas:true,zoomControl:false})
+         .on('click',
+             function(){
+                        enableFlag=true;//document.documentElement.requestFullscreen()
+                      /*//2021.1.30改成contextmenu
+                        if(!busFlag)
+                        {
+                         setTimeout(function(){//setTimeout可讓map_click做的事，晚於marker_popupopen做的事；原本事件順序為：map_click-->marker_popupopen
+                                               linesLayer.clearLayers();markersLayer.clearLayers()
+                                               ciLayer.addMarkers(arr);busFlag=true
+                                               if(lastMarker)
+                                               {
+                                                var tmp=map.getCenter()
+                                                L.popup().setLatLng([lat,lon]).setContent(lastMarker).openOn(map)
+                                                map.setView(tmp)
+                                                enableFlag=false
+                                               }
+                                              },0)
+                        }
+                     */}
+            )
+         .on('contextmenu',//contextmenu按滑鼠右鍵
+             function(e){
+                         linesLayer.clearLayers();markersLayer.clearLayers()
+                         if(busFlag)
+                         {map.addLayer(svvLayer)//2022/4/5街景層控制
+                          for(var i in arr){ciLayer.removeMarker(arr[i])};ciLayer.redraw()
+                          busFlag=false
+                         }
+                         else//2021.1.30改成contextmenu
+                         {map.removeLayer(svvLayer)//2022/4/5街景層控制
+                          ciLayer.addMarkers(arr);busFlag=true
+                          enableFlag=false
+                          /*if(lastMarker)
+                          {
+                           L.popup({autoPan:false}).setLatLng([lat,lon]).setContent(lastMarker).openOn(map)
+                         //var tmp=map.getCenter();L.popup().setLatLng([lat,lon]).setContent(lastMarker).openOn(map);map.setView(tmp)
+                           enableFlag=false
+                          }*/
+                         }
+                         var latlng=e.latlng.toString().replace(/LatLng\(|\s/g,'').slice(0,-1)
+                         L.popup({autoPan:false}).setLatLng(e.latlng).setContent("<a href='https://www.google.com/maps?layer=c&cbll="+latlng+"' target='_blank'>"+latlng+"</a>").openOn(map)
+                        }
+            )
+         .on("dblclick",
+             function(){
+                        if(lastMarker){L.popup({autoPan:false}).setLatLng([lat,lon]).setContent(lastMarker).openOn(map);map.setView([lat,lon],zoom);enableFlag=false}
+                       }
+            )
+         .on("popupopen",function(){mapOnPopup=true})
+         .on("popupclose",function(){mapOnPopup=false
+                                     setTimeout(()=>{!busFlag&&!mapOnPopup&&map.removeLayer(svvLayer)},0)//有公車點位狀態且此時popupopen，按滑鼠右鍵會先busFlag==false，接著popupclose立刻再popupopen，所以先延遲一下再判斷是否最後真的是持續popupclose才移除街景層
+                                    })//2022/4/5街景層控制
+         .addLayer(busLayer).addLayer(linesLayer).addLayer(markersLayer)
+map.doubleClickZoom.disable()
+document.getElementById("mapDiv").onmousemove=function(){if(enableFlag&&busFlag&&mapOnPopup&&this.style.cursor!='pointer'){map.closePopup()}}
+var lastMarker,lat,lon,zoom
+//var lastMarker,lat=24.108077,lon=120.5979,zoom=16
+document.getElementsByClassName('leaflet-control-attribution leaflet-control')[0].innerHTML='<button onclick="centerGPS()">定位置中</button>'//科展暫時行，屆時換成下4行
+//document.getElementsByClassName('leaflet-control-attribution leaflet-control')[0].innerHTML='<button">click否</button>　<button onclick="centerGPS()">定位置中</button>　<a href="./zip.html" target="_blank"><input type="button" value="zip"></a>'
+//document.getElementsByTagName('button')[0].onclick=function(){
+//if(this.innerText=='click否'){this.innerText='click是';clickFlag=true}else{this.innerText='click否';clickFlag=false}
+//}
+
+var watchID,posLat,posLon
+
+function centerGPS(){
+//navigator.geolocation.clearWatch(watchID)
+ map.setView([posLat,posLon])
+}
+
+navigator.geolocation.getCurrentPosition(
+function(pos){
+//gps=L.circleMarker([pos.coords.latitude,pos.coords.longitude],{radius:10,weight:2,color:'#ff0000',fillColor:'#00ff00'}).addTo(map)
+gps=L.triangleMarker([pos.coords.latitude,pos.coords.longitude],{
+                                                               /*renderer:L.canvas(),*/ //your canvas renderer(default: L.canvas())
+                                                                 rotation:0,//triangle rotation in degrees (default: 0)
+                                                                 width:50,//width of the base of triangle (default: 24)
+                                                                 height:50,//height of triangle (default: 24)
+                                                                 color:'red',
+                                                               //stroke:false,//是否畫邊框？
+                                                                 weight:1,//邊框粗細？
+                                                                 fill:false,//是否塗色？
+                                                               //fillColor:'yellow',
+                                                               //fillOpacity:0.2//default:0.2
+                                                                }).addTo(map)
+map.setView([pos.coords.latitude,pos.coords.longitude],16)
+
+//addEventListener('deviceorientation',function(e){
+addEventListener('deviceorientationabsolute',function(e){
+//e.alpha,e.beta,e.gamma
+gps.setRotation(180-e.alpha)
+})
+
+watchID=navigator.geolocation.watchPosition(function(pos){
+ posLat=pos.coords.latitude;posLon=pos.coords.longitude
+ gps.setLatLng([posLat,posLon])
+//map.setView([pos.coords.latitude,pos.coords.longitude])
+ },null,{enableHighAccuracy:true})
+
+ciLayer = L.canvasIconLayer({}).addTo(busLayer)
+ciLayer.addMarker(L.marker([0,0]))//先添加1虛擬marker，實驗結果：ciLayer中marker不可為空，否則滑鼠一開始move會出現錯誤於console
+ciLayer.addOnHoverListener(function(e,data){addOnHoverListener(data)})
+//maxNativeZoom:請求伺服器之最大{Z}，maxZoom:操作放大地圖之最大{Z}
+//L.tileLayer('http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{attribution:'縣市公車:綠、公路客運:藍、台灣好行:黃　',maxNativeZoom:22,maxZoom:30}).addTo(map)
+  L.tileLayer('https://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{maxNativeZoom:22,maxZoom:30}).addTo(map)
+  svvLayer=L.tileLayer('https://mt.google.com/vt/lyrs=svv&x={x}&y={y}&z={z}&style=40,18',{maxNativeZoom:22,maxZoom:30})//.addTo(map)//2022/4/5加入街景層
+makeKML4()
+},null,{enableHighAccuracy:true})
+
+function showLine(RouteUID,n)
+{
+ if(!clickFlag){return}
+ linesLayer.clearLayers()//清除所有linesLayer Group的資料
+ for(var i in arr){ciLayer.removeMarker(arr[i])};ciLayer.redraw();busFlag=false
+ var polyline=L.polyline(linesJSON[RouteUID][n],{color:'red'}).addTo(linesLayer)
+ L.polylineDecorator(polyline,{patterns:[{repeat:25,
+                                          symbol:L.Symbol.arrowHead({pixelSize:15,
+                                                                     polygon:false,
+                                                                     pathOptions:{stroke:true,color:'black'}
+                                                                    })
+                                         }]
+                              }
+                    ).addTo(linesLayer)
+//{offset:[0,-30]} 2021/8/14加入，將數字marker的popup位置上移，解決發生over事件，馬上又out事件，造成地圖會閃爍！另外，一併解決數字marker被popup覆蓋
+  L.popup({autoPan:false,offset:[0,-30]}).setLatLng([lat,lon]).setContent(lastMarker).openOn(map)
+//var tmp=map.getCenter();L.popup({offset:[0,-30]}).setLatLng([lat,lon]).setContent(lastMarker).openOn(map);map.setView(tmp)
+ for(var i in linesJSON[RouteUID][n])
+ {
+  L.marker(linesJSON[RouteUID][n][i].slice(0,2),{icon:new L.AwesomeNumberMarkers({number:Number(i)+1,markerColor:"blue"})}).addTo(markersLayer)
+   .bindPopup(linesJSON[RouteUID][n][i][2],{autoPan:false})
+   .on('mouseover',function(){//{offset:[0,-30]} 2021/8/14加入，將數字marker的popup位置上移，解決發生over事件，馬上又out事件，造成地圖會閃爍！另外，一併解決數字marker被popup覆蓋
+                              L.popup({autoPan:false,offset:[0,-30]}).setLatLng(this._latlng).setContent(this._popup._content).openOn(map)
+                              //var tmp=map.getCenter();L.popup({offset:[0,-30]}).setLatLng(this._latlng).setContent(this._popup._content).openOn(map);map.setView(tmp)
+                             })
+   .on('mouseout',function(){//{offset:[0,-30]} 2021/8/14加入，將數字marker的popup位置上移，解決發生over事件，馬上又out事件，造成地圖會閃爍！另外，一併解決數字marker被popup覆蓋
+                             L.popup({autoPan:false,offset:[0,-30]}).setLatLng([lat,lon]).setContent(lastMarker).openOn(map)
+                             //var tmp=map.getCenter();L.popup({offset:[0,-30]}).setLatLng([lat,lon]).setContent(lastMarker).openOn(map);map.setView(tmp)
+                            })
+ }
+}
+function makeKML4(){
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/Keelung?$format=JSON','基隆市')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/Taipei?$format=JSON','台北市')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/NewTaipei?$format=JSON','新北市')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/Taoyuan?$format=JSON','桃園市')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/HsinchuCounty?$format=JSON','新竹縣')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/Hsinchu?$format=JSON','新竹市')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/MiaoliCounty?$format=JSON','苗栗縣')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/Taichung?$format=JSON','台中市')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/ChanghuaCounty?$format=JSON','彰化縣')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/NantouCounty?$format=JSON','南投縣')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/YunlinCounty?$format=JSON','雲林縣')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/ChiayiCounty?$format=JSON','嘉義縣')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/Chiayi?$format=JSON','嘉義市')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/Tainan?$format=JSON','台南市')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/Kaohsiung?$format=JSON','高雄市')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/PingtungCounty?$format=JSON','屏東縣')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/YilanCounty?$format=JSON','宜蘭縣')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/HualienCounty?$format=JSON','花蓮縣')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/TaitungCounty?$format=JSON','台東縣')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/LienchiangCounty?$format=JSON','連江縣')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/KinmenCounty?$format=JSON','金門縣')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/PenghuCounty?$format=JSON','澎湖縣')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/InterCity?$format=JSON','公路客運')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Tourism/Bus/StopOfRoute/TaiwanTrip?$format=JSON','台灣好行')
+makeKML('https://ptx.transportdata.tw/MOTC/v3/Rail/TRA/StationExit?$format=JSON','火車站')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Rail/Metro/StationExit/TRTCMG?$format=JSON','捷運站')//貓空纜車
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Rail/Metro/StationExit/TRTC?$format=JSON','捷運站')//台北捷運站
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Rail/Metro/StationExit/TYMC?$format=JSON','捷運站')//桃園捷運站
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Rail/Metro/StationExit/KRTC?$format=JSON','捷運站')//高雄捷運站
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Rail/Metro/StationExit/TMRT?$format=JSON','捷運站')//台中捷運站
+//makeKML('https://ptx.transportdata.tw/MOTC/v2/Bike/Station/Taipei?$format=JSON','單車站')
+//makeKML('https://ptx.transportdata.tw/MOTC/v2/Bike/Station/NewTaipei?$format=JSON','單車站')
+//makeKML('https://ptx.transportdata.tw/MOTC/v2/Bike/Station/Taoyuan?$format=JSON','單車站')
+//makeKML('https://ptx.transportdata.tw/MOTC/v2/Bike/Station/Hsinchu?$format=JSON','單車站')
+//makeKML('https://ptx.transportdata.tw/MOTC/v2/Bike/Station/MiaoliCounty?$format=JSON','單車站')
+//makeKML('https://ptx.transportdata.tw/MOTC/v2/Bike/Station/Taichung?format=JSON','單車站')
+//makeKML('https://ptx.transportdata.tw/MOTC/v2/Bike/Station/ChanghuaCounty?$format=JSON','單車站')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bike/Station/City/Tainan?$format=JSON','單車站3')
+//makeKML('https://ptx.transportdata.tw/MOTC/v2/Bike/Station/Kaohsiung?$format=JSON','單車站')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bike/Station/City/PingtungCounty?$format=JSON','單車站3')
+makeKML('https://ptx.transportdata.tw/MOTC/v2/Bike/Station/City/KinmenCounty?$format=JSON','單車站3')
+makeKML('https://call.oa.repl.co/1','單車站1')
+makeKML('https://call.oa.repl.co/2','單車站2')
+
+setInterval(()=>{//2022/10/23加入，每分鐘更新YouBike 2.0圖示(電動 或 非電動)
+ if(!document.hidden){update()}//若頁面沒有隱藏，才update()
+},60000)
+document.onvisibilitychange=function(){if(document.visibilityState=='visible'){update()}}//頁面從隱藏變可見，立即update()
+
+function update(){
+ let xhr=new XMLHttpRequest();xhr.responseType="json"
+ xhr.open('GET','https://call.oa.repl.co/E',true)//預設就是true(異步)，https://call.oa.repl.co/E 呈現有電動車的站點名稱陣列資料
+ xhr.send()
+ xhr.onload=()=>{//xhr.response是陣列
+  for(let i=0;i<bike2length;i++)
+  {
+   delete arr[i].canvas_img//當前畫面一定有.canvas_img，要先刪除它，redraw()時，就會調用.iconUrl圖檔
+   if(xhr.response.includes(arr[i].options.url.split('%27')[1])){arr[i].options.icon.options.iconUrl='單車站E.png'}else{arr[i].options.icon.options.iconUrl='單車站2.png'}
+  }
+  ciLayer.redraw()
+ }
+//附加
+//let log=new XMLHttpRequest()
+//log.open('GET','https://script.google.com/macros/s/AKfycbzZpqyC1-JloaMML4KtCb5ru_FqTtefMNZmNVBcWA/exec?console='+new Date().toLocaleString('zh-TW',{timeZone:'Asia/Taipei'}),true)//預設就是true(異步)，https://call.oa.repl.co/E 呈現有電動車的站點名稱陣列資料
+//log.send()
+//附加
+}
+
+function makeKML(url,name)
+{
+ var RouteUID
+ var pointName,pointDes,pointLat,pointLon
+ var xhr=new XMLHttpRequest();xhr.responseType="json"//設定回傳資料為json格式，預設為text
+ var GMTString=new Date().toGMTString()
+ var hash=CryptoJS.HmacSHA1("x-date: "+GMTString,"WkgNgfNV6MGI0QDKsnVySbECWF0").toString(CryptoJS.enc.Base64)
+ xhr.open('GET',url,true)//預設就是true(異步)
+ if(url.indexOf('call')==-1){
+ xhr.setRequestHeader('Authorization','hmac username="bf8cbf088c7a4473939368430b5fdb68", algorithm="hmac-sha1", headers="x-date", signature="'+hash+'"')
+ xhr.setRequestHeader('x-date',GMTString)
+ }
+ xhr.send()
+ xhr.onload=function()
+ {
+  var obj=xhr.response
+  if(name=='火車站'){obj=obj.StationExits}
+  for(var i in obj)
+  {
+   if(name=='火車站')
+   {
+    var icon=L.icon({iconUrl:'火車站.png',iconSize:[20,20],iconAnchor:[10,10]})
+    for(var j in obj[i].Exits){
+    pointName=obj[i].StationName.Zh_tw+obj[i].Exits[j].ExitName.Zh_tw
+    pointDes=obj[i].Exits[j].LocationDescription
+    pointName=pointName.replace(/\s+/g,"");if(pointDes){pointDes=pointDes.replace(/\s+/g,"")}else{pointDes='空'}//去除所有空白
+    pointLat=obj[i].Exits[j].ExitPosition.PositionLat
+    pointLon=obj[i].Exits[j].ExitPosition.PositionLon
+    var oneMark=L.marker([pointLat,pointLon],{icon:icon})
+                 .bindPopup('<b>'+pointName+'</b><br>'+pointDes,{autoPan:false})
+    ciLayer.addMarker(oneMark)
+    arr.push(oneMark)
+                            }
+   }
+   else if(name=='捷運站')
+   {
+    var icon=L.icon({iconUrl:'捷運站.png',iconSize:[20,20],iconAnchor:[10,10]})
+    pointName=obj[i].ExitName.Zh_tw
+    if(url.indexOf('TYMC')!=-1){pointName=obj[i].StationName.Zh_tw+pointName}
+    pointDes=obj[i].LocationDescription
+    pointName=pointName.replace(/\s+/g,"");if(pointDes){pointDes=pointDes.replace(/\s+/g,"")}else{pointDes='空'}//去除所有空白
+    pointLat=obj[i].ExitPosition.PositionLat
+    pointLon=obj[i].ExitPosition.PositionLon
+    var oneMark=L.marker([pointLat,pointLon],{icon:icon})
+                 .bindPopup('<b>'+pointName+'</b><br>'+pointDes,{autoPan:false})
+    ciLayer.addMarker(oneMark)
+    arr.push(oneMark)
+   }
+   else if(name.indexOf('單車站')!=-1)
+   {
+    if(obj[i].E){var icon=L.icon({iconUrl:'單車站E.png',iconSize:[24,32],iconAnchor:[12,16]})}//2022/10/10加入，若該點位有電動車，則圖示為"單車站E.png"
+    else{var icon=L.icon({iconUrl:name+'.png',iconSize:[24,32],iconAnchor:[12,16]})}
+    pointName=obj[i].StationName.Zh_tw
+    pointDes=obj[i].StationAddress.Zh_tw
+    pointName=pointName.replace(/\s+/g,"");if(pointDes){pointDes=pointDes.replace(/\s+/g,"")}else{pointDes='空'}//去除所有空白
+    pointLat=obj[i].StationPosition.PositionLat
+    pointLon=obj[i].StationPosition.PositionLon
+    if(name=='單車站1'){pointLat-=.0001}//所有YouBike 1.0站點位置往南移，避免和2.0重疊顯示 2021/7/19加入
+    var oneMark=L.marker([pointLat,pointLon],{icon:icon,url:url.replace('Station','Availability')+"&$filter=StationUID%20eq%20%27"+obj[i].StationUID+"%27"})
+                 .bindPopup('<b>'+pointName+'</b><br>'+pointDes,{autoPan:false})
+                 .on('popupopen',function(e){
+                   var data=[];data[0]={};data[0].data=e.target
+                   if(data[0].data.options.url==oldUrl){return}//oldUrl可避免手機重複讀取借還車數目兩次
+                   mapOnPopup=false
+                   addOnHoverListener(data)
+                  })
+               /*.on('popupopen',function(e)
+                               {//console.log(this)//;console.log(e)
+                                //console.log(e.target.options.RouteUID+'='+this.options.RouteUID)
+                                var xhr=new XMLHttpRequest();xhr.responseType="json"//設定回傳資料為json格式，預設為text
+                                var GMTString=new Date().toGMTString()
+                                var hash=CryptoJS.HmacSHA1("x-date: "+GMTString,"WkgNgfNV6MGI0QDKsnVySbECWF0").toString(CryptoJS.enc.Base64)
+                                xhr.open('GET',this.options.url,true)//預設就是true(異步)
+                                if(this.options.url.indexOf('call')==-1){
+                                xhr.setRequestHeader('Authorization','hmac username="bf8cbf088c7a4473939368430b5fdb68", algorithm="hmac-sha1", headers="x-date", signature="'+hash+'"')
+                                xhr.setRequestHeader('x-date',GMTString)
+                                }
+                                xhr.send()
+                                xhr.onload=function()
+                                          {
+                                           var obj=xhr.response
+                                           var msg='可借：'+obj[0].AvailableRentBikes+'，可停：'+obj[0].AvailableReturnBikes
+                                           L.popup().setLatLng(e.target._latlng).setContent(e.target._popup._content+'<br>'+msg).openOn(map)
+                                          }
+                               })*/
+    ciLayer.addMarker(oneMark)
+    if(name=='單車站2'){arr.unshift(oneMark);bike2length++}else{arr.push(oneMark)}//2022/10/22將YouBike 2.0站點放到陣列前面
+   }
+   else
+   {
+    RouteUID=obj[i].RouteUID
+    if(!linesJSON[RouteUID]){linesJSON[RouteUID]=[]}
+  //if(!RouteData[RouteUID]){RouteData[RouteUID]=[]}//分析某路線第n項之所有資料//分析某路線第n項之所有資料//分析某路線第n項之所有資料//分析某路線第n項之所有資料//分析某路線第n項之所有資料//分析某路線第n項之所有資料
+  //RouteData[RouteUID].push(obj[i])//分析某路線第n項之所有資料//分析某路線第n項之所有資料//分析某路線第n項之所有資料//分析某路線第n項之所有資料//分析某路線第n項之所有資料//分析某路線第n項之所有資料//分析某路線第n項之所有資料
+  //台灣好行的obj會有TaiwanTripName
+    if(name=='公路客運'){pointName=obj[i].SubRouteName.Zh_tw.replace(/0$/,'')}//SubRouteName.Zh_tw尾端1字元若是0去除
+    else
+    {
+     pointName=obj[i].TaiwanTripName?obj[i].TaiwanTripName.Zh_tw+','+obj[i].SubRouteName.Zh_tw.replace(/0$/,''):obj[i].RouteName.Zh_tw//SubRouteName.Zh_tw尾端1字元若是0去除
+    }
+     if(name=='公路客運'){var icon=L.icon({iconUrl: 'bus_0000ff.png',iconSize:[20,20],iconAnchor:[10,10]})}
+else if(name=='台灣好行'){var icon=L.icon({iconUrl: 'bus_ffff00.png',iconSize:[20,20],iconAnchor:[10,10]})}
+   else{var icon=L.icon({iconUrl: 'bus_00ff00.png',iconSize:[20,20],iconAnchor:[10,10]})}
+
+var tmpArr=[]
+
+if(!obj[i].Operators){obj[i].Operators=[]}
+if(!obj[i].Operators[0])
+{
+//console.log(name+obj[i].RouteUID)
+ obj[i].Operators[0]={};obj[i].Operators[0].OperatorName={};obj[i].Operators[0].OperatorName.Zh_tw='空'
+}
+
+for(var j in obj[i].Stops)
+{
+ if(name=='公路客運')
+ {
+  pointDes=obj[i].Stops[j].StopName.Zh_tw+'<br>'+
+           'Direction：'+obj[i].Direction+'<br>'+
+           '('+name+'：'+obj[i].Operators[0].OperatorName.Zh_tw+')'
+ }
+ else if(name=='台灣好行')
+ {
+  pointDes=obj[i].Stops[j].StopName.Zh_tw+'<br>'+
+           'Direction：'+obj[i].Direction+'<br>'+
+           '('+name+')'
+ }
+ else
+ {
+  pointDes=obj[i].Stops[j].StopName.Zh_tw+'<br>'+
+           'Direction：'+obj[i].Direction+'<br>'+
+           obj[i].SubRouteName.Zh_tw+'<br>'+
+           '('+name+'：'+obj[i].Operators[0].OperatorName.Zh_tw+')'
+ }
+
+ pointLat=obj[i].Stops[j].StopPosition.PositionLat
+ pointLon=obj[i].Stops[j].StopPosition.PositionLon
+ tmpArr.push([pointLat,pointLon,'<b>'+pointName+'</b><br>'+pointDes])
+ pointLat=Number(pointLat)+(Math.random()*2-1)*0.0001
+ pointLon=Number(pointLon)+(Math.random()*2-1)*0.0001
+ var oneMark=L.marker([pointLat,pointLon],{icon:icon,RouteUID:RouteUID,n:linesJSON[RouteUID].length})//n:0、1、2、3…
+              .bindPopup('<b>'+pointName+'</b><br>'+pointDes,{autoPan:false})
+            //.off('click')//點mark，popup()失能，且on('popupopen',)不再發生，但on('click',)仍可
+              .on('popupclose',function(){})
+              .on('popupopen',function(e)
+                              {//console.log(this)//;console.log(e)
+                               //console.log(e.target.options.RouteUID+'='+this.options.RouteUID)
+                               lat=this._latlng.lat//marker緯度
+                               lon=this._latlng.lng//marker經度
+                               zoom=map.getZoom()//this._map._animateToZoom
+                               lastMarker=this._popup._content
+                               showLine(this.options.RouteUID,this.options.n);//console.log(RouteData[this.options.RouteUID][this.options.n])//分析某路線第n項之所有資料//分析某路線第n項之所有資料//分析某路線第n項之所有資料//分析某路線第n項之所有資料//分析某路線第n項之所有資料
+                               if(clickFlag){
+                                             if(this.options.icon.options.iconSize[0]==20){
+                                                                                           this.options.icon.options.iconSize=[10,10];this.options.icon.options.iconAnchor=[5,5]
+                                                                                          }
+                                                                                      else{
+                                                                                           this.options.icon.options.iconSize=[20,20];this.options.icon.options.iconAnchor=[10,10]
+                                                                                          }
+                                            }//2022/4/3加入，顯示路徑各站資料(showLine)，即改變圖標大小
+                              })
+ ciLayer.addMarker(oneMark)
+ arr.push(oneMark)
+}
+linesJSON[RouteUID].push(tmpArr)
+   }
+  }//for(var i in obj)
+ }//xhr.onload
+}
+                   }
+  </script>
+<!--</body>--><!--註解以避免植入官方script-->
+</html>
