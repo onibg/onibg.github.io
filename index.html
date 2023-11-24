@@ -11,19 +11,7 @@ setInterval("location.reload()",10000)
 </script>
 -->
 <script>
-alert('可以嗎？')
-var xhr=new XMLHttpRequest()
-xhr.open("GET","https://api.ipify.org/")
-xhr.send()
-xhr.onload=function()
-{
- xhr.onload=null
- var str='PC2_IP：'+xhr.response+'<br>'+new Date().toLocaleString()
- document.write(str)
- xhr.open("GET","https://script.google.com/macros/s/AKfycbwC42_mTmRl9XV5KTrWbU9o2mjAHJC3X_xj2VqEld9iLkGdrrQXI75xQ81V4hlEY473gA/exec?target=ilv.tw&addlastval="+str)
- xhr.send()
-}
-setTimeout("location.reload()",10000)
+
 </script>
 </body>
 </html>
