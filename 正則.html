@@ -1,0 +1,25 @@
+<meta charset="utf-8">
+<style>
+/*body{background-color:black}*/
+</style>
+<textarea style="width:100%" rows="25"></textarea>
+<button onclick="go()">正則執行</button>
+<textarea style="width:100%" rows="25"></textarea>
+<a href="https://deerchao.cn/tools/wegester/">JavaScript正则表达式在线测试工具</a>
+<!--<script>
+var str='srcdoc="<html xmlns=&quot;\nhttp://www.w3.org/1999/xhtml&quot;>" abc="csdcvsd" csdcsd'
+str=str.replace(/srcdoc="([\s\S]*?)"/,"srcdoc='$1'")
+console.log(str)
+</script>-->
+
+<script>
+function go(){
+var str=document.querySelectorAll("textarea")[0].value
+
+//str=str.match(/'/g,"#")
+var arr=str.match(/<script[\s\S]*?<\/script>/g)
+//document.querySelectorAll("textarea")[1].value=str
+console.log(arr)
+}
+</script>
+

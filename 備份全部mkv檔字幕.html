@@ -1,0 +1,51 @@
+<meta charset="UTF-8">
+<textarea rows="29" style="width:100%">POST請求M系統中…</textarea>
+<textarea rows="29" style="width:100%"></textarea>
+<button onclick='arr=txt[0].value.slice(0,-1).replace(/^.*?,/gm,"").split("\n");pc(0)'>本機建檔</button>
+<!--^代表匹配字串開始位置；m代表multiline；?代表非貪婪-->
+<script>
+var txt=document.getElementsByTagName('textarea')
+let complete=0,thread=100,pcStr='',th=0
+var mimeType,filename
+var xhr=new XMLHttpRequest()//POST請求 M系統
+postM(thread,'')
+function postM(n,t){
+ xhr.open("POST","https://script.google.com/macros/s/AKfycbylicDbxtKyIO9GFGMJLjth2thW4wMppQWkhDl8EGiEyTkoOLNE/exec",true)//預設為true
+ xhr.setRequestHeader("content-type","application/x-www-form-urlencoded")
+ xhr.send('method=onlyIdFilenamePath&maxFiles='+n+'&token='+t)
+ xhr.onload=function(){if(!t){txt[0].value=''}
+  const tmpArr=xhr.response.split('\n')
+  for(let j=1;j<tmpArr.length;j++)
+  {
+   mimeType=tmpArr[j-1].split(',')[0]
+   filename=tmpArr[j-1].split('.').pop()//取得副檔名
+   if(filename!='mkv'||mimeType!='video/x-matroska'){console.log(tmpArr[j-1])}
+   else{th++;txt[0].value+=th+','+tmpArr[j-1]+'\n'}
+  }
+  let token=tmpArr.pop()
+  if(token=='完成'){alert('請按【本機建檔】')}else{postM(n,token)}
+ }
+}
+
+function pc(start){//後端需開啟vtt.js(node)，在豪邁影城字幕的資料夾中
+ for(let i=start;i<start+thread;i++)//L=arr.length
+ {
+  if(i>=arr.length){pcStr='\n'+'全部完成';return}
+  const xhr=new XMLHttpRequest()
+  let tmpArr=arr[i].split(',')
+  id=tmpArr[1],resourceKey=tmpArr[2]
+  tmpArr.splice(0,3)
+  tmpArr=tmpArr.join().split('.')
+  tmpArr.pop()
+  filename=tmpArr.join('.')+'.vtt'
+  resourceKey=resourceKey?'&resourcekey='+resourceKey:''
+  xhr.open('POST','http://127.0.0.1:8206')
+  //data=encodeURIComponent(data)
+  xhr.send('https://drive.google.com/timedtext?type=track&fmt=vtt&lang=zh-Hant&id='+id+resourceKey+'\n'+filename)
+  xhr.onload=()=>{
+                  complete++;txt[1].value=xhr.response+'\n共'+complete+'個'+pcStr
+                  if(complete%thread==0){pc(start+thread)}
+                 }
+ }
+}
+</script>

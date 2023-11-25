@@ -1,0 +1,23 @@
+<meta charset='UTF-8'>
+<style>
+body{font-size:12px}
+</style>
+<!--<video src="https://id.oa.repl.co/1aMGqkp2QlN1uF23cldYRqHNNJdmFVFWn" controls></video>-->
+<button onclick='speechSynthesis.speak(msg)'>文字播音</button>
+<input>
+<script>
+var msg = new SpeechSynthesisUtterance();
+msg.text = "該單元每個主題";
+msg.lang = 'zh'; //漢語
+msg.volume = 50; // 聲音的音量
+msg.rate = 0.7; //語速，數值，預設值是1，範圍是0.1到10
+msg.pitch = 1.5; // 表示說話的音高，數值，範圍從0（最小）到2（最大）。預設值
+
+test()
+function test(){
+setTimeout(function(){
+document.querySelector('input').value=msg.text
+speechSynthesis.speak(msg);test()},3000)
+}
+
+</script>

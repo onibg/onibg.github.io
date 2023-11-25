@@ -1,0 +1,31 @@
+<meta charset="UTF-8">
+<title>處理Garmin的.gpi轉成的.gpx</title>
+<style>
+a{display:block}
+</style>
+<a target="_blank" href="https://www.gps-data-team.com/convert/">POI Edit</a>
+<input id="gpxFile" type="file" onchange="change(this)">
+<script>
+function change(x){
+ let file=x.files[0]
+ let fileReader=new FileReader()
+ fileReader.readAsText(file,'Big5')//欲讀入的檔案為 UTF-8 編碼，所以file後面無參數
+ fileReader.onload=function(e){
+  let txt=e.target.result.replace(/<cmt>.*<\/cmt>/g,'')
+  txt=txt.replace(/嚙踝蕭嚙緣嚙諉穿蕭 嚙緣嚙踝蕭/g,'前方測速照相 速限')
+  arr=txt.split('\n')
+  arr.splice(0,1)//刪除陣列前1個
+  arr.splice(-3)//刪除陣列最後3個
+  txt='<?xml version="1.0" encoding="UTF-8" standalone="no"?><gpx xmlns="http://www.topografix.com/GPX/1/1" creator="" version="1.1">\n'
+  arr.forEach(element=>{
+   txt=txt+element+'\n'
+  })
+  txt=txt+'</gpx>'
+  const a=document.createElement('a')
+  a.href=URL.createObjectURL(new Blob([txt]))
+  a.download='check.gpx'
+  document.body.appendChild(a)
+  a.click()
+ }
+}
+</script>

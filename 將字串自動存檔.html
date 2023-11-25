@@ -1,0 +1,16 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>all</title>
+<body>
+<script>
+ var data='這是檔案內的資料！'
+ var blob=new Blob([data])
+ var a=document.createElement('a')
+ var name='data'
+ a.innerHTML=name+'.txt'
+ a.href=URL.createObjectURL(blob)
+ a.download=name+'.txt'
+ //document.body.appendChild(a)//按超連結存檔
+ a.click()//自動存檔
+</script>
+<!--</body>-->

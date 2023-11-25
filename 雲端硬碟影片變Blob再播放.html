@@ -1,0 +1,15 @@
+<video width="50%" height="50%" autoplay controls controlsList="nodownload">
+<script>
+var url='https://www.googleapis.com/drive/v3/files/1KAPaUXM8H_eeAQpYUZ9EX2c_cHiP7p4o?alt=media'
+var xhr=new XMLHttpRequest()
+xhr.open("GET",url,true)//預設為true(異步)
+xhr.responseType='blob'
+xhr.setRequestHeader('Authorization','Bearer ya29.a0ARrdaM8g8iN2sE8Tj0jby4km2bjC1wCCvZk-1pKOokXUkJnYgcJDiiIqVmFVmIlURYyTw9E3qrYMFnDFExwtiplKwL_qNbu5ynZTA8xPX-V09dkAmzGnUMpQ4nTjOyVXRHc3cahxKvTaxZ2RfKe1wQ86W-zbzwXsg_k')
+//xhr.setRequestHeader('cookie','test=123')
+xhr.onload=function(){
+          {//console.log(xhr.response)
+           document.getElementsByTagName('video')[0].src=URL.createObjectURL(xhr.response)
+          }
+                     }
+xhr.send()
+</script>

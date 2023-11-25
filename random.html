@@ -1,0 +1,17 @@
+<meta charset="UTF-8">
+<body style='background-color:yellow'>
+最大座號為<input size='1' value='30'><br>
+每<input size='1'value='1'>秒更新座號
+
+<div style='font-size:220%;font-weight:bold'></div>
+<script>
+fun()
+function fun(){
+var max=document.getElementsByTagName('input')[0].value
+var i=document.getElementsByTagName('input')[1].value
+setTimeout(function(){
+document.getElementsByTagName('div')[0].innerHTML=Math.floor(max*Math.random())+1+'號舉手'
+fun()
+},i*1000)
+}
+</script>

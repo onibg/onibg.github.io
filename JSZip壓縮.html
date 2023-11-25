@@ -1,0 +1,32 @@
+<meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.2/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.1.0/jszip-utils.min.js"></script><!--for JSZipUtils-->
+<script>
+var zip = new JSZip()
+
+JSZipUtils.getBinaryContent('./first.zip',function(err,data){
+if(err){throw err}// or handle err
+zip.loadAsync(data).then(
+function(){//開始添加zip
+
+zip.file("哈囉.txt", "Hello\n");
+// create a file and a folder
+zip.file("nested/hello.txt", "World\nI love it.");
+
+var photoZip = zip.folder("photos");
+// this call will create photos/README
+photoZip.file("README", "a folder with photos");
+
+zip.generateAsync({type:"blob"})
+.then(function (blob) {
+ var a=document.createElement('a')
+ a.href=URL.createObjectURL(blob)
+ a.download='hello.zip'
+ //document.body.appendChild(a)//按超連結存檔
+ a.click()//自動存檔
+})
+
+          })//開始添加zip
+                                                     })
+
+</script>

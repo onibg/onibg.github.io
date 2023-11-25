@@ -1,0 +1,8 @@
+<script>
+var xhr=new XMLHttpRequest()
+xhr.open("GET","https://api.ipify.org/",true)//預設為true(異步)
+xhr.onreadystatechange=function(){
+                       if(xhr.readyState==2){console.log(xhr.getResponseHeader("Content-Length"));xhr.abort()}
+                                 }
+xhr.send()
+</script>

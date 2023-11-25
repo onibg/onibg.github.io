@@ -1,0 +1,58 @@
+<meta charset="UTF-8">
+<title>207班～真情告白</title>
+<base target="_blank">
+<style>
+body{font-size:200%;text-align:center;color:red;background-color:#5E9CEB;
+background-image:url('https://drive.google.com/uc?export=view&id=1YTQIxhKxRNWpNJ6ARzCWo3XhgIksoipt');
+background-repeat:no-repeat;background-size:cover}
+h1{color:yellow}
+span{font-size:160%}
+input{font-size:75%;width:400px}
+b{color:black}
+</style>
+<body>
+<h1>一起來說悄悄話…噓～～</h1>
+<div><span>密碼為<b>8位</b>數字</span><br>出生年(<b>4位</b>)月(<b>2位</b>)日(<b>2位</b>)</div>
+<input list="someone" onkeyup="this.value=''" onchange="handle(this)" placeholder="點選自己姓名自動複製帳號再貼上">
+<datalist id="someone"></datalist>
+<script>
+var arr=[
+'01王靖維 201117@st.tc.edu.tw',
+'02李碩焌 224625@st.tc.edu.tw',
+'03周彥呈 201010@st.tc.edu.tw',
+'04張晉銓 224601@st.tc.edu.tw',
+'05陳柏誠 210288@st.tc.edu.tw',
+'06温又儒 201020@st.tc.edu.tw',
+'07黃政瑋 200989@st.tc.edu.tw',
+'08鄒鈞宇 224659@st.tc.edu.tw',
+'09廖家均 201012@st.tc.edu.tw',
+'10賴韋仁 224651@st.tc.edu.tw',
+'11蘇振銓 200983@st.tc.edu.tw',
+'12王姿甯 224647@st.tc.edu.tw',
+'13王慧蘭 224610@st.tc.edu.tw',
+'14江瑀嬅 217713@st.tc.edu.tw',
+'15何懿真 201031@st.tc.edu.tw',
+'16吳伃庭 224691@st.tc.edu.tw',
+'17吳書瑋 201023@st.tc.edu.tw',
+'18林明君 224730@st.tc.edu.tw',
+'19施芊涵 225747@st.tc.edu.tw',
+'20陳宜盈 201164@st.tc.edu.tw',
+'21廖姿涵 201006@st.tc.edu.tw',
+'22王治祥 209849@st.tc.edu.tw',
+'23林安亞 210013@st.tc.edu.tw',
+'24許芳源 326669@st.tc.edu.tw'
+]
+var s=document.getElementById('someone')
+for(var i in arr){
+ var t=document.createElement("option")
+ t.innerHTML=arr[i]
+ s.appendChild(t)
+}
+function handle(x){
+ x.value=x.value.split(' ')[1]
+ x.select()
+ document.execCommand('copy')
+ x.value=''
+ open('https://docs.google.com/forms/d/e/1FAIpQLSeQ4fWSFpETp6ulaHNM0Y6pcmEfExYAstnrhKr2qWYwX2di1Q/viewform')
+}
+</script>

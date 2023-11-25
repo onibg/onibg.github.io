@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<!--加入head，內建console才可發揮作用，但會被植入官方script-->
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>all
+    </title>
+    <style>
+    b{color:red}
+    </style>
+  </head>
+  <body>
+    <h1>取得<b>地理</b>位置</h1>
+<script>
+navigator.geolocation.getCurrentPosition(cb)
+function cb(e){console.log(e.coords)}
+  </script>
+</html>

@@ -1,0 +1,30 @@
+<title>求平均</title>
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<meta charset="utf-8">
+<style>
+body,textarea{color:white;background-color:black;width:98%}
+b{color:red}div{color:yellow;font-size:180%}span{color:white}
+</style>
+<h2>平均計算機(按Enter歸零)</h2>
+<h2>填入數值<b>，</b>以,分隔<b>，</b>,數即個數</h2>
+
+<textarea rows="8" onkeyup="handle(this.value)">
+</textarea>
+<div onclick="txt.value='';txt.focus();handle('')"></div>
+<script>
+document.onkeyup=function(x){if(x.key=="Enter"){txt.value='';txt.focus();handle('')}}
+var h2=document.getElementsByTagName('h2')[0]
+var div=document.getElementsByTagName('div')[0]
+var txt=document.getElementsByTagName('textarea')[0];txt.focus()
+function handle(str){
+ var arr=str.split(','),L=arr.length,sum=0
+ if(arr[L-1]==''){
+ for(let i=0;i<L;i++)
+ {sum+=Number(arr[i])}
+ var result=sum/(L-1)
+ if(isNaN(result)){result=''}
+ h2.innerHTML='共<font style="color:yellow">'+(L-1)+'</font>個'
+ div.innerHTML='<span>平均</span>'+result}
+
+}
+</script>

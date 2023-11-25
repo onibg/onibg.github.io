@@ -1,0 +1,91 @@
+<meta charset="UTF-8" /><!--Google Apps Script為：跨域(delicadiesel)-->
+<form action="https://script.google.com/macros/s/AKfycbytYkoh1s5smPqU1K2Hz3qs3aKBXSNYHEBmstuxzz_OczhGedvA/exec" method="post">
+請求url：<input name="url" size="51" value="https://school.tc.edu.tw/score-manage/score-query/get-score-data"><br>
+請求cookie：<input name="cookie" size="32" value="PHPSESSID=orsel9hnbbll19v9b19d1a2sfp"><br>
+學期編號：<input name="semester_id" value="22"><br>
+班級編號：<input name="class_id" value="851" readonly="readonly" style="color:gray" size="2">　<input name="class_number" value="207" size="10"><br>
+階段編號：<input name="test_sort" value="3"><br>
+顯示模式：<input name="show_mode" value="mode_1"><br>
+加權運算：<input name="show_rate" value="0"><br>
+顯示調出及畢業學生：<input name="show_old_student" value="0"><br>
+套用排除名單：<input name="remove_other_student" value="0"><br>
+顯示各科平均：<input name="show_subject_average" value="1"><br>
+顯示個人平均：<input name="show_student_average" value="0"><br>
+列印老師簽章欄：<input name="print_sign_area" value="0"><br>
+顯示名次：<input name="show_rank" value="0"><br>
+<input name="radio" type="radio" checked>當頁顯示結果
+<input name="radio" type="radio" value="">跳轉顯示文字<br>
+<input type="submit" value="提交表單" onclick='
+document.getElementsByName("class_number")[0].select();
+var class_id={
+101:"835",102:"836",103:"837",104:"838",105:"839",106:"840",107:"841",108:"842",109:"843",110:"844",
+201:"845",202:"846",203:"847",204:"848",205:"849",206:"850",207:"851",208:"852",209:"853",210:"854",
+301:"855",302:"856",303:"857",304:"858",305:"859",306:"860",307:"861",308:"862",309:"863",310:"864"};
+document.getElementsByName("class_id")[0].value=class_id[document.getElementsByName("class_number")[0].value];
+if(document.getElementsByName("radio")[0].checked){show();return false}'>
+<textarea rows="6" cols="52" style="resize:none"></textarea>
+</form>
+<div></div>
+<script>
+//暑假暫時加入
+//var input=document.getElementsByTagName('input')
+//for(let i of input){i.readOnly=true;i.style.color='white'}
+//for(let i=0,L=input.length;i<L;i++){input[i].readOnly=true;input[i].style.color='white'}
+
+input[input.length-1].style.display='none'
+input[input.length-1].click()
+//暑假暫時加入
+var t=document.getElementsByTagName("textarea")[0]
+function show()
+{
+var str="",arr=document.getElementsByTagName("input")
+for(var i=0;i<=12;i++)
+{str+=arr[i].name+"="+arr[i].value+"&"}
+str=str.slice(0,-1)
+var xhr=new XMLHttpRequest()
+xhr.open("post","https://script.google.com/macros/s/AKfycbytYkoh1s5smPqU1K2Hz3qs3aKBXSNYHEBmstuxzz_OczhGedvA/exec")
+xhr.setRequestHeader("content-type","application/x-www-form-urlencoded")
+xhr.send(str)
+xhr.onload=function(){
+           document.getElementsByTagName("div")[0].innerHTML=xhr.response
+           var number=document.getElementsByTagName('thead')[0].firstElementChild.children[0]
+           var name=document.getElementsByTagName('thead')[0].firstElementChild.children[1]
+           var ele=document.createElement("input")
+           ele.setAttribute("class","chkBtn");ele.setAttribute("type","checkbox");ele.setAttribute("checked",true)
+           var copyEle=number.appendChild(ele).cloneNode(true)//複製新的一個元素物件，拷貝所有屬性和值cloneNode()接受一個可選值為true或false的參數。true表示克隆元素和它的所有子節點，false表示克隆元素但不包含它的子節點。
+           name.appendChild(copyEle)
+           var arr=document.getElementsByClassName("chkBtn"),tbody=document.getElementsByTagName("tbody")[0]
+           for(let i=0,L=arr.length;i<L;i++)
+           {
+            arr[i].addEventListener("change",
+            function(){checkAll()})
+           }
+         /*{arr[i].addEventListener("change",
+           function(e){
+           if(!this.checked){
+           t.value=""
+           var pp=this.parentNode.parentNode,p=this.parentNode
+         //var index=Array.prototype.indexOf.call(pp.children,p)
+           var index=[].indexOf.call(pp.children,p)//我的見解：pp.children陣列和一般陣列不同，所以沒有indexOf方法，但一般陣列[]有indexOf方法，call(pp.children,p)意思為以pp.children指定indexOf方法的this，而p則是查尋的對象(參數)
+           console.log("複製第"+(index+1)+"行")
+           for(let j=0;j<tbody.children.length-2;j++)//console.log(tbody.children[j].children[index].innerText)
+           {t.value+=tbody.children[j].children[index].innerText+"\r"}
+           t.select()
+           document.execCommand("copy")
+                            }
+           })
+           }*/
+           function checkAll(){t.value=""
+           for(let y=0;y<tbody.children.length-2;y++)
+           {
+            for(let x=0,L=arr.length;x<L;x++)
+            {
+             if(!arr[x].checked){t.value+=tbody.children[y].children[x].innerText+"\t"}
+            }t.value=t.value.slice(0,-1)+'\n'
+           }
+           t.select()
+           document.execCommand("copy")
+           }//checkAll()
+                     }
+}
+</script>

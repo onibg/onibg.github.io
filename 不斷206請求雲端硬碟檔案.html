@@ -1,0 +1,110 @@
+<meta charset="UTF-8">
+<!--<script id="ptsv3" src="http://ptsv3.com/t/spy_151025/post/"></script>--><!--標籤預設同步，取得authorization-->
+
+
+<script>
+  /*let script=document.createElement('script')
+ script.src='https://script.google.com/macros/s/AKfycbwMDZlZDaLvg2ziDIcV8R4bjxVNFMEeXC9U-Df6jU2m91RHa3IG/exec'
+ document.head.appendChild(script)
+ script.onload=()=>{
+  console.log(authorization)
+  script.remove()
+ }*/
+
+/*for(let i=1;i<=l;i++){
+ loop()
+}*/
+
+//var size=4667683840
+var size=953491275
+var length=999999,n=100,j,url
+loop()
+
+function go(){j=0
+ //console.clear()
+ for(let i=1;i<=n;i++){
+  read(i)
+ }
+}
+
+function read(i){
+ let xhr=new XMLHttpRequest()
+ xhr.responseType='arraybuffer'
+ xhr.open('GET',url+'&'+Math.random(),true)
+ let min=Math.floor((size-length+1)*Math.random())
+ xhr.setRequestHeader('authorization',authorization)
+ xhr.setRequestHeader('Range',`bytes=${min}-${min+length-1}`)
+ xhr.send()
+ xhr.onerror=()=>{read(i)}
+ xhr.onload=()=>{j++
+  //console.log(`總數:${j},第${i}`,new Uint8Array(xhr.response))
+  console.log(`status:${xhr.status},總數:${j},第${i}`,xhr.response.byteLength)
+  if(j==n){location.reload()}
+ }
+}
+
+function loop(){
+ let xhr=new XMLHttpRequest()
+ xhr.open('GET','https://script.google.com/macros/s/AKfycbwC42_mTmRl9XV5KTrWbU9o2mjAHJC3X_xj2VqEld9iLkGdrrQXI75xQ81V4hlEY473gA/exec?node&'+Math.random(),false)//讀delicadiesel@gmail.com資料庫的node工作表
+//xhr.onerror=(e)=>{loop()}//同步無.onerror
+ try{
+  xhr.send()
+  authorization=xhr.response.split('\n').pop()
+  console.log(authorization)
+  //if(!url){url='https://www.googleapis.com/drive/v3/files/1PFYn72gzmnPiIsrOL4rSM27PoLWJHrrF?alt=media';go()}
+  if(!url){url='https://www.googleapis.com/drive/v3/files/1FKykPP_mW76YMuJjw_0HfGObqXPusMbl?alt=media';go()}
+ }
+ catch(e){loop()}
+ setTimeout(loop,60000)
+}
+
+
+/*loop()
+function loop(){
+ let script=document.createElement('script')
+ script.src='https://webhook.site/38c07063-fb07-4dff-9e14-9e653bd8181a'
+ document.head.appendChild(script)
+ script.onload=()=>{
+  if(!url){url='https://www.googleapis.com/drive/v3/files/1PFYn72gzmnPiIsrOL4rSM27PoLWJHrrF?alt=media';go()}
+  console.log(authorization)
+  script.remove()
+ }
+ setTimeout(loop,60000)
+}//loop()*/
+
+
+
+
+
+
+/*var size=4667683840,length=99999999,n=100,j
+var xhr=new XMLHttpRequest()
+xhr.onload=()=>{console.log(xhr.response);setTimeout(loop,1000)}
+
+//loop()
+function loop(){
+xhr.open('GET','https://webhook.site/47872888-192c-4d06-a85b-14a6bc688a80',true)
+xhr.send()
+}*/
+
+/*var a=document.createElement('a')
+a.innerHTML='按我'
+a.href=url
+a.download='下載.bin';
+window.onload=() => {
+document.body.appendChild(a);
+}
+
+var xhr=new XMLHttpRequest()
+xhr.responseType='blob'
+ xhr.open('GET',url+'&'+Math.random(),true)
+xhr.setRequestHeader('authorization','Bearer '+token)
+xhr.send()
+xhr.onload=()=>{
+let a=document.createElement('a')
+a.innerHTML='按我'
+a.href=URL.createObjectURL(xhr.response)
+a.download='下載.bin'
+document.body.appendChild(a)
+}*/
+</script>

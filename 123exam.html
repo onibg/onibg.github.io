@@ -1,0 +1,85 @@
+<meta charset="UTF-8" /><!--Google Apps Script為：跨域(delicadiesel)-->
+<title>成績查詢</title>
+<!--<form action="https://script.google.com/macros/s/AKfycbytYkoh1s5smPqU1K2Hz3qs3aKBXSNYHEBmstuxzz_OczhGedvA/exec" method="post">-->
+<form action="https://call.oa.repl.co/?url=https://school.tc.edu.tw/score-manage/score-query/get-score-data" method="POST">
+<!--請求url：<input name="url" size="51" value="https://school.tc.edu.tw/score-manage/score-query/get-score-data"><br>-->
+<!--請求cookie：<input name="cookie" size="32" value="PHPSESSID=orsel9hnbbll19v9b19d1a2sfp"><br>-->
+學期編號：<input name="semester_id" value="27"><br>
+班級編號：<input name="class_id" value="1002" readonly="readonly" style="color:gray" size="2">　<input name="class_number" value="205" size="10"><br>
+階段編號：<input name="test_sort" value="1"><br>
+顯示模式：<input name="show_mode" value="mode_1"><br>
+加權運算：<input name="show_rate" value="0"><br>
+顯示調出及畢業學生：<input name="show_old_student" value="0"><br>
+套用排除名單：<input name="remove_other_student" value="0"><br>
+顯示各科平均：<input name="show_subject_average" value="1"><br>
+顯示個人平均：<input name="show_student_average" value="0"><br>
+列印老師簽章欄：<input name="print_sign_area" value="0"><br>
+顯示名次：<input name="show_rank" value="0"><br>
+<input name="radio" type="radio" checked>當頁顯示結果
+<input name="radio" type="radio" value="">跳轉顯示文字<br>
+<input type="submit" value="提交表單" onclick='
+document.getElementsByName("class_number")[0].select();
+var class_id={
+101:"988",102:"989",103:"990",104:"991",105:"992",106:"993",107:"994",108:"995",109:"996",110:"997",
+201:"998",202:"999",203:"1000",204:"1001",205:"1002",206:"1003",207:"1004",208:"1005",209:"1006",210:"1018",
+301:"1007",302:"1008",303:"1009",304:"1010",305:"1011",306:"1012",307:"1013",308:"1014",309:"1015",310:"1017"};
+document.getElementsByName("class_id")[0].value=class_id[document.getElementsByName("class_number")[0].value];
+if(document.getElementsByName("radio")[0].checked){show();return false}'>
+<textarea rows="6" cols="52" style="resize:none"></textarea>
+</form>
+<div></div>
+<script>
+var t=document.getElementsByTagName("textarea")[0]
+function show()
+{
+var str="",arr=document.getElementsByTagName("input")
+for(var i=0;i<=12;i++)
+{str+=arr[i].name+"="+arr[i].value+"&"}
+str=str.slice(0,-1)
+var xhr=new XMLHttpRequest()
+xhr.open("POST","https://call.oa.repl.co/?url=https://school.tc.edu.tw/score-manage/score-query/get-score-data")
+xhr.setRequestHeader("content-type","application/x-www-form-urlencoded")
+xhr.send(str+'&save_type=')
+xhr.onload=function(){
+           document.getElementsByTagName("div")[0].innerHTML=xhr.response
+           var number=document.getElementsByTagName('thead')[0].firstElementChild.children[0]
+           var name=document.getElementsByTagName('thead')[0].firstElementChild.children[1]
+           var ele=document.createElement("input")
+           ele.setAttribute("class","chkBtn");ele.setAttribute("type","checkbox");ele.setAttribute("checked",true)
+           var copyEle=number.appendChild(ele).cloneNode(true)//複製新的一個元素物件，拷貝所有屬性和值cloneNode()接受一個可選值為true或false的參數。true表示克隆元素和它的所有子節點，false表示克隆元素但不包含它的子節點。
+           name.appendChild(copyEle)
+           var arr=document.getElementsByClassName("chkBtn"),tbody=document.getElementsByTagName("tbody")[0]
+           for(let i=0,L=arr.length;i<L;i++)
+           {
+            arr[i].addEventListener("change",
+            function(){checkAll()})
+           }
+         /*{arr[i].addEventListener("change",
+           function(e){
+           if(!this.checked){
+           t.value=""
+           var pp=this.parentNode.parentNode,p=this.parentNode
+         //var index=Array.prototype.indexOf.call(pp.children,p)
+           var index=[].indexOf.call(pp.children,p)//我的見解：pp.children陣列和一般陣列不同，所以沒有indexOf方法，但一般陣列[]有indexOf方法，call(pp.children,p)意思為以pp.children指定indexOf方法的this，而p則是查尋的對象(參數)
+           console.log("複製第"+(index+1)+"行")
+           for(let j=0;j<tbody.children.length-2;j++)//console.log(tbody.children[j].children[index].innerText)
+           {t.value+=tbody.children[j].children[index].innerText+"\r"}
+           t.select()
+           document.execCommand("copy")
+                            }
+           })
+           }*/
+           function checkAll(){t.value=""
+           for(let y=0;y<tbody.children.length-2;y++)
+           {
+            for(let x=0,L=arr.length;x<L;x++)
+            {
+             if(!arr[x].checked){t.value+=tbody.children[y].children[x].innerText+"\t"}
+            }t.value=t.value.slice(0,-1)+'\n'
+           }
+           t.select()
+           document.execCommand("copy")
+           }//checkAll()
+                     }
+}
+</script>

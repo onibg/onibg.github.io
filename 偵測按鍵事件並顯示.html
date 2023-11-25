@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<!--加入head，內建console才可發揮作用，但會被植入官方script-->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <!--<body onkeydown='show()'>-->
+  <body>
+    <script>
+      document.onkeydown=show
+      function show(x)
+      {
+        console.log(x.which+','+x.keyCode+','+x.charCode+','+x.key)
+        var ew=window.event.which//或event.which
+        var ek=window.event.keyCode//或event.keyCode
+        var ec=window.event.charCode//或event.charCode
+        var ey=window.event.key//或event.key
+        document.body.innerHTML+='which:'+ew+',keyCode:'+ek+',charCode:'+ec+',key:'+ey+'<br>'
+        //keychar=String.fromCharCode(keynum)
+      }
+      /*JavaScript裡which、keyCode、charCode的差別
+話說離上次更新文章隔了幾天,  就只是在讀一些有的沒的
+先講在keyboard Event中有2種code types:
+1. character codes: 一個表示ASCII character的數字。(http://www.w3schools.com/charsets/ref_html_ascii.asp)
+2. key codes: 一個表示實際上在鍵盤中存在的數字。(http://www.w3schools.com/charsets/ref_html_utf8.asp)
+還是不太懂, 那點這個連結看一下吧: http://keycodes.atjayjo.com/
+首先, keyCode的Unicode character codes用於觸發onkeypress事件;
+Unicode key codes用於觸發onkeydown & onkeyup事件。
+而因在firefox中, keyCode無法在onkeypress事件作用(永遠return 0), 為了相容,
+我們可以這樣使用:
+var x = event.which || event.keyCode;
+再者, charCode的Unicode character codes用於觸發onkeypress事件。而不作用於onkeydown和onkeyup事件(會永遠return 0)。
+而為了相容於IE8之前的版本, 我們可以這樣寫:
+var x = event.charCode || event.keyCode;
+而最新關於DOM Events的規範則是統一用"key"這個屬性去取代which, keyCode, charCode, 但是在實際寫code時, 還是要注意目前瀏覽器是否開始支援key再使用。
+p.s. 好玩的打鍵盤找到keycode的連結:
+http://keycode.info/*/
+    </script>
+  <!--</body>-->
+</html>

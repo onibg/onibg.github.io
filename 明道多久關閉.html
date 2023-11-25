@@ -1,0 +1,15 @@
+<meta charset="utf-8">
+<script>
+var xhr=new XMLHttpRequest()
+var t,i=2640
+xhr.onload=function()
+           {
+            console.log(xhr.response.split('<title>')[1].split('</title>')[0],new Date()-t+'毫秒，間隔:'+i+'秒')
+            i+=60;req()
+           }
+req()
+function req(){
+ xhr.open("GET","https://cors.oa.repl.co/s2.mingdao.edu.tw/AACourses/Web/qWTT.php?cookie=PHPSESSID=fo26ih1et5niggjpfg62uo7637",true)//預設為true(異步)
+ setTimeout(function(){t=new Date();xhr.send()},1000*i)
+}
+</script>

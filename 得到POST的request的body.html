@@ -1,0 +1,26 @@
+<meta charset="utf-8">
+<style>
+h1{color:red}
+</style>
+<h1>Hello</h1>
+<script>
+var orig=XMLHttpRequest.prototype.send
+XMLHttpRequest.prototype.send=function(x){
+ console.log(x)//得到POST的request body
+//this為XMLHttpRequest
+ this.addEventListener('readystatechange',function(){console.log(this.readyState)})
+ orig.apply(this,arguments)
+}
+
+var xhr=new XMLHttpRequest()
+xhr.open('POST','http://127.0.0.1:8206/post')
+//xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded")//告訴伺服器這是哪種類型資料
+//data=encodeURIComponent(data)
+xhr.send('<h1>您好HTML太棒了，下次去哪玩呢？</h1>')
+
+xhr.onload=function(){
+ var xhr1=new XMLHttpRequest()
+ xhr1.open('GET','http://127.0.0.1:8206/end')
+ xhr1.send()
+}
+</script>

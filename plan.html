@@ -1,0 +1,122 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=0.3">
+<style>
+input{display:block;margin:20px;font-size:250%}
+select{font-size:250%}
+h1{font-size:300%;color:rgb(255,0,255)}
+a{text-decoration:none}
+a:hover{color:red}
+div{color:black;font-size:200%}
+</style>
+<body background="https://i.gifer.com/4dCE.gif" bgcolor='#000000' text='#ffffff'>
+<a target="_blank" style="cursor:default" href="https://script.google.com/macros/s/AKfycbycE4b8P4Uzyn3Za6XGh3SjmiqgasrPSjVYTKq7nSg1stw7ISo/exec"><input style="background-color:yellow" type="button" value="上傳生活照"></a>
+<h1>請務必先登入教育帳號，</h1>
+<h1>才能編輯自己的讀書計畫</h1>
+　<select onchange="choice1()">
+   <option disabled selected>個人複習計畫</option>
+  </select>
+<a target="_blank" style="cursor:default" href="https://drive.google.com/drive/folders/1aMhcPudl7rfSaKVb2OpXvj0m8QwHnvk3"><input type="button" value="全部複習計畫"></a>
+<div>　國文：橘子複講</div>
+<div>　英文：大滿貫複講</div>
+<div>　數學：易點通複講</div>
+<div>　自然：勝經複卷</div>
+<div>　歷史：麻辣複講</div>
+<div>　地理：大滿貫複講</div>
+<div>　公民：麻辣複講</div>
+<a target="_blank" style="cursor:default" href="https://pulipulichen.github.io/Sliding-Puzzle/index.html?img=https://onibg.csb.app/16.png&size=4"><input style="display:inline;color:blue" type="button" value="練習華容道4x4"></a>
+<a target="_blank" style="color:yellow;font-size:250%" href="https://www.youtube.com/watch?v=kwOc19j6AhE">教學影片</a>
+<br>
+<a target="_blank" style="cursor:default" href="https://pulipulichen.github.io/Sliding-Puzzle/index.html?img=https://onibg.csb.app/25.jpg&size=5"><input style="display:inline;color:blue" type="button" value="練習華容道5x5"></a>
+<a target="_blank" style="color:yellow;font-size:250%" href="https://www.youtube.com/watch?v=gFjWQv4d2Es">教學影片</a>
+<br>
+　　<select style="color:blue" onchange="choice2()">
+   <option disabled selected>上傳秀戰績</option>
+  </select>
+<input style="display:inline" id="uploadfile" type="file" onclick="ready()">
+<div style='background-color:yellow;width:fit-content'>以下各圖片都可點擊玩，</div>
+<div style='background-color:yellow;width:fit-content'>但只有前二張要截圖評分</div>
+<div>帥哥美女5x5↓(評分：80～89)</div>
+<a target="_blank" href='https://pulipulichen.github.io/Sliding-Puzzle/index.html?img=https://onibg.csb.app/image/25.jpg&size=5'><img src='./image/25.jpg'></a>
+<div>東海合照5x5↓(評分：90～100)</div>
+<a target="_blank" href='https://pulipulichen.github.io/Sliding-Puzzle/index.html?img=https://onibg.csb.app/image/all.jpg&size=5'><img src='./image/all.jpg'></a>
+<br>
+
+<script>
+var arr=['01王靖維','02李碩焌','03周彥呈','04張晉銓','05陳柏誠','06温又儒','07黃政瑋','08鄒鈞宇','09廖家均','10賴韋仁','11蘇振銓','12王姿甯','13王慧蘭','14江瑀嬅','15何懿真','16吳伃庭','17吳書瑋','18林明君','19施芊涵','20陳宜盈','21廖姿涵','22王治祥','23林安亞','24許芳源']
+var arr1=//複習計畫
+["1TJl3n0qj_ezoeJtLlvPY2LFuOU17RpeilGkYEr_w6LM","1sc6KbkqMATRa9r81CKiJM8APsgEq4UFw-2Hqlh77RTY","10e1bucToLummjPl1ah0oDM2kKtUhf-0RcnMLH9IiZrU","1ilZ75-jhU7lhRF6MFZGaT0Q2IKaL9vyJnme-G2vBUes","1iDRHjr_7dVXv5PmQlb4BzfWTklm3vFNbHKozxXZYKKk","1Fzn7noSj1t-uLvKkzrzqrNB2s-SSqOU5ShP7AMu8kSI","12mz8yYBOM2xqqd9zlsrOlkSFBAfoGaWqc2iTyFz6ocA","1S_LcarOTxhHDQqq5JyV4wGfanlqp6poSU3wmX8r6rdM","1QLBOJrcYJV-9FfdSPBm9dV4lJUtQH76mBVqHCt4hUBk","166Mvt_8Goj1KfEjbOFWiA89W2qlT_g7sqZh8Dko8eJg","1zxC5Yi7Xl63jnzpD5SlVMLWrS2FWF2RdbQdfRZYk_GI","1D_ZoshBEKnaytdDAp-LN66SRrpQqNQfcBTL93iVDcJQ","1IIN99xJgCyQnf6WdZapFvokVbb_pYXarIb3qcPWDBAI","1YrCKCe_PqYZEa8GmGn_K_WZdS7AmzKuC3yT0QPmHCa0","1c7lVH0qywLfxGeMG2-niwLuISI1yvut1mwt9i28DBho","1I3yXtcqh89O4lK6Y3Y9-qASK3FcF9u189gyCaPwKmFk","10pU0E7gwIen9KWB0cxdb59JSjWXbrbicDkoG3UuBpHA","1Yv4OLNTjXuAY7jKd1uwETUEnBxhXuSX8oRgwYDsb84M","1-qQaUsnMPmTwv6dyV_jkWUYpb3P4tPL4cZvVUYYb94M","136NepP-siwxpg4cu2H72BjWn3EXp666eWq1RT_sSyw4","1TaIews2IlssKOr38h3W_23lnp4Msj-GXWliYptpEvJo","1JSaGb0LI74jaHL-HLFOfBzYMqHtN-BomNQur_1B2KBo","1aBot0eXzxBa2wAZp7h4vzHjKLH_FLfCbG6QstK3lZvQ","1xMr58oltVuKMJq6_XHKDahH3MjMFKVNsfGS6lRMmYJY"]
+var arr2=//秀戰績
+["1jzdvY4Rmbk9zeIzh66RYsiFSO7-xLJDr","1_yp0A2vfTmkveZ7qxbqTOqFkKfnoIDaT","1uFThEtbWG41oADsjyQo4LEmPYxQPyPGm","1dJtZXF-2Ro-7f8Pc25zs0Ay4KntYftdI","1O84jN1qET8sZwEPAAtorXK6aIfVIVuNj","1j-BcyO2IprGY4FChCwvacdI7pPknRwQv","1jS0SHgrHrywSHZZ3k4Al9ZEuHCiIZiHC","10YlC3jMiaJU0m-kpmEma-yoTB1oe8P_b","1alPKfjt7uDll8MB9z2UV5pQFx6zWDhz1","1x-BLXBTegH-1Iu7acqssDgrENr5hK6_9","1U1dn9zowjanEefDCM5NT0064aceWVVcN","1VGiOptfDwUTYlUi2gqxfEaAEuEghy6og","1IRuMoEYxJ_vQYObyH1dTWxQ_YKigu72A","1xSIp9dq00Mn6SBY375p_er8U3kAFMP5D","1iRvSdfoxErYpUGhAeAWTeaoDZ16aXaqi","1I4yzwOWWgKp9MjCHpJZeoVtIDhf0OtbK","1yun2SZl68ha-K5CquaADJU-h1zYCa85T","1xDM1TblgbqzQhlrJtQN8w8K9EwlyLJ9k","1u_1ZjCXuJ7qPybSRpMt53w4YYgUOqIMm","1I-aB4N0AbovwiBVAOJSpGGnGcPDYUU2L","167OYHRlYkW_z9RO7pT-aVL4d7OFaxVPh","1Mzr2QJB5gTn1MnQxtKB1Ene0ZwjZgN5Z","19dg1ves5zXc2LNe_Fx166itnYchM2Tzg","1Ff7EIydUChvzn00DqqEbktnS_CrcjD8p"]
+ var s=document.getElementsByTagName('select')
+ var t
+ for(var i in arr)
+ {
+  t=document.createElement("option");t.innerHTML=arr[i];s[0].appendChild(t)
+  t=document.createElement("option");t.innerHTML=arr[i];s[1].appendChild(t)
+ }
+
+ for(var i=0,L=arr.length;i<L;i++){
+ t=document.createElement("div")
+ t.innerHTML=arr[i]+"↓<br>"
+ document.body.appendChild(t)
+ t=document.createElement("a")
+ t.setAttribute('href',"https://pulipulichen.github.io/Sliding-Puzzle/index.html?img=https://onibg.csb.app/image/"+(i+1)+".jpg&size=5")
+ /*t.innerHTML="<img src='"+
+             "https://lh3.googleusercontent.com/d/"+arr2[i]+"=w500?"+Math.random()+
+             "'>"*/
+ var img=document.createElement("img")
+ img.setAttribute('src',"https://lh3.googleusercontent.com/d/"+arr2[i]+"=w513?"+Math.random())
+ img.setAttribute('data-flag','e')
+ img.setAttribute('onerror',"if(this.dataset.flag.length<3){this.dataset.flag+='e';this.src=this.src}")
+ t.appendChild(img)
+ t.setAttribute('target',"_blank")
+//t.setAttribute('src',"https://lh3.googleusercontent.com/d/"+arr2[i]+"=w500?"+Math.random())
+//t.setAttribute('src',"https://drive.google.com/uc?export=view&id="+arr1[i])
+//t.setAttribute('src',"https://drive.google.com/thumbnail?sz=w960&id="+arr1[i]+"&"+Math.random())
+ document.body.appendChild(t)
+ }
+
+ function choice1()
+ {
+  var index=s[0].selectedIndex
+  console.log('點選者：'+arr[index-1])
+  open('https://docs.google.com/document/d/'+arr1[index-1]+'/edit')
+ }
+ function choice2()
+ {
+  var index=s[1].selectedIndex
+  s[1].selectedIndex=0
+  if(!document.getElementById('uploadfile').files.length){alert('請選擇檔案');return}
+  document.getElementsByTagName('img')[index+1].dataset.flag='e'
+  s[1].style.color='red'
+  s[1].options[0].innerHTML='檔案上傳中'
+  console.log('點選者：'+arr[index-1])
+  var files=document.getElementById('uploadfile'),file=files.files[0]
+  var fr=new FileReader()
+   fr.readAsArrayBuffer(file)
+   fr.onload=function(){
+   var xhr=new XMLHttpRequest()
+       xhr.open("PATCH","https://www.googleapis.com/upload/drive/v3/files/"+arr2[index-1]+"?uploadType=media")
+       xhr.setRequestHeader('Authorization',"Bearer "+at)
+       xhr.setRequestHeader('Content-Type',file.type)
+      //xhr.setRequestHeader('Content-Type',"application/json;charset=UTF-8")
+      //xhr.send(JSON.stringify({mimeType:file.type,name:file.name}))
+       xhr.send(new Uint8Array(fr.result))
+       xhr.onload=function(){console.log(xhr.response);s[1].style.color='blue';s[1].options[0].innerHTML='上傳秀戰績';files.outerHTML=files.outerHTML
+                             document.getElementsByTagName('img')[index+1].src="https://lh3.googleusercontent.com/d/"+arr2[index-1]+"=w513?"+Math.random()
+                             setTimeout("alert('上傳成功，以下圖片已更新！')",100)}
+  }
+ }
+
+ function ready(){
+ s[1].selectedIndex=0;
+ (function()
+  {
+   var xhr=new XMLHttpRequest()
+   xhr.open("GET","https://script.google.com/macros/s/AKfycbycE4b8P4Uzyn3Za6XGh3SjmiqgasrPSjVYTKq7nSg1stw7ISo/exec?at")
+   xhr.send()
+   xhr.onload=function(){at=xhr.response;console.log(at)}
+  })()
+ }
+</script>
+</body>

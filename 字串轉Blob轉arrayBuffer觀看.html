@@ -1,0 +1,7 @@
+<script>
+var b=new Blob(['abc'])
+var f=new FileReader()
+f.readAsArrayBuffer(b)
+f.onload=function(e){console.log(e.target.result)}
+//\r(13)\n(10)
+</script>

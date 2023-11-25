@@ -1,0 +1,91 @@
+<meta charset="UTF-8">
+<title>暑輔報告</title>
+<base target="_blank">
+<style>
+body{font-size:200%;text-align:center;color:red;background-color:black}
+h1{color:lime}
+select{font-size:100%}
+span{font-size:160%}
+</style>
+<body background="https://img1.picmix.com/output/stamp/normal/9/8/1/4/644189_976b8.gif">
+<!--https://i.pinimg.com/originals/1d/15/d8/1d15d8da8b3b6f3a895828ba2663f409.gif-->
+<h1>210班暑期輔導自然報告</h1>
+<div><span>帳號密碼為8位數字</span><br>出生年(西元4位)月(2位)日(2位)</div>
+<select><option disabled selected>請點選姓名並登入帳號編輯報告</option></select>
+<script>
+var arr=[
+'1江彥呈224598@st.tc.edu.tw',
+'2李振嘉224717@st.tc.edu.tw',
+'3洪瑞銘210284@st.tc.edu.tw',
+'4張培恩224652@st.tc.edu.tw',
+'5陳志偉200990@st.tc.edu.tw',
+'6陳玟睿226308@st.tc.edu.tw',
+'7黃邦竣200994@st.tc.edu.tw',
+'8蔡安淯224627@st.tc.edu.tw',
+'9鄭清華201182@st.tc.edu.tw',
+'10陳宥町226309@st.tc.edu.tw',
+'11王靖維201117@st.tc.edu.tw',
+'12周彥呈201010@st.tc.edu.tw',
+'13王姿甯224647@st.tc.edu.tw',
+'14王治祥209849@st.tc.edu.tw',
+'15水野佶平210015@st.tc.edu.tw',
+'16王晨瑋210022@st.tc.edu.tw',
+'17林暐哲224626@st.tc.edu.tw',
+'18黃琮勳201016@st.tc.edu.tw',
+'19張鈞洋202181@st.tc.edu.tw',
+'20林聖涵204868@st.tc.edu.tw',
+'21李惠穎201007@st.tc.edu.tw',
+'22陳怡萱224698@st.tc.edu.tw',
+'23潘芷萱224641@st.tc.edu.tw',
+'24葉承諭224634@st.tc.edu.tw',
+'25韓御224724@st.tc.edu.tw',
+'26林宜臻210009@st.tc.edu.tw',
+'27陳亭豫224716@st.tc.edu.tw',
+'28張安宜205166@st.tc.edu.tw'
+]
+var url=[
+'https://docs.google.com/document/d/1DFLuOmFOywrWrzv2ixDzsDxCcNFfY9GI/edit',
+'https://docs.google.com/document/d/1NiMj8rVLP7PnzWDqB9DEsIhM7iMFsJfb/edit',
+'https://docs.google.com/document/d/1PymObhNawgf-ZNbxsQtuwJLaCP21srgD/edit',
+'https://docs.google.com/document/d/1aClsZKJWRhdQRAAcMTnkqMX0scxUlyqI/edit',
+'https://docs.google.com/document/d/1CwvOoESLYauOWKH530xfdlotkpoMzUgG/edit',
+'https://docs.google.com/document/d/1C8ofb_8Knmyig82Yj4jeuImKv5PgV7AI/edit',
+'https://docs.google.com/document/d/1PGEgjSCVQK_dYXRCinAlCXJGrvMDMPdL/edit',
+'https://docs.google.com/document/d/1RPUC1cvqA_PUhS7viKF6MUwbsQ-T98ke/edit',
+'https://docs.google.com/document/d/12qmZvZg6xIHbAIPUhcB36XAn4t3rmcU_/edit',
+'https://docs.google.com/document/d/1rVUTiCYhMfjB7DwseTw0qv5rOOoJgh3B/edit',
+'https://docs.google.com/document/d/18u9jrOjouMmLi4YXZIwecepn_98-a2Cw/edit',
+'https://docs.google.com/document/d/1cZiOCeWheejH81-EEnc4pDppbq0QPvL7/edit',
+'https://docs.google.com/document/d/1uMIbZ-gYGa1rn40_Sb9QdZrFXogmh9_5/edit',
+'https://docs.google.com/document/d/1TU45j4nKHoa8Lej8hQVkINFWkt2Zo7pc/edit',
+'https://docs.google.com/document/d/1cz06XhfTf-RoS3BcI7K5OYLzkMgXJmEG/edit',
+'https://docs.google.com/document/d/1U6ny7sw3g0S6r93TL9IP6XqeqgKPeO9b/edit',
+'https://docs.google.com/document/d/1UHTuzgiHImQUi54OHKKNSpffo2d8la6c/edit',
+'https://docs.google.com/document/d/13fk2uyBVCVhSlzZloCYixsWi7jC3QMRn/edit',
+'https://docs.google.com/document/d/1yKQCzMtOZ3e54-vdaW-Ye9Am3HIUzcid/edit',
+'https://docs.google.com/document/d/1tgVFjdE9dpJ-dCIYyL3O3l9lAieCoIdH/edit',
+'https://docs.google.com/document/d/16NS4raxKTo1D0iOHhxBkH_hhw5tg3cVH/edit',
+'https://docs.google.com/document/d/1OCkCxgL-eu4o-3NrQx-hnRlqdbGOIdaM/edit',
+'https://docs.google.com/document/d/1j7bDGBm8Z_k9e-pLkiNXvnULtGHlFB36/edit',
+'https://docs.google.com/document/d/1oDhH2Rk6OvxT4PBDZ7v2qS2jQA-DqN35/edit',
+'https://docs.google.com/document/d/1ah5yb_G3dQw3uR9JhbgJisUe_69D0PL0/edit',
+'https://docs.google.com/document/d/1p0c2BOrj-1HTCIBti9NZkxJ7rYNB5j82/edit',
+'https://docs.google.com/document/d/1rqimCx7MMD0ggZlzy3o_tT5VEKfZ9wM5/edit',
+'https://docs.google.com/document/d/19OHfO9xhUTtjZADDPw1NDMesfEekiS3C/edit'
+]
+var s=document.getElementsByTagName('select')[0]
+s.setAttribute('onchange','choice(this.selectedIndex);this.options[0].selected=true')
+for(var i in arr)
+{
+ var t=document.createElement("option")
+ t.setAttribute('value',parseInt(i)+1+'號')
+ t.innerHTML=arr[i]
+ s.appendChild(t)
+}
+function choice(n)
+{open(url[n-1])}
+
+</script>
+
+
+

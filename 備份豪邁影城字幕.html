@@ -1,0 +1,72 @@
+<meta charset="UTF-8">
+<input value="1c3J8Si1NYOUcSvWQVwl0WvOBipZtavVd" size="35">輸入儲存字幕資料夾之標準folderId
+<textarea rows="29" style="width:100%">POST請求M系統中…</textarea>
+<textarea rows="29" style="width:100%"></textarea>
+<button onclick='arrFail.length=0;folderId=document.querySelector("input").value;arr=t[0].value.slice(0,-1).replace(/^.*?,/gm,"").split("\n");sbv(arr.length)'>雲端建檔</button>
+<button onclick='arr=t[0].value.slice(0,-1).replace(/^.*?,/gm,"").split("\n");pc(0)'>本機建檔</button>
+<!--^代表匹配字串開始位置；m代表multiline；?代表非貪婪-->
+<script>
+var t=document.getElementsByTagName('textarea'),arrFail=[]
+let complete=0,thread=100,pcStr=''
+
+var xhr=new XMLHttpRequest()//POST請求 M系統
+xhr.open("POST","https://script.google.com/macros/s/AKfycbylicDbxtKyIO9GFGMJLjth2thW4wMppQWkhDl8EGiEyTkoOLNE/exec",true)//預設為true
+xhr.setRequestHeader("content-type","application/x-www-form-urlencoded")
+xhr.send('method=onlyIdFilename&foldername='+encodeURIComponent('豪邁影城'))
+xhr.onload=function(){t[0].value=''
+ const tmpArr=xhr.response.slice(0,-1).split('\n')
+ for(let j=tmpArr.length;j>=1;j--)
+ {t[0].value+=j+','+tmpArr[j-1]+'\n'}
+ alert('請按【雲端建檔】或【本機建檔】')
+}
+
+var folderId//vtt 資料夾的Id
+
+var xhr1=new XMLHttpRequest()//GET請求 M系統
+
+function sbv(i){//0建檔、sbv建檔、vtt建檔、失敗建檔、html不建檔
+xhr1.open("GET","https://script.google.com/macros/s/AKfycbylicDbxtKyIO9GFGMJLjth2thW4wMppQWkhDl8EGiEyTkoOLNE/exec?sbv="+folderId+','+arr[i-1].split(',')[0]+','+arr[i-1].split(',')[2],true)//預設為true
+xhr1.send()
+xhr1.onerror=function(){arrFail.unshift(arr[i-1].split(',')[0])//unshift與push陣列順序相反
+t[0].value=''
+for(let j=i-1;j>=1;j--)
+{t[0].value+=j+','+arr[j-1]+'\n'}
+t[1].value+='請求錯誤,'+arr[i-1]+'\n'
+t[1].scrollTop=t[1].scrollHeight//<textarea>滾輪至最下方顯示
+if(i>1){sbv(i-1)}else{fail()}
+}
+xhr1.onload=function(){if(xhr1.response.indexOf('html不建檔')!=-1){arrFail.unshift(arr[i-1].split(',')[0])}//unshift與push陣列順序相反
+t[0].value=''
+for(let j=i-1;j>=1;j--)
+{t[0].value+=j+','+arr[j-1]+'\n'}
+t[1].value+=xhr1.response+'\n'
+t[1].scrollTop=t[1].scrollHeight//<textarea>滾輪至最下方顯示
+if(i>1){sbv(i-1)}else{fail()}
+}
+}
+
+function fail(){
+ t[1].value+='------------沒建檔的id顯示在最上面的textarea------------\n'
+//arr.length=0;arr=arrFail.concat()//深拷貝
+ for(let j=arrFail.length;j>=1;j--)
+ {t[0].value+=j+','+arrFail[j-1]+'\n'}
+}
+
+function pc(start){//後端需開啟vtt.js(node)，在豪邁影城字幕的資料夾中
+ for(let i=start;i<start+thread;i++)//L=arr.length
+ {
+  if(i>=arr.length){pcStr='\n'+'全部完成';return}
+  const xhr=new XMLHttpRequest(),filename=arr[i].split(',')[1].split('.mkv')[0]+'.vtt'
+  let resourceKey=arr[i].split(',')[2]
+  resourceKey=resourceKey?'&resourcekey='+resourceKey:''
+  //t[1].value+='https://drive.google.com/uc?id='+arr[i].split(',')[0]+'&export=timedtext&ttlang=zh-Hant'+resourceKey+'\n'
+  xhr.open('POST','http://127.0.0.1:8206')
+  //data=encodeURIComponent(data)
+  xhr.send('https://drive.google.com/timedtext?type=track&fmt=vtt&lang=zh-Hant&id='+arr[i].split(',')[0]+resourceKey+'\n'+filename)
+  xhr.onload=()=>{
+                  complete++;t[1].value=xhr.response+'\n共'+complete+'個'+pcStr
+                  if(complete%thread==0){pc(start+thread)}
+                 }
+ }
+}
+</script>

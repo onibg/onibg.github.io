@@ -1,0 +1,17 @@
+<script>
+fetch('https://randomuser.me/api/',{})
+.then(function(response){//這裡會得到一個ReadableStream物件
+      console.log(response)//可以透過 blob()、json()、text()、arrayBuffer()、formData() 轉成可用資訊
+      return response.json()
+                        })
+.then(function(jsonData){console.log(jsonData)})
+.catch(function(err){console.log('錯誤:',err)})
+
+var xhr=new XMLHttpRequest()
+xhr.open("GET",'https://cors.oa.repl.co/ilv.ilv.tw/test.mp4',true)//預設為true(異步)
+xhr.responseType="arraybuffer"
+var range='bytes=0-3'
+xhr.setRequestHeader('Range',range)
+xhr.send()
+xhr.onload=function(){console.log(xhr.response)}
+</script>

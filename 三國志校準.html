@@ -1,0 +1,87 @@
+<meta charset="UTF-8">
+<style>
+body{background-color:black}
+textarea{width:100%}
+/*button{display:block}*/
+</style>
+<input type="file" onchange="change()">
+<textarea readonly spellcheck="false" rows="40"></textarea>
+<button onclick="onclick1()">解析</button>
+<textarea id="edit" rows="15" placeholder="此區域文字請記得隨時備份，以免重來！格式為：第幾幀(空格)時:分:秒"></textarea>
+<button onclick="onclick2()">處理</button>
+<button onclick="onclick3()">內插</button>
+<button onclick="onclick4()">備份</button>
+<script>
+var text=document.querySelector('textarea')
+var text1=document.getElementById('edit')
+var arr
+function change(){
+ let file=document.querySelector('input').files[0]
+ let fileReader=new FileReader()
+ fileReader.readAsText(file)//欲讀入的檔案為 UTF-8 編碼，所以file後面無參數
+ fileReader.onload=function(e){text.value=e.target.result.slice(0,-2)}
+}
+function onclick1(){
+ arr=text.value.split("\n")
+ text.value=arr[0]+'\n'
+ let str=''
+ for(let i=1,L=arr.length;i<L;i++){
+  let seconds=Math.floor((arr[i]/1000)%60)+''
+  let minutes=Math.floor((arr[i]/1000/60)%60)+''
+  let hours=Math.floor((arr[i]/(1000*60*60))%24)+''
+  str+=arr[i]+'→第'+(i-1)+'幀:'+arr[i]+'毫秒='+hours.padStart(2,'0')+':'+minutes.padStart(2,'0')+':'+seconds.padStart(2,'0')+'.'+(Math.floor(arr[i]%1000)+'').padStart(3,'0')+'\n'
+ }
+ text.value+=str
+ arr.splice(0,1)//去除頭陣列# timestamp format v2
+}
+
+function onclick2(){
+//text1.value=text1.value.trim().split(/\s+/)[1]
+ let arr1=text1.value.split("\n")
+ text1.value=''
+ for(let i=0,L=arr1.length;i<L;i++){
+  arr1[i]=arr1[i].trim().split('=')[0]
+  let frame=arr1[i].split(/\s+/)[0],time=arr1[i].split(/\s+/)[1]
+  if(time){
+           text1.value+=frame+' '+time+'='
+           time=time.split(':')
+           time[0]=+time[0];time[1]=+time[1];time[2]=+time[2]
+           time=time[0]*3600000+time[1]*60000+Math.round(time[2]*1000)
+           text1.value+=time+'\n'
+          }
+ }
+}
+
+function onclick3(){
+ let arr1=text1.value.split("\n")
+ arr1=arr1.filter(d=>d)//去除假值
+ arr1.sort(function(a,b){
+  return a.split(' ')[0]-b.split(' ')[0]
+ })
+ if(!arr){return}
+ arr[0]=+arr[0]
+ let frame0=0,time0=arr[0]
+ let n=1
+ arr1.push((arr.length-1)+' ='+arr[arr.length-1])
+ arr1.forEach((e,i)=>{
+  let frame=+e.split(' ')[0],time=+e.split('=')[1]
+  let d=(time-time0)/(frame-frame0),dn=1
+  while(n<frame)
+  {
+   arr[n]=Math.round(time0+d*dn);dn++
+   n++
+  }
+  arr[frame]=time;n++
+  frame0=frame;time0=time
+ })
+ text.value='# timestamp format v2\n'+arr.join('\n')+'\n'
+}
+
+function onclick4(){
+ var blob=new Blob([text1.value])
+ var a=document.createElement('a')
+ a.href=URL.createObjectURL(blob)
+ a.download='備份.txt'
+ a.click()
+}
+</script>

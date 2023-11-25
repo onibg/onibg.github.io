@@ -1,0 +1,51 @@
+<!--加入head，內建console才可發揮作用，但會被植入官方script-->
+<meta charset="UTF-8">
+<!--F12的network輸入mpd過濾取得google相簿mpd的URL-->
+<textarea placeholder="貼上google相簿mpd的URL" rows="5" style="width:100%" onchange="handle()">
+</textarea>
+<br><br>
+<textarea placeholder="需開擴充功能ModHeader加入請求頭Origin:https://youtube.googleapis.com" rows="30" style="width:100%">
+</textarea>
+<script>
+//alert('test')
+var t=document.getElementsByTagName('textarea')
+t[0].focus()
+function handle()
+{
+ var xhr=new XMLHttpRequest()
+ //xhr.open("GET","https://script.google.com/macros/s/AKfycbytYkoh1s5smPqU1K2Hz3qs3aKBXSNYHEBmstuxzz_OczhGedvA/exec?url="+t[0].value,true)//預設為true，利用GAS跨域，但ip不是自己的瀏覽器
+ //xhr.open("GET","https://cors-anywhere.herokuapp.com/"+t[0].value,true)//預設為true，利用node跨域，但ip不是自己的瀏覽器
+ //xhr.open("GET","https://cors.oa.repl.co/"+t[0].value,true)//預設為true，利用node跨域，但ip不是自己的瀏覽器
+ xhr.open("GET",t[0].value,true)//預設為true，直接請求，ip是自己的瀏覽器，未跨域代理(需開擴充功能ModHeader改回傳頭Access-Control-Allow-Origin:*)
+ xhr.send()
+ xhr.onload=
+ function()
+ {
+  var arr=xhr.response.split('<BaseURL>'),url=[]
+  for(var i=1,L=arr.length;i<L;i++)
+  //for(var i in arr)
+  {
+   url.push(arr[i].split('</BaseURL>')[0])
+  }
+  //console.log(url)
+  for(var j in url)
+  {
+   var temp=url[j].split("/"),x
+   url[j]=''
+   for(var k in temp)
+   {
+    if(k<3){x='/'}
+    else if(k==3){x='?'}
+    else
+    {
+     if(k%2==0){x='='}else{x='&'}
+    }
+    url[j]+=temp[k]+x
+   }
+   console.log(url[j])
+   t[1].value+=url[j]+'\n\n'
+
+  }
+ }
+}
+</script>

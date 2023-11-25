@@ -1,0 +1,27 @@
+<meta charset="utf-8">
+<style>
+textarea{display:block;width:100%}
+</style>
+<textarea id="t1" rows="25"></textarea>
+<button onclick="handle()">加入resourceKey↓</button>
+<textarea id="t2" rows="25"></textarea>
+<script>
+let t1=document.getElementById('t1'),t2=document.getElementById('t2')
+function handle(){
+ t1.value=t1.value.slice(0,-1)
+ let arr=t1.value.split('\n')
+ //console.log(arr)
+ arr.forEach((element,index)=>{
+  let each=element.split(' ')
+  each[1]=each[1]+'/view'
+//console.log(element)
+  if(each.length==3){
+ //console.log(each)
+   handle1(each[1],each[2])
+  }
+ })
+}
+function handle1(idview,rk){
+ t2.value=t2.value.replace(idview,idview+'?resourcekey='+rk)
+}
+</script>

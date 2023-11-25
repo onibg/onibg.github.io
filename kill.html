@@ -1,0 +1,28 @@
+<meta charset="UTF-8">
+<script>
+//var url='https://download2393.mediafire.com/hh6lgxao6idgjCXywUy8uOFgecBVL0isOynv0tddRSZGVPL3oeFi97ilCnqx2URNXPWxhqULLxsNLtkkXUp5JAN2Kp-KprQfcIHG2Gg3RXqaNycy4UWzupueo1ZXzwLDizpeuIzdub_xa_6gPm85g8Gr-xIPNgParRckWLC5Nc0/d4imslvpjzxi093/TWN+CN+NT+2023.30%28%E5%B7%B2%E8%A7%A3%E9%8E%96%29.RAR'
+var url='https://download2393.mediafire.com/51t4p7bg5xfgWQNGrYGw-Ry5LwuTBR34uE2LxHdPtEGe1FMovDHn10lx1dGO9E-mzP0wxBifYq1JuFmxeEZ2f8TfjRhd0kPmQIMhd4pWrogmoDKiwnBrm3_-ZBCHBBDJU968eVXUgFTge9XFijVVJhTHhIWiMUceBnjQx1MECrs/d4imslvpjzxi093/TWN+CN+NT+2023.30%28%E5%B7%B2%E8%A7%A3%E9%8E%96%29.RAR'
+//var url='https://'
+var size=1098893321,n=20,j
+function read(i){
+ let xhr=new XMLHttpRequest()
+ xhr.responseType='arraybuffer'
+ xhr.open('GET',url,true)
+ let max=Math.floor(size*Math.random())//max最大到size-1
+ xhr.setRequestHeader('Range',`bytes=${max-99999}-${max}`)
+ xhr.send()
+ xhr.onload=()=>{j++
+  console.clear()
+  console.log(`總數:${j},第${i}`,new Uint8Array(xhr.response))
+  if(j==n){go()}
+ }
+}
+
+
+go()
+function go(){j=0
+ for(let i=1;i<=n;i++){
+  read(i)
+ }
+}
+</script>

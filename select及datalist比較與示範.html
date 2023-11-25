@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<!--加入head，內建console才可發揮作用，但會被植入官方script-->
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+      body{text-align:center}
+    </style>
+  </head>
+  <body>
+    <!-- <input type="text" list="cars" onchange="alert(this.value)"> -->
+    <!--type="text"可忽略-->
+    <input type="text" list="cars" onchange="choice1()"><!--type="text"可忽略-->
+    <datalist id="cars">
+                     <!--</option>可以拿掉-->
+      <option value='宝马'></option>
+      <option value='奥迪'></option>
+      <option value='奔驰'></option>
+      <option value='宝骏'></option>
+      <option value='宝宝'></option>
+      <option value='奥拓'></option>
+    </datalist>
+
+    <select id="browser" onchange="choice2()"">
+      <option disabled selected>請選擇瀏覽器</option>
+      <option value="firefox">FIREFOX</option>
+      <option value="ie">IE</option>
+      <option value="chrome">CHROME</option>
+      <option value="opera">OPERA</option>
+      <option value="safari">SAFARI</option>
+    </select>
+    <script>
+      function choice1()
+      {
+       //console.log(document.getElementById('cars').selectedIndex)//無效！
+       var cars=document.getElementById('cars')
+       for (var i=0;i<cars.options.length;i++)
+       {
+        if(cars.options[i].value==document.getElementsByTagName('input')[0].value)
+        {
+         //console.log(cars.options[i].innerText)
+         console.log('index:'+i)
+         break
+        }
+       }
+      }
+      function choice2()
+      {
+        var browser=document.getElementById('browser')
+        var index=browser.selectedIndex
+        console.log(browser.options[index].value)
+        console.log(browser.value)
+        console.log(browser.options[index].text)
+        console.log(browser.options[index].innerText)
+        console.log(browser.options[index].innerHTML)
+      }
+      /*
+var mySelect = document.getElementById("testSelect");   //定位id（获取select）
+var index = mySelect.selectedIndex; //选中索引（选取select中option选中的第几个）
+var text = mySelect.options[index].text;    //获取选中文本
+var value = mySelect.options[index].value;  //获取选中值
+mySelect.options[index].selected    //判断select中的某个option是否选中，true为选中，false为未选中
+*/
+    </script>
+  </body>
+</html>

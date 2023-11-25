@@ -1,0 +1,14 @@
+<meta charset='utf-8'>
+<input placeholder="填入要複製的文字">
+<br>
+<button onclick="copyText(document.getElementsByTagName('input')[0].value)">點擊複製文字</button>
+<script>
+function copyText(text){
+textarea = document.createElement('textarea')//textarea變數設為全域，方便console
+textarea.value=text//textarea.textContent=text亦可，文字會夾在標籤中
+document.body.appendChild(textarea)
+textarea.select()
+document.execCommand("copy");
+document.body.removeChild(textarea)//textarea.remove()//ES6新方法亦可
+}
+</script>

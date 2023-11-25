@@ -1,0 +1,39 @@
+<meta charset="UTF-8">
+<input type="radio" name='radios' value='1' checked>直接請求
+<input type="radio" name='radios' value='2'>cors.oa請求
+<input type="radio" name='radios' value='3'>cors-anywhere請求
+<button onclick="handle()">執行</button>
+<textarea placeholder="貼上URL(含協定)" rows="5" style="width:100%">
+</textarea>
+<input type="text" style="width:100%" readonly>
+<textarea rows="30" style="width:100%">
+</textarea>
+<script>
+var t=document.getElementsByTagName('textarea')
+var i=document.querySelector('input[type=text]')
+t[0].focus()
+function handle()
+{t[1].value=''
+ var xhr=new XMLHttpRequest(),choice=document.querySelector('input[type=radio]:checked').value
+ var arr=t[0].value.split('/')
+ if(arr[0]=='https:'){arr[2]+=':443'}
+ arr.splice(0,2)
+  if(choice=='1')
+ {i.value=t[0].value;xhr.open("GET",t[0].value,true)}//預設為true，直接請求，ip是自己的瀏覽器，未跨域代理(需開擴充功能ModHeader改回傳頭Access-Control-Allow-Origin:*)
+ else if(choice=='2')
+ {i.value=arr.join('/')
+  xhr.open("GET","https://cors.oa.repl.co/"+arr.join('/'),true)}//預設為true，利用node跨域，但ip不是自己的瀏覽器
+ //https://cors.oa.repl.co/google.com - http
+ //https://cors.oa.repl.co/google.com:443 - https
+ else{i.value=arr.join('/')
+ xhr.open("GET","https://cors-anywhere.herokuapp.com/"+arr.join('/'),true)//預設為true，利用node跨域，但ip不是自己的瀏覽器
+ }
+ //xhr.open("GET","https://script.google.com/macros/s/AKfycbytYkoh1s5smPqU1K2Hz3qs3aKBXSNYHEBmstuxzz_OczhGedvA/exec?url="+t[0].value,true)//預設為true，利用GAS跨域，但ip不是自己的瀏覽器
+ xhr.send()
+ xhr.onload=
+ function()
+ {t[1].value=xhr.response}
+ xhr.onerror=
+ function(){t[1].value='有錯誤！'}
+}
+</script>

@@ -1,0 +1,47 @@
+<meta charset="utf-8">
+
+<style>
+#contents{overflow:auto;width:200px;height:200px;}
+body{background-color:black;color:white}
+</style>
+<div id="contents">
+ 開頭<br>
+ abcdefghijklmnopqrstuvwxyz<br>
+  bcdefghijklmnopqrstuvwxyz<br>
+   cdefghijklmnopqrstuvwxyz<br>
+    defghijklmnopqrstuvwxyz<br>
+     efghijklmnopqrstuvwxyz<br>
+      fghijklmnopqrstuvwxyz<br>
+       ghijklmnopqrstuvwxyz<br>
+        hijklmnopqrstuvwxyz<br>
+         ijklmnopqrstuvwxyz<br>
+          jklmnopqrstuvwxyz<br>
+           klmnopqrstuvwxyz<br>
+            lmnopqrstuvwxyz<br>
+             mnopqrstuvwxyz<br>
+              nopqrstuvwxyz<br>
+               opqrstuvwxyz<br>
+                pqrstuvwxyz<br>
+                 qrstuvwxyz<br>
+                  rstuvwxyz<br>
+                   stuvwxyz<br>
+                    tuvwxyz<br>
+                     uvwxyz<br>
+                      vwxyz<br>
+                       wxyz<br>
+                        xyz<br>
+                         yz<br>
+                          z<br>
+                        結尾<br>
+</div>
+<button type="button" onclick="go(0)">移到最下方</button>
+<button type="button" onclick="go(1)">移到最右邊</button>
+<script>
+var div=document.getElementById('contents')
+if(div.scrollWidth>div.clientWidth){console.log('X軸溢出')}
+if(div.scrollHeight>div.clientHeight){console.log('Y軸溢出')}
+function go(i){
+if(i){div.scrollLeft=div.scrollWidth-div.clientWidth}
+else{div.scrollTop=div.scrollHeight-div.clientHeight}
+}
+</script>

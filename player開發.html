@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<!--<head>-->
+<meta charset="UTF-8">
+<title>307班影片欣賞</title>
+<style>
+body{text-align:center}
+video::-webkit-media-controls-fullscreen-button{display:none}/*全螢幕按鈕消失*/
+/*video::-webkit-media-controls{display:none !important}控制條全消失*/
+::cue{
+font-size:140%;
+color:white;
+background-color:rgba(0,0,0,0.5)
+}
+div.main{position:relative;
+margin:0 auto;/*div水平置中*/
+display:flex;/*align-items:center;這2個新CSS，可讓其子元素如：video垂直置中*/
+border:0px solid red;
+resize:both;/*右下角有調整div大小的標籤*/
+overflow:hidden;/*自動隱藏超出的文字或圖片，永不產生捲軸*/
+}
+div.time{
+color:lime;
+left:10px;
+top:50px;
+font-size: 150%;
+position: absolute;
+}
+button{font-size:100% !important;
+left:50%;
+/*top:50%;*/
+bottom:50px;
+transform: translate(-50%, -50%);
+position:absolute;
+/*bottom:10px;*/
+}
+/*video{object-fit:contain}預設就是contain*/
+/*video{position:relative;top:-120px}調整video上下位置*/
+/*video{object-position:50% 50%}預設就是video的內容(影像)置中*/
+video{position:relative;border:5px solid blue}
+</style>
+</head>
+<!--<body background="https://drive.google.com/uc?export=view&id=1Rje-16KhkNAh_lPhaGv3pg8anEcUjvkL">-->
+<body background="https://drive.google.com/uc?export=view&id=1v7_AXTVPUON5KfwK70a_i4Bcusg3dmi7">
+<div class='main'>
+<video width="100%" height="100%" autoplay controls controlsList="nodownload">
+<track id="sub" label="繁中字幕" default>
+</video>
+<div class='time'>時間</div>
+<button>Hello</button>
+</div>
+<script>
+var video=document.getElementsByTagName('video')[0],div=document.getElementsByTagName('div')[0],button=document.getElementsByTagName('button')[0]
+var videoTop=0,videoHeight=100
+div.style.width=.43*document.body.clientWidth+'px'
+new ResizeObserver(function(){
+button.style.fontSize=.05*parseFloat(div.style.width)+'px'
+}).observe(div)
+video.focus()
+button.onclick=function(){
+video.focus()
+div.requestFullscreen()
+}
+
+document.addEventListener("keydown",function(e){
+if(!document.fullscreenElement){return}
+if(e.ctrlKey&&e.key=='Enter'){
+ if(video.style.objectFit=="fill"){video.style.objectFit="contain"}else{video.style.objectFit="fill"}
+}
+else if(e.ctrlKey&&e.code=='Numpad8'){videoTop-=1;video.style.top=videoTop+"%"}
+else if(e.ctrlKey&&e.code=='Numpad2'){videoTop+=1;video.style.top=videoTop+"%"}
+else if(!e.ctrlKey&&e.code=='Numpad8'){videoHeight+=1;video.style.height=videoHeight+"%"}
+else if(!e.ctrlKey&&e.code=='Numpad2'){videoHeight-=1;video.style.height=videoHeight+"%"}
+})
+
+video.addEventListener("mousewheel",function(e){
+if(e.wheelDelta>0){video.currentTime+=1}else{video.currentTime-=1}
+})
+
+document.addEventListener("webkitfullscreenchange",function(){//只能偵測到video，不能偵測到div的改變
+if(document.webkitIsFullScreen){
+document.exitFullscreen()//只要video全螢幕，就退出全螢幕，console說：不推薦使用video.webkitExitFullscreen()
+}
+})
+
+document.addEventListener("fullscreenchange",function(){//只能偵測到div，不能偵測到video的改變
+if(document.webkitIsFullScreen){
+div.style.alignItems="center"
+}
+else{div.style.alignItems="";video.style.top="";video.style.height="100%";video.style.objectFit="contain"}
+})
+
+document.onpaste=function(e){//貼上資料轉成id並播放
+var clipboardData=e.clipboardData.getData("text")
+
+var b=new Blob([clipboardData])
+var f=new FileReader()
+f.readAsArrayBuffer(b)
+f.onload=function(e){console.log(e.target.result)}
+
+
+
+
+
+
+var arr=clipboardData.split('\n')[0].split('?')[0].split('/').reverse()//2020/9/26有些共用連結為https://drive.google.com/file/d/0Bxqf-PGnadp7NUVfWUtqSm5BR28/view?usp=sharing&resourcekey=0-mgcYLXlNxoxFTRS8nm4TOQ，將?後面去除
+var id=(arr[0].length>=28)?arr[0]:arr[1]
+id=id.split('id=').reverse()[0]
+id=id.split('\r')[0]//2021/11/9加入，去除尾端有時出現的\r
+player(id)
+}
+//1gGJotNtWVa_2K9c7lpvLWL5umumHPVAe
+//1bcq0KKb9_jnsoGxI6XpSPBGWW9P2TN0K
+if(location.search){
+ const arr=location.search.split('\n')[0].split('/').reverse()
+ let id=(arr[0].length>=28)?arr[0]:arr[1]
+ id=id.split('id=').reverse()[0]
+ id=id.split('\r')[0]//2021/11/9加入，去除尾端有時出現的\r
+ player(id)
+}
+else{player("1YGMab3TEqfOSgIvxphuaJTF4avBD0tzO")}
+function player(videoId)
+{
+ var writeData='https://igd.glitch.me/'+videoId
+              +'\nhttps://igd.glitch.me/'+videoId+'.vtt'
+              +'\nhttps://script.google.com/macros/s/AKfycbytYkoh1s5smPqU1K2Hz3qs3aKBXSNYHEBmstuxzz_OczhGedvA/exec?url=https://igd.glitch.me/'+videoId+'.vtt'
+ ;(async()=>{await navigator.clipboard.writeText(writeData)})()//2021/10/31加入
+ var xhr=new XMLHttpRequest()//xhr.responseType="json"//設定回傳資料為json格式，預設為text
+ xhr.open('GET',"https://id.oa.repl.co/"+videoId+".vtt",true)//預設就是true(異步)
+ xhr.send()
+ xhr.onerror=function(){alert('有錯誤！')}
+ document.getElementById("sub").src=''//2021/6/16加入，以刪除舊影片字幕
+ xhr.onload=function()
+ {
+  var data=xhr.response,split=data.split("\n")
+  button.innerHTML=split[0]+'<span style="color:red">(全螢幕)</span>'
+  var v=false//true
+  var text=""//"WEBVTT\n\n"
+  for(var i=1;i<split.length;i++)
+  {
+   if(v&&split[i]!=""){v=false;split[i]+=" line:95%"}//split[i]=split[i].replace(/,/," --> ")+" line:95%"}
+   if(split[i]==""){v=true}
+   text+=split[i]+"\n"
+  }
+  //var Blob0=new Blob([text.slice(0,-1)])
+  var Blob0=new Blob([text.slice(0,-1)],{type:"text/plain;charset=utf-8"})
+  var URL0=URL.createObjectURL(Blob0)
+  document.getElementById("sub").src=URL0
+  video.src="https://id.oa.repl.co/"+videoId
+ }
+}
+//確保載入video前，track已載入，cc方可順利出現。
+</script>
+<!--</body>-->
+</html>

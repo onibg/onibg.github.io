@@ -1,0 +1,26 @@
+<meta charset='utf-8'>
+<!--<script src="https://unpkg.com/hacktimer/HackTimer.min.js"></script>-->
+<!--↑chrome88以後會開啟節源，定時器一陣子會失效！故加入以上破解https://blog.darkthread.net/blog/chrome-timer-throttling/-->
+<script>
+var xhr=new XMLHttpRequest()
+xhr.open("GET","https://ptsv2.com/t/spy_151025/flush_all",false)//false同步
+//xhr.send()
+try{xhr.send()}catch(e){console.log('同源錯誤')}
+
+var j=0,n=10
+for(let i=1;i<=n;i++)
+{
+ let xhr=new XMLHttpRequest()
+ xhr.open("GET","https://ptsv2.com/t/spy_151025/post");xhr.send()
+ //xhr.open("GET","https://lh3.googleusercontent.com/d/13d0ioTfO0TpI_p2pgai8T1qAEX1KZxRE=w9999?"+Math.random());xhr.send()
+ xhr.onerror=(e)=>{console.log(e);j++;j==n&&location.reload()}
+ xhr.onload=()=>{//console.log(xhr.response)
+                 j++;j==n&&location.reload()
+ }
+}
+
+//https://ptsv2.com/t/diesel/post
+//https://ptsv2.com/t/spy151025/post
+//https://ptsv2.com/t/spy_151025/post
+
+</script>

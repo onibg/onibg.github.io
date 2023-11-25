@@ -1,0 +1,33 @@
+<meta charset="utf-8">
+<style>
+body{text-align:center;background-color:black}
+button,input{font-size:200%;width:10%}
+button{color:blue}input{color:red}span{color:black}
+</style>
+<input type="button" value="講台">
+<br><br>
+<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>
+<br><br>
+<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>
+<br><br>
+<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>
+<br><br>
+<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>
+<br><br>
+<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>
+<br><br>
+<input onclick="if(this.value=='執行'){stop=false;people();this.value='停止'}else{stop=true;this.value='執行'}" type="button" value="執行">
+<script>
+var buttons=document.getElementsByTagName('button'),stop=false
+for(let i of buttons){i.setAttribute("onclick","if(this.innerText!='空'){this.innerHTML='<span>空</span>'}else{this.innerText='　'}")}
+function people(){
+ var num=[2,3,4,5,7,8,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]
+ num.sort(function(){return 0.5-Math.random()})
+ let n=0
+ for(let i of buttons){
+  if(i.innerText=='空'){continue}
+  if(num[n]){i.innerText=num[n];n++}else{break}
+}
+ if(!stop){setTimeout(people,100)}
+}
+</script>

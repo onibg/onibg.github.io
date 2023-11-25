@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<!--加入head，內建console才可發揮作用，但會被植入官方script-->
+<!--<head>-->
+<meta charset="UTF-8">
+<title>FB影片播放</title>
+<style>
+video{object-fit:fill}
+</style>
+</head>
+<body>
+<center>
+<video id="video1" width="45%" controls onseeked="a1.currentTime=v1.currentTime" onpause="a1.pause()" onplay="a1.play()"><!-- controlsList="nodownload" -->
+<!-- <video id="video1" width="45%" controls>controlsList="nodownload"> -->
+</video>
+<br>
+<audio id="audio1" controls></audio>
+
+<br>
+<h1>(視頻、音頻)分離</h1>
+</center>
+<script>
+var v1=document.getElementById("video1")
+var a1=document.getElementById("audio1")
+v1.src="https://video.frmq2-1.fna.fbcdn.net/v/t39.24129-2/10000000_669512217173979_7182398922051026944_n.mp4?_nc_cat=105&_nc_sid=5aebc0&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfdjRfaHE2X2ZyYWdfMl92aWRlbyJ9&_nc_ohc=IbUJuab53zQAX-acRrl&_nc_ht=video.frmq2-1.fna&oh=248373d3a32b8fa169291ef939a285b5&oe=5EE44629"
+a1.src="https://video.frmq2-1.fna.fbcdn.net/v/t39.24129-2/97991168_258192875434157_2583992732049473536_n.mp4?_nc_cat=110&_nc_sid=5aebc0&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfdjRfaHExX2ZyYWdfMl9hdWRpbyJ9&_nc_ohc=8FmxELWfUAgAX90plo7&_nc_ht=video.frmq2-1.fna&oh=e755d4bf13549f7e6b9bfb3bd79afb6d&oe=5EE72DC4"
+</script>
+<!--</body>-->
+</html>

@@ -1,0 +1,18 @@
+<head></head>
+<!--加入head，內建console才可發揮作用，但會被植入官方script-->
+<script src="https://unpkg.com/crypto-js/crypto-js.js"></script>
+<script>
+var xhr=new XMLHttpRequest();xhr.responseType="json"//設定回傳資料為json格式，預設為text
+
+var GMTString=new Date().toGMTString()
+var hash=CryptoJS.HmacSHA1("x-date: "+GMTString,"WkgNgfNV6MGI0QDKsnVySbECWF0").toString(CryptoJS.enc.Base64)
+
+xhr.open('GET','https://ptx.transportdata.tw/MOTC/v2/Bike/Station/Taichung?$top=3&$format=JSON',true)//預設就是true(異步)
+
+xhr.setRequestHeader('Authorization','hmac username="bf8cbf088c7a4473939368430b5fdb68", algorithm="hmac-sha1", headers="x-date", signature="'+hash+'"')
+xhr.setRequestHeader('x-date',GMTString)
+
+xhr.send()
+xhr.onload=function()
+{console.log(xhr.response)}
+</script>

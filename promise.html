@@ -1,0 +1,56 @@
+<meta charset="UTF-8">
+<script>
+//https://www.oxxostudio.tw/articles/201706/javascript-promise-settimeout.html
+function delay(){
+return new Promise(function(resolve,reject){//resolve、reject都是函式
+                   if(1==1){
+                   setTimeout(function(){resolve('我是傳下去的值')}
+                   ,1000)}else{
+                   setTimeout(function(){reject('發生錯誤！')}
+                   ,2000)}
+                                           })
+                }
+
+function ES6(){
+delay()
+.then(function(value){
+      console.log('成功1',value)//'我是傳下去的值'
+      return delay()
+                     })
+.then(function(value){
+      console.log('成功2',value)//'我是傳下去的值'
+      return delay()
+                     })
+.then(function(value){
+      console.log('成功3',value)//'我是傳下去的值'
+    //return delay()
+                     })
+.catch(function(error){
+       console.log('失敗',error)
+                      })
+}
+
+async function ES7(){
+ try{
+     const value1=await delay()
+     console.log('成功1',value1)
+     const value2=await delay()
+     console.log('成功2',value2)
+     const value3=await delay()
+     console.log('成功3',value3)
+    }catch(error){console.log('失敗',error)}
+}
+
+//ES6()
+//ES7()
+;(async function(){
+  const delayS=S=>new Promise(function(resolve){setTimeout(resolve,S)})//省略了{}、return
+  //const delayS=S=>{return new Promise(function(resolve){setTimeout(resolve,S)})}
+  console.log(1)
+  await delayS(1000)
+  console.log(2)
+  await delayS(2000)
+  console.log(3)
+})()
+console.log(4)
+</script>

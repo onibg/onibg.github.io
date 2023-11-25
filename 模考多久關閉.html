@@ -1,0 +1,17 @@
+<meta charset="utf-8">
+<script>//結論：47-48分之間關閉
+var xhr=new XMLHttpRequest()
+var t,i=2700//2700秒=45分
+xhr.onload=function()
+           {
+            var txt=xhr.response.match(/<div class="([\s\S]*?)">/)[1]
+            console.log(txt,new Date()-t+'毫秒，間隔:'+i+'秒')
+            i+=60;req()
+           }
+req()
+function req(){
+ xhr.open("GET","https://cors.oa.repl.co/simtest.zooe.com.tw:443/%E7%8F%AD%E7%B4%9A%E6%88%90%E7%B8%BE%E8%A1%A8.html?cookie=examrank=CfDJ8CEOb6hd1%2F9FsPezvKY744fe4dHERTPao%2FcaBvBBN7u2RlNVE%2BNcJFt2wfWxgpJonHRk%2BP77PTx10cm1Jf37gpxTwCM1dByL7n7OTNatNYvtmchiB4aAKZzi2WmdKjjvNQ2EWhsU2rOXbSYmdHrh6Ifw1kAgx4DX9ndE5RjrfViC",true)//預設為true(異步)
+
+ setTimeout(function(){t=new Date();xhr.send()},1000*i)
+}
+</script>

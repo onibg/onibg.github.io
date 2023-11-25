@@ -1,0 +1,27 @@
+<meta charset="UTF-8">
+<script>
+function test1(){
+var xhr=new XMLHttpRequest() 
+xhr.open('GET','https://api.github.com/users/ruanyf',true)
+xhr.responseType='json'
+xhr.onload=()=>{console.log(xhr.response)} 
+xhr.onerror=(e)=>{console.log('錯誤',e)}
+xhr.send()
+}
+
+function test2(){
+fetch('https://api.github.com/users/ruanyf')
+.then(res=>{return res.json()})
+.then(data=>{console.log(data)})
+.catch(e=>{console.log('錯誤',e)})
+}
+
+async function test3(){
+try{const res=await fetch('https://api.github.com/users/ruanyf')
+    const data=await res.json()
+    console.log(data)}
+catch(e){console.log('錯誤',e)}
+}
+
+test3()
+</script>
