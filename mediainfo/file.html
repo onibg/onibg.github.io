@@ -1,0 +1,29 @@
+  <meta charset="UTF-8">
+<input type="file" id="fileinput">
+<script src="https://unpkg.com/mediainfo.js/dist/mediainfo.min.js"></script>
+<script>
+var fileinput = document.getElementById('fileinput')
+var output = document.getElementById('output')
+MediaInfo({format:'JSON'},//設定預設值，成功後產生mediainfo物件，並執行以下callback;format有(object、JSON、XML、HTML、text)
+          function(mediainfo){
+          fileinput.addEventListener('change',function(){onChangeFile(mediainfo)})
+                             })
+var onChangeFile=function(mediainfo){//mediainfo的chunkSize單位為bytes，預設值為:256*1024(256K)
+                 var file=fileinput.files[0]
+                 var getSize=function(){return file.size};console.log('size:'+file.size)
+                 var readChunk=function(chunkSize,offset){
+                               return new Promise(function(resolve,reject){
+                                                  var reader=new FileReader()//file.slice(start,end)處理後會變成Blob;start:切割起始位置(包含)、end:切割結束位置(不包含)
+                                                  reader.readAsArrayBuffer(file.slice(offset,offset+chunkSize))
+                                                  reader.onload=function(){//reader.result是ArrayBuffer
+                                                                resolve(new Uint8Array(reader.result))}//將ArrayBuffer轉為Uint8Array陣列，使可視、可編
+                                                  console.log('chunkSize:'+chunkSize,'offset:'+offset)
+                                                                          })//Promise
+                                                         }//readChunk()
+                 mediainfo
+                .analyzeData(getSize,readChunk)
+                .then(function(result){
+                      console.log(result)
+                                      })
+                                    }//onChangeFile()
+</script>

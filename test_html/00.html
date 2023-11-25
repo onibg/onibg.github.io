@@ -1,0 +1,17 @@
+<head></head>
+<!--加入head，內建console才可發揮作用，但會被植入官方script-->
+<meta charset="utf-8">
+<link rel="icon" href="https://iconarchive.com/download/i78300/messbook/outdated/Ship-Wheel.ico">
+<style>
+body{background-color:yellow}
+h1{color:red}
+</style>
+<h1>放寒假，來去玩！</h1>
+<iframe srcdoc='<div>&#39;abc&#39;</div>' frameborder="1"></iframe>
+<script>
+console.log('測試中！')
+var i=0
+setInterval(function(){
+i++;document.querySelector('h1').innerHTML=i
+},1000)
+</script>

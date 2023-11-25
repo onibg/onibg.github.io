@@ -1,0 +1,52 @@
+<meta charset="utf-8">
+<base target="_blank">
+<title>測試</title>
+<div onclick="console.log('外div')"><!--冒泡時才觸發-->
+ <div onclick="console.log('中div')"><!--冒泡時才觸發-->
+  <a href='https://drive.google.com/file/d/0Bxqf-PGnadp7emNjRlRxOHNJQXM/view' onclick="console.log('a')"><span>請按我</span></a>
+ </div>
+</div>
+<input type="text" value="文字" style="color:red">
+<input type="button" value="Hello">
+<div style="border:pink solid">
+ <span>您好</span>
+ <span>加油</spans>
+</div>
+
+<script>
+//先捕獲再冒泡
+//document.getElementsByTagName('a')[0].onclick=function(e){
+//e.preventDefault()//取消原本標籤預設的功能
+//e.stopPropagation()//終止後續事件傳遞
+//}
+document.getElementsByTagName('a')[0].addEventListener('click',function(e){//true捕獲模式，false冒泡模式，默認false
+//e.stopPropagation()
+},true)
+
+document.getElementsByTagName('div')[1].addEventListener('click',function(e){//中div
+console.log('listen中div')
+e.preventDefault()
+//e.stopPropagation()
+},true)
+</script>
+
+<!--<script>
+//document.getElementsByTagName('a')[0].setAttribute('onclick','add(this)')
+document.getElementsByTagName('a')[0].onclick=function(){add(this)}
+function add(a){
+if(event.ctrlKey){a.href='https://ilv.oa.repl.co/player.html?'+a.href}
+else{a.href=a.href.split('?').reverse()[0]}
+}
+</script>-->
+
+<!--<script>
+//var str='xyz\n/*abc   */\n/*def       ghi        \n  */'
+var str=' //  abc//   \n  //   def\n   a   //    ghi'
+//str=str.replace(/\s*\*\/$/mg,'*/')
+    //str=str.replace(/^\/\/\s*/mg,'//')
+str=str.replace(/^(\s*)\/\/\s*/mg,'$1//')
+console.log(str)
+   /*var a=5
+    var b=3*/
+
+</script>-->

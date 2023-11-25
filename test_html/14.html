@@ -1,0 +1,6 @@
+<script>
+var xhr=new XMLHttpRequest()
+xhr.open('GET','https://script.google.com/macros/s/AKfycbwC42_mTmRl9XV5KTrWbU9o2mjAHJC3X_xj2VqEld9iLkGdrrQXI75xQ81V4hlEY473gA/exec?node')
+xhr.onload=()=>{let arr=xhr.response.split('\n');console.log(arr)}
+xhr.send()
+</script>

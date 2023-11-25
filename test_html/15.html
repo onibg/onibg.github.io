@@ -1,0 +1,22 @@
+<meta charset='utf-8'>
+<script>
+var xhr=new XMLHttpRequest()
+xhr.open('GET','https://www.googleapis.com/drive/v3/files/17w7SgIcs4ufj-qNsvuTnPebG9BYAcEJv?alt=media',true)
+xhr.responseType='json'
+xhr.setRequestHeader('Authorization','Bearer ya29.a0AfB_byB6EteJU_aT_eXwX57Mbr0nVCHmpNLcXzNj_Jzg2q-MeqOLetb6vYEgA3YsgO9IidzYAdH--3-y5JNxDPPrPfpBlcPYUrPLr-4EoMkGKiTtyzlClBc1LgXrCOxlPtd64pEbvpzY-2Ayh_9pVPWjxa6i5Q3OYxR9aCgYKAd0SARESFQGOcNnC6PtrKZScpYj4gfdNouWTCA0171')
+xhr.send()
+xhr.onload=()=>{
+ if(xhr.status!=200){console.log(xhr.status);return}
+ obj=xhr.response
+ console.log(obj)
+}
+
+
+
+
+
+function Cat(name) {
+	this.name = name;
+}
+var t=new Cat('hello')
+</script>

@@ -1,0 +1,28 @@
+<meta charset="UTF-8">
+<style>
+img{width:50%}
+input{display:block}
+</style>
+<img><!--src="https://drive.google.com/uc?export=view&id=178G4Symcm1GdBjHjUtifeNHhu-8sclYW">-->
+<input type="button" value="開始" onclick="if(this.value=='暫停'){this.value='開始';flag=false}else{this.value='暫停';flag=true;test()}">
+<script>
+var i=document.querySelector('img'),flag=true
+
+function test(){
+ setTimeout(()=>{console.log(1);i.src="https://drive.google.com/uc?export=view&id=178G4Symcm1GdBjHjUtifeNHhu-8sclYW&"+Math.random();if(flag){test()}},2000)
+}
+
+
+function pc(){
+ var a
+ for(let i=0,L=1000;i<L;i++){setTimeout(function(){
+  a=document.createElement('a')
+  a.href='https://drive.google.com/uc?export=view&id=178G4Symcm1GdBjHjUtifeNHhu-8sclYW'
+  //a.download=arr[0].split(',')[1].split('.mkv')[0]+'.sbv'
+  document.body.appendChild(a);a.click();a.remove()
+  },3000*i)
+ }//for
+}
+
+//https://drive.google.com/uc?export=download&id=178G4Symcm1GdBjHjUtifeNHhu-8sclYW
+</script>

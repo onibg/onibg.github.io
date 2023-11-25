@@ -1,0 +1,20 @@
+<script src="https://gpac.github.io/mp4box.js/dist/mp4box.all.js"></script>
+<script>
+const mp4boxfile = MP4Box.createFile();
+mp4boxfile.onError = console.error;
+mp4boxfile.onReady=(info)=>{
+  console.log(info)
+  console.log(`info.isProgressive:${info.isProgressive}`)//判斷mp4的moov在前或在後，若moov在後則<video>播放會不順；手機錄影檔一定是moov在後，因為錄影結束才能製作此mp4的moov
+//console.log( info.tracks.map( track => track.codec ) );
+};
+//fetch("https://igd.glitch.me/1iOstFjxfC8Kx5jOGr9OijWBfMNtymW-X"//灌籃
+//fetch("https://igd.glitch.me/1-L_ZS-TNjiVhFfT_ODmZ30RsGfSypoTD"//環保再生紙
+fetch("https://idz.glitch.me/10NKCditj8Xaik-GTVD7CLLArmS6ehrae"
+//"https://dl.dropboxusercontent.com/s/hyeredbcn60feei/BigChunksBunny1.mp4"
+).then( (resp) => resp.arrayBuffer() )
+  .then( (buf) => {
+    buf.fileStart = 0;
+    mp4boxfile.appendBuffer( buf );
+    mp4boxfile.flush();
+  } );
+</script>

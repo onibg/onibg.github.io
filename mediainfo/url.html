@@ -1,0 +1,67 @@
+<meta charset="UTF-8">
+<!--<input placeholder="輸入網址" value='http://127.0.0.1:8079/https://www.googleapis.com/drive/v3/files/1Z_MKFvKtaB5NdJ7xhLka_Ja4yLdKbHMZ?alt=media'>-->
+<input placeholder="輸入網址" value='https://www.googleapis.com/drive/v3/files/1Xf9v3VzVYsy_VhkeS_51bkc8Wv-kZQgJ?alt=media'><!--教育局_逃學威龍 副本-->
+<!--https://drive.google.com/file/d/1y3qumZS4U-aaix8PvooB8kFgwV6Qge4D/view?usp=sharing-->
+<button>執行</button>
+<script src="https://unpkg.com/mediainfo.js/dist/mediainfo.min.js"></script>
+<script>//chunkSize單位為bytes
+
+
+var xhr=new XMLHttpRequest(),xhrAut=new XMLHttpRequest(),aut
+getAut()
+function getAut(){
+ xhrAut.open("GET","https://script.google.com/macros/s/AKfycbyvoe-m_ioAQYgI4ExbNp2ImBOFMLiDth-lBPyABNAGelcOoMqf/exec"//delicadiesel@gmail.com的getOAuthToken(Google Apps Script)
+ ,false)//同步
+ xhrAut.send()
+ aut=xhrAut.response;console.log(xhrAut.response)
+//xhr.onload=()=>{aut=xhr.response;console.log(xhr.response)}
+}
+
+
+MediaInfo({format:'JSON',chunkSize:5*1024*1024},//設定預設值，成功後產生mediainfo物件，並執行以下callback;format有(object、JSON、XML、HTML、text)
+          function(mediainfo){
+          document.getElementsByTagName('button')[0].addEventListener('click',function(){onChangeFile(mediainfo)})
+          if(location.href.split('?')[1]){onChangeFile(mediainfo)}
+                             })
+
+
+
+
+
+var size//=18789197163
+var onChangeFile=function(mediainfo){//mediainfo的chunkSize單位為bytes，預設值為:256*1024(256K)
+                  var url=document.getElementsByTagName('input')[0].value
+                  if(!size){
+                   xhr.responseType='json'
+                   xhr.open("GET",'https://script.google.com/macros/s/AKfycbwYiItCFTan_YvgC8yjk-BbnoZWm8zI0kfQXepWdo1c5JcFQck/exec?id='+url.split('?')[0].split('/').pop()
+                   ,true)//預設為true(異步)
+                 //xhr.setRequestHeader('authorization','Bearer '+aut)
+                 //xhr.setRequestHeader('Range','bytes=0-')
+                   xhr.send()
+                   xhr.onload=function(){size=+xhr.response.fileSize;start()}
+                  }else{start()}
+                  function start(){
+                 //size=parseInt(xhr.getResponseHeader("Content-Length"))
+                   console.log('size:'+size)
+                 //xhr.abort()
+                   var getSize=function(){return size}
+                   var readChunk=function(chunkSize,offset){
+                                                            return new Promise(function(resolve,reject){
+                                                                                console.log('chunkSize:'+chunkSize,'offset:'+offset)
+                                                                                if(chunkSize==0){resolve(new Uint8Array());return}
+                                                                                var range='bytes='+offset+'-'+(offset+chunkSize-1)
+                                                                                fetch(url,{headers:{Range:range,authorization:'Bearer '+aut}})
+                                                                                .then(function(response){if(response.status==401){location.href=location.href.split('?')[0]+'?reload'}else{return response.arrayBuffer()}})
+                                                                                .then(function(arrayBuffer){
+                                                                                       resolve(new Uint8Array(arrayBuffer))//將ArrayBuffer轉為Uint8Array陣列，使可視、可編
+                                                                                                           })
+                                                                             })//Promise
+                                                           }//readChunk()
+                   mediainfo
+                   .analyzeData(getSize,readChunk)
+                   .then(function(result){
+                          console.log(result);//setTimeout(()=>{console.clear();onChangeFile(mediainfo)},1000)//setTimeout(()=>{location.href=location.href.split('?')[0]+'?reload'},1000)
+                                         })
+                  }//start()
+                 }//onChangeFile()
+</script>

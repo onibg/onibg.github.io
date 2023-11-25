@@ -1,0 +1,85 @@
+<script>
+/*
+var url="https://phantomjscloud.com/api/browser/v2/ak-39721-d6n0v-gc572-bkxf8-qc8bq/?request={url:%22https://oxri6.sse.codesandbox.io/%22,renderType:%22plainText%22}"
+var xhr=new XMLHttpRequest()
+xhr.open("GET",url,true)//預設為true(異步)
+xhr.onload=function(){
+                      console.log(xhr.response)
+                     }
+xhr.send()
+*/
+
+/*
+var xhr=new XMLHttpRequest()
+var url='https://oxri6.sse.codesandbox.io/'
+xhr.open("GET",url,true);xhr.send()
+xhr.onload=function(){console.log(xhr.response)}
+xhr.onerror=function(){console.log('請求錯誤')}
+*/
+
+
+loop('https://oxri6.sse.codesandbox.io/')
+function loop(url){
+var xhr1=new XMLHttpRequest()
+xhr1.open("GET",'https://phantomjscloud.com/api/browser/v2/ak-39721-d6n0v-gc572-bkxf8-qc8bq/?request={url:%22'+url+'%22,renderType:%22plainText%22}',false)//同步
+xhr1.send();console.log(xhr1.response)
+
+xhr1.onerror=function(){console.log('xhr1.onerror');check()}
+xhr1.onload=function(){console.log(xhr1.response)}
+
+check()
+function check(){
+xhr1.open("GET",url,true)//異步(預設)
+xhr1.send()}
+}
+
+
+/*
+video.onended=function(){
+loop('https://oxri6.sse.codesandbox.io/')
+function loop(url){
+var xhr1=new XMLHttpRequest()
+xhr1.open("GET",'https://phantomjscloud.com/api/browser/v2/ak-39721-d6n0v-gc572-bkxf8-qc8bq/?request={url:%22'+url+'%22,renderType:%22plainText%22}',false)//同步
+xhr1.send();console.log(xhr1.response)
+xhr1.onerror=function(){console.log('xhr1.onerror');check()}
+xhr1.onload=function(){console.log(xhr1.response);video.play()}
+check()
+function check(){
+xhr1.open("GET",url,true)//異步(預設)
+xhr1.send()}
+}
+}
+*/
+
+
+
+
+
+
+
+/*
+video.onwaiting=function(){
+var t=video.currentTime
+console.log('開始onwaiting:'+t)
+setTimeout(function(){console.log('onwaiting 1秒後:'+video.currentTime)
+if(video.currentTime==t){
+var xhr=new XMLHttpRequest()
+var url='https://oxri6.sse.codesandbox.io/'
+xhr.open("GET",url,true)
+xhr.send()
+xhr.onload=function(){console.log(xhr.response)}
+xhr.onerror=function(){console.log('請求錯誤')}
+}
+},1000)}
+*/
+
+
+//var url="https://phantomjscloud.com/api/browser/v2/ak-39721-d6n0v-gc572-bkxf8-qc8bq/?request={url:%22https://oxri6.sse.codesandbox.io/%22,renderType:%22plainText%22}"
+//xhr.open("GET",url,true)
+//xhr.send()
+</script>
+
+
+
+
+

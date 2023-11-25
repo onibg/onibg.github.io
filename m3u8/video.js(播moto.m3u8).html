@@ -1,0 +1,82 @@
+<head>
+<script id="ptsv2" src="https://ptsv2.com/t/spy_151025/post"></script><!--標籤預設同步，取得authorization-->
+
+  <script src="https://unpkg.com/hacktimer/HackTimer.min.js"></script>
+  <!--↑chrome88以後會開啟節源，定時器一陣子會失效！故加入以上破解https://blog.darkthread.net/blog/chrome-timer-throttling/-->
+  <link href="https://unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet">
+<!--<link href="https://vjs.zencdn.net/7.17.0/video-js.min.css" rel="stylesheet">-->
+  <script src="https://unpkg.com/video.js/dist/video.min.js"></script>
+<!--<script src="https://vjs.zencdn.net/7.17.0/video.min.js"></script>-->
+<!--若不要包含HLS、DASH，則可用右邊--><!--<script src="https://unpkg.com/video.js/dist/alt/video.core.min.js"></script>-->
+
+
+<!--以下加入選擇畫質-->
+          <script src="https://unpkg.com/videojs-contrib-quality-levels/dist/videojs-contrib-quality-levels.min.js"></script>
+<!--<script src="https://unpkg.com/videojs-contrib-quality-levels@2.1.0/dist/videojs-contrib-quality-levels.min.js"></script>-->
+           <script src="https://unpkg.com/videojs-hls-quality-selector/dist/videojs-hls-quality-selector.min.js"></script>
+ <!--<script src="https://unpkg.com/videojs-hls-quality-selector@1.1.4/dist/videojs-hls-quality-selector.min.js"></script>-->
+
+
+  </head>
+
+<body>
+ <video
+    id="my-video"
+    class="video-js"
+    controls
+    loop
+    preload="auto"
+    width="640"
+    height="264"
+    data-setup="{}"
+  >
+    <!--<source src="https://igd.glitch.me/1FKykPP_mW76YMuJjw_0HfGObqXPusMbl" type="video/mp4">-->
+    <!--<source src="https://cdn.theoplayer.com/video/elephants-dream/playlist.m3u8" type="application/x-mpegURL">-->
+    <!--<source src="https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8" type="application/x-mpegURL">-->
+    <!--<source src="https://liip.rokka.io/dynamic/22dcd5.m3u" type="application/x-mpegURL">-->
+    <!--<source src="https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s-fmp4/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8" type="application/x-mpegURL">-->
+    <!--<source src="https://stream.nuevodevel.com/hls/blender/blender_480.m3u8" type="application/x-mpegURL">-->
+    <source src="https://onibg.csb.app/m3u8/moto.m3u8" type="application/x-mpegURL">
+  </video>
+
+ <!--<script src="https://unpkg.com/videojs-contrib-quality-levels/dist/video.min.js"></script>-->
+  <!--version@2.1.0-->
+<!--<script src="https://unpkg.com/@silvermine/videojs-quality-selector/dist/js/silvermine-videojs-quality-selector.min.js"></script>-->
+<!--<script src="https://unpkg.com/@silvermine/videojs-quality-selector/dist/js/silvermine-videojs-quality-selector.min.js"></script>-->
+
+ <!--<script src="/node_modules/video.js/dist/video.js"></script>-->
+  <!--<script src="/node_modules/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>-->
+  <!--<script src="/dist/videojs-contrib-quality-levels.js"></script>-->
+
+  <script>
+function updateAuthorization(){
+ let scriptTag=document.getElementById('ptsv2'),scriptSrc=scriptTag.src
+ scriptTag.remove()
+ scriptTag=document.createElement('script')
+ scriptTag.id='ptsv2';scriptTag.src=scriptSrc
+ document.head.appendChild(scriptTag)
+}
+
+setInterval(updateAuthorization,1800000)
+
+  var authorizationOld
+  videojs.Vhs.xhr.beforeRequest=function(options){
+   options.headers=options.headers||{}
+   if(authorization!=authorizationOld){console.log(authorization)}
+   authorizationOld=authorization
+   options.headers.authorization=authorization
+   return options}
+  //setTimeout(()=>{
+   let v=document.querySelector('video')
+   let player=videojs("my-video")
+  //let qualityLevels = player.qualityLevels()
+  //player.controlBar.addChild('QualitySelector');
+  player.hlsQualitySelector()
+  //},3000)
+
+player.on('ready',()=>{
+ player.tech_.on('retryplaylist',updateAuthorization)
+})
+
+  </script>
+</body>

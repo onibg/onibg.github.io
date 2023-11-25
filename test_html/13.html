@@ -1,0 +1,46 @@
+<script>
+var at='ya29.A0AVA9y1vZM9hNTRF6kUorXvSJzkcU_ze8Z8bP_XKn-4EtfgjgOTaVvFj--4M1MleRGbYrwXMNer6nDUX8CxS9RIPCSiUOVZmA8d5-EOAJLqRVaPO46qNPi2sM_eVFGqa2TwsAM14w8h4tBHRrCcK1e6D_F7jmlKEYUNnWUtBVEFTQVRBU0ZRRTY1ZHI4NVg2ZWhNcEtTZDNKSXZ5NWFqeHgxdw0166'
+var url='https://www.googleapis.com/drive/v2/changes/startPageToken'
+var xhr=new XMLHttpRequest()
+xhr.open("GET",url,true)//預設為true(異步)
+//xhr.responseType='arraybuffer'
+xhr.setRequestHeader('Authorization','Bearer '+at)
+//xhr.setRequestHeader('cookie','test=123')
+//xhr.setRequestHeader('Range','bytes=0-2')
+xhr.onload=function()
+           {console.log(xhr.response);next()
+           }
+xhr.send()
+
+function next(){
+url='https://www.googleapis.com/drive/v2/changes?pageToken=4644880'
+xhr.open("GET",url,true)//預設為true(異步)
+//xhr.responseType='arraybuffer'
+xhr.setRequestHeader('Authorization','Bearer '+at)
+//xhr.setRequestHeader('cookie','test=123')
+//xhr.setRequestHeader('Range','bytes=0-2')
+xhr.onload=function()
+           {console.log(xhr.response)
+           }
+xhr.send()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

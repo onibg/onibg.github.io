@@ -1,0 +1,11 @@
+<meta charset='utf-8'>
+<div>Hello</div>
+<script>
+console.log('Hello')
+document.write(!!caches)
+document.write(!!navigator.serviceWorker)
+setInterval(()=>{
+ var msg=new SpeechSynthesisUtterance('瀏覽器在說話')
+ speechSynthesis.speak(msg)
+},5000)
+</script>

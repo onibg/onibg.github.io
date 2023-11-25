@@ -1,0 +1,27 @@
+<meta charset="UTF-8">
+<script>
+function DOG(name){
+  this.name=name
+//this.species='犬科'
+}
+DOG.prototype={species:'犬科'}
+console.log(DOG.prototype)
+
+console.log(new DOG('大毛').species)
+console.log(new DOG('二毛').species)
+
+DOG.prototype.species='猫科'
+console.log(new DOG('三毛').species)
+console.log(new DOG('四毛').species)
+
+let a=new DOG('五毛')
+let b=new DOG('六毛')
+console.log(a,b)
+console.log(a.species,b.species)
+DOG.prototype.species='合科'
+//a.species='合科'//這會使a產生新的species屬性，無法改變它的prototype，要改用a.__proto__.species='合科'，因為a.__proto__==DOG.prototype//原型鏈
+console.log(a,b)
+console.log(a.species,b.species)
+a.name='測試'
+console.log(a)
+</script>

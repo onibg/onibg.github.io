@@ -1,0 +1,26 @@
+<meta charset='utf-8'>
+<!--<video width="50%" height="50%" autoplay controls controlsList="nodownload">-->
+<script>
+var url='https://www.googleapis.com/drive/v3/files/1LH5O5tRhn7NI1HVoX1PCLK0Uv8AG5tmf?alt=media'
+var xhr=new XMLHttpRequest()
+xhr.open("GET",url,true)//預設為true(異步)
+xhr.responseType='blob'
+xhr.setRequestHeader('Authorization','Bearer ya29.a0AfB_byBOn-vS0OdLpeu6evQUdxfFhyCRz7mTuCZ4TPBEkgd-aAM11yIgqTmlQ3Xv72n9iiRfJYGG7f5bGnz4Jt8JX9Khx-foY0sXqJOVrrKZwvXv41PC-h4SYSxBbiz5IfLDdYCA1RN_8tSXdstlcWZT52zRz8JrZViaaCgYKAcgSARMSFQGOcNnCUWOR3ciW6eRU4yVtt4X8_Q0171')
+xhr.onload=function(){
+          {//console.log(xhr.response)
+           //document.getElementsByTagName('video')[0].src=URL.createObjectURL(xhr.response)
+           var a=document.createElement('a')
+           a.href=URL.createObjectURL(xhr.response)
+           a.innerHTML='按我下載'
+           a.download='測試.mp4'
+           document.body.appendChild(a)
+            //存储到 Cache
+           caches.open('my-cache').then(function(cache){
+           var request=new Request('https://example.com/hello')
+           var response=new Response(xhr.response);
+           cache.put(request,response)
+    })
+          }
+                     }
+xhr.send()
+</script>

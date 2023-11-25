@@ -1,0 +1,27 @@
+<video width="50%" height="50%" autoplay controls controlsList="nodownload"></video>
+<script>
+var url='https://www.googleapis.com/drive/v3/files/1KAPaUXM8H_eeAQpYUZ9EX2c_cHiP7p4o?alt=media'
+var xhr=new XMLHttpRequest()
+xhr.open("GET",url,true)//預設為true(異步)
+xhr.responseType='blob'
+xhr.setRequestHeader('Authorization','Bearer ya29.a0ARrdaM_FNsEuvEyg_yk-nVYdjjc8ZnLT8osLgtG9QMT7sjif6BkzxOSWDeXBD8q4t-joBieh0nfAw4TzXxbwad-CLFCElH-w4OXclq0RYm4lH3KqRCRPlgKvhWlhZ3qIkhuIhRrxttKwj4j1W1bsEkqyrFkYFNqyyEg')
+//xhr.setRequestHeader('cookie','test=123')
+xhr.onload=function()
+           {//console.log(xhr.response)
+            document.getElementsByTagName('video')[0].src=URL.createObjectURL(xhr.response)
+           }
+xhr.send()
+</script>
+
+<!--<script>
+var url='https://www.googleapis.com/drive/v3/files/0Bxqf-PGnadp7YTVfM2RLNkM2Ylk'//?alt=media'
+var xhr=new XMLHttpRequest()
+xhr.open("GET",url,true)//預設為true(異步)
+//xhr.responseType='blob'
+xhr.setRequestHeader('Authorization','Bearer ya29.a0ARrdaM_FNsEuvEyg_yk-nVYdjjc8ZnLT8osLgtG9QMT7sjif6BkzxOSWDeXBD8q4t-joBieh0nfAw4TzXxbwad-CLFCElH-w4OXclq0RYm4lH3KqRCRPlgKvhWlhZ3qIkhuIhRrxttKwj4j1W1bsEkqyrFkYFNqyyEg')
+//xhr.setRequestHeader('cookie','test=123')
+xhr.onload=function()
+           {console.log(xhr.response)
+           }
+xhr.send()
+</script>-->

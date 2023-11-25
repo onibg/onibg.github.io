@@ -1,0 +1,19 @@
+<script>
+asyncFn()
+.then(syncFn)
+.then(asyncFn);
+
+function asyncFn(data) {
+	return new Promise(function(resolve, reject) {
+      		 console.log('Async received data:', data);
+			 setTimeout(function(){
+				resolve('async fn');
+			 }, 1000);
+		   });
+}
+
+function syncFn(data) {
+  console.log('Sync received data:', data);
+  return 'sync fn';
+}
+</script>

@@ -1,0 +1,26 @@
+<meta charset="UTF-8">
+<script>
+function Person(name,gender){
+ this.name=name
+ this.gender=gender
+}
+console.log(Person.prototype); // {} 是一个空对象
+Person.prototype={
+ country:'China'
+}
+var a = new Person("Jason", 'male');
+var b = new Person("Amy", 'female');
+console.log(a.name)// Jason
+console.log(b.name)// Amy
+console.log(a.country)// China
+console.log(b.country)// China
+
+console.log(a.__proto__)
+a.__proto__.country='Taiwan'
+console.log(a,b)
+
+/*a.__proto__==Person.prototype、b.__proto__==Person.prototype
+  a.__proto__.__proto__==Person.prototype.__proto__==Object.prototype*/
+//原型鏈
+
+</script>

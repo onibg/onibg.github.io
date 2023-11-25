@@ -1,0 +1,25 @@
+<meta charset='utf-8'>
+<script>
+for(let i=0;i<5;i++){
+const xhr=new XMLHttpRequest()
+xhr.open('GET','https://idz.glitch.me/1uKWh3WskyrNRGy1p0ydi6WJfIABSeo-N',true)
+//xhr.responseType='json'
+xhr.responseType='arraybuffer'
+const tmp=i,bytesRange='bytes=0-'+i
+xhr.setRequestHeader('Range','bytes=5-150')
+xhr.setRequestHeader('Authorization',tmp)
+xhr.send()
+xhr.onload=()=>{
+//if(xhr.status!=200){console.log(xhr.status);return}
+ obj=xhr.response
+ console.log(obj,tmp)
+ if(i==4){i=0;redo()}
+}
+function redo(){
+ xhr.open('GET',xhr.responseURL,true)
+ xhr.setRequestHeader('Range',bytesRange)
+ xhr.send()
+}
+}
+
+</script>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <title>Service worker and ranged responses</title>
+    <script>
+    addEventListener('load',function(){
+    navigator.serviceWorker.register('sw.js')
+    })
+    </script>
+</head>
+<body>
+  <!--crossorigin='anonymous'-->
+        <!--<video crossorigin='anonymous' controls src='https://www.googleapis.com/drive/v3/files/1jwNY7szpv4jVDAaDpyq_Gyzjr-SvKz1P?alt=media'></video>-->
+        <!--<video controls src='https://idz.glitch.me/1uKWh3WskyrNRGy1p0ydi6WJfIABSeo-N'></video>-->
+  <script>
+var xhr=new XMLHttpRequest()
+xhr.open('GET','https://idz.glitch.me/1uKWh3WskyrNRGy1p0ydi6WJfIABSeo-N',true)
+xhr.responseType='arraybuffer'
+xhr.setRequestHeader('Range','bytes=5-150')
+//xhr.setRequestHeader('Authorization','Bearer ya29.a0AfB_byB5xwdM-KuMeovNbZDLvybYxM2CWS7qDLRhc_mRgpgG8gGPbLj-wyGEN4ipkm0LHCLeqK_e2JutjRCtn_9ZTd4QD1L_8YHVselZKg4mbOcaKKY-6WePTFAUto4ng8sklw8dHWwnmEwhXg00NJnH8EzTuN3n_8fpaCgYKAXASARMSFQGOcNnCnbFWEjojq0XNZulqzHghVA0171')
+xhr.send()
+xhr.onload=()=>{
+//if(xhr.status!=200){console.log(xhr.status);return}
+ obj=xhr.response
+ console.log(obj)
+}
+  </script>
+
+</body>
+</html>

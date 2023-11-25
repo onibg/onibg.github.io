@@ -1,0 +1,45 @@
+<meta charset='utf-8'>
+<link rel="icon" href="test.ico">
+<link crossorigin="anonymous" rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+<h1>Service Worker r離線緩存 Demo</h1>
+<img>
+<img crossorigin="anonymous" src='https://images.samsung.com/is/image/samsung/assets/hk/support/tv-audio-video/how-to-use-tap-view-and-multi-view/tap-view-image.jpg'>
+<!--<img src="https://ibw.bwnet.com.tw/image/pool/2016/06/4393cd6019ee47fa273e993d62e57ca8_620.jpg">-->
+<br>
+<input type="button" value='刪除tmp-cache' onclick="caches.delete('tmp-cache')">
+<input type="button" value='刪除others' onclick="caches.delete('others')">
+<script src="leaflet.js"></script>
+<script>
+addEventListener('load',function(){
+navigator.serviceWorker.register('sw.js')
+.then(function(reg){console.log('sw.js執行的範圍:'+reg.scope)})//看這支sw.js執行範圍
+.catch(function(err){console.log('error:',err)})
+//附上刪除sw.js的寫法
+/*navigator.serviceWorker.getRegistrations()
+.then(function(reg){
+for(var reg of reg)
+{reg.unregister()}
+})*/
+})
+
+var xhr=new XMLHttpRequest();xhr.responseType="json"//設定回傳資料為json格式，預設為text
+//xhr.open('GET','https://ptx.transportdata.tw/MOTC/v2/Bike/Station/KinmenCounty?$format=JSON',true)//預設就是true(異步)
+xhr.open('GET','test.json',true)//預設就是true(異步)
+xhr.send()
+xhr.onload=function(){console.log(xhr.response)}
+
+var xhr1=new XMLHttpRequest();xhr1.responseType="json"//設定回傳資料為json格式，預設為text
+xhr1.open('GET','https://ptx.transportdata.tw/MOTC/v2/Bike/Station/KinmenCounty?$format=JSON',true)//預設就是true(異步)
+xhr1.send()
+xhr1.onload=function(){console.log(xhr1.response)}
+
+var xhr2=new XMLHttpRequest();xhr2.responseType="blob"//設定回傳資料為blob格式，預設為text
+xhr2.open('GET','https://i.imgur.com/sBJOoTm.png',true)//預設就是true(異步)
+xhr2.onload=function(){
+ console.log(this.response)
+ var URL0=URL.createObjectURL(xhr2.response)
+ document.querySelector('img').src=URL0
+}
+xhr2.send()
+</script>

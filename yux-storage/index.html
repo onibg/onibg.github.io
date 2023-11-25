@@ -1,0 +1,13 @@
+<meta charset="utf8">
+<script src="https://unpkg.com/yux-storage"></script>
+<button onclick='go()'>存值至緩存</button>
+
+
+<script>
+function go(){
+yuxStorage.setItem('豪邁','好強！').then(function(value){
+    //当值被存储后，可执行其他操作
+    console.log(value);
+})
+}
+</script>

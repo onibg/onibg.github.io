@@ -1,0 +1,69 @@
+<!--<img src='https://drive.google.com/uc?export=view&id=1EFjpuVN73xBgFCKCBgWE9ftmc4yJJ6-T'>-->
+<script src="https://unpkg.com/hacktimer/HackTimer.min.js"></script>
+<!--↑chrome88以後會開啟節源，定時器一陣子會失效！故加入以上破解https://blog.darkthread.net/blog/chrome-timer-throttling/-->
+<script>
+//loop('https://www.googleapis.com/drive/v3/files/1sqzfctDgWEVMesoLR-Pzkm8avoH-QM79?alt=media')
+//var id='1MQMJKNKhzY-thUscwvc1a4OHiNpGMeYH'//星光展(公司)
+//var id='1xFR_QmStUCM2QvpkfnRvi1qzReXs1NXF'//星光展
+var id='1MQMJKNKhzY-thUscwvc1a4OHiNpGMeYH'
+var url='https://www.googleapis.com/drive/v3/files/'+id+'?alt=media'
+var aut,loc=0
+var xhr=new XMLHttpRequest()
+var xhr1=new XMLHttpRequest();xhr1.responseType='arraybuffer'
+//setInterval(()=>{loop()},1000)
+//loop('https://drive.google.com/uc?export=view&id=1EFjpuVN73xBgFCKCBgWE9ftmc4yJJ6-T')
+
+
+xhr.open("GET",'https://script.google.com/macros/s/AKfycbwYiItCFTan_YvgC8yjk-BbnoZWm8zI0kfQXepWdo1c5JcFQck/exec?id='+id//安和 0 byte/metadata&resourceKey
+,false)//同步
+xhr.send()
+var fileSize=JSON.parse(xhr.response).fileSize
+var chunkSize=5242880//5M
+console.log(fileSize)
+
+
+
+aut='ya29.A0ARrdaM9owkJ5AqgMgQfkWxoNbKB2HLwMJOdgNH1Hy0XplFv6oJmY1SvulRkhXUQ6LHdW-0WYdNpEMMwyDxbVcbRy5DZr02f_9ICyzSojYAi7P1MXYNeB9V9DQ726Xtd5te7R8wNgDwcFJlTNYeimsZl3kEkN0g'
+loop()
+//getAut()
+function getAut(){
+ xhr.open("GET","https://script.google.com/macros/s/AKfycbyvoe-m_ioAQYgI4ExbNp2ImBOFMLiDth-lBPyABNAGelcOoMqf/exec"//delicadiesel@gmail.com的getOAuthToken(Google Apps Script)
+ ,false)//同步
+ xhr.send()
+ aut=xhr.response;console.log(xhr.response)
+ loop()
+//xhr.onload=()=>{aut=xhr.response;console.log(xhr.response)}
+}
+
+function loop(){//setTimeout(()=>{loop()},5000)
+var time=new Date().toLocaleString('zh-TW',{timeZone:'Asia/Taipei'})
+xhr1.open("GET",url,true)//異步
+xhr1.setRequestHeader('authorization','Bearer '+aut)
+loc=Math.floor((fileSize-chunkSize+1)*Math.random())
+xhr1.setRequestHeader('range','bytes='+loc+'-'+(loc+chunkSize-1))
+//xhr.setRequestHeader('cookie','test=123')
+xhr1.send()
+xhr1.onerror=(e)=>{console.log('錯誤',e)}
+xhr1.onreadystatechange=()=>{console.log(xhr1.readyState)
+ if(xhr1.readyState==4){
+                        if(xhr1.status==401){getAut()}
+                        else if(xhr1.status==500){loop()}
+                        else{
+                             console.clear()
+                           //console.log(time,xhr1.getResponseHeader("Content-Length"))
+                             console.log(xhr1.getAllResponseHeaders())
+                             xhr1.abort();loop()
+                            }
+                       }}
+
+/*xhr1.onload=()=>{
+                 if(xhr1.status==401){getAut()}
+               //else if(xhr1.status==500){loop()}
+                 else{
+                      console.clear()
+                      console.log(time,new Uint8Array(xhr1.response));loop()
+                     }
+                }*/
+
+}
+</script>
