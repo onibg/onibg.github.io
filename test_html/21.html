@@ -1,13 +1,14 @@
 <meta charset='utf-8'>
 <div>午安！168</div>
+<div id="size"></div>
 <script>
 fetch('https://lh3.googleusercontent.com/d/1oMC3B7RKyB7PFZrB9103OXlqp5X1Oeua')
 .then(res=>res.blob())
-.then(data=>alert(data.size))
+.then(data=>document.getElementById('size')=data.size)
 .catch(e=>console.log('錯誤',e))
 onload=()=>{
 let a=document.querySelector('div')
-a.innerText+='\ndef'
+a.innerText+='new Date()'
 //alert('成功')
 }
 </script>
