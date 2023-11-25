@@ -14,7 +14,8 @@ img{display:block}
 <img src='https://wbjon.csb.app/單車站3.png'>
 <img src='https://wbjon.csb.app/單車站E.png'>
 <script>
-var test='abc\ndef'\n
+var test='abcdef'
+var test1=test.replace(test,'ab\ncd')
 function handle(){
  let div=document.querySelector('div');div.innerText=''
  caches.open('CacheFirst')
