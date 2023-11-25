@@ -8,7 +8,7 @@ img{display:block}
 <h3></h3>
 <b></b>
 <p onclick="handle1()">show CacheFirst Cache<div></div></p>
-<p onclick="handle1()">show mjpg Cache<div></div></p>
+<p onclick="handle2()">show mjpg Cache<div></div></p>
 <button onclick="caches.delete('CacheFirst')">CacheFirst</button>
 <img src='https://wbjon.csb.app/單車站1.png'>
 <img src='https://wbjon.csb.app/單車站2.png'>
@@ -18,6 +18,11 @@ img{display:block}
 function handle1(){
  let div=document.querySelector('div');div.innerText=''
  caches.open('CacheFirst')
+.then(cache=>cache.keys().then(requests=>requests.forEach(request=>{div.innerText+=request.url+'\n'})))
+}
+function handle2(){
+ let div=document.querySelectorAll('div')[1];div.innerText=''
+ caches.open('mjpg')
 .then(cache=>cache.keys().then(requests=>requests.forEach(request=>{div.innerText+=request.url+'\n'})))
 }
 function install(){
