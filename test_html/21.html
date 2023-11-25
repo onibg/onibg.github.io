@@ -4,7 +4,7 @@
 <script>
 fetch('https://lh3.googleusercontent.com/d/1oMC3B7RKyB7PFZrB9103OXlqp5X1Oeua')
 .then(res=>res.blob())
-.then(data=>document.getElementById('size')=data.size)
+.then(data=>document.getElementById('size').innerHTML=data.size)
 .catch(e=>console.log('錯誤',e))
 onload=()=>{
 let a=document.querySelector('div')
