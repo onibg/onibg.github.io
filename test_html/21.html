@@ -5,6 +5,7 @@ fetch('https://lh3.googleusercontent.com/d/1oMC3B7RKyB7PFZrB9103OXlqp5X1Oeua')
 .then(res=>res.blob())
 .then(data=>alert(data.size))
 .catch(e=>console.log('錯誤',e))
-let a=document.querySelector('div').innerText
+let a=document.querySelector('div')
+a.innerText+='\nabc'
 alert('成功')
 </script>
