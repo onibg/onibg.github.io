@@ -7,14 +7,15 @@ img{display:block}
 <h2></h2>
 <h3></h3>
 <b></b>
-<p onclick="handle()">react native 6<div></div></p>
+<p onclick="handle1()">react native 6<div></div></p>
+<p onclick="handle1()">show mjpg Cache<div></div></p>
 <button onclick="caches.delete('CacheFirst')">CacheFirst</button>
 <img src='https://wbjon.csb.app/單車站1.png'>
 <img src='https://wbjon.csb.app/單車站2.png'>
 <img src='https://wbjon.csb.app/單車站3.png'>
 <img src='https://wbjon.csb.app/單車站E.png'>
 <script>
-function handle(){
+function handle1(){
  let div=document.querySelector('div');div.innerText=''
  caches.open('CacheFirst')
 .then(cache=>cache.keys().then(requests=>requests.forEach(request=>{div.innerText+=request.url+'\n'})))
