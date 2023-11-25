@@ -7,12 +7,12 @@ span{color:yellow}
 <div onclick="handle()">按我變色</div>
 <div>時間：<span></span></div>
 <script>
+ const s=document.querySelector('span')
 function handle(){
  document.querySelector('div').style.color='lime'
  console.log(new Date())
 }
 setInterval(()=>{
- const s=document.querySelector('span')
  s.innerText=new Date()
 
 },100)
