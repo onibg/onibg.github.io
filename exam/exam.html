@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <base href="https://simtest.zooe.com.tw"><!--我加-->
+    <meta charset="utf-8">
+    <title>110學年度模擬會考查榜系統</title>
+    <meta name="keywords" content="網站關鍵字">
+    <meta name="description" content="網站內容">
+    <!--判別-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/layout/User/images/logo-icon.ico">
+    <!--bootstrap-->
+    <link href="/layout/User/css/bootstrap.min.css" rel="stylesheet">
+    <!--css-->
+    <link href="/layout/User/css/style.css" rel="stylesheet">
+    <link href="/layout/User/css/style-responsive.css" rel="stylesheet">
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/earlyaccess/notosanstc.css" rel="stylesheet">
+    <link href="/layout/Admin/fontawesome/all.min.css" rel="stylesheet">
+    <!--sweetalert-->
+    <link href="/lib/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+
+
+<div class="page-body">
+
+    <!--======= Star 標題logo =======-->
+    <header class="header">
+        <div class="logo"></div>
+        <div class="logo-text">模擬教育會考《307班》查榜</div>
+    </header>
+    <!--======= End 標題logo =======-->
+    <!--======= Star 內容框 =======-->
+    <section class="container page">
+
+        <!----- 標題 ----->
+        <div class="title-box">
+            <!--麵包屑-->
+            <ul class="path m-0">
+                <li class="d-flex"><a><img src="/layout/User/images/icon/home.png">班級成績單表</a></li>
+            </ul>
+            <!--訊息-->
+            <div class="message">
+                <span></span><span>班級成績單表</span><!--我加-->
+                <button id="btn-logout" type="button" class="btn btn-light">
+                    登出
+                </button>
+            </div>
+        </div>
+
+        <!----- 內容 ----->
+        <div class="content class">
+            <!--上方-->
+            <div class="download">
+                <a id="btn-usemanual"><img src="/layout/User/images/icon/book.png">使用指南</a>
+                <a id="btn-download-data"><img src="/layout/User/images/icon/download.png">下載各科解析</a><!--我加-->
+            </div>
+            <!--選單-->
+            <label class="page-title"></label>
+            <select id="class" class="form-control">
+            </select>
+            <select id="mockid" class="form-control">
+            </select>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="Check1">
+                <label class="form-check-label" for="Check1">勾選顯示5A學員成績表(台中區 5A 人數0)</label>
+            </div>
+            <!--按鈕-->
+            <div class="button-active">
+                <button id="btn-download" type="button" class="btn btn-yellow">下載全部答案</button><!--我加-->
+                <button id="btn-download-score" type="button" class="btn btn-yellow">成績匯出</button>
+            </div>
+            <!--人數/比數-->
+            <div class="number-box">
+                <div class="number-people">台中區報考人數:<span></span>人</div>
+                <div class="number-data">
+                    <label>筆數:</label>
+                    <select id="student-page-size" class="form-control">
+                        <option>20</option>
+                        <option>50</option>
+                        <option>100</option>
+                    </select>
+                </div>
+            </div>
+            <!--表格-->
+            <div id="student-table" class="table">
+            </div>
+
+            <!--頁數-->
+            <div class="page-box d-flex">
+                <div class="title">
+                </div>
+                <div class="number">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--======= End 內容框 =======-->
+    <!--======= Star footer =======-->
+    <footer>
+    </footer>
+    <!--======= End footer =======-->
+
+</div>
+
+<!--======= Star 詳細資訊-視窗 =======-->
+<div class="modal fade" id="content" tabindex="-1" aria-labelledby="contentLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="contentLabel">學員姓名:</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close" data-dismiss="modal">關閉</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--======= End 詳細資訊-視窗 =======-->
+<!--======= Start 匯出設定-視窗 =======-->
+<div class="modal fade" id="export-modal" tabindex="-1" aria-labelledby="studentLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">匯出設定</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <select id="column" class="form-control">
+                    <option value="學號">學號</option>
+                    <option value="成績">成績</option>
+                </select>
+                <select id="sort" class="form-control">
+                    <option value="asc">低至高</option>
+                    <option value="desc">高至低</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-export-score" type="button" class="btn btn-confirm">匯出</button>
+                <button type="button" class="btn btn-close" data-dismiss="modal">關閉</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--======= End 匯出設定-視窗 =======-->
+
+
+
+    <!--bootstrap js-->
+    <script src="/layout/User/js/jquery-3.4.1.min.js"></script>
+    <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/layout/User/js/popper.min.js"></script>
+    <script src="/layout/User/js/bootstrap.min.js"></script>
+    <!--Chart-->
+    <script src="/lib/chart/Chart.min.js"></script>
+    <script src="/lib/chart/utils.js"></script>
+
+    <!--sweetalert-->
+    <script src="/lib/sweetalert2/dist/sweetalert2.min.js"></script>
+
+    <script src="/layout/User/js/main.js"></script>
+    <script src="/js/simart.namespace.js"></script>
+
+
+    <script src="/api/User/simart.schoolapi.js"></script>
+    <script src="/api/User/simart.mockapi.js"></script>
+    <script src="/api/User/simart.websettingapi.js"></script>
+    <script>//我加
+     var cookie='examrank=CfDJ8CEOb6hd1%2F9FsPezvKY744dRyaULyzSRbrBjdT9sITiHYCaOtKd7%2F1knYakzBRyh5UfhYAnYp1zJJDBqfWd1y%2B6r9zSxZVw3vnO7TecSWbFSQ87MVmqisfuAQ3qYjknrFTTjFirM3HYfS6Z60t4Rp5QpNR0mo0posxmA%2B1Rig7TN'
+     simart.apiUrl=simart.apiUrl.replace('simtest.zooe.com.tw','cors.oa.repl.co/simtest.zooe.com.tw:443')
+     XMLHttpRequest.prototype._open=XMLHttpRequest.prototype.open
+     XMLHttpRequest.prototype.open=function(method,url,async){
+    //url=url.replace('simtest.zooe.com.tw','cors.oa.repl.co/simtest.zooe.com.tw:443')//上3行搞定
+      url+='&cookie='+cookie
+      this._open(method,url,async)
+     }
+     document.querySelector('button').remove()
+     document.querySelector('#btn-usemanual').remove()
+     document.querySelector('.d-flex').remove()
+     document.querySelector('footer').remove()
+    </script>
+    <script>
+        $(document).ready(function () {
+            let numberOfApplicants = 28416;//let numberOfApplicants = 10009;
+            //記錄頁碼資訊
+            let pageOpt = {};
+
+            getWebSetting();
+            getClass();
+
+            $(document).on('click', '#btn-logout', function () {
+                location.href = simart.apiUrl + 'Logout';
+            });
+
+            $(document).on('click', '#btn-usemanual', function () {
+                let a = document.createElement('a');
+                a.href = simart.apiUrl + "系統使用說明.html";
+                //添加a物件至html
+                document.body.appendChild(a);
+                //觸發click事件
+                a.click();
+                //刪除a物件
+                document.body.removeChild(a);
+            });
+
+            $(document).on('click', '#btn-download-data', function () {
+            //location.href = simart.apiUrl + '資料下載區.html';
+              location.href = 'https://onibg.csb.app/exam/solution.htm?'+cookie;//我加
+            });
+
+            //查看學生成績
+            $(document).on('click', '.btn-get-student', function () {
+                let studentId = $(this).closest('ul').data('id');
+
+              //location.href = simart.apiUrl + 'Transcript/' + studentId;
+                location.href = 'https://onibg.csb.app/exam/exam~.htm?'+studentId+'&'+cookie;//我加
+            });
+
+            //查看學生成績
+            $(document).on('click', '.btn-green', function () {
+                let studentId = $(this).closest('ul').data('id');
+
+              //location.href = simart.apiUrl + 'Transcript/' + studentId;
+                location.href = 'https://onibg.csb.app/exam/exam~.htm?'+studentId+'&'+cookie;//我加
+            });
+
+            //查看學生資訊
+            $(document).on('click', '.btn-gray', function () {
+                let datas = $(this).closest('ul').data();
+                let studentId = datas.id;
+                let studentClass = datas.class;
+                let studentNo = datas.studentno;
+                let studentName = datas.studentname;
+
+                simart.api.mock.getStudentMockScore(studentId, $('#mockid').val(), function (result) {
+                    let html = '';
+                    html += '<ul class="modal-class">';
+                    html += '   <li>班級</li>';
+                    html += '   <li>' + studentClass + '</li>';
+                    html += '   <li>學號</li>';
+                    html += '   <li>' + studentNo + '</li>';
+                    html += '   <li>學員姓名</li>';
+                    html += '   <li>' + studentName + '</li>';
+                    html += '   <li>國文</li>';
+                    html += '   <li>' + result.sub01 + '</li>';
+                    html += '   <li>英文</li>';
+                    html += '   <li>' + result.engLevel + '</li>';
+                    html += '   <li>數學</li>';
+                    html += '   <li>' + result.mathLevel + '</li>';
+                    html += '   <li>自然</li>';
+                    html += '   <li>' + result.sub04 + '</li>';
+                    html += '   <li>社會</li>';
+                    html += '   <li>' + result.sub05 + '</li>';
+                    html += '   <li>等級總分</li>';
+                    html += '   <li>' + result.totalFraction + '</li>';
+                    html += '   <li>成績總分</li>';
+                    html += '   <li>' + result.totalIntegral + '</li>';
+                    html += '   <li>班排名</li>';
+                    html += '   <li>' + result.pos13 + '</li>';
+                    html += '   <li>校排名</li>';
+                    html += '   <li>' + result.pos23 + '</li>';
+                    html += '   <li>區排名</li>';
+                    html += '   <li>' + result.pos33 + '</li>';
+                    html += '</ul>';
+
+                    $('#contentLabel').text(studentName);
+                    $('#content div.modal-body').html(html);
+                    $('#content').modal('show');
+                });
+            });
+
+            $(document).on('change', '#class', function () {
+                getPagination($('#Check1').prop('checked'), $('#mockid').val(), $('#class').val(), 1, $('#student-page-size').val());
+            });
+
+            $(document).on('change', '#mockid', function () {
+                getSchool($('#mockid').val());
+                getPagination($('#Check1').prop('checked'), $('#mockid').val(), $('#class').val(), 1, $('#student-page-size').val());
+            });
+
+            //勾選5A人數
+            $(document).on('change', '#Check1', function () {
+                getPagination($(this).prop('checked'), $('#mockid').val(), $('#class').val(), 1, $('#student-page-size').val());
+            });
+
+            //資料數
+            $(document).on('change', '#student-page-size', function () {
+                getPagination($('#Check1').prop('checked'), $('#mockid').val(), $('#class').val(), 1, $('#student-page-size').val());
+            });
+
+            $(document).on('click', '#btn-download', function () {
+                let a = document.createElement('a');
+                a.href = simart.apiUrl + "Mock/Answer/Download/" + $('#mockid').val()+'?cookie='+cookie;//我加
+                //添加a物件至html
+                document.body.appendChild(a);
+                //觸發click事件
+                a.click();
+                //刪除a物件
+                document.body.removeChild(a);
+            });
+
+            $(document).on('click', '#btn-download-score', function () {
+                $('#export-modal').modal('show');
+            });
+
+            $(document).on('click', '#btn-export-score', function () {
+              let a = document.createElement('a');
+                a.href = simart.apiUrl + "Mock/Score/Download/" + $('#mockid').val() + '/' + $('#class').val() + '/' + $('#column').val() + '/' + $('#sort').val()+'?cookie='+cookie;//我加
+                //添加a物件至html
+                document.body.appendChild(a);
+                //觸發click事件
+                a.click();
+                //刪除a物件
+                document.body.removeChild(a);
+
+                $('#export-modal').modal('hide');
+            });
+
+            function getSchool(mockId) {
+                simart.api.school.getInfo(mockId, function (result) {
+                    console.log(result);
+                    $('label.page-title').text(result.school + "：");
+                    $('label.form-check-label').text('勾選顯示5A學員成績表(台中區 5A 人數' + result.excellentCount + ')');
+                  //$('div.number-people span').text(result.mockCount);
+                    $('div.number-people span').text(numberOfApplicants);
+                });
+            }
+
+            function getClass() {
+                simart.api.school.getClass(function (result) {
+                    let html = '';
+                    $.each(result, function (idx, val) {
+                        html += '<option value="' + val + '">' + val + '</option>';
+                    });
+                    $('#class').html(html);
+                    getMock();
+                });
+            }
+
+            function getMock() {
+                simart.api.mock.getByStudent(function (result) {
+                    let html = '';
+                    $.each(result, function (idx, mock) {
+                        html += '<option value="' + mock.mockId + '">' + mock.reportName + '</option>';
+                    });
+                    $('#mockid').html(html);
+
+                    getSchool($('#mockid').val());
+                    getPagination($('#Check1').prop('checked'), $('#mockid').val(), $('#class').val(), 1, $('#student-page-size').val());
+                });
+            }
+
+            function getPagination(isExcellent, mockId, schoolClass, page, pageSize) {
+                simart.api.mock.getPagination(isExcellent, mockId, schoolClass, page, pageSize, function (result) {
+                    let html = '';
+                    html += '<ul class="thead">';
+                    html += '   <li>班級</li>';
+                    html += '   <li>學號</li>';
+                    html += '   <li>學員姓名</li>';
+                    html += '   <li>國文</li>';
+                    html += '   <li>英文</li>';
+                    html += '   <li>數學</li>';
+                    html += '   <li>自然</li>';
+                    html += '   <li>社會</li>';
+                    html += '   <li>等級總分</li>';
+                    html += '   <li>成績總分</li>';
+                    html += '   <li>班排名</li>';
+                    html += '   <li>校排名</li>';
+                    html += '   <li>區排名</li>';
+                    html += '</ul>';
+                    //資料
+                    $.each(result.data, function (idx, val) {
+                        html += '<ul data-id="' + val.studentId + '" data-studentNo="' + val.studentNo +
+                            '" data-studentName="' + val.studentName + '" data-class="' + val.class + '">';
+                        html += '   <li data-title="班級">' + val.class + '</li>';
+                        html += '   <li data-title="學號"><a class="btn-get-student">' + val.studentNo + '</a></li>';
+                        html += '   <li data-title="學員姓名">' + val.studentName + '</li>';
+                        html += '   <li class="d-lg-block d-none">' + val.sub01 + '</li>';
+                        html += '   <li class="d-lg-block d-none">' + val.engLevel + '</li>';
+                        html += '   <li class="d-lg-block d-none">' + val.mathLevel + '</li>';
+                        html += '   <li class="d-lg-block d-none">' + val.sub04 + '</li>';
+                        html += '   <li class="d-lg-block d-none">' + val.sub05 + '</li>';
+                        html += '   <li class="d-lg-block d-none">' + val.totalFraction + '</li>';
+                        html += '   <li class="d-lg-block d-none">' + val.totalIntegral + '</li>';
+                        html += '   <li class="d-lg-block d-none">' + val.pos13 + '</li>';
+                        html += '   <li class="d-lg-block d-none">' + val.pos23 + '</li>';
+                        html += '   <li class="d-lg-block d-none">' + val.pos33 + '</li>';
+                        html += '   <li class="class-active d-lg-none block"><li class="class-active d-lg-none block">';
+                        html += '       <button data-title="詳細資訊" type="button" class="btn btn-gray">';
+                        html += '           <img src="' + simart.apiUrl + 'layout/User/images/icon/icon01.png">';
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '   <li class="class-active d-lg-none block">';
+                        html += '       <button data-title="成績單" type="button" class="btn btn-green">';
+                        html += '           <img src="' + simart.apiUrl + 'layout/User/images/icon/icon02.png">';
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '</ul>';
+                    });
+
+                    $('#student-table').html(html);
+                    //頁碼訊息
+                    $('div.title').html(result.message);
+                    simart.createPage('div.number', result.data, result.page, result.pageCount);
+
+                    pageOpt = {
+                        page: result.page,
+                        pageCount: result.pageCount
+                    }
+                });
+            }
+
+            function getWebSetting() {
+                simart.api.websetting.getSingle(function (result) {
+                    let html = '';
+                    //客服電話
+                    html += '<a href="tel:' + result.serviceTel + '">客服電話：' + result.serviceTel + '</a>';
+                    //客服時間
+                    let serviceTimes = result.serviceTime.split('\n');
+                    html += '客服時間：';
+                    $.each(serviceTimes, function (idx, serviceTime) {
+                        if (idx === 0) {
+                            html += serviceTime;
+                        } else {
+                            html += '，' + serviceTime;
+                        }
+                    });
+                    //學年度
+                    $('div.logo').html(result.title);
+
+                    $('footer').html(html);
+                });
+            }
+
+            //頁碼
+            $(document).on('click', '.btn-page-number', function () {
+                if ($(this).hasClass('active') === false) {
+                    getPagination(false, $('#mockid').val(), $('#class').val(), $(this).text(), $('#student-page-size').val());
+                }
+            });
+
+            //首頁
+            $(document).on('click', '.btn-first', function () {
+                //取得頁碼
+                pageOpt.page = 1;
+
+                getPagination(false, $('#mockid').val(), $('#class').val(), pageOpt.page, $('#student-page-size').val());
+            });
+
+            //上一頁
+            $(document).on('click', '.btn-prev', function () {
+                //取得頁碼
+                if (pageOpt.page > 1) {
+                    pageOpt.page = pageOpt.page - 1;
+                }
+
+                getPagination(false, $('#mockid').val(), $('#class').val(), pageOpt.page, $('#student-page-size').val());
+            });
+
+            //下一頁
+            $(document).on('click', '.btn-next', function () {
+                //取得頁碼
+                if (pageOpt.page + 1 <= pageOpt.pageCount) {
+                    pageOpt.page = pageOpt.page + 1;
+                }
+
+                getPagination(false, $('#mockid').val(), $('#class').val(), pageOpt.page, $('#student-page-size').val());
+            });
+
+            //尾頁
+            $(document).on('click', '.btn-last', function () {
+                //取得頁碼
+                pageOpt.page = pageOpt.pageCount;
+
+                getPagination(false, $('#mockid').val(), $('#class').val(), pageOpt.page, $('#student-page-size').val());
+            });
+        });
+    </script>
+
+</body>
+</html>

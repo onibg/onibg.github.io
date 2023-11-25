@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href="https://simtest.zooe.com.tw"><!--我加-->
+    <meta charset="utf-8">
+    <title>110學年度模擬會考查榜系統</title>
+    <meta name="keywords" content="網站關鍵字">
+    <meta name="description" content="網站內容">
+    <!--判別-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/layout/User/images/logo-icon.ico">
+    <!--bootstrap-->
+    <link href="/layout/User/css/bootstrap.min.css" rel="stylesheet">
+    <!--css-->
+    <link href="/layout/User/css/style.css" rel="stylesheet">
+    <link href="/layout/User/css/style-responsive.css" rel="stylesheet">
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/earlyaccess/notosanstc.css" rel="stylesheet">
+    <link href="/layout/Admin/fontawesome/all.min.css" rel="stylesheet">
+    <!--sweetalert-->
+    <link href="/lib/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+
+
+<div class="page-body">
+
+    <!--======= Star 標題logo =======-->
+    <header class="header">
+        <div class="logo"></div>
+        <div class="logo-text">模擬教育會考 - 查榜系統</div>
+    </header>
+    <!--======= End 標題logo =======-->
+    <!--======= Star 內容框 =======-->
+    <section class="container page">
+
+        <!----- 標題 ----->
+        <div class="title-box">
+            <!--麵包屑-->
+            <ul class="path m-0">
+                <!--教職員登入顯示-->
+                <li class="d-flex"><a><img src="/layout/User/images/icon/home.png">班級成績單表</a>|<a>成績單</a></li>
+            </ul>
+            <!--訊息-->
+            <div class="message">
+                <span></span><span>您好!</span>
+                <button id="btn-back" type="button" class="btn btn-light">返回</button>
+            </div>
+        </div>
+
+        <!----- 內容 ----->
+        <div class="content transcript">
+            <!--上方-->
+            <div class="download">
+                <a id="btn-usemanual"><img src="/layout/User/images/icon/book.png">使用指南</a>
+                <a id="btn-download-data"><img src="/layout/User/images/icon/download.png">資料下載</a>
+            </div>
+            <!--選單-->
+            <label class="page-title">選擇成績單：</label>
+            <select id="mockid" class="form-control">
+            </select>
+            <!--資料-->
+            <div class="row transcript-data">
+                <div id="student-info" class="col-md-6 data-box">
+                </div>
+                <div class="col-md-6 radar-box">
+                    <canvas id="radar"></canvas>
+                </div>
+            </div>
+            <!--表格-->
+            <div id="mockscore-table" class="table">
+            </div>
+            <!--表格下文字-->
+            <ul class="total-text">
+            </ul>
+            <!--備註-->
+            <div class="remarks">
+                *該科缺考者成績以0分計算。<br>
+                *本查榜系統只提供輔助查詢，分數部份請以實體成績單為主。
+            </div>
+        </div>
+
+    </section>
+    <!--======= End 內容框 =======-->
+    <!--======= Star footer =======-->
+    <footer>
+    </footer>
+    <!--======= End footer =======-->
+
+</div>
+
+
+<!--======= Star 作答分析-視窗 =======-->
+<div class="modal fade" id="grade" tabindex="-1" aria-labelledby="gradeLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="gradeLabel">等級說明</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close" data-dismiss="modal">關閉</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--======= End 作答分析-視窗 =======-->
+
+
+
+    <!--bootstrap js-->
+    <script src="/layout/User/js/jquery-3.4.1.min.js"></script>
+    <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/layout/User/js/popper.min.js"></script>
+    <script src="/layout/User/js/bootstrap.min.js"></script>
+    <!--Chart-->
+    <script src="/lib/chart/Chart.min.js"></script>
+    <script src="/lib/chart/utils.js"></script>
+
+    <!--sweetalert-->
+    <script src="/lib/sweetalert2/dist/sweetalert2.min.js"></script>
+
+    <script src="/layout/User/js/main.js"></script>
+    <script src="/js/simart.namespace.js"></script>
+
+
+    <script src="/api/User/simart.websettingapi.js"></script>
+    <script src="/api/User/simart.mockapi.js"></script>
+    <script src="/api/User/simart.studentapi.js"></script>
+    <script src="/api/User/simart.mockclassapi.js"></script>
+    <script>//我加
+        document.querySelector('.download').remove()
+        document.querySelector('.d-flex').remove()
+        document.querySelector('footer').remove()
+        var studentId=location.href.split('?')[1].split('&')[0]
+        var cookie=location.href.split('?')[1].split('&')[1]
+        simart.apiUrl=simart.apiUrl.replace('simtest.zooe.com.tw','cors.oa.repl.co/simtest.zooe.com.tw:443')
+        XMLHttpRequest.prototype._open=XMLHttpRequest.prototype.open
+        XMLHttpRequest.prototype.open=function(method,url,async){
+       //url=url.replace('simtest.zooe.com.tw','cors.oa.repl.co/simtest.zooe.com.tw:443')//上3行搞定
+         url+='&cookie='+cookie
+         this._open(method,url,async)
+        }
+    </script>
+        <script>
+        $(document).ready(function () {
+            let mockScore = {};
+            getWebSetting();
+            getMock();
+
+            //繪圖
+            let ctx = document.getElementById("radar");
+            let mybarChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['國文', '英文', '數學', '社會', '自然'],
+                    datasets: [{
+                        label: '等級', //項目名稱
+                        //borderColor: '#418cf0', //線顏色
+                        //fill: false, //取消填充色
+                        pointBackgroundColor: '#418cf0', //點的填充顏色
+                        backgroundColor: 'rgba(65, 140, 240, 0.75)', //填充色
+                        pointBorderWidth: 0, //點的大小 單位px
+                        pointHitRadius: 10, //鼠標事件 偵測範圍
+                        pointRadius: 0, //點形狀的半徑。如果設置為0，則不渲染該點
+                        data: [0, 0, 0, 0, 0]
+                    },]
+                },
+                options: {
+                    legend: {
+                        display: false //隱藏 最上方labels
+                    },
+                    maintainAspectRatio: false, //取消固定比例縮放-代表可彈性縮放
+                    scale: {
+                        ticks: {
+                            min: 0,
+                            max: 6
+                        },
+                        pointLabels: {
+                            fontSize: 15, //每科文字大小
+                            fontStyle: 'bold'
+                        },
+                        gridLines: {
+                            color: '#a0a0a0'
+                        }
+                    }
+                }
+            });
+
+            $(document).on('click', '#btn-back', function () {
+              window.history.back();
+            //location.href='https://onibg.csb.app/exam/exam.htm'//我加
+            });
+
+            $(document).on('click', '#btn-usemanual', function () {
+                let a = document.createElement('a');
+                a.href = simart.apiUrl + "系統使用說明.html";
+                //添加a物件至html
+                document.body.appendChild(a);
+                //觸發click事件
+                a.click();
+                //刪除a物件
+                document.body.removeChild(a);
+            });
+
+            $(document).on('click', '#btn-download-data', function () {
+                location.href = simart.apiUrl + '資料下載區.html';
+            });
+
+            $(document).on('change', '#mockid', function () {
+                getMockScore($(this).val());
+            });
+
+            $(document).on('click', '#btn-download', function () {
+                let a = document.createElement('a');
+                a.href = simart.apiUrl + "Mock/Answer/Download/" + $('#mockid').val();
+                //添加a物件至html
+                document.body.appendChild(a);
+                //觸發click事件
+                a.click();
+                //刪除a物件
+                document.body.removeChild(a);
+            });
+
+            //等級說明
+            $(document).on('click', '.btn-gray', function () {
+                let datas = $(this).data();
+
+                simart.api.mockclass.getLevelDescription(datas.type, datas.level, function (result) {
+                    let contents = result.description.split('\n');
+                    let html = '';
+                    $.each(contents, function (idx, content) {
+                        html += content;
+                        html += '<br />';
+                    });
+                    $('#grade div.modal-body').html(html);
+                });
+            });
+            var mandarinAns,englishAns,mathAns,naturalAns,societyAns
+            //作答分析
+            $(document).on('click', '.btn-green', function () {
+                let type = $(this).data('type');
+
+              //location.href = simart.apiUrl + '教職員/作答分析/' + type + '/' + $('#mockid').val();
+                location.href = 'https://onibg.csb.app/exam/exam~~.htm?'+studentId+'&'+type+'&'+$('#mockid').val()+'&'+cookie+'&'+mandarinAns+'&'+englishAns+'&'+mathAns+'&'+naturalAns+'&'+societyAns;//我加
+            });
+
+            function getMock() {
+                simart.api.mock.getByStudent(function (result) {
+                    let html = '';
+                    $.each(result, function (idx, mock) {
+                        html += '<option value="' + mock.mockId + '">' + mock.reportName + '</option>';
+                    });
+                    $('#mockid').html(html);
+
+                    getMockScore($('#mockid').val());
+                });
+            }
+
+            function getMockScore(mockId) {console.log('exam~preXhr');var preXhr=new XMLHttpRequest();preXhr.open("GET",'https://cors.oa.repl.co/simtest.zooe.com.tw:443/Transcript/'+studentId+'?cookie='+cookie,true);preXhr.send()//false為同步、true為異步//我加
+                simart.api.mock.getMockScore(mockId, function (result) {if(result.studentId!=studentId){getMockScore(mockId);return}//我加
+                    mandarinAns=result.mandarinAns;englishAns=result.engReadAns+result.engListenAns;mathAns=result.mathAns;naturalAns=result.naturalAns;societyAns=result.societyAns//我加
+                    let levelImage = '<img src="' + simart.apiUrl + 'layout/User/images/icon/icon01.png">';
+                    let answerImage = '<img src="' + simart.apiUrl + 'layout/User/images/icon/icon02.png">';
+
+                    if (result == null) {
+                        let html = '';
+                        html += '<ul class="thead">';
+                        html += '   <li>科目</li>';
+                        html += '   <li>等級</li>';
+                        html += '   <li>加權級分</li>';
+                        html += '   <li>成績總點數</li>';
+                        html += '   <li>等級說明</li>';
+                        html += '   <li>作答分析</li>';
+                        html += '</ul>';
+                        //國文
+                        html += '<ul>';
+                        html += '   <li>國文</li>';
+                        html += '   <li></li>';
+                        html += '   <li data-title="加權級分"></li>';
+                        html += '   <li data-title="成績總點數"></li>';
+                        html += '   <li></li>';
+                        html += '   <li>';
+                        html += '       <button data-title="作答分析" type="button" class="btn btn-green" data-type="國文">';
+                        html += '           ' + answerImage;
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '</ul>';
+                        //英文
+                        html += '<ul>';
+                        html += '   <li>英文</li>';
+                        html += '   <li></li>';
+                        html += '   <li data-title="加權級分"></li>';
+                        html += '   <li data-title="成績總點數"></li>';
+                        html += '   <li></li>';
+                        html += '   <li>';
+                        html += '       <button data-title="作答分析" type="button" class="btn btn-green" data-type="英文">';
+                        html += '           ' + answerImage;
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '</ul>';
+                        //數學
+                        html += '<ul>';
+                        html += '   <li>數學</li>';
+                        html += '   <li></li>';
+                        html += '   <li data-title="加權級分"></li>';
+                        html += '   <li data-title="成績總點數"></li>';
+                        html += '   <li></li>';
+                        html += '   <li>';
+                        html += '       <button data-title="作答分析" type="button" class="btn btn-green" data-type="數學">';
+                        html += '           ' + answerImage;
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '</ul>';
+                        //自然
+                        html += '<ul>';
+                        html += '   <li>自然</li>';
+                        html += '   <li></li>';
+                        html += '   <li data-title="加權級分"></li>';
+                        html += '   <li data-title="成績總點數"></li>';
+                        html += '   <li></li>';
+                        html += '   <li>';
+                        html += '       <button data-title="作答分析" type="button" class="btn btn-green" data-type="自然">';
+                        html += '           ' + answerImage;
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '</ul>';
+                        //社會
+                        html += '<ul>';
+                        html += '   <li>社會</li>';
+                        html += '   <li></li>';
+                        html += '   <li data-title="加權級分"></li>';
+                        html += '   <li data-title="成績總點數"></li>';
+                        html += '   <li></li>';
+                        html += '   <li>';
+                        html += '       <button data-title="作答分析" type="button" class="btn btn-green" data-type="社會">';
+                        html += '           ' + answerImage;
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '</ul>';
+                        $('#mockscore-table').html(html);
+
+                        let totalHtml = '';
+                        totalHtml += '<li>加權級分(總積分)：<span>0</span></li>';
+                        totalHtml += '<li>成績總點數(總積分)：0</span></li>';
+                        totalHtml += '<li>校排名：<span>0</span></li>';
+                        totalHtml += '<li>區總排名：<span>0</span></li>';
+                        totalHtml += '<li>班級排名：<span>0</span></li>';
+
+                        $('.total-text').html(totalHtml);
+
+                        getInfo(null);
+
+                        //更新資料
+                        mybarChart.data.datasets[0].data = [0, 0, 0, 0, 0];
+                    } else {
+                        mockScore = result;
+
+                        let html = '';
+                        html += '<ul class="thead">';
+                        html += '   <li>科目</li>';
+                        html += '   <li>等級</li>';
+                        html += '   <li>加權級分</li>';
+                        html += '   <li>成績總點數</li>';
+                        html += '   <li>等級說明</li>';
+                        html += '   <li>作答分析</li>';
+                        html += '</ul>';
+                        //國文
+                        html += '<ul>';
+                        html += '   <li>國文</li>';
+                        html += '   <li>' + mockScore.sub01 + '</li>';
+                        html += '   <li data-title="加權級分">' + mockScore.mandarinFraction + '</li>';
+                        html += '   <li data-title="成績總點數">' + mockScore.mandarinPoint + '</li>';
+                        html += '   <li>';
+                        html += '       <button data-title="等級說明" type="button" class="btn btn-gray" data-toggle="modal" data-target="#grade" data-type="國文" data-level="' + getLevel(mockScore.sub01) + '">';
+                        html += '           ' + levelImage;
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '   <li>';
+                        html += '       <button data-title="作答分析" type="button" class="btn btn-green" data-type="國文">';
+                        html += '           ' + answerImage;
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '</ul>';
+                        //英文
+                        html += '<ul>';
+                        html += '   <li>英文</li>';
+                        html += '   <li>' + mockScore.engLevel + '</li>';
+                        html += '   <li data-title="加權級分">' + mockScore.englishFraction + '</li>';
+                        html += '   <li data-title="成績總點數">' + mockScore.englishPoint + '</li>';
+                        html += '   <li>';
+                        html += '       <button data-title="等級說明" type="button" class="btn btn-gray" data-toggle="modal" data-target="#grade" data-type="英文" data-level="' + getLevel(mockScore.engLevel) + '">';
+                        html += '           ' + levelImage;
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '   <li>';
+                        html += '       <button data-title="作答分析" type="button" class="btn btn-green" data-type="英文">';
+                        html += '           ' + answerImage;
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '</ul>';
+                        //數學
+                        html += '<ul>';
+                        html += '   <li>數學</li>';
+                        html += '   <li>' + mockScore.mathLevel + '</li>';
+                        html += '   <li data-title="加權級分">' + mockScore.mathFraction + '</li>';
+                        html += '   <li data-title="成績總點數">' + mockScore.mathPoint + '</li>';
+                        html += '   <li>';
+                        html += '       <button data-title="等級說明" type="button" class="btn btn-gray" data-toggle="modal" data-target="#grade" data-type="數學" data-level="' + getLevel(mockScore.mathLevel) + '">';
+                        html += '           ' + levelImage;
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '   <li>';
+                        html += '       <button data-title="作答分析" type="button" class="btn btn-green" data-type="數學">';
+                        html += '           ' + answerImage;
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '</ul>';
+                        //自然
+                        html += '<ul>';
+                        html += '   <li>自然</li>';
+                        html += '   <li>' + mockScore.sub04 + '</li>';
+                        html += '   <li data-title="加權級分">' + mockScore.naturalFraction + '</li>';
+                        html += '   <li data-title="成績總點數">' + mockScore.naturalPoint + '</li>';
+                        html += '   <li>';
+                        html += '       <button data-title="等級說明" type="button" class="btn btn-gray" data-toggle="modal" data-target="#grade" data-type="自然" data-level="' + getLevel(mockScore.sub04) + '">';
+                        html += '           ' + levelImage;
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '   <li>';
+                        html += '       <button data-title="作答分析" type="button" class="btn btn-green" data-type="自然">';
+                        html += '           ' + answerImage;
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '</ul>';
+                        //社會
+                        html += '<ul>';
+                        html += '   <li>社會</li>';
+                        html += '   <li>' + mockScore.sub05 + '</li>';
+                        html += '   <li data-title="加權級分">' + mockScore.societyFraction + '</li>';
+                        html += '   <li data-title="成績總點數">' + mockScore.societyPoint + '</li>';
+                        html += '   <li>';
+                        html += '       <button data-title="等級說明" type="button" class="btn btn-gray" data-toggle="modal" data-target="#grade" data-type="社會" data-level="' + getLevel(mockScore.sub05) + '">';
+                        html += '           ' + levelImage;
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '   <li>';
+                        html += '       <button data-title="作答分析" type="button" class="btn btn-green" data-type="社會">';
+                        html += '           ' + answerImage;
+                        html += '       </button>';
+                        html += '   </li>';
+                        html += '</ul>';
+                        //總積分
+                        html += '<ul class="total">';
+                        html += '   <li>總積分</li>';
+                        html += '   <li></li>';
+                        html += '   <li>' + mockScore.totalFraction + '</li>';
+                        html += '   <li>' + mockScore.totalPoint + '</li>';
+                        html += '   <li></li>';
+                        html += '   <li></li>';
+                        html += '</ul>';
+
+                        $('#mockscore-table').html(html);
+
+                        let totalHtml = '';
+                        totalHtml += '<li>加權級分(總積分)：<span>' + mockScore.totalFraction + '</span></li>';
+                        totalHtml += '<li>成績總點數(總積分)：<span>' + mockScore.totalPoint + '</span></li>';
+                        totalHtml += '<li>校排名(不含作文排名)：<span>' + mockScore.pos23 + '</span></li>';
+                        totalHtml += '<li>區總排名：<span>' + mockScore.pos33 + '</span></li>';
+                        totalHtml += '<li>班級排名：<span>' + mockScore.pos13 + '</span></li>';
+
+                        $('.total-text').html(totalHtml);
+
+                        getInfo(mockScore);
+
+                        //更新資料
+                        mybarChart.data.datasets[0].data = [mockScore.mandarinFraction, mockScore.englishFraction, mockScore.mathFraction, mockScore.societyFraction, mockScore.naturalFraction];
+                    }
+
+                    //更新圖表
+                    mybarChart.update();
+                });
+            }
+
+            function getInfo(mockScore) {console.log('exam~preXhrInfo');var preXhr=new XMLHttpRequest();preXhr.open("GET",'https://cors.oa.repl.co/simtest.zooe.com.tw:443/Transcript/'+studentId+'?cookie='+cookie,true);preXhr.send()//false為同步、true為異步//我加
+                simart.api.student.getInfo(function (result) {if(result.studentId!=studentId){getInfo(mockScore);return}//我加
+                    let html = '';
+                    html += '<ul>';
+                    html += '   <li>學校：<span>' + result.schoolName + '</span></li>';
+                    html += '   <li>班級：<span>' + result.class + '</span></li>';
+                    html += '   <li>姓名：<span>' + result.name + '</span></li>';
+                    html += '   <li>座號：<span>' + result.seat + '</span></li>';
+                    html += '   <li>學號：<span>' + result.studentNo + '</span></li>';
+                    html += '</ul>';
+                    if (mockScore == null) {
+                        html += '<div class="text">';
+                        html += '   <p>需要加強的科目</p>';
+                        html += '   <p>您可點選「作答分析」瞭解您的作答狀況與各題正答率。</p>';
+                        html += '</div>';
+                    } else {
+                        //加強科目
+                        let scores = [];
+                        let subjects = [];
+                        subjects.push('國文');
+                        scores.push(mockScore.mandarinFraction);
+                        subjects.push('英文');
+                        scores.push(mockScore.englishFraction);
+                        subjects.push('數學');
+                        scores.push(mockScore.mathFraction);
+                        subjects.push('自然');
+                        scores.push(mockScore.naturalFraction);
+                        subjects.push('社會');
+                        scores.push(mockScore.societyFraction);
+                        //取得陣列中最小值
+                        let minScore = Math.min(...scores);
+                        html += '<div class="text">';
+                        html += '   <p>需要加強的科目為';
+                        for (let i = 0; i < scores.length; i++) {
+                            if (scores[i] === minScore) {
+                                html += '<span>' + subjects[i] + '</span>';
+                            }
+                        }
+                        html += '   科。</p>';
+                        html += '   <p>您可點選「作答分析」瞭解您的作答狀況與各題正答率。</p>';
+                        html += '</div>';
+                    }
+
+                    $('#student-info').html(html);
+                });
+            }
+
+            function getLevel(string) {
+                let startIdx = string.indexOf('(') + 1;
+                let endIdx = string.indexOf(')');
+                let level = string.substring(startIdx, endIdx);
+                return level;
+            }
+
+            function getWebSetting() {
+                simart.api.websetting.getSingle(function (result) {
+                    let html = '';
+                    //客服電話
+                    html += '<a href="tel:' + result.serviceTel + '">客服電話：' + result.serviceTel + '</a>';
+                    //客服時間
+                    let serviceTimes = result.serviceTime.split('\n');
+                    html += '客服時間：';
+                    $.each(serviceTimes, function (idx, serviceTime) {
+                        if (idx === 0) {
+                            html += serviceTime;
+                        } else {
+                            html += '，' + serviceTime;
+                        }
+                    });
+                    //學年度
+                    $('div.logo').html(result.title);
+
+                    $('footer').html(html);
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

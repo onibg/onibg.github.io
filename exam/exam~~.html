@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href="https://simtest.zooe.com.tw"><!--我加-->
+    <meta charset="utf-8">
+    <title>110學年度模擬會考查榜系統</title>
+    <meta name="keywords" content="網站關鍵字">
+    <meta name="description" content="網站內容">
+    <!--判別-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/layout/User/images/logo-icon.ico">
+    <!--bootstrap-->
+    <link href="/layout/User/css/bootstrap.min.css" rel="stylesheet">
+    <!--css-->
+    <link href="/layout/User/css/style.css" rel="stylesheet">
+    <link href="/layout/User/css/style-responsive.css" rel="stylesheet">
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/earlyaccess/notosanstc.css" rel="stylesheet">
+    <!--<link href="/layout/Admin/fontawesome/all.min.css" rel="stylesheet">-->
+    <link href="https://cors.oa.repl.co/simtest.zooe.com.tw:443/layout/Admin/fontawesome/all.min.css" rel="stylesheet"><!--我加-->
+    <!--sweetalert-->
+    <link href="/lib/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+
+
+<div class="page-body">
+
+    <!--======= Star 標題logo =======-->
+    <header class="header">
+        <div class="logo"></div>
+        <div class="logo-text">模擬教育會考 - 查榜系統</div>
+    </header>
+    <!--======= End 標題logo =======-->
+    <!--======= Star 內容框 =======-->
+    <section class="container page">
+
+        <!----- 標題 ----->
+        <div class="title-box">
+            <!--麵包屑-->
+            <ul class="path m-0">
+                <!--教職員登入顯示-->
+                 <li class="d-flex"><a id="btn-go-class"><img src="/layout/User/images/icon/home.png">班級成績單表</a>|<a id="btn-go-score">返回成績單</a>|<!--<a>作答分析</a>--></li><!--我加-->
+            </ul>
+            <!--訊息-->
+            <div class="message">
+                <span></span><span>您好!</span>
+                <button id="btn-logout" type="button" class="btn btn-light">登出</button>
+            </div>
+        </div>
+
+        <!----- 內容 ----->
+        <div class="content answer">
+            <!--上方-->
+            <div class="download">
+                <a id="btn-usemanual"><img src="/layout/User/images/icon/book.png">使用指南</a>
+                <a id="btn-download-data"><img src="/layout/User/images/icon/download.png">資料下載</a>
+            </div>
+            <!--標題-->
+            <label class="page-title">個人作答分析：</label>
+            <!--表格-->
+            <div id="answer-table" class="table">
+                <ul class="thead">
+                    <li>題目編號</li>
+                    <li>答題結果</li>
+                    <li>學員答案</li>
+                    <li>正確答案</li>
+                    <li>知識點</li>
+                </ul>
+            </div>
+            <!--按鈕-->
+            <button id="btn-back" type="button" class="btn btn-secondary back"><i class="fas fa-undo"></i>返回成績單</button>
+        </div>
+
+    </section>
+    <!--======= End 內容框 =======-->
+    <!--======= Star footer =======-->
+    <footer>
+        <a href="tel:0966-486-357">客服電話：0966-483-375</a>
+        客服時間：週一到週五 09:00~20:00，週六早上 11:00~18:00，週日和國定假日休息
+    </footer>
+    <!--======= End footer =======-->
+</div>
+
+
+
+    <!--bootstrap js-->
+    <script src="/layout/User/js/jquery-3.4.1.min.js"></script>
+    <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/layout/User/js/popper.min.js"></script>
+    <script src="/layout/User/js/bootstrap.min.js"></script>
+    <!--Chart-->
+    <script src="/lib/chart/Chart.min.js"></script>
+    <script src="/lib/chart/utils.js"></script>
+
+    <!--sweetalert-->
+    <script src="/lib/sweetalert2/dist/sweetalert2.min.js"></script>
+
+    <script src="/layout/User/js/main.js"></script>
+    <script src="/js/simart.namespace.js"></script>
+
+
+    <script src="/api/User/simart.websettingapi.js"></script>
+    <script src="/api/User/simart.mockapi.js"></script>
+    <script>//我加
+        document.querySelector('button').remove()
+        document.querySelector('.download').remove()
+        document.querySelector('footer').remove()
+        var studentId=location.href.split('?')[1].split('&')[0]
+        var type=decodeURIComponent(location.href.split('?')[1].split('&')[1])
+        var mockid=location.href.split('?')[1].split('&')[2]
+        var cookie=location.href.split('?')[1].split('&')[3]
+        var mandarinAns=location.href.split('?')[1].split('&')[4]
+        var englishAns=location.href.split('?')[1].split('&')[5]
+        var mathAns=location.href.split('?')[1].split('&')[6]
+        var naturalAns=location.href.split('?')[1].split('&')[7]
+        var societyAns=location.href.split('?')[1].split('&')[8]
+        document.querySelector('.page-title').innerHTML+=type.replace(/[^\u0000-\u00FF]/g,function(a){return escape(a).replace(/(%u)(\w{4})/gi,"&#x$2;")})//社會→&#x793E;&#x6703;
+        simart.apiUrl=simart.apiUrl.replace('simtest.zooe.com.tw','cors.oa.repl.co/simtest.zooe.com.tw:443')
+        XMLHttpRequest.prototype._open=XMLHttpRequest.prototype.open
+        XMLHttpRequest.prototype.open=function(method,url,async){
+       //url=url.replace('simtest.zooe.com.tw','cors.oa.repl.co/simtest.zooe.com.tw:443')//上3行搞定
+         url+='&cookie='+cookie
+         this._open(method,url,async)
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            getWebSetting();
+            getMockScore();
+
+            $(document).on('click', '#btn-logout', function () {
+                location.href = simart.apiUrl + 'Logout';
+            });
+
+            $(document).on('click', '#btn-usemanual', function () {
+                let a = document.createElement('a');
+                a.href = simart.apiUrl + "系統使用說明.html";
+                //添加a物件至html
+                document.body.appendChild(a);
+                //觸發click事件
+                a.click();
+                //刪除a物件
+                document.body.removeChild(a);
+            });
+
+            $(document).on('click', '#btn-go-class', function () {
+              //location.href = simart.apiUrl + '班級成績表.html';
+                location.href = 'https://onibg.csb.app/exam/exam.htm'//我加
+            });
+
+            $(document).on('click', '#btn-go-score', function () {
+              window.history.back();
+            //location.href=document.referrer//我加
+            });
+
+            $(document).on('click', '#btn-back', function () {
+              window.history.back();
+            //location.href=document.referrer//我加
+            });
+
+            $(document).on('click', '#btn-download-data', function () {
+                location.href = simart.apiUrl + '資料下載區.html';
+            });
+
+            function getMockScore() {console.log('exam~~preXhr');var preXhr=new XMLHttpRequest(),preXhr1=new XMLHttpRequest();preXhr.open("GET",'https://cors.oa.repl.co/simtest.zooe.com.tw:443/Transcript/'+studentId+'?cookie='+cookie,true);preXhr.send();preXhr1.open("GET",'https://cors.oa.repl.co/simtest.zooe.com.tw:443/教職員/作答分析/'+type+'/'+mockid+'?cookie='+cookie,true);preXhr1.send()//false為同步、true為異步//我加
+                simart.api.mock.getMockAnswer(function (result) {
+                    if(type=='國文'){if(result.student!=mandarinAns){getMockScore();return}}//我加
+               else if(type=='英文'){if(result.student!=englishAns){getMockScore();return}}//我加
+               else if(type=='數學'){if(result.student!=mathAns){getMockScore();return}}//我加
+               else if(type=='自然'){if(result.student!=naturalAns){getMockScore();return}}//我加
+               else if(type=='社會'){if(result.student!=societyAns){getMockScore();return}}//我加
+                    let html = '';
+                    $.each(result.knowLedges, function (idx, knowledge) {
+                        html += '<ul>';
+                        html += '   <li>' + (idx + 1).toString().padStart(3, '0') + '</li>';
+                        if (idx < result.answer.length) {
+                            //判斷是否答題
+                            if (result.student !== '') {
+                                //判斷對錯
+                                if (result.answer.charAt(idx) === result.student.charAt(idx)) {
+                                    html += '   <li data-title="結果"><img src="' + simart.apiUrl + 'layout/User/images/icon/o.png"></li>';
+                                } else {
+                                    html += '   <li data-title="結果"><img src="' + simart.apiUrl + 'layout/User/images/icon/x.png"></li>';
+                                }
+                                html += '   <li data-title="學員">' + result.student.charAt(idx) + '</li>';
+                            } else {
+                                html += '   <li data-title="結果"></li>';
+                                html += '   <li data-title="學員"></li>';
+                            }
+                            html += '   <li data-title="答案">' + result.answer.charAt(idx) + '</li>';
+                            html += '   <li data-title="知識點">' + knowledge.knowLedge + '</li>';
+                            html += '</ul>';
+                        } else {
+                            html += '   <li data-title="結果"></li>';
+                            html += '   <li data-title="學員"></li>';
+                            html += '   <li data-title="答案">' + result.answer.charAt(idx) + '</li>';
+                            html += '   <li data-title="知識點">' + knowledge.knowLedge + '</li>';
+                        }
+                        html += '</ul>';
+                    });
+
+                    $('#answer-table').append(html);
+                });
+            }
+
+            function getWebSetting() {
+                simart.api.websetting.getSingle(function (result) {
+                    let html = '';
+                    //客服電話
+                    html += '<a href="tel:' + result.serviceTel + '">客服電話：' + result.serviceTel + '</a>';
+                    //客服時間
+                    let serviceTimes = result.serviceTime.split('\n');
+                    html += '客服時間：';
+                    $.each(serviceTimes, function (idx, serviceTime) {
+                        if (idx === 0) {
+                            html += serviceTime;
+                        } else {
+                            html += '，' + serviceTime;
+                        }
+                    });
+                    //學年度
+                    $('div.logo').html(result.title);
+
+                    $('footer').html(html);
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
