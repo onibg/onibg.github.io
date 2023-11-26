@@ -1,7 +1,17 @@
 <meta charset="utf-8">
 <input value="text">
 <script>
+const event = new KeyboardEvent('keydown', {
+  key: 'a',
+  code: 'KeyA',
+  keyCode: 65,  // 'A' 鍵的 ASCII 碼
+  which: 65,    // 也是 'A' 鍵的 ASCII 碼
+  shiftKey: false, // 是否按下 Shift 鍵
+  ctrlKey: false,  // 是否按下 Ctrl 鍵
+  // 其他可選的屬性，視需要添加
+});
 var i=document.querySelector('input')
 i.value='hello'
 i.focus()
+i.dispatchEvent(event)
 </script>
