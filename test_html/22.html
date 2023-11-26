@@ -13,5 +13,5 @@ const event = new KeyboardEvent('keydown', {
 var i=document.querySelector('input')
 i.value='hello'
 i.focus()
-i.dispatchEvent(event)
+i.dispatchEvent(new KeyboardEvent('keydown', {'key': 'a'}))
 </script>
