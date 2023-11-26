@@ -23,6 +23,6 @@ document.addEventListener(name, (e) => {console.log(e)})
 var i=document.querySelector('input')
 i.value='hello'
 i.focus()
-//i.dispatchEvent(new KeyboardEvent('keydown', {'key': 'a'}))
-document.dispatchEvent(event)
+i.dispatchEvent(new KeyboardEvent('keydown', {'key': 'a'}))
+//document.dispatchEvent(event)
 </script>
