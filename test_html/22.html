@@ -23,6 +23,6 @@ var event = createKeyboardEvent(name, key, false, false, false, false, true)
 var i=document.querySelector('input')
 i.value='hello'
 i.focus()
-i.dispatchEvent(new KeyboardEvent('keydown', {'key': 'a'}))
-document.dispatchEvent(event)
+//i.dispatchEvent(new KeyboardEvent('keydown', {'key': 'a'}))
+i.dispatchEvent(event)
 </script>
