@@ -23,7 +23,10 @@ try{const res=await fetch('https://api.github.com/users/ruanyf')
 catch(e){console.log('錯誤',e)}
 }
 ;
+
+function kill(){console.log(1234)}
+
 (async()=>{
-await test3()
+await kill()
 console.log('end')})()
 </script>
