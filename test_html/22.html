@@ -1,23 +1,18 @@
 <meta charset="UTF-8">
 <div>測試</div>
-<button onclick="send()">傳送至Aria2</button>
+<button onclick="send(obj)">傳送至Aria2</button>
 <script>
-function send() {
-
-
-
+var obj={}
+obj.link="https://dl-a10b-0862.mypikpak.com/download/?fid=r5iIjc38mF_auidj3r7GqEHzhYk28vA19nKUT8I_bUFOgg16BHWZtMClz-Kxc4vOaxtAiuu2WDjcOy_VKAsNSWDoZzT-vUu_tJ2oJhKlEDU=&from=5&verno=3&prod=1104&expire=1702016370&g=7627BC0FAC1EA87656EB9D3CEA8C1092AB705B39&ui=ZW6OOy8XbL2cm-0G&t=0&ms=6291456&th=6291456&f=2027292831&alt=0&userid=ZW6OOy8XbL2cm-0G&fileid=VNl1Rd_9pIA9KjX6Hn-yBEMmo1&pr=XQPkPvr9WWiIuMvELmrVejlLiAeaIzzgTCHLA36QXORdRj6mG1fzvr5t46Ac3B0SiesnmnJweIhtEmtdiWIdZyax0o2Ws_Rt6CgqG9SpoZIHwdlm5HXyqAHHtBYU4ttzdc0JVo6Tf9jt8wyl1ajUBCW4qHs84LvPaNobWXBSFze9EdNL47Mjbet14QzL7Z1kANDR79Py2G0ijURWGfqrR0PqVO4Oe7p5mqF_TMyxvzTGTS0c3tyBGibTpb2mUxmH9tq9G-44WLfMB8tTJpuVtiLH2yrh5lBW3cjmlHFWE9pk1dGoCvzlNWrG6sFhdhX49s7UR7S50GZcDJ3ybV_oxaEjbsE3rWzdLapCp7W9WEk=&sign=A9584B63CA01764E8CA0FC76B4CA3487"
+obj.name="姚惠文.mkv"
+function send({link,name}){
  var Aria2Token=''
- var DownLoadLink="https://dl-a10b-0862.mypikpak.com/download/?fid=r5iIjc38mF_auidj3r7GqEHzhYk28vA19nKUT8I_bUFOgg16BHWZtMClz-Kxc4vOaxtAiuu2WDjcOy_VKAsNSWDoZzT-vUu_tJ2oJhKlEDU=&from=5&verno=3&prod=1104&expire=1702016370&g=7627BC0FAC1EA87656EB9D3CEA8C1092AB705B39&ui=ZW6OOy8XbL2cm-0G&t=0&ms=6291456&th=6291456&f=2027292831&alt=0&userid=ZW6OOy8XbL2cm-0G&fileid=VNl1Rd_9pIA9KjX6Hn-yBEMmo1&pr=XQPkPvr9WWiIuMvELmrVejlLiAeaIzzgTCHLA36QXORdRj6mG1fzvr5t46Ac3B0SiesnmnJweIhtEmtdiWIdZyax0o2Ws_Rt6CgqG9SpoZIHwdlm5HXyqAHHtBYU4ttzdc0JVo6Tf9jt8wyl1ajUBCW4qHs84LvPaNobWXBSFze9EdNL47Mjbet14QzL7Z1kANDR79Py2G0ijURWGfqrR0PqVO4Oe7p5mqF_TMyxvzTGTS0c3tyBGibTpb2mUxmH9tq9G-44WLfMB8tTJpuVtiLH2yrh5lBW3cjmlHFWE9pk1dGoCvzlNWrG6sFhdhX49s7UR7S50GZcDJ3ybV_oxaEjbsE3rWzdLapCp7W9WEk=&sign=A9584B63CA01764E8CA0FC76B4CA3487"
- var Name='何宏閔.mkv'
- var Aria2_Data = '{"jsonrpc":2,"id":"Kinh-PikPak","method":"system.multicall","params":[[{"methodName":"aria2.addUri","params":["token:' + Aria2Token + '",["' + DownLoadLink + '"],{"out":"' + Name + '"}]}]]}';
- var Variable_WebSocket = new WebSocket('ws://127.0.0.1:6800/jsonrpc')
-     Variable_WebSocket.onopen = function(){
-      Variable_WebSocket.send(Aria2_Data)
-    }
-
- Variable_WebSocket.onerror = function(error){console.log('WebSocket_error',error)}
- Variable_WebSocket.onmessage = function (event) {console.log('WebSocket_message',event);Variable_WebSocket.close()}
-Variable_WebSocket.onclose = function(event){console.log('WebSocket_close',event)}
+ var Aria2_Data='{"jsonrpc":2,"id":"spy","method":"system.multicall","params":[[{"methodName":"aria2.addUri","params":["token:'+Aria2Token+'",["'+link+'"],{"out":"'+name+'"}]}]]}'
+ var ws=new WebSocket('ws://127.0.0.1:6800/jsonrpc')
+ ws.onopen=function(){ws.send(Aria2_Data)}
+ ws.onerror=function(error){console.log('ws_error',error)}
+ ws.onmessage=function(event){console.log('ws_message',event);ws.close()}
+ //ws.onclose=function(event){console.log('ws_close',event)}
 }
 
 </script>
