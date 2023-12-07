@@ -1,41 +1,23 @@
 <meta charset="UTF-8">
 <div>測試</div>
+<button onclick="send()">傳送至Aria2</button>
 <script>
-setInterval(()=>{
- ele=10
- console.log(ele)
-},1000)
+function send() {
 
-var ele=15
-/*
-console.log('start')
-function test1(){
-var xhr=new XMLHttpRequest()
-xhr.open('GET','https://api.github.com/users/ruanyf',true)
-xhr.responseType='json'
-xhr.onload=()=>{console.log(xhr.response)}
-xhr.onerror=(e)=>{console.log('錯誤',e)}
-xhr.send()
+
+
+ var Aria2Token=''
+ var DownLoadLink="https://dl-a10b-0859.mypikpak.com/download/?fid=UHTBw9j_UBAkTaX1sagkqhZA4SWvcAh5COsW90oYrYC4Yu9y6NhVFJ6ua-cfUpwebGPOigDxmvt-b4vIs5uZ9WDoZzT-vUu_tJ2oJhKlEDU=&from=5&verno=3&prod=1101&expire=1702002184&g=BC754511BEBADBBBCD145593656A2E08A62E61B1&ui=ZW6OOy8XbL2cm-0G&t=0&ms=10400000&th=10400000&f=4274615471&alt=0&userid=ZW6OOy8XbL2cm-0G&fileid=VNl14K_DniXGkC50gF8JBJ7ro1&pr=XQPkPvr9WWiIuMvELmrVeoBFXwaNLGbcF_z9lvvyDQYd_HklRiHM4dPL9tTU3xsqSkImQmGubKrVjFE4Z5ICwW8iyHIWaAU-7B18ZkT3oQZGpVYMTzFrhsSa66UildiNUKAquUPgQcWS8pv-Ff0teB-vK9B8U5rf9ttT4rnr2kMk1sVrsa-meen3qHsNJ61jIwGRAWnRPU6jHRdLIs97tG61lGFx4Dn424-324x3eFFIWhE1JnRCPS6ub2Vn-suqXukxiVWbtC820eM4Fg9Mx2RzjpIc9FbjFGGkzVKilN1y8eviTuuCau5HH9BMyQSQUDwscsLX9MYru422N7wsFo-HDzCTIMQQ4dQb4hql-BA=&sign=622A15D714F771F8E62D7B9FBBC63703"
+ var Name='何宏閔.mkv'
+ var Aria2_Data = '{"jsonrpc":2,"id":"Kinh-PikPak","method":"system.multicall","params":[[{"methodName":"aria2.addUri","params":["token:' + Aria2Token + '",["' + DownLoadLink + '"],{"out":"' + Name + '"}]}]]}';
+ var Variable_WebSocket = new WebSocket('ws://127.0.0.1:6800/jsonrpc')
+     Variable_WebSocket.onopen = function(){
+      Variable_WebSocket.send(JSON.stringify(Aria2_Data))
+    }
+
+ Variable_WebSocket.onerror = function(error){console.log('WebSocket_error',error)}
+ Variable_WebSocket.onmessage = function (event) {console.log('WebSocket_message',event);Variable_WebSocket.close()}
+Variable_WebSocket.onclose = function(event){console.log('WebSocket_close',event)}
 }
 
-function test2(){
-fetch('https://api.github.com/users/ruanyf')
-.then(res=>{return res.json()})
-.then(data=>{console.log(data)})
-.catch(e=>{console.log('錯誤',e)})
-}
-
-
-
-async function test3(){
-try{const res=await fetch('https://api.github.com/users/ruanyf')
-    const data=await res.json()
-    console.log(data)}
-catch(e){console.log('錯誤',e)}
-}
-;(async()=>{
- await test3()
- console.log('end')
-})()
-*/
 </script>
