@@ -3,8 +3,8 @@
 <button onclick="send(obj)">傳送至Aria2</button>
 <script>
 var obj={}
-obj.link="https://dl-a10b-0862.mypikpak.com/download/?fid=r5iIjc38mF_auidj3r7GqEHzhYk28vA19nKUT8I_bUFOgg16BHWZtMClz-Kxc4vOaxtAiuu2WDjcOy_VKAsNSWDoZzT-vUu_tJ2oJhKlEDU=&from=5&verno=3&prod=1104&expire=1702016370&g=7627BC0FAC1EA87656EB9D3CEA8C1092AB705B39&ui=ZW6OOy8XbL2cm-0G&t=0&ms=6291456&th=6291456&f=2027292831&alt=0&userid=ZW6OOy8XbL2cm-0G&fileid=VNl1Rd_9pIA9KjX6Hn-yBEMmo1&pr=XQPkPvr9WWiIuMvELmrVejlLiAeaIzzgTCHLA36QXORdRj6mG1fzvr5t46Ac3B0SiesnmnJweIhtEmtdiWIdZyax0o2Ws_Rt6CgqG9SpoZIHwdlm5HXyqAHHtBYU4ttzdc0JVo6Tf9jt8wyl1ajUBCW4qHs84LvPaNobWXBSFze9EdNL47Mjbet14QzL7Z1kANDR79Py2G0ijURWGfqrR0PqVO4Oe7p5mqF_TMyxvzTGTS0c3tyBGibTpb2mUxmH9tq9G-44WLfMB8tTJpuVtiLH2yrh5lBW3cjmlHFWE9pk1dGoCvzlNWrG6sFhdhX49s7UR7S50GZcDJ3ybV_oxaEjbsE3rWzdLapCp7W9WEk=&sign=A9584B63CA01764E8CA0FC76B4CA3487"
-obj.name="姚惠文.mkv"
+obj.link="https://dl-a10b-0865.mypikpak.com/download/?fid=r5iIjc38mF_auidj3r7GqEHzhYk28vA19nKUT8I_bUFOgg16BHWZtMClz-Kxc4vOaxtAiuu2WDjcOy_VKAsNSWDoZzT-vUu_tJ2oJhKlEDU=&from=5&verno=3&prod=1104&expire=1702017614&g=7627BC0FAC1EA87656EB9D3CEA8C1092AB705B39&ui=ZW6OOy8XbL2cm-0G&t=0&ms=6291456&th=6291456&f=2027292831&alt=0&fileid=VNl1Rd_9pIA9KjX6Hn-yBEMmo1&userid=ZW6OOy8XbL2cm-0G&pr=XQPkPvr9WWiIuMvELmrVejlLiAeaIzzgTCHLA36QXORdRj6mG1fzvr5t46Ac3B0SiesnmnJweIhtEmtdiWIdZyax0o2Ws_Rt6CgqG9SpoZIHwdlm5HXyqAHHtBYU4ttzdc0JVo6Tf9jt8wyl1ajUBF_j3HlbADsmazR90LVGi7kpOLMYEXJ05h7k5hgF5p9cQ-pU7g57unmaoX9MzLG_NPhlnk3Ri4q11W1ZcoZ60i1xrqUrL3wg4yU0q3An5xj5n3eqPZP6qm0NsTKgr6ZfexLi-G1EtUN6yGfZ1XpwHJ3BPdPsfgSUgDvE1FzwvIXhfRCfRbvlbHgaGIhNJ9K09roJzHPr2LpOMSPjJ5KJXyc=&sign=CDA8F42B2EB158BA68031A67ABA8350F"
+obj.name="忍者龜.mkv"
 function send({link,name}){
  var Aria2Token=''
  var Aria2_Data='{"jsonrpc":2,"id":"spy","method":"system.multicall","params":[[{"methodName":"aria2.addUri","params":["token:'+Aria2Token+'",["'+link+'"],{"out":"'+name+'"}]}]]}'
