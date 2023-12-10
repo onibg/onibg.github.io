@@ -33,8 +33,8 @@ function pc(start){//後端需開啟vtt.js(node)，在豪邁影城字幕的資�
   if(i>=arr.length){pcStr='\n'+'全部完成';return}
   const xhr=new XMLHttpRequest()
   let tmpArr=arr[i].split(',')
-  id=tmpArr[1],resourceKey=tmpArr[2]
-  tmpArr.splice(0,3)
+  id=tmpArr[1+1],resourceKey=tmpArr[2+1]//2023/12/10因加入擁有者mail，故+1
+  tmpArr.splice(0,3+1)//2023/12/10因加入擁有者mail，故+1改移除前4個
   tmpArr=tmpArr.join().split('.')
   tmpArr.pop()
   filename=tmpArr.join('.')+'.vtt'
