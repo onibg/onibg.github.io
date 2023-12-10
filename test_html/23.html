@@ -1,7 +1,26 @@
 <meta charset="utf-8">
 <div>POST測試</div>
 <script>
-
+let complete=0,thread=100,pcStr='',th=0
+var mimeType,filename
+var xhr=new XMLHttpRequest()//POST請求 M系統
+postM(thread,'')
+function postM(token){
+ xhr.open("POST","https://script.google.com/macros/s/AKfycbwC42_mTmRl9XV5KTrWbU9o2mjAHJC3X_xj2VqEld9iLkGdrrQXI75xQ81V4hlEY473gA/exec",true)//預設為true
+ xhr.setRequestHeader("content-type","application/x-www-form-urlencoded")
+ xhr.send('method=onlyIdFilenamePath&maxFiles='+n+'&token='+t)
+ xhr.onload=function(){if(!t){txt[0].value=''}
+  const tmpArr=xhr.response.split('\n')
+  for(let j=1;j<tmpArr.length;j++)
+  {
+   mimeType=tmpArr[j-1].split(',')[0]
+   filename=tmpArr[j-1].split('.').pop()//取得副檔名
+   if(filename!='mkv'||mimeType!='video/x-matroska'){console.log(tmpArr[j-1])}
+   else{th++;txt[0].value+=th+','+tmpArr[j-1]+'\n'}
+  }
+  let token=tmpArr.pop()
+  if(token=='完成'){alert('請按【本機建檔】')}else{postM(n,token)}
+ }
 
 
 
