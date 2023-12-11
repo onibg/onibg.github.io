@@ -4,12 +4,12 @@
 var xhr=new XMLHttpRequest()//POST請求M系統
 postM('')
 function postM(token){
- xhr.open("POST","https://script.google.com/macros/s/AKfycbwC42_mTmRl9XV5KTrWbU9o2mjAHJC3X_xj2VqEld9iLkGdrrQXI75xQ81V4hlEY473gA/exec",true)//預設為true
+ xhr.open("POST","https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec",true)//預設為true
  xhr.setRequestHeader("content-type","application/x-www-form-urlencoded")
  xhr.send('token='+token)
  xhr.onload=function(){
   console.log(xhr.response)
-  if(xhr.response=='完成'){alert('字幕全部完成')}else{postM(xhr.response)}
+  //if(xhr.response=='完成'){alert('字幕全部完成')}else{postM(xhr.response)}
  }
 }
 </script>
