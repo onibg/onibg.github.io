@@ -2,32 +2,16 @@
 <div>GET測試</div>
 <script>
 
-
-test(1)
-function test(row){
-    if(row>10){return}
-console.log(row)
-
-test(++row)
-
-
-}
-
-
-/*
 var xhr=new XMLHttpRequest()//POST請求M系統
+var last=''
 getM(1)
 function getM(row){
- xhr.open("GET","https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec?row="+row,true)//預設為true
+ xhr.open("GET","https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec?row="+row+last,true)//預設為true
  xhr.send()
  xhr.onload=function(){
-    console.log(xhr.response)
-row++
-    getM(row)
-
-
-
+    last=xhr.response
+    if(last!='&folderId=完成'){getM(++row)}
 }
 }
-*/
+
 </script>
