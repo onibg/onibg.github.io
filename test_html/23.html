@@ -9,6 +9,7 @@ function postM(token){
  xhr.send('token='+token)
  xhr.onload=function(){
   console.log(xhr.response)
+  if(!token){postM(xhr.response)}
   //if(xhr.response=='完成'){alert('字幕全部完成')}else{postM(xhr.response)}
  }
 }
