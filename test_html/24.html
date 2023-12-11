@@ -4,7 +4,7 @@
 var xhr=new XMLHttpRequest()//POST請求M系統
 getM(1)
 function getM(row){
- xhr.open("GET","https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec?row=",true)//預設為true
+ xhr.open("GET","https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec?row=1",true)//預設為true
  xhr.send()
  xhr.onload=function(){console.log(xhr.response)}
 }
