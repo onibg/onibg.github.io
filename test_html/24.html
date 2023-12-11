@@ -6,7 +6,9 @@
 test(1)
 function test(row){
     if(row>10){return}
-console.log(row++)
+console.log(row)
+row++
+test(row)
 
 
 }
