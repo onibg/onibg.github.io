@@ -8,7 +8,7 @@ var txt=document.getElementsByTagName('textarea')
 let complete=0,thread=100,pcStr='',th=0
 var mimeType,filename
 var xhr=new XMLHttpRequest()//POST請求 M系統
-//postM(thread,'')
+postM(thread,'')
 function postM(n,t){
  xhr.open("POST","https://script.google.com/macros/s/AKfycbylicDbxtKyIO9GFGMJLjth2thW4wMppQWkhDl8EGiEyTkoOLNE/exec",true)//預設為true
  xhr.setRequestHeader("content-type","application/x-www-form-urlencoded")
