@@ -10,7 +10,7 @@ function getM(row){
  xhr.send()
  xhr.onload=function(){
     last=xhr.response
-    if(last!='&folderId=完成'){getM(++row)}
+    if(last!='&folderId=完成'){getM(++row)}else(console.log('完成'))
 }
 }
 
