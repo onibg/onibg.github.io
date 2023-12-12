@@ -100,9 +100,10 @@ id=id.split('\r')[0]//2021/11/9加入，去除尾端有時出現的\r
 }
 //1gGJotNtWVa_2K9c7lpvLWL5umumHPVAe
 //1bcq0KKb9_jnsoGxI6XpSPBGWW9P2TN0K
-if(location.search){
+if(location.search){//為求安全及可解析，FB或Line分享格式用：https://onibg.github.io/player.html?id=0Bxqf-PGnadp7MHg5QXE1SkhodnM
  const arr=location.search.split('\n')[0].split('/').reverse()
  let id=(arr[0].length>=28)?arr[0]:arr[1]
+ id=id.split('&fbclid=')[0]//2023/12/12加入，去除FB分享，尾端被加&fbclid=參數
  id=id.split('id=').reverse()[0]
  id=id.split('\r')[0]//2021/11/9加入，去除尾端有時出現的\r
  player(id)
