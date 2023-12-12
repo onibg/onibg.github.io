@@ -3,8 +3,8 @@
 <script>
 
 var xhr=new XMLHttpRequest()//POST請求M系統
-var last='&folderId=1wxu_i55LHWLojlEbweskutVtnYJat8gN'
-getM(866)
+var last=''
+getM(1)
 function getM(row){
  xhr.open("GET","https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec?row="+row+last,true)//預設為true
  xhr.send()
