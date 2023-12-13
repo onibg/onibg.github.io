@@ -12,7 +12,7 @@ function getM(row){
     last=xhr.response
     if(!last.includes('&folderId=完成')){getM(++row)}else(console.log('完成'))
  }
- xhr.onerror=function(e){console.log('xhr錯誤:'+e);getM(row)}
+ xhr.onerror=function(e){console.log('xhr錯誤',e);getM(row)}
 }
 
 </script>
