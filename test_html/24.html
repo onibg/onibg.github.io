@@ -4,7 +4,22 @@
 
 var xhr=new XMLHttpRequest()//POST請求M系統
 var last=''
-getM(1)
+xhr.open("GET","https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec",true)//預設為true
+xhr.send()
+xhr.onload=function(){console.log(xhr.response)}
+
+
+
+
+
+
+
+
+
+
+
+
+//getM(1)
 function getM(row){
  xhr.open("GET","https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec?row="+row+last,true)//預設為true
  xhr.send()
