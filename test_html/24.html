@@ -7,7 +7,7 @@ var last=''
 xhr.open("GET","https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec",true)//預設為true
 xhr.responseType='json'
 xhr.send()
-xhr.onload=function(){console.log(typeof xhr.response)}
+xhr.onload=function(){console.log(xhr.response)}
 
 
 
