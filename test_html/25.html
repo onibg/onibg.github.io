@@ -1,37 +1,19 @@
-<!DOCTYPE html>
 <html>
 <head>
-  <title>OAuth 2.0 授權畫面示例</title>
+  <title>OAuth 驗證是否已生效</title>
 </head>
 <body>
-  <h1>OAuth 2.0 授權畫面示例</h1>
-  <button onclick="handleClientLoad()">執行授權</button>
-  <script src="https://apis.google.com/js/api.js"></script>
+  <h1>OAuth 驗證是否已生效</h1>
+  <button onclick="handleSignInClick()">點擊以進行授權</button>
+  <script src="https://apis.google.com/js/platform.js"></script>
   <script>
-    const CLIENT_ID = '471233135714-osm2q4a8i7s1163ccrhlh2i8a5jk95sq.apps.googleusercontent.com';
-    const SCOPES = 'profile email'; // 權限範圍
-
-    function handleClientLoad() {
-      gapi.load('auth2', initAuth);
-    }
-
-    function initAuth() {
-      gapi.auth2.init({
-        client_id: CLIENT_ID,
-        scope: SCOPES
-      }).then(function () {
-        const auth2 = gapi.auth2.getAuthInstance();
-        auth2.signIn().then(function () {
-          const user = auth2.currentUser.get();
-          const profile = user.getBasicProfile();
-          console.log('使用者姓名：' + profile.getName());
-          console.log('使用者電子郵件：' + profile.getEmail());
-          console.log('使用者頭像：' + profile.getImageUrl());
-          console.log('使用者身份證：' + user.getId());
-        });
+    function handleSignInClick() {
+      gapi.auth2.getAuthInstance().signIn().then(function() {
+        console.log('授權成功');
+      }, function(error) {
+        console.error('授權失敗：', error);
       });
     }
   </script>
-  <script async defer src="https://apis.google.com/js/api.js" onload="handleClientLoad()"></script>
 </body>
 </html>
