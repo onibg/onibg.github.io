@@ -1,8 +1,8 @@
 <meta charset="utf-8">
 <div>POST測試</div>
+<button onclick="postM('')">開始製作字幕表</button>
 <script>
 var xhr=new XMLHttpRequest()//POST請求M系統
-postM('')
 function postM(token){
  xhr.open("POST","https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec",true)//預設為true
  xhr.setRequestHeader("content-type","application/x-www-form-urlencoded")
