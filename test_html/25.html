@@ -1,12 +1,21 @@
+<!DOCTYPE html>
 <html>
 <head>
-  <title>Google Drive File Size Checker</title>
+  <title>Delete Google Drive File</title>
+</head>
+<body>
+  <h1>Delete Google Drive File</h1>
+  <form>
+    <label for="fileId">Enter Google Drive File ID to delete:</label>
+    <input type="text" id="fileId" name="fileId">
+    <button type="button" onclick="deleteFile()">Delete File</button>
+  </form>
+  <div id="result"></div>
   <script src="https://apis.google.com/js/api.js"></script>
   <script>
-    let CLIENT_ID = '471233135714-osm2q4a8i7s1163ccrhlh2i8a5jk95sq.apps.googleusercontent.com';
-    let API_KEY = 'AIzaSyCucyj6QZdzkhKg7zDehZjLa59iXnDEY4I';
-    let DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
-    let SCOPES = 'https://www.googleapis.com/auth/drive.readonly';
+    const CLIENT_ID = '471233135714-osm2q4a8i7s1163ccrhlh2i8a5jk95sq.apps.googleusercontent.com';
+    const API_KEY = 'AIzaSyCucyj6QZdzkhKg7zDehZjLa59iXnDEY4I';
+    const SCOPES = 'https://www.googleapis.com/auth/drive';
 
     function handleClientLoad() {
       gapi.load('client:auth2', initClient);
@@ -16,35 +25,25 @@
       gapi.client.init({
         apiKey: API_KEY,
         clientId: CLIENT_ID,
-        discoveryDocs: DISCOVERY_DOCS,
+        discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
         scope: SCOPES
       }).then(function () {
         gapi.auth2.getAuthInstance().signIn();
       });
     }
 
-    function getFileSize() {
-      let fileId = document.getElementById('fileId').value;
+    function deleteFile() {
+      const fileId = document.getElementById('fileId').value;
 
-      gapi.client.drive.files.get({
-        fileId: fileId,
-        fields: 'size'
+      gapi.client.drive.files.delete({
+        fileId: fileId
       }).then(function(response) {
-        document.getElementById('result').innerText = 'File Size: ' + response.result.size + ' bytes';
+        document.getElementById('result').innerText = 'File deleted successfully.';
       }, function(error) {
-        document.getElementById('result').innerText = 'Error: ' + error.result.error.message;
+        document.getElementById('result').innerText = 'Error deleting file: ' + error.result.error.message;
       });
     }
   </script>
-</head>
-<body>
-  <h1>Google Drive File Size Checker</h1>
-  <form>
-    <label for="fileId">Enter Google Drive File ID:</label>
-    <input type="text" id="fileId" name="fileId">
-    <button type="button" onclick="getFileSize()">Get File Size</button>
-  </form>
-  <div id="result"></div>
   <script async defer src="https://apis.google.com/js/api.js" onload="handleClientLoad()"></script>
 </body>
 </html>
