@@ -1,46 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Delete Google Drive File</title>
+  <title>OAuth 2.0 授權畫面示例</title>
 </head>
 <body>
-  <h1>Delete Google Drive File</h1>
-  <form>
-    <label for="fileId">Enter Google Drive File ID to delete:</label>
-    <input type="text" id="fileId" name="fileId">
-    <button type="button" onclick="deleteFile()">Delete File</button>
-  </form>
-  <div id="result"></div>
+  <h1>OAuth 2.0 授權畫面示例</h1>
+  <button onclick="handleClientLoad()">執行授權</button>
   <script src="https://apis.google.com/js/api.js"></script>
   <script>
     const CLIENT_ID = '471233135714-osm2q4a8i7s1163ccrhlh2i8a5jk95sq.apps.googleusercontent.com';
-    const API_KEY = 'AIzaSyCucyj6QZdzkhKg7zDehZjLa59iXnDEY4I';
-    const SCOPES = 'https://www.googleapis.com/auth/drive';
+    const SCOPES = 'profile email'; // 權限範圍
 
     function handleClientLoad() {
-      gapi.load('client:auth2', initClient);
+      gapi.load('auth2', initAuth);
     }
 
-    function initClient() {
-      gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+    function initAuth() {
+      gapi.auth2.init({
+        client_id: CLIENT_ID,
         scope: SCOPES
       }).then(function () {
-        gapi.auth2.getAuthInstance().signIn();
-      });
-    }
-
-    function deleteFile() {
-      const fileId = document.getElementById('fileId').value;
-
-      gapi.client.drive.files.delete({
-        fileId: fileId
-      }).then(function(response) {
-        document.getElementById('result').innerText = 'File deleted successfully.';
-      }, function(error) {
-        document.getElementById('result').innerText = 'Error deleting file: ' + error.result.error.message;
+        const auth2 = gapi.auth2.getAuthInstance();
+        auth2.signIn().then(function () {
+          const user = auth2.currentUser.get();
+          const profile = user.getBasicProfile();
+          console.log('使用者姓名：' + profile.getName());
+          console.log('使用者電子郵件：' + profile.getEmail());
+          console.log('使用者頭像：' + profile.getImageUrl());
+          console.log('使用者身份證：' + user.getId());
+        });
       });
     }
   </script>
