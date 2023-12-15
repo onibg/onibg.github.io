@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
   <title>OAuth 驗證是否已生效</title>
@@ -7,11 +8,19 @@
   <button onclick="handleSignInClick()">點擊以進行授權</button>
   <script src="https://apis.google.com/js/platform.js"></script>
   <script>
+    const CLIENT_ID = '471233135714-osm2q4a8i7s1163ccrhlh2i8a5jk95sq.apps.googleusercontent.com'; // 這裡替換為你自己的 client_id
+
     function handleSignInClick() {
-      gapi.auth2.getAuthInstance().signIn().then(function() {
-        console.log('授權成功');
-      }, function(error) {
-        console.error('授權失敗：', error);
+      gapi.load('auth2', function() {
+        gapi.auth2.init({
+          client_id: CLIENT_ID
+        }).then(function(auth2) {
+          auth2.signIn().then(function() {
+            console.log('授權成功');
+          }, function(error) {
+            console.error('授權失敗：', error);
+          });
+        });
       });
     }
   </script>
