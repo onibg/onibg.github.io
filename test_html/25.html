@@ -1,41 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Google Drive File Size Checker</title>
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <meta name="google-signin-client_id" content="471233135714-osm2q4a8i7s1163ccrhlh2i8a5jk95sq.apps.googleusercontent.com">
-</head>
-<body>
-  <h1>Google Drive File Size Checker</h1>
-  
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-  <form id="fileForm" >
-    <label for="fileId">Enter Google Drive File ID:</label>
-    <input type="text" id="fileId" name="fileId">
-    <button type="button" onclick="checkFileSize()">Check Size</button>
-  </form>
-
-  <p id="fileSize"></p>
-
-  <script>
-    function onSignIn(googleUser) {
-      document.getElementById("fileForm").style.display = "block";
-    }
-
-    function checkFileSize() {
-      var fileId = document.getElementById("fileId").value;
-
-      gapi.client.drive.files.get({
-        fileId: fileId,
-        fields: 'size'
-      }).then(function(response) {
-        var fileSize = response.result.size;
-        document.getElementById("fileSize").innerText = "File size: " + fileSize + " bytes";
-      }, function(error) {
-        console.error('Error fetching file size:', error);
-      });
-    }
-  </script>
-</body>
-</html>
+<div>測試</div>
+<script src="https://apis.google.com/js/api.js"></script>
+<script>
+function start() {
+  // 2. Initialize the JavaScript client library.
+  gapi.client.init({
+    'apiKey': 'AIzaSyCucyj6QZdzkhKg7zDehZjLa59iXnDEY4I',
+    // Your API key will be automatically added to the Discovery Document URLs.
+    'discoveryDocs': ['https://people.googleapis.com/$discovery/rest'],
+    // clientId and scope are optional if auth is not required.
+    'clientId': '471233135714-osm2q4a8i7s1163ccrhlh2i8a5jk95sq.apps.googleusercontent.com',
+    'scope': 'profile',
+  }).then(function() {
+    // 3. Initialize and make the API request.
+    return gapi.client.people.people.get({
+      'resourceName': 'people/me',
+      'requestMask.includeField': 'person.names'
+    });
+  }).then(function(response) {
+    console.log(response.result);
+  }, function(reason) {
+    console.log('Error: ' + reason.result.error.message);
+  });
+};
+// 1. Load the JavaScript client library.
+gapi.load('client', start);
+</script>
