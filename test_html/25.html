@@ -2,10 +2,40 @@
 <html>
 <head>
   <title>Google Drive File Size Checker</title>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="471233135714-osm2q4a8i7s1163ccrhlh2i8a5jk95sq.apps.googleusercontent.com">
 </head>
 <body>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="471233135714-osm2q4a8i7s1163ccrhlh2i8a5jk95sq.apps.googleusercontent.com">
-    <div class="g-signin2" data-onsuccess="handleCredentialResponse"></div>  
+  <h1>Google Drive File Size Checker</h1>
+  
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+  <form id="fileForm" style="display:none;">
+    <label for="fileId">Enter Google Drive File ID:</label>
+    <input type="text" id="fileId" name="fileId">
+    <button type="button" onclick="checkFileSize()">Check Size</button>
+  </form>
+
+  <p id="fileSize"></p>
+
+  <script>
+    function onSignIn(googleUser) {
+      document.getElementById("fileForm").style.display = "block";
+    }
+
+    function checkFileSize() {
+      var fileId = document.getElementById("fileId").value;
+
+      gapi.client.drive.files.get({
+        fileId: fileId,
+        fields: 'size'
+      }).then(function(response) {
+        var fileSize = response.result.size;
+        document.getElementById("fileSize").innerText = "File size: " + fileSize + " bytes";
+      }, function(error) {
+        console.error('Error fetching file size:', error);
+      });
+    }
+  </script>
 </body>
 </html>
