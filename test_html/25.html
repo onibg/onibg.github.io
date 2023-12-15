@@ -36,13 +36,7 @@
       document.getElementById('authorize_button').style.visibility = 'hidden';
       document.getElementById('signout_button').style.visibility = 'hidden';
 
-      /**
-       * Callback after api.js is loaded.
-       */
-      function gapiLoaded() {
-        gapi.load('client', initializeGapiClient);
-      }
-
+      
       /**
        * Callback after the API client is loaded. Loads the
        * discovery doc to initialize the API.
@@ -56,18 +50,7 @@
         maybeEnableButtons();
       }
 
-      /**
-       * Callback after Google Identity Services are loaded.
-       */
-      function gisLoaded() {
-        tokenClient = google.accounts.oauth2.initTokenClient({
-          client_id: CLIENT_ID,
-          scope: SCOPES,
-          callback: '', // defined later
-        });
-        gisInited = true;
-        maybeEnableButtons();
-      }
+      
 
       /**
        * Enables user interaction after all libraries are loaded.
@@ -140,6 +123,21 @@
             'Files:\n');
         document.getElementById('content').innerText = output;
       }
+      
+      function gapiLoaded() {
+        gapi.load('client', initializeGapiClient);
+      }
+
+      function gisLoaded() {
+        tokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: CLIENT_ID,
+          scope: SCOPES,
+          callback: '', // defined later
+        });
+        gisInited = true;
+        maybeEnableButtons();
+      }
+
     </script>
     <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
     <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
