@@ -1,23 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>OAuth 驗證是否已生效</title>
+  <title>Google Drive File Size Checker</title>
 </head>
 <body>
-  <h1>OAuth 驗證是否已生效</h1>
-  <button onclick="handleSignInClick()">點擊以進行授權</button>
-  <script src="https://accounts.google.com/gsi/client"></script>
+  <h1>Google Drive File Size Checker</h1>
+  <form>
+    <label for="fileId">Enter Google Drive File ID:</label>
+    <input type="text" id="fileId" name="fileId">
+    <button type="button" onclick="getFileSize()">Get File Size</button>
+  </form>
+  <div id="result"></div>
+  <script src="https://apis.google.com/js/api.js"></script>
   <script>
-    function handleSignInClick() {
-      google.accounts.id.prompt({
-        clientId: '471233135714-osm2q4a8i7s1163ccrhlh2i8a5jk95sq.apps.googleusercontent.com', // 將此替換為你的實際 client_id
-        scope: 'openid email profile' // 指定範圍
+    let CLIENT_ID = 'YOUR_CLIENT_ID';
+    let API_KEY = 'YOUR_API_KEY';
+    let DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
+    let SCOPES = 'https://www.googleapis.com/auth/drive.readonly';
+
+    function handleClientLoad() {
+      gapi.load('client:auth2', initClient);
+    }
+
+    function initClient() {
+      gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES
+      }).then(function () {
+        gapi.auth2.getAuthInstance().signIn();
+      });
+    }
+
+    function getFileSize() {
+      let fileId = document.getElementById('fileId').value;
+
+      gapi.client.drive.files.get({
+        fileId: fileId,
+        fields: 'size'
       }).then(function(response) {
-        console.log('授權成功：', response);
+        document.getElementById('result').innerText = 'File Size: ' + response.result.size + ' bytes';
       }, function(error) {
-        console.error('授權失敗：', error);
+        document.getElementById('result').innerText = 'Error: ' + error.result.error.message;
       });
     }
   </script>
+  <script async defer src="https://apis.google.com/js/api.js" onload="handleClientLoad()"></script>
 </body>
 </html>
