@@ -22,15 +22,6 @@
       let gisInited = false;
 
       function handleAuthClick() {
-        tokenClient.callback = async (resp) => {
-          if (resp.error !== undefined) {
-            throw (resp);
-          }
-          document.getElementById('signout_button').style.visibility = 'visible';
-          document.getElementById('authorize_button').innerText = 'Refresh';
-          await listFiles();
-        };
-
         if (gapi.client.getToken() === null) {console.log('session不存在')
           // Prompt the user to select a Google Account and ask for consent to share their data
           // when establishing a new session.
@@ -40,6 +31,16 @@
           tokenClient.requestAccessToken({prompt: ''});
         }
       }
+
+      tokenClient.callback = async (resp) => {
+          if (resp.error !== undefined) {
+            throw (resp);
+          }
+          document.getElementById('signout_button').style.visibility = 'visible';
+          document.getElementById('authorize_button').innerText = 'Refresh';
+          await listFiles();
+        };
+        
 
       function handleSignoutClick() {
         const token = gapi.client.getToken();
@@ -96,7 +97,7 @@
         gisInited = true;
         maybeEnableButtons();
       }
-      
+
       function maybeEnableButtons() {
         if (gapiInited && gisInited) {
           document.getElementById('authorize_button').style.visibility = 'visible';
