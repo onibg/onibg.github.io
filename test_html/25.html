@@ -21,6 +21,12 @@
       let gapiInited = false;
       let gisInited = false;
 
+      function maybeEnableButtons() {
+        if (gapiInited && gisInited) {
+          document.getElementById('authorize_button').style.visibility = 'visible';
+        }
+      }
+
       function handleAuthClick() {
         tokenClient.callback = async (resp) => {
           if (resp.error !== undefined) {
@@ -86,6 +92,7 @@
         gapiInited = true;
         maybeEnableButtons();
       }
+      
       function gisLoaded() {
         tokenClient = google.accounts.oauth2.initTokenClient({
           client_id: CLIENT_ID,
@@ -95,11 +102,7 @@
         gisInited = true;
         maybeEnableButtons();
       }
-      function maybeEnableButtons() {
-        if (gapiInited && gisInited) {
-          document.getElementById('authorize_button').style.visibility = 'visible';
-        }
-      }
+
     </script>
     <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
     <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
