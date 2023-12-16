@@ -21,15 +21,6 @@
       let gapiInited = false;
       let gisInited = false;
 
-      async function initializeGapiClient() {
-        await gapi.client.init({
-          apiKey: API_KEY,
-          discoveryDocs: [DISCOVERY_DOC],
-        })
-        gapiInited = true;
-        maybeEnableButtons();
-      }
-
       function maybeEnableButtons() {
         if (gapiInited && gisInited) {
           document.getElementById('authorize_button').style.visibility = 'visible';
