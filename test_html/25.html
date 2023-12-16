@@ -21,12 +21,6 @@
       let gapiInited = false;
       let gisInited = false;
 
-      function maybeEnableButtons() {
-        if (gapiInited && gisInited) {
-          document.getElementById('authorize_button').style.visibility = 'visible';
-        }
-      }
-
       function handleAuthClick() {
         tokenClient.callback = async (resp) => {
           if (resp.error !== undefined) {
@@ -101,6 +95,12 @@
         });
         gisInited = true;
         maybeEnableButtons();
+      }
+      
+      function maybeEnableButtons() {
+        if (gapiInited && gisInited) {
+          document.getElementById('authorize_button').style.visibility = 'visible';
+        }
       }
 
     </script>
