@@ -56,9 +56,6 @@
         }
       }
 
-      /**
-       *  Sign out the user upon button click.
-       */
       function handleSignoutClick() {
         const token = gapi.client.getToken();
         if (token !== null) {
@@ -70,9 +67,6 @@
         }
       }
 
-      /**
-       * Print metadata for first 10 files.
-       */
       async function listFiles() {
         let response;
         try {
