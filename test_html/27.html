@@ -82,7 +82,7 @@
         if (gapiInited && gisInited) {
             tokenClient.requestAccessToken()
 tokenClient.callback = async (resp) => {console.log('tokenClient.callback',resp)
-await listFiles();
+listFiles();
 }
             
 //document.getElementById('authorize_button').style.visibility = 'visible';
