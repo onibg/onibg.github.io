@@ -19,7 +19,7 @@
 
       let tokenClient;
       function handleAuthClick() {
-        tokenClient.callback = async (resp) => {console.log('')
+        tokenClient.callback = async (resp) => {console.log('throw')
           if (resp.error !== undefined) {
             throw (resp);
           }
