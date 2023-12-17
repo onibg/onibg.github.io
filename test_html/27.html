@@ -52,12 +52,13 @@
         }
       }
 
+
       async function listFiles() {
         let response;
         try {
           response = await gapi.client.drive.files.list({
-            q:`'1I1lVyqOM4rd16MtEtnT13MvZR_TWoleD' in parents and trashed=false`,
-            pageSize: 10,
+            q:`'1Du_EZW1oLMr2bZ50feuSOdB55niObzZ0' in parents and trashed=false`,
+            pageSize: 1000,
             fields: 'files(id, name)',
           });
         } catch (err) {console.log('try異常')
