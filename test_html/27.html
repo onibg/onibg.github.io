@@ -59,7 +59,7 @@
           response = await gapi.client.drive.files.list({
             q:`'1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f' in parents and trashed=false`,
             pageSize: 1000,
-            fields: 'files(name)',
+            fields: 'files(id, name,md5Checksum)',
           });
         } catch (err) {console.log('try異常')
         tokenClient.requestAccessToken()
