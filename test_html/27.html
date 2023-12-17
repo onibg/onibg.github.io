@@ -56,8 +56,9 @@
         let response;
         try {
           response = await gapi.client.drive.files.list({
-            'pageSize': 10,
-            'fields': 'files(id, name)',
+            q:`'1I1lVyqOM4rd16MtEtnT13MvZR_TWoleD' in parents and trashed=false`,
+            pageSize: 10,
+            fields: 'files(id, name)',
           });
         } catch (err) {console.log('try異常')
         tokenClient.requestAccessToken()
@@ -75,6 +76,17 @@
             'Files:\n');
         document.getElementById('content').innerText = output;
       }
+async function count(){
+
+
+
+
+
+}
+
+
+
+
       
 
       let gapiInited = false;
