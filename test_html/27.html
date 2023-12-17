@@ -59,6 +59,7 @@
           });
         } catch (err) {console.log('try異常')
         tokenClient.requestAccessToken()
+
           return;
         }
         const files = response.result.files;
@@ -80,7 +81,7 @@
       function maybeEnableButtons() {
         if (gapiInited && gisInited) {
             tokenClient.requestAccessToken()
-
+tokenClient.callback = async (resp) => {console.log('tokenClient.callback',resp)}
             //document.getElementById('authorize_button').style.visibility = 'visible';
         }
       } 
