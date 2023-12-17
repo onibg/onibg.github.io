@@ -6,6 +6,7 @@
   <body>
     <p>Drive API Quickstart</p>
     <!--Add buttons to initiate auth sequence and sign out-->
+    <button onclick="(async()=>{await listFiles()})()"></button>
     <button id="authorize_button" onclick="handleAuthClick()" style="visibility:hidden">Authorize</button>
     <button id="signout_button" onclick="handleSignoutClick()" style="visibility:hidden">Sign Out</button>
 
