@@ -19,10 +19,8 @@
 
       let tokenClient;
       function handleAuthClick() {
-        tokenClient.callback = async (resp) => {console.log('throw')
-          if (resp.error !== undefined) {
-            throw (resp);
-          }
+        tokenClient.callback = async (resp) => {
+          if (resp.error !== undefined) {console.log('異常');throw (resp)}
           document.getElementById('signout_button').style.visibility = 'visible';
           document.getElementById('authorize_button').innerText = 'Refresh';
           await listFiles();
