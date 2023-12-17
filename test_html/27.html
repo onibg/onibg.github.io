@@ -17,11 +17,9 @@
       const API_KEY = 'AIzaSyCucyj6QZdzkhKg7zDehZjLa59iXnDEY4I';
       const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
       const SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly';
-      tokenClient.callback = async (resp) => {console.log('tokenClient.callback',resp)
-listFiles();
-}
 
 
+      
       let tokenClient;
       function handleAuthClick() {
         
@@ -85,7 +83,9 @@ listFiles();
       function maybeEnableButtons() {
         if (gapiInited && gisInited) {
             tokenClient.requestAccessToken()
-
+            tokenClient.callback = async (resp) => {console.log('tokenClient.callback',resp)
+listFiles();
+}
             
 //document.getElementById('authorize_button').style.visibility = 'visible';
         }
