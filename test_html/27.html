@@ -31,7 +31,7 @@
           tokenClient.requestAccessToken({prompt: ''});
         }
 
-        tokenClient.callback = async (resp) => {
+        tokenClient.callback = async (resp) => {console.log('tokenClient.callback')
           if (resp.error !== undefined) {console.log('throw異常');throw (resp)}
           document.getElementById('signout_button').style.visibility = 'visible';
           document.getElementById('authorize_button').innerText = 'Refresh';
