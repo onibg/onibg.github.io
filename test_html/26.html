@@ -7,6 +7,7 @@
    * https://developers.google.com/explorer-help/code-samples#javascript
    */
 
+   
   function authenticate() {
     return gapi.auth2.getAuthInstance()
         .signIn({scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file"})
