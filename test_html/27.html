@@ -76,6 +76,12 @@
         document.getElementById('content').innerText = output;
       }
       
+      function maybeEnableButtons() {
+        if (gapiInited && gisInited) {
+          document.getElementById('authorize_button').style.visibility = 'visible';
+        }
+      }
+      
       function gapiLoaded() {
         gapi.load('client', initializeGapiClient);
       }
@@ -98,11 +104,6 @@
         maybeEnableButtons();
       }
       
-      function maybeEnableButtons() {
-        if (gapiInited && gisInited) {
-          document.getElementById('authorize_button').style.visibility = 'visible';
-        }
-      }
 
     </script>
     <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
