@@ -76,11 +76,7 @@
         document.getElementById('content').innerText = output;
       }
       
-      function maybeEnableButtons() {
-        if (gapiInited && gisInited) {
-          document.getElementById('authorize_button').style.visibility = 'visible';
-        }
-      }
+    
 
   async function initializeGapiClient() {
         await gapi.client.init({
@@ -104,7 +100,9 @@
           callback: '', // defined later
         });
         gisInited = true;
-        maybeEnableButtons();
+        if (gapiInited && gisInited) {
+          document.getElementById('authorize_button').style.visibility = 'visible';
+        }
       }
       
 
