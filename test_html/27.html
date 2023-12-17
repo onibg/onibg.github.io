@@ -81,8 +81,11 @@
       function maybeEnableButtons() {
         if (gapiInited && gisInited) {
             tokenClient.requestAccessToken()
-tokenClient.callback = async (resp) => {console.log('tokenClient.callback',resp)}
-            //document.getElementById('authorize_button').style.visibility = 'visible';
+tokenClient.callback = async (resp) => {console.log('tokenClient.callback',resp)
+await listFiles();
+}
+            
+//document.getElementById('authorize_button').style.visibility = 'visible';
         }
       } 
 
