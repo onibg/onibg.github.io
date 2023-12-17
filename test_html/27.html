@@ -58,7 +58,7 @@
             'fields': 'files(id, name)',
           });
         } catch (err) {console.log('try異常')
-          document.getElementById('content').innerText = err.message;
+        tokenClient.requestAccessToken()
           return;
         }
         const files = response.result.files;
@@ -80,7 +80,7 @@
       function maybeEnableButtons() {
         if (gapiInited && gisInited) {
             tokenClient.requestAccessToken()
-            
+
             //document.getElementById('authorize_button').style.visibility = 'visible';
         }
       } 
