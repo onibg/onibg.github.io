@@ -1,7 +1,11 @@
 <div>剪貼簿測試</div>
+<button onclick="read()">
+    讀取剪貼簿
+</button>
 <script>
+function read(){
 navigator.clipboard.readText().then(text => {
       alert(text); // 剪貼簿中的內容
 });
-
+}
 </script>
