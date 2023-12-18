@@ -57,7 +57,7 @@
         try {
           response = await gapi.client.drive.files.list({
             //q:`'1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f' in parents and trashed=false`,
-            pageSize: 1000,
+            pageSize: 10,
             fields: 'files(id, name,mimeType)',
           });
         } catch (err) {console.log('try異常')
