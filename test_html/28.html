@@ -3,6 +3,7 @@
     讀取剪貼簿
 </button>
 <script>
+document.onclick=()=>{read()}
 function read(){
 navigator.clipboard.readText().then(text => {
       alert(text); // 剪貼簿中的內容
