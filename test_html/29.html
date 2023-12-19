@@ -10,7 +10,7 @@
   xhr.setRequestHeader('Authorization','Bearer '+token)
   //xhr.responseType='json'
   xhr.send()
-  xhr.onload=()=>{console.log(xhr.response)}
+  xhr.onload=()=>{console.log('onload',xhr.response)}
   xhr.onerror=()=>{console.log('錯誤')}
  }
  
