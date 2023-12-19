@@ -8,7 +8,7 @@
   var xhr=new XMLHttpRequest()
   xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/'+id,true)
   xhr.setRequestHeader('Authorization','Bearer '+token)
-  //xhr.responseType='json'
+  xhr.responseType='json'
   xhr.send()
   xhr.onload=()=>{console.log('onload',xhr.response)}
   xhr.onerror=()=>{console.log('錯誤')}
