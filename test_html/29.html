@@ -6,7 +6,7 @@
  function Delete(){
   var url = 'https://www.googleapis.com/gmail/v1/users/me/profile';
   var xhr=new XMLHttpRequest()
-  xhr.open('GET','https://www.googleapis.com/gmail/v1/users/me/profile',true)
+  xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/'+id,true)
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.responseType='json'
   xhr.send()
