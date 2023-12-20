@@ -6,12 +6,12 @@
  function owner(){
   var xhr=new XMLHttpRequest()
   const body={
-   'role':'owner',
-   'type':'user',
-   'emailAddress':'onibg.00002@gmail.com',
-   'transferOwnership':true 
+   role:'writer',
+   type:'user',
+   value:'onibg.00002@gmail.com',
+   pendingOwner:true 
 }
-  xhr.open('POST',`https://www.googleapis.com/drive/v3/files/${id}/permissions`,true)
+  xhr.open('POST',`https://www.googleapis.com/drive/v2/files/${id}/permissions`,true)
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.setRequestHeader('Content-Type','application/json')
   xhr.send(JSON.stringify(body))
