@@ -6,10 +6,9 @@
  function owner(){
   var xhr=new XMLHttpRequest()
   const body={
-   'role':'writer',
+   'role':'owner',
    'type':'user',
    'emailAddress':'onibg.00002@gmail.com',
-   'domain': 'gmail.com'
 }
   xhr.open('POST',`https://www.googleapis.com/drive/v3/files/${id}/permissions?transferOwnership=true`,true)
   xhr.setRequestHeader('Authorization','Bearer '+token)
