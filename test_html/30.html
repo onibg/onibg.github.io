@@ -14,7 +14,7 @@ loop('')
   xhr.send()
   xhr.onload=()=>{
    console.log('onload',xhr.response)
-   //if(xhr.response.)
+   if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
    /*const arr=xhr.response.files
    let foldersCount=arr.findIndex(item=>item.mimeType!='application/vnd.google-apps.folder')
    if(foldersCount==-1)foldersCount=arr.length
