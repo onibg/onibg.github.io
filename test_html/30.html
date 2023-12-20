@@ -5,7 +5,7 @@ var id='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
  function list(){
   var token ='ya29.a0AfB_byA-tsbRwdx8Nky5WGHOE71N2BYiQBTLRZzOAVM7GgL-HyR8HgQWQwS4Xdvy1kizNAnEBQ5HhWnV_e33oU1kidRvsERT6_6z8jKFiY_3mEShUM0Wl-HrD3B1udp9mGT0EAVffTy2JNY2YwdPtCkK7SsxlPps0U_JaCgYKAYgSARASFQHGX2MiwD6wa73Wal2a3i2yNmslvw0171'
   var xhr=new XMLHttpRequest()
-  let arr=[]
+  const arr=[]
   loop('')
   function loop(pageToken){
   xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name)&pageSize=10&pageToken=${pageToken}`,true)
@@ -15,9 +15,8 @@ var id='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
   xhr.send()
   xhr.onload=()=>{
    console.log('onload',xhr.response)
-   if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
    arr=arr.concat(xhr.response.files)
-   
+   if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
 
 }
  }//loop()
