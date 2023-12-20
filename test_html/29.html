@@ -9,7 +9,7 @@
    'role':'owner',
    'type':'user',
    'emailAddress':'onibg.00002@gmail.com',
-   //'transferOwnership':true 
+   'transferOwnership':true 
 }
   xhr.open('POST',`https://www.googleapis.com/drive/v3/files/${id}/permissions`,true)
   xhr.setRequestHeader('Authorization','Bearer '+token)
