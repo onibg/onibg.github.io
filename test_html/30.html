@@ -3,12 +3,11 @@
 <script>
 var id='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
  function list(){
-  var token ='ya29.a0AfB_byBBWHewwYzJPm8sCFgeQRdOa0ySGF3xOdUfMVMt0dbKcqH8gRKo2ew0qB1QHHQyAa-tWuwwTg2-6si1nqylCdyDSjWCfB63TUq8OWJ1gGBQE7h1Ipb2Au36sdD2HnP_lICLvgWSX1fCN84lnZkiJX-KknfEgUzZaCgYKAdwSARISFQHGX2MiL_AyC_KrpCu-qyt0ZX7nLw0171'
+  var token ='ya29.a0AfB_byC6YZfiws1SdtnbYrtpzfqgfZ8gXOT3E7Ii3IFhUGzQnY-iKLRyL4qoFCBLJAjk_xFz4mdcYBZBdpWraTtlpFwVy7qI5GK-2tDlVhlbsf2wLWWr3MObmh4fXlDeMGqjfD-a6H_9xp8zaZqk7FRaLgPgcYBFxyA6aCgYKATYSARESFQHGX2MiWxmtooTUqQYcUGOOwPOtHQ0171'
   var xhr=new XMLHttpRequest()
-  xhr.open('POST',`https://www.googleapis.com/drive/v2/files/${id}/permissions`,true)
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+trashed=false`,true)
   xhr.setRequestHeader('Authorization','Bearer '+token)
-  xhr.setRequestHeader('Content-Type','application/json')
-  xhr.send(JSON.stringify(body))
+  xhr.send()
   xhr.onload=()=>{console.log('onload',xhr.response)}
  }
 
