@@ -8,7 +8,7 @@ var id='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
   let arr=[]
   loop('')
   function loop(pageToken){
-  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name)&pageSize=10&pageToken=${pageToken}`,true)
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name)&pageSize=1000&pageToken=${pageToken}`,true)
   //xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+trashed=false&orderBy=folder&pageSize=1000`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
