@@ -5,15 +5,16 @@ var id='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
  function list(){
   var token ='ya29.a0AfB_byA-tsbRwdx8Nky5WGHOE71N2BYiQBTLRZzOAVM7GgL-HyR8HgQWQwS4Xdvy1kizNAnEBQ5HhWnV_e33oU1kidRvsERT6_6z8jKFiY_3mEShUM0Wl-HrD3B1udp9mGT0EAVffTy2JNY2YwdPtCkK7SsxlPps0U_JaCgYKAYgSARASFQHGX2MiwD6wa73Wal2a3i2yNmslvw0171'
   var xhr=new XMLHttpRequest()
-loop()
-  function loop(){
-  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name)&pageSize=10&pageToken=~!!~AI9FV7R5VGfNsuIZlmFxQVyOEnYy4ZNuuoXChyxA3lFwU6eVXeXk9R_qwAISw1EFx2on9ZEqEXVK-IbpqjeDZGd_VdayjmUO3jVCzrY47VG1QqSpepUl-nm8SofQT0-sN1VUpJQiNsdJyvT2VMvyjvyltTIByTMUJmrcJ-CC7LJa3jaOM0L-Dhz-YM2_Jwy4Hns_FW_p6-TQIEqoFkKKQBAv1bF4nO0wEUnGJrKtYUv7h0hTEMvXF7ymN9kBLOWvhpsd0EAj93-HdoTYj2Nzzrp-ZPpx1LpWZpwMs5paNzvrrJ1B6RkwBiT92Jo7uuazKxuSTwWCo-8XuRKZbPwpqYXatizlnIJaK7j-gk4mU1d44diLBvDAB7-7ixj3PgW5xJR8ShAclIZVUgA5CwXBmelN3C5ZXSHLlZTgEZMGlB7uUqNbAjb6tlU=`,true)
+loop('')
+  function loop(pageToken){
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name)&pageSize=10&pageToken=${pageToken}`,true)
   //xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+trashed=false&orderBy=folder&pageSize=1000`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.send()
   xhr.onload=()=>{
    console.log('onload',xhr.response)
+   //if(xhr.response.)
    /*const arr=xhr.response.files
    let foldersCount=arr.findIndex(item=>item.mimeType!='application/vnd.google-apps.folder')
    if(foldersCount==-1)foldersCount=arr.length
