@@ -7,7 +7,7 @@ var id='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
   var xhr=new XMLHttpRequest()
 loop()
   function loop(){
-  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name)&pageSize=5&pageToken=~!!~AI9FV7T-wjnivxSx8Kuc4lGtaFidofLCbmHHraPq17TSAluVPLV2FdH1Es17XfESbOUMaKYyRsABcLktvAeKjdEuPtNqar5pq_NHdfyI7dYsgAV0FRDAtBTJF7vjv3h1b_FYLVe0-T_nGKoQpmzmWOSDn31QQIB9hOonLdKnvK9Q9ZZDSWDbiE-xuyw0fr2YJ9ooyHOoN9irHhCBQOTx9f6NfGePvO9plKOxTMDtSFvsKxGXck0W0WQu0ByQ47veWtVNLe3_uC5-CulVx-ZpqOBSkrh-FNpG6njMDE60i0dxkhuiQB6sJOoD2o7_R_nEZqKQMN8XfBNgdctrk9Z2zOinFllgOMSN4Ix4oOooFndHBqt1hUmTrXoViiDl7DjmP6S-y87usj2GuxltTVhJcHcIGtOSKYpNgQ==`,true)
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name)&pageSize=10&pageToken=`,true)
   //xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+trashed=false&orderBy=folder&pageSize=1000`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
