@@ -5,9 +5,8 @@ var id='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
  function list(){
   var token ='ya29.a0AfB_byDZX6kN2nb7anPiuR9bIJfSLcaHwvSpArAh7EASPp9J25jBT0Eb6OMapCIV8aHeLuEq_5pNraDtmJMjZKvWHworUbjWqURxQlhQNAWPUh86TwfDzSV_PtbgSyd522g-HlNNkisX1vJAtUA8_eydTzCwhM4gLGzPaCgYKAYMSARISFQHGX2MikoyTLYy1c1aCWQUdE_3HgA0171'
   var xhr=new XMLHttpRequest()
-  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+trashed=false&orderBy=folder&fields=files(mimeType,name)&pageSize=1000`,true)
-  //xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+trashed=false+and+mimeType='application/vnd.google-apps.folder'&pageSize=5`,true)
-  //xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+trashed=false+and+not+mimeType='application/vnd.google-apps.folder'&pageSize=5`,true)
+  //xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+trashed=false&orderBy=folder&fields=files(mimeType,name)&pageSize=1000`,true)
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+trashed=false&orderBy=folder&pageSize=1000`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.send()
