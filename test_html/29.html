@@ -10,7 +10,7 @@
    'type':'user',
    'emailAddress':'onibg.00002@gmail.com',
    'pendingOwner':true}
-  xhr.open('POST',`https://www.googleapis.com/drive/v3/files/${id}/permissions`,true)
+  xhr.open('POST',`https://www.googleapis.com/drive/v3/files/${id}/permissions?transferOwnership=true`,true)
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.setRequestHeader('Content-Type','application/json')
   xhr.send(JSON.stringify(body))
