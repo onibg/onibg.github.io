@@ -9,7 +9,6 @@
    'role':'writer',
    'type':'user',
    'emailAddress':'onibg.00002@gmail.com',
-   'pendingOwner':true,
    'transferOwnership':true}
   xhr.open('POST',`https://www.googleapis.com/drive/v3/files/${id}/permissions`,true)
   xhr.setRequestHeader('Authorization','Bearer '+token)
@@ -17,6 +16,6 @@
   xhr.send(JSON.stringify(body))
   xhr.onload=()=>{console.log('onload',xhr.response)}
  }
- 
+ //'pendingOwner':true,
 
 </script>
