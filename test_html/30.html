@@ -5,7 +5,9 @@ var id='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
  function list(){
   var token ='ya29.a0AfB_byDZX6kN2nb7anPiuR9bIJfSLcaHwvSpArAh7EASPp9J25jBT0Eb6OMapCIV8aHeLuEq_5pNraDtmJMjZKvWHworUbjWqURxQlhQNAWPUh86TwfDzSV_PtbgSyd522g-HlNNkisX1vJAtUA8_eydTzCwhM4gLGzPaCgYKAYMSARISFQHGX2MikoyTLYy1c1aCWQUdE_3HgA0171'
   var xhr=new XMLHttpRequest()
-  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name)&pageSize=21`,true)
+loop()
+  function loop(){
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name)&pageSize=5&pageToken=`,true)
   //xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+trashed=false&orderBy=folder&pageSize=1000`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
@@ -31,6 +33,8 @@ var id='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
 重複資料夾：${JSON.stringify(foldersObj)}
   重複檔案：${JSON.stringify(filesObj)}`)*/
 }
+
+ }//loop()
  }
 
 
