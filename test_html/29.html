@@ -2,7 +2,7 @@
 <button onclick="owner()">轉移</button>
 <script>
  var token ='ya29.a0AfB_byDYg3VZo7nNTeSnt0WEfqXuN4qY8sHwDVa-1pc6YIjN3_sdQ7ntXvM6bFYcqcfC-PkAc7kjpsR_JkH9wqtD74d0W_7S5D91Pqe8OunGhomfigh-7qa4Fra7JOj2sfOvPMOUM9luAPewh0UtIHcXe7wyFI3zcUsaCgYKAfwSARMSFQHGX2Mi7dw-8vZ33i2WZVx9AUxxiA0170'
- var id='1p6qCPyG9lXgY3zS2bNWWWv6MOFnzBn3F'
+ var id='1lJzndgzM6jUpMFHDE1RVZmt5jjJKPVI9'
  function owner(){
   var xhr=new XMLHttpRequest()
   const body={
@@ -10,7 +10,7 @@
    'type':'user',
    'emailAddress':'onibg.00002@gmail.com',
    'pendingOwner':true,
-   'transferOwnership':true}
+}
   xhr.open('POST',`https://www.googleapis.com/drive/v3/files/${id}/permissions?transferOwnership=true`,true)
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.setRequestHeader('Content-Type','application/json')
