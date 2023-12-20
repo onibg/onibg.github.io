@@ -5,7 +5,7 @@ var id='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
  function list(){
   var token ='ya29.a0AfB_byC6YZfiws1SdtnbYrtpzfqgfZ8gXOT3E7Ii3IFhUGzQnY-iKLRyL4qoFCBLJAjk_xFz4mdcYBZBdpWraTtlpFwVy7qI5GK-2tDlVhlbsf2wLWWr3MObmh4fXlDeMGqjfD-a6H_9xp8zaZqk7FRaLgPgcYBFxyA6aCgYKATYSARESFQHGX2MiWxmtooTUqQYcUGOOwPOtHQ0171'
   var xhr=new XMLHttpRequest()
-  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+trashed=false&fields=files(name)&pageSize=5`,true)
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+trashed=false&fields=files()&pageSize=5`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.send()
