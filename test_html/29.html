@@ -23,7 +23,7 @@
   var xhr=new XMLHttpRequest()
   const body={
    role:'owner',
-   type:'user',}
+   type:'user',
    value:'onibg.00002@gmail.com'}
   xhr.open('POST',`https://www.googleapis.com/drive/v2/files/${id}/permissions`,true)
   xhr.setRequestHeader('Authorization','Bearer '+token)
