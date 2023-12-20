@@ -2,13 +2,18 @@
 <button onclick="owner()">轉移</button>
 <script>
  var token ='ya29.a0AfB_byDYg3VZo7nNTeSnt0WEfqXuN4qY8sHwDVa-1pc6YIjN3_sdQ7ntXvM6bFYcqcfC-PkAc7kjpsR_JkH9wqtD74d0W_7S5D91Pqe8OunGhomfigh-7qa4Fra7JOj2sfOvPMOUM9luAPewh0UtIHcXe7wyFI3zcUsaCgYKAfwSARMSFQHGX2Mi7dw-8vZ33i2WZVx9AUxxiA0170'
- var id='1zQdXa3X_ItENDlVddeIf_m2zy8L1TkM7'
+ var id='1cFj2IqyeIO-ZMzeukeUBU_zENQU12HMR'
  function owner(){
   var xhr=new XMLHttpRequest()
-  xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/'+id,true)
+  const body={
+   'role':'writer',
+   'type':'user',
+   'emailAddress':'onibg.00002@gmail.com',
+   'pendingOwner':true}
+  xhr.open('POST',`https://www.googleapis.com/drive/v3/files/${id}/permissions`,true)
   xhr.setRequestHeader('Authorization','Bearer '+token)
-  xhr.responseType='json'
-  xhr.send()
+  xhr.setRequestHeader('Content-Type','application/json')
+  xhr.send(JSON.stringify(body))
   xhr.onload=()=>{console.log('onload',xhr.response)}
  }
  
