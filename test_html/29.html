@@ -1,16 +1,16 @@
 <div>google雲端硬碟測試</div>
-<button onclick="owner()">A轉移</button>
+<button onclick="A()">A轉移</button>
+<button onclick="B()">轉移B</button>
 <script>
- var token ='ya29.a0AfB_byDNyBSLd_yQEUHJQ35YwVwEgThNzWkXks7VECPOSwGvp_6YSrEaTrYVK0sGh7AQYNZtQqcWSrpLN8BmwztomhG9GgX5UQwp4WsiBS_VaPz0oIIK51vMNTI7f-gMVSjGogU2-r3Qw_tezHBpgM3RXo7fPVxm4k8aCgYKAYASARESFQHGX2MiArWsMRCUruF0KdTAWvEo2Q0170'
- var id='1Scq0ud7-9YaFN1nf7mzw8v-kZYfWPQKl'
- function owner(){
+ var id='1sOUwJWs0kIiVUsh4rrctJVcrrJdsSlVr'
+ function A(){
+  var token ='ya29.a0AfB_byDNyBSLd_yQEUHJQ35YwVwEgThNzWkXks7VECPOSwGvp_6YSrEaTrYVK0sGh7AQYNZtQqcWSrpLN8BmwztomhG9GgX5UQwp4WsiBS_VaPz0oIIK51vMNTI7f-gMVSjGogU2-r3Qw_tezHBpgM3RXo7fPVxm4k8aCgYKAYASARESFQHGX2MiArWsMRCUruF0KdTAWvEo2Q0170'
   var xhr=new XMLHttpRequest()
   const body={
    role:'writer',
    type:'user',
    value:'onibg.00002@gmail.com',
-   pendingOwner:true 
-}
+   pendingOwner:true}
   xhr.open('POST',`https://www.googleapis.com/drive/v2/files/${id}/permissions`,true)
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.setRequestHeader('Content-Type','application/json')
@@ -18,5 +18,18 @@
   xhr.onload=()=>{console.log('onload',xhr.response)}
  }
  
+ function B(){
+  var token ='ya29.a0AfB_byAfMEPykNC_m5xiz8pAYVjJGTMxUTWzlPVgO1AgDxo3I30QCvfvbR5EfKRiqGEuV7lIG1wdGt-ddDhXjOD7cW6Um3k067szdlVUg141tjoUTibePAx2MLBClgzS2AQmfjf1gj0Q38jZTcADkMwae1nhDqhFU0AaCgYKAVISARISFQHGX2MiYU_ydvcipdwguSVuyX2UnQ0170'
+  var xhr=new XMLHttpRequest()
+  const body={
+   role:'owner',
+   type:'user',}
+   //value:'onibg.00002@gmail.com'}
+  xhr.open('POST',`https://www.googleapis.com/drive/v2/files/${id}/permissions`,true)
+  xhr.setRequestHeader('Authorization','Bearer '+token)
+  xhr.setRequestHeader('Content-Type','application/json')
+  xhr.send(JSON.stringify(body))
+  xhr.onload=()=>{console.log('onload',xhr.response)}
+ }
 
 </script>
