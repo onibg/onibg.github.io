@@ -1,9 +1,9 @@
 <div>google雲端硬碟測試</div>
-<button onclick="Delete()">刪除</button>
+<button onclick="owner()">轉移</button>
 <script>
- var token ='ya29.a0AfB_byCV8rRbCAnBHWhpi1Q8YgXR3FJ_HAgrL0J6rmMaSQrR_bqV5gmvhQXmi3tWmnLyIsE2ag6AaHhJhKlR_OR0aLPwtYfSE-jO4UemfszuKYpuGuGc58P83a0IQBrR7i2eXZiXpUu6F6076XVWc9GqlthwtT7SVQaCgYKAXUSARMSFQHGX2Miq3nqiPxhSV1m4YMludnk9Q0169'
- var id='1wKDUbrQwX5MyulGlbPNnzuwUE14cU-sE'
- function Delete(){
+ var token ='ya29.a0AfB_byDYg3VZo7nNTeSnt0WEfqXuN4qY8sHwDVa-1pc6YIjN3_sdQ7ntXvM6bFYcqcfC-PkAc7kjpsR_JkH9wqtD74d0W_7S5D91Pqe8OunGhomfigh-7qa4Fra7JOj2sfOvPMOUM9luAPewh0UtIHcXe7wyFI3zcUsaCgYKAfwSARMSFQHGX2Mi7dw-8vZ33i2WZVx9AUxxiA0170'
+ var id='1zQdXa3X_ItENDlVddeIf_m2zy8L1TkM7'
+ function owner(){
   var xhr=new XMLHttpRequest()
   xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/'+id,true)
   xhr.setRequestHeader('Authorization','Bearer '+token)
