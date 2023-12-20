@@ -17,10 +17,10 @@ var id='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
    console.log('onload',xhr.response)
    arr=arr.concat(xhr.response.files)
    if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
-
+else{console.log(arr)}
 }
  }//loop()
-console.log(arr)
+
 
  /*
    let foldersCount=arr.findIndex(item=>item.mimeType!='application/vnd.google-apps.folder')
