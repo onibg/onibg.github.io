@@ -3,7 +3,7 @@
 <button onclick="list()">list</button>
 <button onclick="unorganized()">is:unorganized owner:me</button>
 <script>
-var token='ya29.a0AfB_byBTbl6FtW9CnzBot9x-zDJwFZaMjFnx41Kg9JLKngs-xr1xvFWIRJ8Zwgt2xxBg7-we2GEGUIpcRxjPyy-Mi0Mj0TLM2TegZa6wbFdwSt4iTgBfdpyUdI7m1_gOn-RdVmWO43djo0W2VS4PFcIdSgtGyaBlvl0aCgYKAVASARISFQHGX2MiiktsmigqxXhp5FA1P3PgJA0170'
+var token='ya29.a0AfB_byCF-JQHCVJzJlH0aIxxvV1UaCcbD-QTYfKAMqJvejArVzXc6jL68Je2ipfXUgjCO_XRWfVnfFd4E6afn3WAInDN5urkhlVeCGIOSMqZY_dNh2_xEk-R5j3vJ9uLXyhK-0Xw9b6NFBM7BC-d4W_QY2ETiKxyX5IaCgYKAZ0SARMSFQHGX2Miu5N2ggivwRhM_8IOE_lyBg0170'
 var xhr=new XMLHttpRequest()
 function about(){
  xhr.open('GET',`https://www.googleapis.com/drive/v3/about?fields=storageQuota`,true)
@@ -28,7 +28,7 @@ function unorganized(){
  xhr.setRequestHeader('Authorization','Bearer '+token)
  xhr.send()
  xhr.onload=()=>{
- const result=xhr.response.files.filter(item => !((item.name=='onibg'&&item.mimeType=='application/vnd.google-apps.script')||(item.parents[0]=='0Bxqf-PGnadp7aVUwX1N4RHBCRDg'&&item.mimeType=='video/x-matroska')))
+ const result=xhr.response.files.filter(item =>!((item.name=='onibg'&&item.mimeType=='application/vnd.google-apps.script')||(item.parents[0]=='0Bxqf-PGnadp7aVUwX1N4RHBCRDg'&&item.mimeType=='video/x-matroska')))
   
     console.log(xhr.response.files,result)
  }
