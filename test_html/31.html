@@ -31,7 +31,7 @@ function unorganized(){
  const result=xhr.response.files.filter(item =>{return ((item.name=='onibg'&&item.mimeType=='application/vnd.google-apps.script')||(item.parents==['0Bxqf-PGnadp7aVUwX1N4RHBCRDg']&&item.mimeType=='video/x-matroska'))})
   
     console.log(xhr.response.files,result)
-    console.log(xhr.response.files[3].parents==["0Bxqf-PGnadp7aVUwX1N4RHBCRDg"])
+    console.log(xhr.response.files[3].parents[0]=="0Bxqf-PGnadp7aVUwX1N4RHBCRDg")
  }
 }
 
