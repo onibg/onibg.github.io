@@ -28,7 +28,11 @@ function unorganized(){
  xhr.setRequestHeader('Authorization','Bearer '+token)
  xhr.send()
  xhr.onload=()=>{
-  console.log(xhr.response.files,xhr.response.files.length)
+  
+ const result=xhr.response.files.filter(item =>{(item.name=='onibg'&&item.mimeType=='application/vnd.google-apps.script')||
+                                                (item.parents==['0Bxqf-PGnadp7aVUwX1N4RHBCRDg']&&item.mimeType=='video/x-matroska')})
+  
+    console.log(xhr.response.files,result)
  }
 }
 
