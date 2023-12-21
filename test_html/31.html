@@ -17,8 +17,7 @@ function list(){
  xhr.setRequestHeader('Authorization','Bearer '+token)
  xhr.send()
  xhr.onload=()=>{
-    console.log('onload',xhr.response.files,)
-console.log(xhr.response.files.length)
+    console.log(xhr.response.files,xhr.response.files.length)
 }
 }
 
