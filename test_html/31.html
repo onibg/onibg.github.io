@@ -16,7 +16,10 @@ function list(){
  xhr.responseType='json'
  xhr.setRequestHeader('Authorization','Bearer '+token)
  xhr.send()
- xhr.onload=()=>{console.log('onload',xhr.response.files)}
+ xhr.onload=()=>{
+    console.log('onload',xhr.response.files)
+console.log(xhr.response.files.length)
+}
 }
 
 
