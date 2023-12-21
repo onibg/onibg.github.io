@@ -23,7 +23,7 @@ function list(){
 }
 
 function unorganized(){
- xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q=is:unorganized owner:me&fields=files(mimeType,name)&pageSize=1000`,true)
+ xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='is:unorganized owner:me'&fields=files(mimeType,name)&pageSize=1000`,true)
  xhr.responseType='json'
  xhr.setRequestHeader('Authorization','Bearer '+token)
  xhr.send()
