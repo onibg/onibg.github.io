@@ -1,7 +1,7 @@
 
 <button onclick="read()">read</button>
 <table style="display:none" border="5">
-<tr><td>Gmail</td><td>垃圾桶量</td><td>Drive用量</td><td>總用量</td></tr>
+<tr><td>Gmail</td><td>垃圾桶量</td><td>Drive用量</td><td>總用量</td><td>剩餘量</td></tr>
 </table>
 <script>
  var table=document.querySelector('table'),tr
@@ -38,9 +38,11 @@ function read(){
   fetch('https://www.googleapis.com/drive/v3/about?fields=storageQuota',{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
   .then(res=>res.json())
   .then(data=>{
-   tr[onibgObj[mail].row].children[1].textContent=data.storageQuota.usageInDriveTrash
-   tr[onibgObj[mail].row].children[2].textContent=data.storageQuota.usageInDrive
-   tr[onibgObj[mail].row].children[3].textContent=data.storageQuota.usage
+    const row=tr[onibgObj[mail].row],remain=data.storageQuota.limit-data.storageQuota.usage
+    row.children[1].textContent=data.storageQuota.usageInDriveTrash
+    row.children[2].textContent=data.storageQuota.usageInDrive
+    row.children[3].textContent=data.storageQuota.usage
+    row.children[4].textContent=remain+'/'+(remain/1073741824).toFixed(2)
   }) 
  }
 }
