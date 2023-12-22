@@ -7,11 +7,12 @@
  var onibgObj={}
  fetch('https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec?onibg')
  .then(res=>res.text())
- .then(data=>{
+ .then(data=>{let i=0
   for(const item of data.split('\n')){
    const mail_url=item.split(',')
    onibgObj[mail_url[0]]={}
    onibgObj[mail_url[0]].url=mail_url[1]
+   onibgObj[mail_url[0]].row=++i
    getToken(mail_url)
    const row=document.createElement('tr')
    const cell=document.createElement('td')
@@ -19,6 +20,7 @@
    row.appendChild(cell)
    table.appendChild(row)
   }
+ var tr=document.querySelectorAll('tr')
  table.style.display='table'
 })
 function getToken(mail_url){
@@ -27,17 +29,21 @@ function getToken(mail_url){
  .then(data=>{onibgObj[mail_url[0]].token=data})
 }
 setInterval(()=>{
- for(var mail in onibgObj){getToken([mail,onibgObj[mail].url])}
+ for(const mail in onibgObj){getToken([mail,onibgObj[mail].url])}
 },3000000)
 function read(){
  let i=0
  for(const mail in onibgObj){
-  tr=document.querySelectorAll('tr')
-  console.log(mail)
   const cell=document.createElement('td')
-  cell.textContent=i
-  tr[i++].appendChild(cell)
- }
+  fetch('https://www.googleapis.com/drive/v3/about?fields=storageQuota',{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
+  .then(res=>res.json())
+  .then(data=>{
+   cell.textContent=data.usageInDriveTrash
+   tr[i++].appendChild(cell)
+ }) 
+
+
+}
 
 
 
