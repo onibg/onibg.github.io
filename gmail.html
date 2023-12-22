@@ -8,15 +8,15 @@
  .then(res=>res.text())
  .then(data=>{
   for(const item of data.split('\n')){
-   const row=document.createElement('tr')
-   const cell=document.createElement('td')
-   cell.textContent='測試'
-   row.appendChild(cell)
-   table.appendChild(row)
    const mail_url=item.split(',')
    onibgObj[mail_url[0]]={}
    onibgObj[mail_url[0]].url=mail_url[1]
    getToken(mail_url)
+   const row=document.createElement('tr')
+   const cell=document.createElement('td')
+   cell.textContent=mail_url[0]
+   row.appendChild(cell)
+   table.appendChild(row)
   }
 })
 function getToken(mail_url){
