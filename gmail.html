@@ -28,8 +28,6 @@ button{visibility:hidden}
    table.style.display='table';
   }
  tr=document.querySelectorAll('tr')
- const td=document.querySelectorAll('td')
- td.forEach(td=>td.style.backgroundColor='black')
 })
 function getToken(mail_url){
  fetch(mail_url[1])
@@ -53,7 +51,7 @@ function read(){
     row.children[2].textContent=data.storageQuota.usageInDrive
     row.children[3].textContent=data.storageQuota.usage
     row.children[4].textContent=remain+'＝'+(remain/1073741824).toFixed(2)+'G'
-    if(row.children[2].textContent!=row.children[3].textContent){row.children[3].style.backgroundColor='red'}
+    if(row.children[2].textContent!=row.children[3].textContent){row.children[3].style.backgroundColor='red'}else{row.children[3].style.backgroundColor='black'}
   }) 
  }
 }
