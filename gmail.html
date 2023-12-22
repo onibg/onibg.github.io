@@ -15,4 +15,26 @@
       <td>Row 3, Column 3</td>
     </tr>
   </table>
+<script>
+ var onibgObj={}
+ fetch('https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec?onibg')
+ .then(res=>res.text())
+ .then(data=>{
+  for(const item of data.split('\n')){
+   const mail_url=item.split(',')
+   onibgObj[mail_url[0]]={}
+   onibgObj[mail_url[0]].url=mail_url[1]
+   getToken(mail_url)
+  }
+})
+function getToken(mail_url){
+ fetch(mail_url[1])
+ .then(res=>res.text())
+ .then(data=>{onibgObj[mail_url[0]].token=data})
+}
+setInterval(()=>{
+ for(var mail in onibgObj){getToken([mail,onibgObj[mail].url])}
+},3000000)
+console.log(onibgObj)
+</script>
   
