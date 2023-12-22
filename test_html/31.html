@@ -2,6 +2,7 @@
 <button onclick="about()">about</button>
 <button onclick="root()">root</button>
 <button onclick="special()">special</button>
+<button onclick="trash()">trash</button>
 <script>
 var token='ya29.a0AfB_byAXMDtZgT_H6yCiV-GPEMNyHJskgQsl_mDScbLY_GFz5XCCFXxr3MjCzWOHI3oOnU_-o3LFx8gGQPZfKRsU9MKCLmhD5g5pQHobfIPMNI-hpgNdy3ef_FITf2BpLl1NMKXVi5mgau4nxDTNWOC7pgJO0z4iFeYaCgYKAbISARESFQHGX2MiBXeKDVEcClFQCyOPbvAKcA0170'
 var xhr=new XMLHttpRequest()
@@ -36,5 +37,21 @@ function special(){
   }//onload
  }//loop
 }//special
+
+function trash(){
+ let result=[]
+ loop('')
+ function loop(pageToken){
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='me' in owners and trashed=false&fields=nextPageToken,files(mimeType,name,parents)&pageSize=1000&pageToken=${pageToken}`,true)
+  xhr.responseType='json'
+  xhr.setRequestHeader('Authorization','Bearer '+token)
+  xhr.send()
+  xhr.onload=()=>{
+   console.log(xhr.response.files)
+   result=result.concat(xhr.response.files.filter(item=>!item.parents||item.parents[0].length==19))//!item.parents代表無父目錄(unorganized)；item.parents[0].length==19代表有父目錄(id長度只有19為root)
+   if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}else{console.log(result)}
+  }//onload
+ }//loop
+}//trash
 
 </script>
