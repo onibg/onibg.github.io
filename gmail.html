@@ -19,7 +19,7 @@
    const cell=document.createElement('td')
    cell.textContent=mail_url[0]
    row.appendChild(cell)
-   row.innerHTML+='<td>null</td>'
+   row.innerHTML+='<td></td>'
    table.appendChild(row)
   }
  tr=document.querySelectorAll('tr')
@@ -38,9 +38,7 @@ function read(){
   fetch('https://www.googleapis.com/drive/v3/about?fields=storageQuota',{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
   .then(res=>res.json())
   .then(data=>{
-   const cell=document.createElement('td')
-   cell.textContent=data.storageQuota.usageInDriveTrash
-   tr[onibgObj[mail].row].appendChild(cell)
+   tr[onibgObj[mail].row].children[1].textContent=data.storageQuota.usageInDriveTrash
   }) 
  }
 }
