@@ -55,7 +55,7 @@ function trash(){
  }//loop
 }//trash
 function test(){
- xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='unorganized'&fields=files(mimeType,name)&pageSize=1000`,true)
+ xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q=unorganized&fields=files(mimeType,name)&pageSize=1000`,true)
  xhr.responseType='json'
  xhr.setRequestHeader('Authorization','Bearer '+token)
  xhr.send()
