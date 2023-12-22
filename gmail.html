@@ -38,7 +38,7 @@ function read(){
   .then(res=>res.json())
   .then(data=>{
    const cell=document.createElement('td')
-   cell.textContent=data.usageInDriveTrash
+   cell.textContent=data.storageQuota.usageInDriveTrash
    tr[onibgObj[mail].row].appendChild(cell)
   }) 
  }
