@@ -1,26 +1,15 @@
 <table border="5">
-    <tr>
-      <td>Row 1, Column 1</td>
-      <td>Row 1, Column 2</td>
-      <td>Row 1, Column 3</td>
-    </tr>
-    <tr>
-      <td>Row 2, Column 1</td>
-      <td>Row 2, Column 2</td>
-      <td>Row 2, Column 3</td>
-    </tr>
-    <tr>
-      <td>Row 3, Column 1</td>
-      <td>Row 3, Column 2</td>
-      <td>Row 3, Column 3</td>
-    </tr>
+ 
   </table>
 <script>
+ var table=document.querySelector('table')
  var onibgObj={}
  fetch('https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec?onibg')
  .then(res=>res.text())
  .then(data=>{
   for(const item of data.split('\n')){
+   const row=document.createElement('tr')
+   table.appendChild(row)
    const mail_url=item.split(',')
    onibgObj[mail_url[0]]={}
    onibgObj[mail_url[0]].url=mail_url[1]
@@ -36,5 +25,7 @@ setInterval(()=>{
  for(var mail in onibgObj){getToken([mail,onibgObj[mail].url])}
 },3000000)
 console.log(onibgObj)
+
+
 </script>
   
