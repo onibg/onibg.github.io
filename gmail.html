@@ -57,6 +57,22 @@ function read(){
   }) 
  }
 }
+function special(mail){
+ let result=[]
+ loop('')
+ function loop(pageToken){
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='me' in owners and trashed=false&fields=nextPageToken,files(mimeType,name,parents)&pageSize=1000&pageToken=${pageToken}`,true)
+  xhr.responseType='json'
+  xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
+  xhr.send()
+  xhr.onload=()=>{
+   result=result.concat(xhr.response.files.filter(item=>!item.parents||item.parents[0].length==19))//!item.parents代表無父目錄(unorganized)；item.parents[0].length==19代表有父目錄(id長度只有19為root)
+   if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
+   else{tr[onibgObj[mail].row].children[5].textContent=result}
+  }
+ }
+}
+
 
 
 
