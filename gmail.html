@@ -29,8 +29,13 @@ setInterval(()=>{
  for(var mail in onibgObj){getToken([mail,onibgObj[mail].url])}
 },3000000)
 function read(){
- for(const i in onibgObj){
-console.log(i)
+ let i=0
+ for(const mail in onibgObj){
+  tr=document.querySelectorAll('tr')
+  console.log(mail)
+  const cell=document.createElement('td')
+  cell.textContent=i
+  tr[i++].appendChild(cell)
  }
 
 
