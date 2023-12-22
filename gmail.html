@@ -43,7 +43,7 @@ setInterval(()=>{
 },3000000)
 function read(){
  for(const mail in onibgObj){
-  trash(mail)
+  trash(mail);if(onibgObj[mail].row>3)special(mail)
   fetch('https://www.googleapis.com/drive/v3/about?fields=storageQuota',{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
   .then(res=>res.json())
   .then(data=>{
@@ -52,7 +52,6 @@ function read(){
     row.children[2].textContent=data.storageQuota.usageInDrive
     if(row.children[1].textContent!=0){row.children[1].style.backgroundColor='red'}else{row.children[1].style.backgroundColor='black'}
     if(onibgObj[mail].row<=3)return
-    special(mail)
     row.children[3].textContent=data.storageQuota.usage
     row.children[4].textContent=remain+'＝'+(remain/1073741824).toFixed(2)+'G'
     if(row.children[2].textContent!=row.children[3].textContent){row.children[3].style.backgroundColor='red'}else{row.children[3].style.backgroundColor='black'}
