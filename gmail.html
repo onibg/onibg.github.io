@@ -47,6 +47,7 @@ function read(){
   .then(res=>res.json())
   .then(data=>{
     const row=tr[onibgObj[mail].row],remain=data.storageQuota.limit-data.storageQuota.usage
+    if(onibgObj[mail].row<=3){return}
     row.children[1].textContent=data.storageQuota.usageInDriveTrash
     row.children[2].textContent=data.storageQuota.usageInDrive
     row.children[3].textContent=data.storageQuota.usage
