@@ -1,6 +1,6 @@
 
 <button onclick="read()">read</button>
-<table border="5">
+<table style="display:none" border="5">
 </table>
 <script>
  var table=document.querySelector('table')
@@ -37,7 +37,7 @@ function read(){
   cell.textContent=i
   tr[i++].appendChild(cell)
  }
-
+table.style.display='table'
 
 
 }
