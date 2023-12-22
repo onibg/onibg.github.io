@@ -8,7 +8,7 @@ table,th,td{border:1px solid lime}
 </table>
 <script>
  var table=document.querySelector('table'),tr
- var onibgObj={}
+ var onibgObj={},quantity=0
  fetch('https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec?onibg')
  .then(res=>res.text())
  .then(data=>{let i=0
@@ -26,12 +26,15 @@ table,th,td{border:1px solid lime}
    table.appendChild(row)
   }
  tr=document.querySelectorAll('tr')
- table.style.display='table'
 })
 function getToken(mail_url){
  fetch(mail_url[1])
  .then(res=>res.text())
- .then(data=>{onibgObj[mail_url[0]].token=data})
+ .then(data=>{
+  onibgObj[mail_url[0]].token=data
+  if(!quantity){quantity=tr.length-1}else{quantity--}
+  if(quantity==1){table.style.display='table';quantity=0}
+ })
 }
 setInterval(()=>{
  for(const mail in onibgObj){getToken([mail,onibgObj[mail].url])}
