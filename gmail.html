@@ -1,6 +1,7 @@
 <style>
 body{background-color:black;color:white}
 table,th,td{border:1px solid lime}
+button{visibility:hidden}
 </style>
 <button onclick="read()">read</button>
 <table style="display:none">
@@ -34,7 +35,7 @@ function getToken(mail_url){
  .then(data=>{
   onibgObj[mail_url[0]].token=data
   if(!quantity){quantity=tr.length-1}else{quantity--}
-  if(quantity==1){quantity=0}
+  if(quantity==1){quantity=0;document.querySelector('button').style.visibility='visible'}
  })
 }
 setInterval(()=>{
