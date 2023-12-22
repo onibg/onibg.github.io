@@ -84,7 +84,7 @@ function trash(mail){
   xhr.onload=()=>{
    result=result.concat(xhr.response.files)
    if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
-   else{console.log(result);tr[onibgObj[mail].row].children[2].textContent+='共'+result.length+'個'}
+   else{console.log(result);tr[onibgObj[mail].row].children[1].textContent+='共'+result.length+'個'}
   }
  }
 }
