@@ -9,6 +9,8 @@
  .then(data=>{
   for(const item of data.split('\n')){
    const row=document.createElement('tr')
+   const cell=document.createElement('td')
+   row.appendChild(cell)
    table.appendChild(row)
    const mail_url=item.split(',')
    onibgObj[mail_url[0]]={}
