@@ -1,7 +1,7 @@
 
 <button onclick="read()">read</button>
 <table style="display:none" border="5">
-<tr><td>Gmail</td><td>垃圾桶</td><td>使用量</td></tr>
+<tr><td>Gmail</td><td>垃圾桶量</td><td>Drive用量</td><td>總用量</td></tr>
 </table>
 <script>
  var table=document.querySelector('table'),tr
@@ -40,6 +40,7 @@ function read(){
   .then(data=>{
    tr[onibgObj[mail].row].children[1].textContent=data.storageQuota.usageInDriveTrash
    tr[onibgObj[mail].row].children[2].textContent=data.storageQuota.usageInDrive
+   tr[onibgObj[mail].row].children[3].textContent=data.storageQuota.usage
   }) 
  }
 }
