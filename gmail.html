@@ -1,6 +1,7 @@
 
 <button onclick="read()">read</button>
 <table style="display:none" border="5">
+<tr><td>Gmail</td><td>垃圾桶</td></tr>
 </table>
 <script>
  var table=document.querySelector('table')
@@ -32,21 +33,15 @@ setInterval(()=>{
  for(const mail in onibgObj){getToken([mail,onibgObj[mail].url])}
 },3000000)
 function read(){
- let i=0
  for(const mail in onibgObj){
-  const cell=document.createElement('td')
   fetch('https://www.googleapis.com/drive/v3/about?fields=storageQuota',{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
   .then(res=>res.json())
   .then(data=>{
+   const cell=document.createElement('td')
    cell.textContent=data.usageInDriveTrash
-   tr[i++].appendChild(cell)
- }) 
-
-
-}
-
-
-
+   tr[onibgObj[mail].row].appendChild(cell)
+  }) 
+ }
 }
 
 
