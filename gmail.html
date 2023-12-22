@@ -48,7 +48,7 @@ function read(){
   .then(res=>res.json())
   .then(data=>{
     const row=tr[onibgObj[mail].row],remain=data.storageQuota.limit-data.storageQuota.usage
-    row.children[1].textContent=data.storageQuota.usageInDriveTrash
+    row.children[1].textContent=data.storageQuota.usageInDriveTrash+row.children[1].textContent
     row.children[2].textContent=data.storageQuota.usageInDrive
     if(row.children[1].textContent!=0){row.children[1].style.backgroundColor='red'}else{row.children[1].style.backgroundColor='black'}
     if(onibgObj[mail].row<=3)return
