@@ -1,7 +1,7 @@
 <div>google雲端硬碟about測試</div>
 <button onclick="about()">about</button>
 <button onclick="list()">list</button>
-<button onclick="unorganized()">is:unorganized owner:me</button>
+<button onclick="special()">special</button>
 <script>
 var token='ya29.a0AfB_byBSol-zSm0bzPLovDpq_0uJ2CTBRU8p1ICWV-fQjk9iBExsW3eGDq7rx_OQH89JWSmPYrlaqazPLAMdtcuyyXrwZjk6IcS-2tvVDPNcKXqvy-BPuT4Qgs5K_4k2QdyhnJGzVLF7ryr4HeC4klr8oYticpYVdmcOaCgYKAVkSARISFQHGX2MiYdgUi_kcqkl8jUnJBbd5mQ0171'
 var xhr=new XMLHttpRequest()
@@ -22,17 +22,19 @@ function list(){
  }
 }
 
-function unorganized(){
- xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='me' in owners and trashed=false&fields=files(mimeType,name,parents)&pageSize=1000`,true)
- xhr.responseType='json'
- xhr.setRequestHeader('Authorization','Bearer '+token)
- xhr.send()
- xhr.onload=()=>{
- //const result=xhr.response.files.filter(item =>!((item.name=='onibg'&&item.mimeType=='application/vnd.google-apps.script')||(item.parents&&item.parents[0]=='0Bxqf-PGnadp7aVUwX1N4RHBCRDg'&&item.mimeType=='video/x-matroska')))
- const result=xhr.response.files.filter(item =>(!item.parents)||(item.parents&&item.parents[0].length==19))//!item.parents代表無父目錄(unorganized)；item.parents[0].length==19代表有父目錄(id長度只有19為root)
-  
-    console.log(xhr.response.files,result)
- }
-}
+function special(){
+ loop('')
+ function loop(pageToken){
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='me' in owners and trashed=false&fields=files(mimeType,name,parents)&pageSize=1000&pageToken=${pageToken}`,true)
+  xhr.responseType='json'
+  xhr.setRequestHeader('Authorization','Bearer '+token)
+  xhr.send()
+  xhr.onload=()=>{
+   if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
+   const result=xhr.response.files.filter(item =>(!item.parents)||(item.parents&&item.parents[0].length==19))//!item.parents代表無父目錄(unorganized)；item.parents[0].length==19代表有父目錄(id長度只有19為root)
+   console.log(xhr.response.files,result)
+  }//onload
+ }//loop
+}//special
 
 </script>
