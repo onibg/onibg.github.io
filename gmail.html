@@ -32,7 +32,7 @@ function getToken(mail_url){
  .then(res=>res.text())
  .then(data=>{
   onibgObj[mail_url[0]].token=data
-  if(!quantity){quantity=tr.length}else{quantity--}
+  if(!quantity){quantity=tr.length-1}else{quantity--}
   if(quantity==1){table.style.display='table';quantity=0}
  })
 }
