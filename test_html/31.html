@@ -25,7 +25,7 @@ function list(){
 function special(){
  loop('')
  function loop(pageToken){
-  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='me' in owners and trashed=false&fields=files(mimeType,name,parents)&pageSize=1000&pageToken=${pageToken}`,true)
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='me' in owners and trashed=false&fields=nextPageToken,files(mimeType,name,parents)&pageSize=1000&pageToken=${pageToken}`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.send()
