@@ -7,7 +7,7 @@
 var token='ya29.a0AfB_byBcgKWKu5c1QLdcYgyP0_w6RSnW5pRJ1J3b3EGlzpqI7doYawGmqqYv1fpgsHiuwnPIpQzIfAaHauI1QYWJ99X0tMts4gwdkV0NLxcuOIKn-BcAJdnfTvNvaIzTknUs7AbPS5xSLm4SGQ6tBz7NGdyLjlwjVwEaCgYKAZESARASFQHGX2MiRl_6XXCLLJ68Y3z5xShZ-g0170'
 var xhr=new XMLHttpRequest()
 function about(){
- xhr.open('GET',`https://www.googleapis.com/drive/v3/about?fields=storageQuota`,true)
+ xhr.open('GET',`https://www.googleapis.com/drive/v3/about`,true)
  xhr.responseType='json'
  xhr.setRequestHeader('Authorization','Bearer '+token)
  xhr.send()
