@@ -4,7 +4,7 @@
 <tr><td>Gmail</td><td>垃圾桶</td></tr>
 </table>
 <script>
- var table=document.querySelector('table')
+ var table=document.querySelector('table'),tr
  var onibgObj={}
  fetch('https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec?onibg')
  .then(res=>res.text())
@@ -21,7 +21,7 @@
    row.appendChild(cell)
    table.appendChild(row)
   }
- var tr=document.querySelectorAll('tr')
+ tr=document.querySelectorAll('tr')
  table.style.display='table'
 })
 function getToken(mail_url){
