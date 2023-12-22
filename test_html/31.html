@@ -1,6 +1,6 @@
 <div>google雲端硬碟about測試</div>
 <button onclick="about()">about</button>
-<button onclick="list()">list</button>
+<button onclick="root()">root</button>
 <button onclick="special()">special</button>
 <script>
 var token='ya29.a0AfB_byAXMDtZgT_H6yCiV-GPEMNyHJskgQsl_mDScbLY_GFz5XCCFXxr3MjCzWOHI3oOnU_-o3LFx8gGQPZfKRsU9MKCLmhD5g5pQHobfIPMNI-hpgNdy3ef_FITf2BpLl1NMKXVi5mgau4nxDTNWOC7pgJO0z4iFeYaCgYKAbISARESFQHGX2MiBXeKDVEcClFQCyOPbvAKcA0170'
@@ -12,16 +12,15 @@ function about(){
  xhr.send()
  xhr.onload=()=>{console.log('onload',xhr.response)}
 }
-function list(){
+function root(){
  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='root' in parents and trashed=false&fields=files(mimeType,name)&pageSize=1000`,true)
  xhr.responseType='json'
  xhr.setRequestHeader('Authorization','Bearer '+token)
  xhr.send()
  xhr.onload=()=>{
-  console.log(xhr.response.files,xhr.response.files.length)
+  console.log(xhr.response.files)
  }
 }
-
 function special(){
  let result=[]
  loop('')
