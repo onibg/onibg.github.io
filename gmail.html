@@ -1,6 +1,7 @@
+
+<button onclick="read()">read</button>
 <table border="5">
- 
-  </table>
+</table>
 <script>
  var table=document.querySelector('table')
  var onibgObj={}
@@ -27,6 +28,20 @@ function getToken(mail_url){
 setInterval(()=>{
  for(var mail in onibgObj){getToken([mail,onibgObj[mail].url])}
 },3000000)
+function read(){
+ for(const i in onibgObj){
+console.log(i)
+ }
+
+
+
+}
+
+
+
+
+
+
 console.log(onibgObj)
 
 
