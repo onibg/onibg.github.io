@@ -23,6 +23,7 @@ function list(){
 }
 
 function special(){
+ let result=[]
  loop('')
  function loop(pageToken){
   xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='me' in owners and trashed=false&fields=nextPageToken,files(mimeType,name,parents)&pageSize=1000&pageToken=${pageToken}`,true)
@@ -30,9 +31,9 @@ function special(){
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.send()
   xhr.onload=()=>{
-     const result=xhr.response.files.filter(item=>!item.parents||item.parents[0].length==19)//!item.parents代表無父目錄(unorganized)；item.parents[0].length==19代表有父目錄(id長度只有19為root)
-     console.log(xhr.response.files,result)
-     if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
+   console.log(xhr.response.files)
+   result=result.concat(xhr.response.files.filter(item=>!item.parents||item.parents[0].length==19))//!item.parents代表無父目錄(unorganized)；item.parents[0].length==19代表有父目錄(id長度只有19為root)
+   if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}else{console.log(result)}
   }//onload
  }//loop
 }//special
