@@ -5,7 +5,7 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <script>
-var token='ya29.a0AfB_byAIn59ZCBavTqnO1HRuGDdyWiecZXGix2MVlPJ0jbQgHDZi6FSXW3A232ry1LHCDhttPare-iqn6LtNUyhlsiXQcW2r9j9oTtj1gkVXsFi51fHze9pDVegJNhjH5ElXwuMNAMUBwuNMhisZt4kNf6k6_FuvD2MaCgYKAQASARISFQHGX2MiNUw6yaHD-QPyRo5njpc0EA0170'
+var token='ya29.a0AfB_byDziyVqObEBfSmm1CftOlq9F33fhpXASQ3Npg-iF_zYJBiZHbVphPtRF8o7Lpruy7-7bLVJm2TK0a9aNnJcw4smmIOIQ_Bcmb3szFSSAT4l8-cAx-jDzTflqPd9Z48hNFspIldDaz4cylk99Rur584aSjWg_8Q8aCgYKAfoSARASFQHGX2MibQblYnmFVO7tGa3bc-H3fw0171'
 var xhr=new XMLHttpRequest()
 function about(){
  xhr.open('GET',`https://www.googleapis.com/drive/v3/about?fields=storageQuota`,true)
@@ -54,10 +54,10 @@ function trash(){
  }//loop
 }//trash
 function test(){
- xhr.open('PATCH',`https://www.googleapis.com/upload/drive/v3/files/1Si3Ie9iMhvcNJZLBJEGryKFrwyUvdORp?addParents=1Btpxtnbp0d5-aBJYxxdU_I8wL8un332x`,true)
+ xhr.open("POST",`https://www.googleapis.com/drive/v2/files/1Btpxtnbp0d5-aBJYxxdU_I8wL8un332x/permissions`,true)
  xhr.responseType='json'
  xhr.setRequestHeader('Authorization','Bearer '+token)
- xhr.send()
+ xhr.send(JSON.stringify({role:'writer',type:'user',value:'onibg.00004@gmail.com'}))
  xhr.onload=()=>{
   console.log(xhr.response)
  }
