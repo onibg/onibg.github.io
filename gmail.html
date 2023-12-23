@@ -43,11 +43,12 @@ setInterval(()=>{
 },3000000)
 function read(){
  for(const mail in onibgObj){
+  const row=tr[onibgObj[mail].row]
   trash(mail);if(onibgObj[mail].row>3)special(mail)
   fetch('https://www.googleapis.com/drive/v3/about?fields=storageQuota&'+mail,{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
   .then(res=>res.json())
   .then(data=>{
-    remain=data.storageQuota.limit-data.storageQuota.usage
+    const remain=data.storageQuota.limit-data.storageQuota.usage
     row.children[1].textContent=data.storageQuota.usageInDriveTrash+row.children[1].textContent
     row.children[2].textContent=data.storageQuota.usageInDrive
     if(data.storageQuota.usageInDriveTrash!=0){row.children[1].style.backgroundColor='red'}else{row.children[1].style.backgroundColor='black'}
