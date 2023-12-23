@@ -47,7 +47,7 @@ function read(){
   fetch('https://www.googleapis.com/drive/v3/about?fields=storageQuota&'+mail,{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
   .then(res=>res.json())
   .then(data=>{
-    const row=tr[onibgObj[mail].row],remain=data.storageQuota.limit-data.storageQuota.usage
+    remain=data.storageQuota.limit-data.storageQuota.usage
     row.children[1].textContent=data.storageQuota.usageInDriveTrash+row.children[1].textContent
     row.children[2].textContent=data.storageQuota.usageInDrive
     if(data.storageQuota.usageInDriveTrash!=0){row.children[1].style.backgroundColor='red'}else{row.children[1].style.backgroundColor='black'}
