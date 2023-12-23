@@ -57,7 +57,7 @@ function test(){
  xhr.open("POST",`https://www.googleapis.com/drive/v2/files/1Btpxtnbp0d5-aBJYxxdU_I8wL8un332x/permissions`,true)
  xhr.responseType='json'
  xhr.setRequestHeader('Authorization','Bearer '+token)
- xhr.send(JSON.stringify({role:'writer',type:'user',value:'onibg.00004@gmail.com'}))
+ xhr.send(JSON.stringify({role:'writer',type:'user',value:'onibg.00005@gmail.com'}))
  xhr.onload=()=>{
   console.log(xhr.response)
  }
