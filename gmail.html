@@ -44,6 +44,7 @@ setInterval(()=>{
 function read(){
  for(const mail in onibgObj){
   const row=tr[onibgObj[mail].row]
+  row.children[1].textContent=''
   trash(mail);if(onibgObj[mail].row>3)special(mail)
   fetch('https://www.googleapis.com/drive/v3/about?fields=storageQuota&'+mail,{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
   .then(res=>res.json())
