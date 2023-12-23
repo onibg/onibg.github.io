@@ -5,7 +5,7 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <script>
-var token='ya29.a0AfB_byDSO0j0wcPXaDmdmafKUBCXbtwcYkAg9YORDBasXAgNFWD-CGYokzoguiaAVTWKm43j1rLktkLAEm8jBBTdBkt5YOe_9frRlrhgDOVfaZOAjI99adIlBywmAUDbMi3G6KLX5w_cF1RUciUCAxZtxxf8EzxRzpwaCgYKAbUSARASFQHGX2MizncQE9ii-JsgudluHbZjeg0170'
+var token='ya29.a0AfB_byAIn59ZCBavTqnO1HRuGDdyWiecZXGix2MVlPJ0jbQgHDZi6FSXW3A232ry1LHCDhttPare-iqn6LtNUyhlsiXQcW2r9j9oTtj1gkVXsFi51fHze9pDVegJNhjH5ElXwuMNAMUBwuNMhisZt4kNf6k6_FuvD2MaCgYKAQASARISFQHGX2MiNUw6yaHD-QPyRo5njpc0EA0170'
 var xhr=new XMLHttpRequest()
 function about(){
  xhr.open('GET',`https://www.googleapis.com/drive/v3/about?fields=storageQuota`,true)
@@ -55,7 +55,7 @@ function trash(){
  }//loop
 }//trash
 function test(){
- xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q=unorganized&fields=files(mimeType,name)&pageSize=1000`,true)
+ xhr.open('PATCH',`https://www.googleapis.com/upload/drive/v3/files/1Si3Ie9iMhvcNJZLBJEGryKFrwyUvdORp?addParents=1Btpxtnbp0d5-aBJYxxdU_I8wL8un332x`,true)
  xhr.responseType='json'
  xhr.setRequestHeader('Authorization','Bearer '+token)
  xhr.send()
