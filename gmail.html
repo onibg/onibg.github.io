@@ -15,6 +15,7 @@ button{visibility:hidden}
  .then(data=>{let i=0
   for(const item of data.split('\n')){
    const mail_url=item.split(',')
+   if(!mail_url[1].startsWith('https://'))continue
    onibgObj[mail_url[0]]={}
    onibgObj[mail_url[0]].url=mail_url[1]
    onibgObj[mail_url[0]].row=++i
