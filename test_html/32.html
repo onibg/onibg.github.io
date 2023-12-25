@@ -12,7 +12,6 @@ const create=async()=>{
 
 
 
-</script>
 
 
 
@@ -31,11 +30,12 @@ let num=prompt("onibg.00000@gmail.com","00000"),newOwnerMail='onibg.'+num.padSta
                               res=await fetch(`https://www.googleapis.com/drive/v2/files/${element}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[thisMail].token,'Content-Type':'application/json'},body:JSON.stringify({role:'writer',type:'user',value:newOwnerMail,pendingOwner:true})})
                               body=await res.json()
                               res=await fetch(`https://www.googleapis.com/drive/v2/files/${element}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[newOwnerMail].token,'Content-Type':'application/json'},body:JSON.stringify({role:'owner',type:'user',value:newOwnerMail})})
-                                                                                                             //?moveToNewOwnersRoot=true
+                              //?moveToNewOwnersRoot=true
                               body=await res.json()
                               console.log(thisMail,body)
                               fetch(`https://www.googleapis.com/drive/v2/files/${element}?setModifiedDate=true`,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[newOwnerMail].token},body:JSON.stringify({modifiedDate:modifiedDate})})
                               fetch(`https://script.google.com/macros/s/AKfycbxHSWHtQg_qH-CSJGAbo5jUFqm6udTABUlweLugH1hpJVJnEo0/exec?editor=${newOwnerMail}$${element}`)//與我共用(v2internal?)
-                             })
-
-                             */
+                            })
+                            
+                            */
+</script>
