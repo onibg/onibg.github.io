@@ -7,7 +7,7 @@ const create=async()=>{
  let body=await res.json()
  const {parents,modifiedDate}=body
  console.log(body,parents,modifiedDate)
- res=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({name:'Hello'})})
+ res=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({title:'Hello'})})
  body=await res.json()
  console.log(body)
 }
