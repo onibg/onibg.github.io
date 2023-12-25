@@ -7,7 +7,8 @@ const create=async()=>{
  let body=await res.json()
  const {parents,modifiedDate}=body
  console.log(body,parents,modifiedDate)
- res=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+'ya29.a0AfB_byD7jVp1iSMkGizCoJFp_FInuLJ1VKjpWJxTWAKTOgyEmeK3-61hohvVUoda9zH9-TmO1Twg8Qk4P4PbDfrIBsEzVxLMKzM-BBz3chaXzio6Gadkz2XGAA84ZW3npC1-Ns3_XzMYPq7JQQA9q_DMybmyotOUD-waCgYKAcwSARASFQHGX2Mis1erBqQUvZQUwdgDuP0uqQ0170','Content-Type':'application/json'},body:JSON.stringify({title:'test.jpg',modifiedDate:modifiedDate})})
+ res=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+'ya29.a0AfB_byD7jVp1iSMkGizCoJFp_FInuLJ1VKjpWJxTWAKTOgyEmeK3-61hohvVUoda9zH9-TmO1Twg8Qk4P4PbDfrIBsEzVxLMKzM-BBz3chaXzio6Gadkz2XGAA84ZW3npC1-Ns3_XzMYPq7JQQA9q_DMybmyotOUD-waCgYKAcwSARASFQHGX2Mis1erBqQUvZQUwdgDuP0uqQ0170'
+ ,'Content-Type':'application/json'},body:JSON.stringify({modifiedDate:modifiedDate})})
  body=await res.json()
  console.log(body)
 }
