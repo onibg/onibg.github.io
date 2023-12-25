@@ -5,8 +5,8 @@ var id='1VMa2H9EPlSpIbjniiP2DUXp6UoNP3NjE'
 const create=async()=>{
  let res=await fetch(`https://www.googleapis.com/drive/v2/files/${id}`,{headers:{'Authorization':'Bearer '+token}})
  let body=await res.json()
- const {modifiedDate}=body
- console.log(body,modifiedDate)                           
+ const {parents,modifiedDate}=body
+ console.log(body,parents,modifiedDate)                           
 }
 
 
