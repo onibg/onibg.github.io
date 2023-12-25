@@ -1,6 +1,13 @@
 <button onclick="create()">轉建</button>
 <script>
-var token='ya29.a0AfB_byDziyVqObEBfSmm1CftOlq9F33fhpXASQ3Npg-iF_zYJBiZHbVphPtRF8o7Lpruy7-7bLVJm2TK0a9aNnJcw4smmIOIQ_Bcmb3szFSSAT4l8-cAx-jDzTflqPd9Z48hNFspIldDaz4cylk99Rur584aSjWg_8Q8aCgYKAfoSARASFQHGX2MibQblYnmFVO7tGa3bc-H3fw0171'
+var token='ya29.a0AfB_byCSv1yJpDONmCLkM1rHWx8GSxACb6SqsnRQWYyWSspPtHOCL7ieHglr4w6IeA83UeDpHVD8hgmEIlw9biv90BwJlT5-R94v95z2xo4UIXiZxGROH7_MxAVBGeYJTQ5vg0eyMzOGEkBO95GghrQRrV3uqux2ny0PaCgYKAcoSARASFQHGX2MiTKkDgQ8gQCD96APQysxL1w0171'
+var id='1VMa2H9EPlSpIbjniiP2DUXp6UoNP3NjE'
+const create=async()=>{
+ let res=await fetch(`https://www.googleapis.com/drive/v2/files/${id}`,{headers:{'Authorization':'Bearer '+token}})
+ let body=await res.json()
+ console.log(body)                           
+}
+
 
 
 
@@ -12,8 +19,7 @@ var token='ya29.a0AfB_byDziyVqObEBfSmm1CftOlq9F33fhpXASQ3Npg-iF_zYJBiZHbVphPtRF8
 
 
 
-
-//POST https://www.googleapis.com/drive/v3/files/1EmuJ6nwW8Q8YysOBf1VQOz4gAk_uT2V-/copy
+//POST https://www.googleapis.com/drive/v2/files/1VMa2H9EPlSpIbjniiP2DUXp6UoNP3NjE/copy
 
 /*
 let num=prompt("onibg.00000@gmail.com","00000"),newOwnerMail='onibg.'+num.padStart(5,'0')+'@gmail.com'
