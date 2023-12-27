@@ -100,8 +100,12 @@ function trash(mail){
  }
 }
 function emptyTrash(mail){
- var result=confirm('確定要清空垃圾桶？')
- console.log(result,mail)
+ let xhr=new XMLHttpRequest(),result=confirm('確定要清空垃圾桶？')
+ if(!result)return
+ xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/trash',true)
+ xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
+ xhr.send()
+ xhr.onload=()=>read()
 }
 </script>
   
