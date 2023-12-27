@@ -105,7 +105,6 @@ function emptyTrash(mail){
  xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/trash',true)
  xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
  xhr.send()
- xhr.onload=()=>read()
 }
 </script>
   
