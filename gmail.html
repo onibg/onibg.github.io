@@ -24,7 +24,7 @@ button{visibility:hidden}
    const cell=document.createElement('td')
    cell.textContent=mail_url[0]
    row.appendChild(cell)
-   row.innerHTML+=`<td onclick="emptyTrash('${mail_url[0]}')"></td><td></td><td></td><td style="text-align:right"></td><td></td>`
+   row.innerHTML+=`<td onclick="emptyTrash('${mail_url[0]}')"></td><td></td><td></td><td style="text-align:right"></td><td onclick="emptySpecial('${mail_url[0]}')"></td>`
    table.appendChild(row)
    table.style.display='table';
   }
@@ -105,6 +105,17 @@ function emptyTrash(mail){
  xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/trash',true)
  xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
  xhr.send()
+}
+function emptySpecial(mail){
+ let xhr=new XMLHttpRequest(),result=confirm('確定要清空特殊檔？')
+ if(!result)return
+ console.log(mail,
+ tr[onibgObj[mail].row].children[5].textContent
+ )
+
+ //xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/trash',true)
+ //xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
+ //xhr.send()
 }
 </script>
   
