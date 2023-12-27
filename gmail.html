@@ -24,8 +24,7 @@ button{visibility:hidden}
    const cell=document.createElement('td')
    cell.textContent=mail_url[0]
    row.appendChild(cell)
-   const tmp='hello'
-   row.innerHTML+=`<td onclick="console.log('${tmp}')"></td><td></td><td></td><td style="text-align:right"></td><td></td>`
+   row.innerHTML+=`<td onclick="console.log('${mail_url[0]}')"></td><td></td><td></td><td style="text-align:right"></td><td></td>`
    table.appendChild(row)
    table.style.display='table';
   }
