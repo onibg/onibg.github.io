@@ -8,10 +8,9 @@ const repeat=async()=>{
  xhr.responseType='json'
  xhr.setRequestHeader('Authorization','Bearer '+token)
  xhr.send()
- xhr.onload=()=>{console.log(xhr.response)}
-
- //loop('0Bxqf-PGnadp7cHQwYklPMzJmTms','')
- function loop(id,pageToken){
+ xhr.onload=()=>{loop('0Bxqf-PGnadp7cHQwYklPMzJmTms',xhr.response.name,'')}
+ 
+ function loop(id,name,pageToken){
   xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,parents)&pageSize=1000&pageToken=${pageToken}`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
