@@ -4,7 +4,7 @@ var token='ya29.a0AfB_byDFHCv7frMFd1Nv-Y9GvFkUCuFR1VAM5amVX8YSH_DI_-ly6_u523Ex0C
 const repeat=async()=>{
  let arr=[]
  const xhr=new XMLHttpRequest()
- xhr.open('GET',`https://www.googleapis.com/drive/v3/files/'${id}`,true) 
+ xhr.open('GET',`https://www.googleapis.com/drive/v3/files/${id}`,true) 
  xhr.responseType='json'
  xhr.send()
  xhr.onload=()=>{console.log(xhr.response)}
