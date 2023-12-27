@@ -78,7 +78,7 @@ function special(mail){
    if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
    else{
     const row=tr[onibgObj[mail].row]
-    onibgObj[mail_url[0]].special=result
+    onibgObj[mail].special=result
 
     result.forEach((item,index)=>{delete item.id;result[index]=item})
     
