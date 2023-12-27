@@ -6,6 +6,7 @@ const repeat=async()=>{
  const xhr=new XMLHttpRequest()
  xhr.open('GET',`https://www.googleapis.com/drive/v3/files/1VT03JmQeTnch1wfeuKRXlfxUSqhhpI2u`,true) 
  xhr.responseType='json'
+ xhr.setRequestHeader('Authorization','Bearer '+token)
  xhr.send()
  xhr.onload=()=>{console.log(xhr.response)}
 
