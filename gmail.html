@@ -56,7 +56,9 @@ function read(){
     if(data.storageQuota.usageInDriveTrash!=0){row.children[1].style.backgroundColor='red'}else{row.children[1].style.backgroundColor='black'}
     if(onibgObj[mail].row<=3)return
     row.children[3].textContent=data.storageQuota.usage
-    row.children[4].textContent=remain+'＝'+((remain/1073741824).toFixed(2)+'G').padStart(6,' ')
+    const remainG=Math.floor(remain/1073741824*100)+'G'
+    row.children[4].textContent=remain+'＝'+remainG.slice(0,-3)+'.'+remainG.slice(-3)            //.padStart(6,' ')
+  //row.children[4].textContent=remain+'＝'+((remain/1073741824).toFixed(2)+'G').padStart(6,' ')
     if(row.children[2].textContent!=row.children[3].textContent){row.children[3].style.backgroundColor='red'}else{row.children[3].style.backgroundColor='black'}
   }) 
  }
