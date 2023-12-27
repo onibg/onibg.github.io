@@ -10,9 +10,9 @@ const repeat=async()=>{
  xhr.send()
  xhr.onload=()=>{loop('0Bxqf-PGnadp7cHQwYklPMzJmTms',xhr.response.name,'')}
  
- 
+
  function loop(id,name,pageToken){
-  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,parents)&pageSize=1000&pageToken=${pageToken}`,true)
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name)&pageSize=1000&pageToken=${pageToken}`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.send()
@@ -21,6 +21,8 @@ const repeat=async()=>{
    if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
    else
    {
+    for(file of arr)
+    {file.parent=name}
     console.log(arr)
     let foldersCount=arr.findIndex(item=>item.mimeType!='application/vnd.google-apps.folder')
     if(foldersCount==-1)foldersCount=arr.length
