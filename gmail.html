@@ -114,16 +114,17 @@ function emptyTrash(mail){
  xhr.send()
 }
 function emptySpecial(mail){
- const xhr=new XMLHttpRequest(),result=confirm('確定要清空特殊檔？')
+ const result=confirm('確定要清空特殊檔？')
  if(!result)return
  const files=JSON.parse(onibgObj[mail].special)
- console.log(mail)
- for(file of files){console.log(file)}
- 
-
- //xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/trash',true)
- //xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
- //xhr.send()
+ for(file of files){
+  if(file.name!='onibg'){
+   const xhr=new XMLHttpRequest()
+   xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/'+file.id,true)
+   xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
+   xhr.send()
+  }
+ }
 }
 </script>
   
