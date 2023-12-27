@@ -115,8 +115,8 @@ function emptyTrash(mail){
 }
 function emptySpecial(mail){
  const result=confirm('確定要清空特殊檔？')
- console.log(onibgObj[mail].row)
- //if(!result)
+ if(!result)return
+ if(onibgObj[mail].row<5){alert('請勿清空');return}
  return
  const files=JSON.parse(onibgObj[mail].special)
  for(file of files){
