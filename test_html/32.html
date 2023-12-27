@@ -14,7 +14,8 @@ const repeat=async()=>{
    arr=arr.concat(xhr.response.files)
    if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
    else
-   {co
+   {
+    console.log(arr)
     let foldersCount=arr.findIndex(item=>item.mimeType!='application/vnd.google-apps.folder')
     if(foldersCount==-1)foldersCount=arr.length
     let filesCount=arr.length-foldersCount
@@ -34,7 +35,6 @@ alert(
    }
   }
  }
-
 
     /*
  let res=await fetch(`https://www.googleapis.com/drive/v2/files/${id}`,{headers:{'Authorization':'Bearer '+token}})
