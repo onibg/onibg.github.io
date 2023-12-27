@@ -117,7 +117,7 @@ function emptySpecial(mail){
  let xhr=new XMLHttpRequest(),result=confirm('確定要清空特殊檔？')
  if(!result)return
  console.log(mail,
- JSON.parse(tr[onibgObj[mail].row].children[5].textContent)
+ onibgObj[mail].special
  )
 
  //xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/trash',true)
