@@ -114,8 +114,11 @@ function emptyTrash(mail){
  xhr.send()
 }
 function emptySpecial(mail){
- let xhr=new XMLHttpRequest(),result=confirm('確定要清空特殊檔？')
+ const xhr=new XMLHttpRequest(),result=confirm('確定要清空特殊檔？')
  if(!result)return
+ 
+ 
+ 
  console.log(mail,
  JSON.parse(onibgObj[mail].special)
  )
