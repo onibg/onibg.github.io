@@ -1,8 +1,43 @@
-<button onclick="create()">轉建</button>
+<button onclick="repeat()">遞迴</button>
 <script>
-var token='ya29.a0AfB_byBBsdMFVJhaV8XyfCBxL1ywk9HAoImxtEoqR-vJJa3zQHZhrdycfOZUqmxHXRLcIoI82e2ucJ9ixX7g9boDcHGImKOQ-H2DUFBP3k-kLOxoVdlJMIEjbxN5_6P3bf-6CWlDu6fYItFFWhcUFWrj6eUw9BN5M-uYaCgYKAYwSARESFQHGX2Mi8wApl8D-TyE0ZQnjwQ4osA0171'
-var id='1PjAKLGZNV_lzZGvI15YAz7KV29cUCGAA'
-const create=async()=>{
+var token='ya29.a0AfB_byDFHCv7frMFd1Nv-Y9GvFkUCuFR1VAM5amVX8YSH_DI_-ly6_u523Ex0CKst4r_0rK_huwkXAxMU_X8JhyUCpS2atfkVePVHUI5RCmWdWJpwkQAHsGRnsAixLNixtj-gZWSJsznFP2cGrzkLGn_l2b4iavKnzAJaCgYKAcISARISFQHGX2MibHmoDrWiBNfK3zIg0bs5Uw0171'
+var id='0Bxqf-PGnadp7cHQwYklPMzJmTms'
+const repeat=async()=>{
+ const xhr=new XMLHttpRequest()
+ let arr=[]
+ loop('')
+ function loop(pageToken){
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name)&pageSize=1000&pageToken=${pageToken}`,true)
+  xhr.responseType='json'
+  xhr.setRequestHeader('Authorization','Bearer '+token)
+  xhr.send()
+  xhr.onload=()=>{
+   arr=arr.concat(xhr.response.files)
+   if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
+   else
+   {
+    let foldersCount=arr.findIndex(item=>item.mimeType!='application/vnd.google-apps.folder')
+    if(foldersCount==-1)foldersCount=arr.length
+    let filesCount=arr.length-foldersCount
+    const foldersObj={},filesObj={}
+    const foldersArr=[],filesArr=[]
+    arr.forEach((item,index)=>{
+     if(index<foldersCount)
+     {if(foldersArr.includes(item.name)){foldersObj[item.name]=foldersObj[item.name]?++foldersObj[item.name]:1}else{foldersArr.push(item.name)}}
+     else
+     {if(filesArr.includes(item.name)){filesObj[item.name]=filesObj[item.name]?++filesObj[item.name]:1}else{filesArr.push(item.name)}}
+    })
+alert(
+`資料夾:${foldersCount}個
+檔案:${filesCount}個
+重複資料夾：${JSON.stringify(foldersObj)}
+重複檔案：${JSON.stringify(filesObj)}`)
+   }
+  }
+ }
+
+
+    /*
  let res=await fetch(`https://www.googleapis.com/drive/v2/files/${id}`,{headers:{'Authorization':'Bearer '+token}})
  let body=await res.json()
  const{parents,modifiedDate}=body
@@ -11,6 +46,7 @@ const create=async()=>{
  ,'Content-Type':'application/json'},body:JSON.stringify({modifiedDate:modifiedDate,parents:parents})})
  //body=await res.json();console.log(body)
  fetch(`https://script.google.com/macros/s/AKfycbxHSWHtQg_qH-CSJGAbo5jUFqm6udTABUlweLugH1hpJVJnEo0/exec?editor=onibg.00001@gmail.com$${id}`)//與我共用(v2internal?)
+*/
 }
 
 </script>
