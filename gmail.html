@@ -77,8 +77,8 @@ function special(mail){
    result=result.concat(xhr.response.files.filter(item=>!item.parents||item.parents[0].length==19))//!item.parents代表無父目錄(unorganized)；item.parents[0].length==19代表有父目錄(id長度只有19為root)
    if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
    else{
-    tr[onibgObj[mail].row].children[5].textContent=JSON.stringify(result)
-    console.log(result)
+    const row=tr[onibgObj[mail].row]
+    row.children[5].textContent=JSON.stringify(result)
     if(result.length==1&&result[0].name=='onibg'){row.children[5].style.backgroundColor='black'}else{row.children[5].style.backgroundColor='red'}
    }
   }
