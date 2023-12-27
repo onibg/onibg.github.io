@@ -3,9 +3,13 @@
 var token='ya29.a0AfB_byDFHCv7frMFd1Nv-Y9GvFkUCuFR1VAM5amVX8YSH_DI_-ly6_u523Ex0CKst4r_0rK_huwkXAxMU_X8JhyUCpS2atfkVePVHUI5RCmWdWJpwkQAHsGRnsAixLNixtj-gZWSJsznFP2cGrzkLGn_l2b4iavKnzAJaCgYKAcISARISFQHGX2MibHmoDrWiBNfK3zIg0bs5Uw0171'
 const repeat=async()=>{
  let arr=[]
- loop('0Bxqf-PGnadp7cHQwYklPMzJmTms','')
  const xhr=new XMLHttpRequest()
- 
+ xhr.open('GET',`https://www.googleapis.com/drive/v3/files/'${id}`,true) 
+ xhr.responseType='json'
+ xhr.send()
+ xhr.onload=()=>{console.log(xhr.response)}
+
+ //loop('0Bxqf-PGnadp7cHQwYklPMzJmTms','')
  function loop(id,pageToken){
   xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,parents)&pageSize=1000&pageToken=${pageToken}`,true)
   xhr.responseType='json'
