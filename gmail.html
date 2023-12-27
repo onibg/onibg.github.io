@@ -116,12 +116,10 @@ function emptyTrash(mail){
 function emptySpecial(mail){
  const xhr=new XMLHttpRequest(),result=confirm('確定要清空特殊檔？')
  if(!result)return
+ const files=JSON.parse(onibgObj[mail].special)
+ console.log(mail)
+ for(file of files){console.log(file)}
  
- 
- 
- console.log(mail,
- JSON.parse(onibgObj[mail].special)
- )
 
  //xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/trash',true)
  //xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
