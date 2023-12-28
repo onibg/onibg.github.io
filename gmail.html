@@ -70,11 +70,11 @@ function special(mail){
  let result=[],xhr=new XMLHttpRequest()
  loop('')
  function loop(pageToken){
-  xhr.open('GET',`https://www.googleapis.com/drive/v2/files?q='me' in owners and trashed=false&fields=nextPageToken,id&pageSize=1000&pageToken=${pageToken}&${mail}`,true)
+  xhr.open('GET',`https://www.googleapis.com/drive/v2/files?q='me' in owners and trashed=false&fields=nextPageToken,items(mimeType,title,parents,id,copyable)&pageSize=1000&pageToken=${pageToken}&${mail}`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
   xhr.send()
-  xhr.onload=()=>{console.log(xhr.response)
+  xhr.onload=()=>{
    result=result.concat(xhr.response.files.filter(item=>!item.parents||item.parents[0].length==19||item.copyable==false))//!item.parents代表無父目錄(unorganized)；item.parents[0].length==19代表有父目錄(id長度只有19為root)；item.copyable==false代表被判定為可疑檔案
    if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
    else{
@@ -84,6 +84,8 @@ function special(mail){
     result.forEach((item,index)=>{delete item.id;result[index]=item})
     
     row.children[5].textContent=JSON.stringify(result)
+    
+
     
     if(result.length==1&&result[0].name=='onibg'){row.children[5].style.backgroundColor='black'}else{row.children[5].style.backgroundColor='red'}
    }
