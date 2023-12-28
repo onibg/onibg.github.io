@@ -5,7 +5,7 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <script>
-var token='ya29.a0AfB_byCa29qxCZaPpyRgPClD6EvZm3Dkjw07NtFtbYY9ldRv3mw2w-Yjz-rixXxFtVn88pVuJqJdip-p-WlR8884ksAn1dGCxZYlglIXas375_lPSuPQwMKKAX79O2pJI462Fez_8s45IqBlWiPZS_F-PtUVfECj5eMaCgYKAXISARESFQHGX2MiYqDrowSEbCZVB7gW3HbfXw0170'
+var token='ya29.a0AfB_byBdcsJfnve89ZOQZsEfr88d0rpMYQnhS95TfVo1-c_gsW-f9q7buBPGCnm0LLJVPODYskWKjAToefj7PodNNjxkAPr40e7Z3Ak5PM78Y_dZ7lGJevotY2pz9vy2PldlqxFcgYNcVhk7QF6XNhTbeJqHctjJ-9C3aCgYKAR4SARISFQHGX2MiB1ePv8kW6l0AfFaGDMKrTw0171'
 var xhr=new XMLHttpRequest()
 function about(){
  xhr.open('GET',`https://www.googleapis.com/drive/v3/about?fields=storageQuota`,true)
@@ -54,7 +54,7 @@ function trash(){
  }//loop
 }//trash
 function test(){
- xhr.open("GET",`https://www.googleapis.com/drive/v2/files/1KLg_jxAArDo2xf8UNfdTK4b3vrLmuDQC`,true)
+ xhr.open("GET",`https://www.googleapis.com/drive/v2/files/0Bxqf-PGnadp7Tm9iYkI2SjhUUTQ`,true)
  xhr.responseType='json'
  xhr.setRequestHeader('Authorization','Bearer '+token)
  xhr.send()
