@@ -102,6 +102,7 @@ function trash(mail){
    result=result.concat(xhr.response.files)
    if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
    else{
+    
     tr[onibgObj[mail].row].children[1].textContent+='共'+result.length+'個'
     if(result.length!=0){row.children[1].style.backgroundColor='red'}else{row.children[1].style.backgroundColor='black'}
    }
