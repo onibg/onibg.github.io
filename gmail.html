@@ -70,7 +70,7 @@ function special(mail){
  let result=[],xhr=new XMLHttpRequest()
  loop('')
  function loop(pageToken){
-  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='me' in owners and trashed=false&fields=nextPageToken,files(mimeType,name,parents,id,capabilities.canCopy)&pageSize=1000&pageToken=${pageToken}&${mail}`,true)
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='me' in owners and trashed=false&fields=nextPageToken,files(mimeType,name,parents,id,capabilities)&pageSize=1000&pageToken=${pageToken}&${mail}`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
   xhr.send()
