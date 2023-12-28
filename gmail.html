@@ -54,7 +54,6 @@ function read(){
     const remain=data.storageQuota.limit-data.storageQuota.usage
     row.children[1].textContent=data.storageQuota.usageInDriveTrash+row.children[1].textContent
     row.children[2].textContent=data.storageQuota.usageInDrive
-    if(data.storageQuota.usageInDriveTrash!=0){row.children[1].style.backgroundColor='red'}else{row.children[1].style.backgroundColor='black'}
     if(onibgObj[mail].row<=3)return
     row.children[3].textContent=data.storageQuota.usage
     let remainG=Math.floor(remain/1073741824*100)/100+''
@@ -102,7 +101,10 @@ function trash(mail){
   xhr.onload=()=>{
    result=result.concat(xhr.response.files)
    if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
-   else{tr[onibgObj[mail].row].children[1].textContent+='共'+result.length+'個'}
+   else{
+    tr[onibgObj[mail].row].children[1].textContent+='共'+result.length+'個'
+    if(result.length!=0){row.children[1].style.backgroundColor='red'}else{row.children[1].style.backgroundColor='black'}
+   }
   }
  }
 }
