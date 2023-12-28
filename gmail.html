@@ -122,7 +122,7 @@ function emptySpecial(mail){
  if(!result)return
  const files=JSON.parse(onibgObj[mail].special)
  for(file of files){
-  if(file.name!='onibg'){
+  if(file.title!='onibg'){
    const xhr=new XMLHttpRequest()
    xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/'+file.id,true)
    xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
