@@ -84,7 +84,6 @@ function special(mail){
     result.forEach((item,index)=>{delete item.id;result[index]=item})
     
     row.children[5].textContent=JSON.stringify(result)
-    
 
     
     if(result.length==1&&result[0].name=='onibg'){row.children[5].style.backgroundColor='black'}else{row.children[5].style.backgroundColor='red'}
