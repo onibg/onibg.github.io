@@ -75,7 +75,7 @@ function special(mail){
   xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
   xhr.send()
   xhr.onload=()=>{
-   result=result.concat(xhr.response.items.filter(item=>!item.parents||item.parents[0].isRoot==true||item.copyable==false))//!item.parents代表無父目錄(unorganized)；item.parents[0].length==19代表有父目錄(id長度只有19為root)；item.copyable==false代表被判定為可疑檔案
+   result=result.concat(xhr.response.items.filter(item=>!item.parents||item.parents[0].isRoot==true||(item.copyable==false&&item.mimeType!='application/vnd.google-apps.folder')))//!item.parents代表無父目錄(unorganized)；item.parents[0].length==19代表有父目錄(id長度只有19為root)；item.copyable==false代表被判定為可疑檔案
    if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
    else{
     const row=tr[onibgObj[mail].row]
