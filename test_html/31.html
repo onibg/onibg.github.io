@@ -54,14 +54,14 @@ function trash(){
  }//loop
 }//trash
 async function test(){
- const id0='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
- let res=await fetch(`https://www.googleapis.com/drive/v3/files/${id0}?fields=mimeType,name,parents,modifiedTime,id`,{headers:{'Authorization':'Bearer '+token}})
+ const id0='1Brf8c2pm6ivtnzGe80F8VYItZtjwcZh7'
+ let res=await fetch(`https://www.googleapis.com/drive/v3/files/${id0}?fields=*`,{headers:{'Authorization':'Bearer '+token}})
  const{mimeType,name,parents,modifiedTime,id}=await res.json()
- 
+ /*
  res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
  body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime,folderColorRgb:"#ff0000"})})
  //body:JSON.stringify({modifiedDate:modifiedDate,parents:parents})})
  console.log(await res.json())
- 
+ */
 }
 </script>
