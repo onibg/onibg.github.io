@@ -68,7 +68,6 @@ async function test(){
  await fetch(`https://www.googleapis.com/drive/v3/files/${newId}/permissions/${permissionIds[1]}`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
  body:JSON.stringify({role:'writer',type:'user'})})
 
-
 }
 
 </script>
