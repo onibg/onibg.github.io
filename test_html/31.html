@@ -67,7 +67,7 @@ async function test(){
  //POST https://www.googleapis.com/drive/v2/files/{fileId}/permissions
  //https://www.googleapis.com/drive/v3/files/{fileId}/permissions
  
- res=await fetch(`https://www.googleapis.com/drive/v3/files/${newId}/permissions`)
+ res=await fetch(`https://www.googleapis.com/drive/v3/files/${newId}/permissions`,{method:"GET",headers:{'Authorization':'Bearer '+token}})
  console.log(await res.json())
  /*
  await fetch(`https://www.googleapis.com/drive/v3/files/${newId}/permissions/${permissionIds[1]}`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
