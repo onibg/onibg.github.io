@@ -1,14 +1,15 @@
 <style>
 body{background-color:black;color:white;font-family:細明體}
 table,th,td{border:1px solid lime;white-space:nowrap}
-button,label{visibility:hidden}
+div{visibility:hidden}
 </style>
 <span>準備中…</span>
-<button onclick="read()">讀取</button><label><input type="checkbox">包括copyable</label>
+<div><button onclick="read()">讀取</button><label><input type="checkbox">包括copyable</label></div>
 <table style="display:none">
 <tr><td>Gmail</td><td>Trash用量</td><td>Drive用量</td><td>總用量</td><td>剩餘量</td><td>root、unorganized、abuse</td></tr>
 </table>
 <script>
+ var inputs=document.querySelectorAll('input')
  var table=document.querySelector('table'),tr
  var onibgObj={},quantity=0
  fetch('https://script.google.com/macros/s/AKfycbxIKVXrmO86jLZOu0NDDoN6d3yutuCEYa-JOQ0qTHCZvq8i7IWkNCVwweTpe9dxgBH4rA/exec?onibg')
@@ -37,7 +38,7 @@ function getToken(mail_url){
  .then(data=>{
   onibgObj[mail_url[0]].token=data
   if(!quantity){quantity=tr.length-1}else{quantity--}
-  if(quantity==1){quantity=0;document.querySelector('span').style.display='none';document.querySelector('button').style.visibility=document.querySelector('label').style.visibility='visible'}
+  if(quantity==1){quantity=0;document.querySelector('span').style.display='none';document.querySelector('div').style.visibility='visible'}
  })
 }
 setInterval(()=>{
