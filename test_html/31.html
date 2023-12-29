@@ -87,7 +87,7 @@ async function second(oldId){
   const data=await res.json()
   arr=arr.concat(data.files)
   if(data.nextPageToken)await loop(data.nextPageToken)
-  else{return 'arr'}
+  else{console.log('end');return 'arr'}
  }
 }
 
