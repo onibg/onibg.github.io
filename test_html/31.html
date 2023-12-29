@@ -54,15 +54,15 @@ function trash(){
  }//loop
 }//trash
 async function test(){
- const oldId='1pb668ZWtrTAt2gx92F5sBIIdwGtcepst'
- let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=*`,{headers:{'Authorization':'Bearer '+token}})
- const{mimeType,name,parents,modifiedTime,id}=await res.json()
+ const oldId='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
+ let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime,id,permissionIds`,{headers:{'Authorization':'Bearer '+token}})
+ const{mimeType,name,parents,modifiedTime,id,permissionIds}=await res.json()
  
- res=await fetch(`https://www.googleapis.com/drive/v3/files?fields=*`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
+ res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
  body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime,folderColorRgb:"#f83a22"})})
- const newId=(await res.json())
+ const newId=(await res.json()).id
  
- console.log(newId)
+ console.log(newId,permissionIds)
  /*
  //POST https://www.googleapis.com/drive/v2/files/{fileId}/permissions
  await fetch(`https://www.googleapis.com/drive/v2/files/${newId}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
