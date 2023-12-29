@@ -5,7 +5,7 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <script>
-var token='ya29.a0AfB_byChDhEnZChd4AnnVv4JPU9KNfOc6kkdbkUy9FM7KCe_82xrX3IIg6IpbqTVdP8nOTFLJC3zfAuxb_Z9FBqA0LXbQgVdtJKtcl-98JATkoTnvtwQqDzIkCqhiTZgm4jYEXQtjfztvmpMLZrNY25FTh_aZ7q21srVaCgYKAW4SARESFQHGX2MiRD8zd_3tjYAdjefD0soH3Q0171'
+var token='a0AfB_byClFkXjnm5EF0xdIyOLcctzUikGWOlGDnT12t0qT8QCMBK4PF_BgojEWoQygDOci8WtkIWKZKWLABob06DvNOQV1joGlJgngOkfORuEoElRGAfjmgCAIuYgZH63l5vgV2kevChffuV2T7X5KVeXHMcTPmpyYMJhaCgYKAawSARISFQHGX2Mi9v82ytf6wo766afpVK214Q0171'
 var xhr=new XMLHttpRequest()
 function about(){
  xhr.open('GET',`https://www.googleapis.com/drive/v3/about?fields=storageQuota`,true)
@@ -61,6 +61,7 @@ async function test(){
  console.log(oldId,newId)
  missions.push(await second(oldId,newId))
  console.log(missions)
+ //third()
 }
 
 
@@ -82,7 +83,7 @@ async function second(oldId,newId){
  let arr=[]
  return await loop('')
  async function loop(pageToken){
-  const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${oldId}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,id)&pageSize=1000&pageToken=${pageToken}`
+  const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${oldId}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,id,modifiedTime)&pageSize=1000&pageToken=${pageToken}`
   ,{headers:{'Authorization':'Bearer '+token}})
   const data=await res.json()
   arr=arr.concat(data.files)
@@ -90,5 +91,25 @@ async function second(oldId,newId){
   else for(const i in arr){arr[i].parents=[newId]};return arr
  }
 }
+
+async function third(){
+ if(missions.lenth==0)return
+ const mission=missions[0]
+ if(mission.mimeType=='application/vnd.google-apps.folder'){
+  const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
+  ,body:JSON.stringify({mimeType:mission.mimeType,name:mission.name,parents:mission.parents})})//建立新資料夾
+  const newId=(await res.json()).id
+  missions.push(await second(mission.id,newId))
+ }
+ else{
+
+ }
+ //third()
+}
+
+
+
+
+
 
 </script>
