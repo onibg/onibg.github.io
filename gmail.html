@@ -68,7 +68,6 @@ function read(){
 }
 function special(mail){
  let result=[],xhr=new XMLHttpRequest()
- 
  loop('')
  function loop(pageToken){
   xhr.open('GET',`https://www.googleapis.com/drive/v2/files?q='me' in owners and trashed=false&fields=nextPageToken,items(mimeType,title,parents,id,copyable)&pageSize=1000&pageToken=${pageToken}&${mail}`,true)
