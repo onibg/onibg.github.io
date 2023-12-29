@@ -53,8 +53,16 @@ function trash(){
   }//onload
  }//loop
 }//trash
+
 async function test(){
- const oldId='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
+console.log(await first('1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'))
+
+
+}
+
+
+
+async function first(oldId){
  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
  const{mimeType,name,parents,modifiedTime}=await res.json()
  res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
@@ -62,6 +70,7 @@ async function test(){
  const newId=(await res.json()).id
  await fetch(`https://www.googleapis.com/drive/v3/files/${newId}/permissions/anyoneWithLink`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({role:'writer'})})
+ return [oldId,newId]
  fetch(`https://www.googleapis.com/drive/v3/files/${newId}`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({modifiedTime:modifiedTime})})
 }
