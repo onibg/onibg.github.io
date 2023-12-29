@@ -55,7 +55,8 @@ function trash(){
 }//trash
 
 async function test(){
-console.log(await first('1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'))
+ const oldId='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f',newId=await first(oldId)
+ console.log(oldId,newId)
 
 
 }
