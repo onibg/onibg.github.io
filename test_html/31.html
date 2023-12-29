@@ -94,7 +94,7 @@ async function second(oldId,newId){
 async function third(){
  if(missions.lenth==0)return
  const{mimeType,name,id,modifiedTime,parents}=missions[0]
- cobsole.log(missions[0]);return
+ console.log(missions[0]);return
  if(mimeType=='application/vnd.google-apps.folder'){
   const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
   ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
