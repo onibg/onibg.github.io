@@ -86,7 +86,7 @@ async function second(oldId){
   //console.log(data)
   arr=arr.concat(data.files)
   if(data.nextPageToken)loop(data.nextPageToken)
-  else{return arr}
+  else{return 'arr'}
  }
 }
 
