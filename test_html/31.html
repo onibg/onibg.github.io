@@ -70,9 +70,9 @@ async function first(oldId){
  const newId=(await res.json()).id
  await fetch(`https://www.googleapis.com/drive/v3/files/${newId}/permissions/anyoneWithLink`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({role:'writer'})})
- return [oldId,newId]
  fetch(`https://www.googleapis.com/drive/v3/files/${newId}`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({modifiedTime:modifiedTime})})
+ return newId
 }
 
 </script>
