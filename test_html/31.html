@@ -101,9 +101,8 @@ async function third(){
   missions=missions.concat(await second(id,newId))
  }
  else{
-  num++
-  if(num>100){num=0}
-  fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
+  num=num<100?++num:1//同時100個
+  fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy&${num}`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
  }
  missions.splice(0,1)
