@@ -83,7 +83,7 @@ async function first(oldId){
  return newId
 }
 
-async function second(oldId){
+function second(oldId){
  loop('')
  async function loop(pageToken){
   const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${oldId}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,parents,id)&pageSize=1000&pageToken=${pageToken}`
