@@ -56,23 +56,23 @@ function trash(){
 async function test(){
  const oldId='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=*`,{headers:{'Authorization':'Bearer '+token}})
- const{mimeType,name,parents,modifiedTime,id,permissionIds}=await res.json()
- 
+ const{mimeType,name,parents,modifiedTime,id,permissions}=await res.json()
+ permissions[0].role="writer"
  res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
- body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime,folderColorRgb:"#f83a22"})})
+ body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime,folderColorRgb:"#f83a22",permissions:permissions})})
  const newId=(await res.json()).id
  
- console.log(newId,permissionIds[1])
+ console.log(newId)
  //PATCH https://www.googleapis.com/drive/v3/files/FILE_ID/permissions/PERMISSION_ID
  //POST https://www.googleapis.com/drive/v2/files/{fileId}/permissions
  //https://www.googleapis.com/drive/v3/files/{fileId}/permissions
  
  //res=await fetch(`https://www.googleapis.com/drive/v3/files/${newId}/permissions`,{method:"GET",headers:{'Authorization':'Bearer '+token}})
  //console.log(await res.json())
- 
+ /*
  await fetch(`https://www.googleapis.com/drive/v3/files/${newId}/permissions/anyoneWithLink`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
  body:JSON.stringify({role:'writer'})})
-
+*/
 }
 
 </script>
