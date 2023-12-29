@@ -54,11 +54,18 @@ function trash(){
  }//loop
 }//trash
 
+
+let arr=[]
+
+
+
+
+
+
 async function test(){
  const oldId='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f',newId=await first(oldId)
  console.log(oldId,newId)
-
-
+ second(oldId)
 }
 
 
@@ -74,6 +81,18 @@ async function first(oldId){
  fetch(`https://www.googleapis.com/drive/v3/files/${newId}`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({modifiedTime:modifiedTime})})
  return newId
+}
+
+async function second(oldId){
+ loop('')
+ async function loop(pageToken){
+  const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${oldId}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,parents,id)&pageSize=1000&pageToken=${pageToken}`)
+  const data=await res.json()
+  //console.log(data)
+  arr=arr.concat(data.files)
+  if(data.nextPageToken)loop(data.nextPageToken)
+  else{console.log(arr)}
+ }
 }
 
 </script>
