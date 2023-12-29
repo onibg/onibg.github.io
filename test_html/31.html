@@ -71,9 +71,9 @@ async function test(){
  //console.log(await res.json())
  
  await fetch(`https://www.googleapis.com/drive/v3/files/${newId}/permissions/anyoneWithLink`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
- body:JSON.stringify({role:'writer'})})
- await fetch(`https://www.googleapis.com/drive/v3/files/${newId}?setModifiedDate=true`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
- body:JSON.stringify({modifiedTime:modifiedTime})})
+ body:JSON.stringify({role:'writer',modifiedTime:modifiedTime})})
+ //await fetch(`https://www.googleapis.com/drive/v3/files/${newId}?setModifiedDate=true`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
+ //body:JSON.stringify({modifiedTime:modifiedTime})})
 }
 
 </script>
