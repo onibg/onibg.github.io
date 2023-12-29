@@ -64,6 +64,7 @@ async function test(){
 }
 
 
+
 async function first(oldId){
  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
  const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
