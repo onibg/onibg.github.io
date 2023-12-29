@@ -59,7 +59,7 @@ async function test(){
  const{mimeType,name,parents,modifiedTime,id,permissions}=await res.json()
  permissions[0].role="writer"
  res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
- body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime,folderColorRgb:"#f83a22",permissions:permissions})})
+ body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime,folderColorRgb:"#f83a22",permissions:[{role:'writer',type:'anyone'}]})})
  const newId=(await res.json()).id
  
  console.log(newId)
