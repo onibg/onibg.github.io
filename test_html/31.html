@@ -78,7 +78,10 @@ async function first(oldId){
 }
 
 async function second(oldId){
- let arr=[];loop('')
+ let arr=[]
+ await loop('')
+ return arr
+ 
  async function loop(pageToken){
   const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${oldId}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,parents,id)&pageSize=1000&pageToken=${pageToken}`
   ,{headers:{'Authorization':'Bearer '+token}})
@@ -86,7 +89,7 @@ async function second(oldId){
   //console.log(data)
   arr=arr.concat(data.files)
   if(data.nextPageToken)loop(data.nextPageToken)
-  else{return 'arr'}
+  else{return}
  }
 }
 
