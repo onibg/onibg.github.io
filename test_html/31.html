@@ -102,7 +102,7 @@ async function third(){
   missions.push(await second(id,newId))
  }
  else{
-  fetch(`https://www.googleapis.com/drive/v3/files/${mission.id}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
+  fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製檔案
  }
  missions.splice(0,1)
