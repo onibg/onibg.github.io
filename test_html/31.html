@@ -58,7 +58,7 @@ async function test(){
  const res=await fetch(`https://www.googleapis.com/drive/v3/files/${id0}?alt=json&fields=mimeType,name,parents,id`,{headers:{'Authorization':'Bearer '+token}})
  const{mimeType,name,parents,id,modifiedDate}=await res.json()
  await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
- body:JSON.stringify({parents:parents})})
+ body:JSON.stringify({mimeType:mimeType,name:name,parents:parents})})
  //body:JSON.stringify({modifiedDate:modifiedDate,parents:parents})})
 }
 </script>
