@@ -86,8 +86,9 @@ async function second(oldId){
   ,{headers:{'Authorization':'Bearer '+token}})
   const data=await res.json()
   arr=arr.concat(data.files)
-  if(data.nextPageToken)await loop(data.nextPageToken)
-  else{console.log('end');return 'arr'}
+  return 'arr'
+  //if(data.nextPageToken)await loop(data.nextPageToken)
+  //else{console.log('end');return 'arr'}
  }
 }
 
