@@ -59,9 +59,8 @@ function trash(){
 async function test(){
  const oldId='1ZTzgvT2i-38XtLh0HLCKPPoETjnOBYG7',newId=await first(oldId)
  console.log(oldId,newId)
- console.log(second(oldId))
+ console.log(await second(oldId))
 }
-
 
 
 async function first(oldId){
@@ -79,14 +78,13 @@ async function first(oldId){
 
 async function second(oldId){
  let arr=[]
- await loop('')
+ console.log('loop',await loop(''))
  return arr
  
  async function loop(pageToken){
   const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${oldId}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,parents,id)&pageSize=1000&pageToken=${pageToken}`
   ,{headers:{'Authorization':'Bearer '+token}})
   const data=await res.json()
-  //console.log(data)
   arr=arr.concat(data.files)
   if(data.nextPageToken)await loop(data.nextPageToken)
  }
