@@ -54,7 +54,7 @@ function trash(){
  }//loop
 }//trash
 async function test(){
- const id='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
+ const id='1CsSWy3Y-H11idmEU26qLBQ0_ZW1Dp7TJ'
  const res=await fetch(`https://www.googleapis.com/drive/v2/files/${id}`,{headers:{'Authorization':'Bearer '+token}})
  const{parents,modifiedDate}=await res.json()
  await fetch(`https://www.googleapis.com/drive/v2/files/${id}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({modifiedDate:modifiedDate,parents:parents})})
