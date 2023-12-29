@@ -55,7 +55,7 @@ function trash(){
 }//trash
 async function test(){
  const id0='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f'
- const res=await fetch(`https://www.googleapis.com/drive/v3/files/${id0}?fields=files(id)`,{headers:{'Authorization':'Bearer '+token}})
+ const res=await fetch(`https://www.googleapis.com/drive/v3/files/${id0}?alt=json&fields=files(id)`,{headers:{'Authorization':'Bearer '+token}})
  const{mimeType,id,parents,modifiedDate}=await res.json()
  //await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
  //body:JSON.stringify({mimeType:mimeType,parents:parents})})
