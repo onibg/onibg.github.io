@@ -81,12 +81,8 @@ function special(mail){
    else{
     const row=tr[onibgObj[mail].row]
     onibgObj[mail].special=JSON.stringify(result)
-
-
     result.forEach((item,index)=>{delete item.id;item.parents=item.parents[0]&&item.parents[0].id;result[index]=item})
-    
     row.children[5].textContent=JSON.stringify(result)
-    
     if(result.length==1&&result[0].title=='onibg'){row.children[5].style.backgroundColor='black'}else{row.children[5].style.backgroundColor='red'}
    }
   }
