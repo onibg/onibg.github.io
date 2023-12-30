@@ -5,7 +5,8 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <script>
-var token='ya29.a0AfB_byB66_nXi5w8F9uO2Xw2rt_5EPxSVmk_5flwpscmkCe_5LrmSMOVRPn4qFMUJQeX2_i7Xo1iE4-8T63Rl8ti7qLNUXimzlkrr-VR62W0raDWsLIyJ-GkYZ6pXswY1mYwpbbuT9CoiVCDArhXvfL9AjZu8-y3QotaaCgYKAYkSARASFQHGX2MiAxXLFzBfhmx8hcvVmCJiEg0171'
+var token='ya29.a0AfB_byBxjjKtJrjumLFmstmwS4ZT7Q3bSyM5x5Hi8YiGmm_hS53At2WJvYff882FS627XiBTAjUa0p1ckH12aevnQSS3dREnK6MaK_khuuqt0kuMiL14o0h6GTwDDvtyyteV7L8vyf9VPfRiWCzU2HkQui9kdCQqTPuUaCgYKAS8SARASFQHGX2MiT9nIM9aMauLdLbVjsN5YKA0171'
+var Token='ya29.a0AfB_byAp7ti0iYpwh5S8PDxz-KUhjnUYL397PcmBir-7G2q9K2VzgjLjbjXIpPDmCPEHyp1sARMbc2HjZBMqvqItKPjV3oC88WaUlmJZHWvacCt0VGJLdKh3bvNx8FpGLPty08lGCJiMWwgnIWd16XPB1_KBmPb-qYwaCgYKAb8SARISFQHGX2Mi7JvKJhylo1cvZ4yoome9ww0170'
 var xhr=new XMLHttpRequest()
 function about(){
  xhr.open('GET',`https://www.googleapis.com/drive/v3/about?fields=storageQuota`,true)
@@ -96,7 +97,7 @@ async function third(){
  if(missions.length==0)return
  const{mimeType,name,id,modifiedTime,parents}=missions[0]
  if(mimeType=='application/vnd.google-apps.folder'){
-  const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
+  const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
   ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
   const newId=(await res.json()).id
   missions=missions.concat(await second(id,newId))
@@ -106,7 +107,7 @@ async function third(){
  else{
   console.log('num',num)
   num++
-  fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
+  fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
   .then(res=>{return res.json()})
   .then(data=>{if(num>=50){missions.splice(0,1);third()};num--})
