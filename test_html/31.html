@@ -81,7 +81,6 @@ async function first(oldId){
  const newId=(await res.json()).id
  
  
-
  fetch(`https://www.googleapis.com/drive/v3/files/${newId}`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({modifiedTime:ModifiedTime,folderColorRgb:"#f83a22"})})//父資料夾：改回原時間、變紅色
 
