@@ -71,7 +71,7 @@ async function first(oldId){
  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
  const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
  res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
- ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,folderColorRgb:"#f83a22"})})//建立紅新資料夾
+ ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime,folderColorRgb:"#f83a22"})})//建立紅新資料夾
  const newId=(await res.json()).id
  /*
  await fetch(`https://www.googleapis.com/drive/v3/files/${newId}/permissions/anyoneWithLink`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
