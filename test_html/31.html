@@ -109,9 +109,9 @@ async function third(){
   num++
   fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
-  .then(res=>{return res.json()})
-  .then(data=>{if(num>=50){missions.splice(0,1);third()};num--})
-  if(num<50){missions.splice(0,1);third()}
+  .then(res=>res.json())
+  .then(data=>{if(num>=100){missions.splice(0,1);third()};num--})
+  if(num<100){missions.splice(0,1);third()}
  }
 }
 
