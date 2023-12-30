@@ -98,10 +98,8 @@ async function third(){
  if(mimeType=='application/vnd.google-apps.folder'){
   const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
   ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
-
-
   const{id:newId,error}=await res.json()
-  if(error&&error.code==403){third();return}
+  if(error&&error.code==403){third();return}//User rate limit exceeded.造成403
   missions=missions.concat(await second(id,newId))
   missions.splice(0,1);third()
  }
@@ -112,10 +110,10 @@ async function third(){
   .then(res=>res.json())
   .then(data=>{
    if(late){missions.splice(0,1);third()}
-   if(data.error&&data.error.code==403){missions.push(mission);if(missions.length==1)third()}
+   if(data.error&&data.error.code==403){missions.push(mission);if(missions.length==1)third()}//User rate limit exceeded.造成403
    num--;if(num==0&&missions.length==0)alert('複製完成')
   })
-  if(num<100){late=false;missions.splice(0,1);third()}
+  if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，避免403
  }
 }
 
