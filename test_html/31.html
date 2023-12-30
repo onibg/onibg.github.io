@@ -77,12 +77,12 @@ async function first(oldId){
 
 
  res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
- ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
+ ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime,folderColorRgb:"#f83a22"})})//建立新資料夾、設紅色
  const newId=(await res.json()).id
  
  
  fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
- ,body:JSON.stringify({modifiedTime:ModifiedTime,folderColorRgb:"#f83a22"})})//父資料夾：改回原時間、變紅色
+ ,body:JSON.stringify({modifiedTime:ModifiedTime,folderColorRgb:"#f83a22"})})//父資料夾：改回原時間、設紅色
 
  return newId
 }
