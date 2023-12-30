@@ -5,7 +5,7 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <script>
-var token='ya29.a0AfB_byB4UXLLEy2Ppb2vLqpO7cZn0fuwyCaXKUv01iednkfnljA9JwnmdQoQiowwJP2RtiD59Y5A6vBf8iYxFcIWYKfPke-I_8oxPnXVTdo4OeFC-EINOYtzwZ2DwvhRVNU5i9U4cEK5vZOpn2AfMjw8uxRufsSxlf_haCgYKAb0SARMSFQHGX2Miikwmy7enHV2JXTaBnjiBWA0171'
+var token='ya29.a0AfB_byB66_nXi5w8F9uO2Xw2rt_5EPxSVmk_5flwpscmkCe_5LrmSMOVRPn4qFMUJQeX2_i7Xo1iE4-8T63Rl8ti7qLNUXimzlkrr-VR62W0raDWsLIyJ-GkYZ6pXswY1mYwpbbuT9CoiVCDArhXvfL9AjZu8-y3QotaaCgYKAYkSARASFQHGX2MiAxXLFzBfhmx8hcvVmCJiEg0171'
 var xhr=new XMLHttpRequest()
 function about(){
  xhr.open('GET',`https://www.googleapis.com/drive/v3/about?fields=storageQuota`,true)
@@ -107,10 +107,10 @@ async function third(){
   num++
   fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
-  .then(res=>{if(res.status!=200){};return res.json()})
-  .then(data=>{if(num>=100){missions.splice(0,1);third()};num--})
+  .then(res=>{return res.json()})
+  .then(data=>{if(num>=20){missions.splice(0,1);third()};num--})
   .catch(e=>{console.log('錯誤',e)})
-  if(num<100)missions.splice(0,1);third()
+  if(num<20)missions.splice(0,1);third()
  }
 }
 
