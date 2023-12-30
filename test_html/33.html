@@ -1,15 +1,10 @@
-<div>生成1至100數字</div>
+<div>fetch</div>
 <script>
-let num=0
-let sum=0
-
-go()
-function go(){
- num=num<100?++num:1
-console.log(num)
-sum++
-if(sum<1000)go()
-}
+ fetch(`https://www.googleapis.com/drive/v3/files/2111132145/copy`,{method:"POST",headers:{'Authorization':'Bearer 123321321321','Content-Type':'application/json'}
+  ,body:JSON.stringify({})})
+  .then(res=>{return res.json()})
+  .then(data=>{console.log(data)})
+  .catch(e=>{console.log('錯誤',e)})
 
 
 </script>
