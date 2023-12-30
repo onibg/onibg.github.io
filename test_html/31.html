@@ -103,15 +103,14 @@ async function third(){
   const{id:newId,error}=await res.json()
   if(error){third();return}
   missions=missions.concat(await second(id,newId))
-  missions.splice(0,1)
-  third()
+  missions.splice(0,1);third()
  }
  else{
   let late=true;num++
   fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
   .then(res=>res.json())
-  .then(data=>{if(late)missions.splice(0,1);if(data.error)missions.push(mission);num--;third()})
+  .then(data=>{if(late){missions.splice(0,1);third()};if(data.error){missions.push(mission)};num--})
   if(num<100){late=false;missions.splice(0,1);third()}
  }
 }
