@@ -108,9 +108,9 @@ async function third(){
   fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
   .then(res=>{return res.json()})
-  .then(data=>{if(num>=10){missions.splice(0,1);third()};num--})
+  .then(data=>{if(num>=100){missions.splice(0,1);third()};num--})
   .catch(e=>{console.log('錯誤',e)})
-  if(num<10)missions.splice(0,1);third()
+  if(num<100)missions.splice(0,1);third()
  }
 }
 
