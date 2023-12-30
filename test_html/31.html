@@ -92,7 +92,7 @@ async function second(oldId,newId){
 
 async function third(){
  console.log(missions)
- if(missions.lenth==0){console.log('零');return}
+ if(missions.length==0)return
  const{mimeType,name,id,modifiedTime,parents}=missions[0]
  if(mimeType=='application/vnd.google-apps.folder'){
   const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
@@ -110,7 +110,7 @@ async function third(){
   .then(res=>{return res.json()})
   .then(data=>{if(num>=10){missions.splice(0,1);third()};num--})
   .catch(e=>{console.log('錯誤',e)})
-  if(num<10){missions.splice(0,1);third()}
+  if(num<10)missions.splice(0,1);third()
  }
 }
 
