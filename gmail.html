@@ -120,14 +120,10 @@ async function emptySpecial(mail){
  const files=JSON.parse(onibgObj[mail].special)
  for(const file of files){
   if(file.title!='onibg'){
-   //const xhr=new XMLHttpRequest()
-   //xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/'+file.id,true)
-   //xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
-   //xhr.send()
    const res=await fetch('https://www.googleapis.com/drive/v3/files/'+file.id,{method:'DELETE',headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
-   //console.log('刪除：',await res.json())
   }
  }
+ alert('全部清空')
 }
 
 </script>
