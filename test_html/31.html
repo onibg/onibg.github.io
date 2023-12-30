@@ -59,7 +59,6 @@ let missions=[],num=0
 async function test(){
  const oldId='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f',newId=await first(oldId)
  missions=missions.concat(await second(oldId,newId))
- console.log(missions)
  third()
 }
 
@@ -93,6 +92,7 @@ async function second(oldId,newId){
 
 
 async function third(){
+ console.log(missions)
  if(missions.lenth==0)return
  const{mimeType,name,id,modifiedTime,parents}=missions[0]
  if(mimeType=='application/vnd.google-apps.folder'){
@@ -100,15 +100,18 @@ async function third(){
   ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
   const newId=(await res.json()).id
   missions=missions.concat(await second(id,newId))
+  missions.splice(0,1)
+  third()
  }
  else{
-  num=num<10?++num:1//同時100個
-  fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${num}`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
+  console.log('num',num)
+  num++
+  fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
+  .then(res=>{if(num<10)missions.splice(0,1);third();return res.json()})
+  .then(data=>{if(num>=10)missions.splice(0,1);third();num--})
+  .catch(e=>{console.log('錯誤',e)})
  }
- missions.splice(0,1)
- console.log(missions)
- third()
 }
 
 
