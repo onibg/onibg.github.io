@@ -58,7 +58,7 @@ function trash(){
 
 let missions=[],num=0
 async function test(){
- const oldId='1pb668ZWtrTAt2gx92F5sBIIdwGtcepst',newId=await first(oldId)
+ const oldId='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f',newId=await first(oldId)
  missions=missions.concat(await second(oldId,newId))
  third()
 }
@@ -92,8 +92,8 @@ async function second(oldId,newId){
 }
 
 async function third(){
- console.log(missions)
- if(missions.length==0){console.log('num',num);return}
+ console.log(num,missions)
+ if(missions.length==0)return
  const{mimeType,name,id,modifiedTime,parents}=missions[0],mission=missions[0]
  if(mimeType=='application/vnd.google-apps.folder'){
   const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
