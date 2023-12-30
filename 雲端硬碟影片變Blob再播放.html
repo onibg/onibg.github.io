@@ -1,39 +1,15 @@
 <video width="50%" height="50%" autoplay controls controlsList="nodownload">
-<script>
-var url='https://www.googleapis.com/drive/v3/files/1Mkbpacg3MdQWbHxub0K6vfx4sA3BByi8?alt=media'
-fetch(url,{headers:{'Authorization':'Bearer ya29.a0AfB_byCiXLQ-oaCrq7_jQaec-_cKionI72yX-4T9idEsQhyNHcYExxml0-cOYNTMlv7H9bL5DRaZwhQWsv8Euzu2MP7m8Rdg4c0FpLqVA0bBIFfEP3JOCckHXm9NNRFcDeqw79O2_G4r8ZHmw-Xq-r1ecULGhWF7mD9SaCgYKAUwSARESFQHGX2MiePbCzrnyXLhs0pciJC6N2w0171'}
-}).then(res=>{console.log('res');return res.blob()})
-  .then(data=>{console.log('data');document.getElementsByTagName('video')[0].src=URL.createObjectURL(data)})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-var xhr=new XMLHttpRequest()
-xhr.open("GET",url,true)//預設為true(異步)
-xhr.responseType='blob'
-xhr.setRequestHeader('Authorization','Bearer ya29.a0AfB_byCiXLQ-oaCrq7_jQaec-_cKionI72yX-4T9idEsQhyNHcYExxml0-cOYNTMlv7H9bL5DRaZwhQWsv8Euzu2MP7m8Rdg4c0FpLqVA0bBIFfEP3JOCckHXm9NNRFcDeqw79O2_G4r8ZHmw-Xq-r1ecULGhWF7mD9SaCgYKAUwSARESFQHGX2MiePbCzrnyXLhs0pciJC6N2w0171')
-//xhr.setRequestHeader('cookie','test=123')
-xhr.onload=function(){
-          {//console.log(xhr.response)
-           document.getElementsByTagName('video')[0].src=URL.createObjectURL(xhr.response)
-          }
-                     }
-xhr.send()
-
-*/
-
-</script>
+    <script>
+    var url='https://www.googleapis.com/drive/v3/files/1kA-EUd7uhnVFAs04nPO1ufY7HMkUq70O?alt=media'
+    var xhr=new XMLHttpRequest()
+    xhr.open("GET",url,true)//預設為true(異步)
+    xhr.responseType='blob'
+    xhr.setRequestHeader('Authorization','Bearer ya29.a0AfB_byCiXLQ-oaCrq7_jQaec-_cKionI72yX-4T9idEsQhyNHcYExxml0-cOYNTMlv7H9bL5DRaZwhQWsv8Euzu2MP7m8Rdg4c0FpLqVA0bBIFfEP3JOCckHXm9NNRFcDeqw79O2_G4r8ZHmw-Xq-r1ecULGhWF7mD9SaCgYKAUwSARESFQHGX2MiePbCzrnyXLhs0pciJC6N2w0171')
+    //xhr.setRequestHeader('cookie','test=123')
+    xhr.onload=function(){
+              {//console.log(xhr.response)
+               document.getElementsByTagName('video')[0].src=URL.createObjectURL(xhr.response)
+              }
+                         }
+    xhr.send()
+    </script>
