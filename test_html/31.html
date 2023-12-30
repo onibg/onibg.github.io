@@ -93,7 +93,7 @@ async function second(oldId,newId){
 
 async function third(){
  console.log(missions)
- if(missions.length==0)return
+ if(missions.length==0){console.log('num',num);return}
  const{mimeType,name,id,modifiedTime,parents}=missions[0],mission=missions[0]
  if(mimeType=='application/vnd.google-apps.folder'){
   const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
