@@ -113,7 +113,7 @@ async function third(){
    if(data.error&&data.error.code==403){missions.push(mission);if(missions.length==1)third()}//User rate limit exceeded.造成403
    num--;if(num==0&&missions.length==0)alert('複製完成')
   })
-  if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，避免403
+  if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
  }
 }
 
