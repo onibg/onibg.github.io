@@ -125,7 +125,7 @@ async function emptySpecial(mail){
    //xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
    //xhr.send()
    const res=await fetch('https://www.googleapis.com/drive/v3/files/'+file.id,{method:'DELETE',headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
-   console.log('刪除：',await res.json())
+   //console.log('刪除：',await res.json())
   }
  }
 }
