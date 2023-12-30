@@ -108,8 +108,8 @@ async function third(){
   num++
   fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
-  .then(res=>{if(num<10)missions.splice(0,1);third();return res.json()})
-  .then(data=>{if(num>=10)missions.splice(0,1);third();num--})
+  .then(res=>{if(num<10){missions.splice(0,1);third()};return res.json()})
+  .then(data=>{if(num>=10){missions.splice(0,1);third()};num--})
   .catch(e=>{console.log('錯誤',e)})
  }
 }
