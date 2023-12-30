@@ -1,6 +1,6 @@
 <video width="50%" height="50%" autoplay controls controlsList="nodownload">
 <script>
-var url='https://www.googleapis.com/drive/v3/files/1f814LSvxwz0EAUt_yk7ZBI-xM_VP8Nh9?alt=media'
+var url='https://www.googleapis.com/drive/v3/files/1f814LSvxwz0EAUt_yk7ZBI-xM_VP8Nh9?alt=media&hello'
 fetch(url,{headers:{'Authorization':'Bearer ya29.a0AfB_byCiXLQ-oaCrq7_jQaec-_cKionI72yX-4T9idEsQhyNHcYExxml0-cOYNTMlv7H9bL5DRaZwhQWsv8Euzu2MP7m8Rdg4c0FpLqVA0bBIFfEP3JOCckHXm9NNRFcDeqw79O2_G4r8ZHmw-Xq-r1ecULGhWF7mD9SaCgYKAUwSARESFQHGX2MiePbCzrnyXLhs0pciJC6N2w0171'}
 }).then(res=>{console.log('res');return res.blob()})
   .then(data=>{console.log('data');document.getElementsByTagName('video')[0].src=URL.createObjectURL(data)})
