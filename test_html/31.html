@@ -110,7 +110,7 @@ async function third(){
   .then(res=>{return res.json()})
   .then(data=>{if(num>=20){missions.splice(0,1);third()};num--})
   .catch(e=>{console.log('錯誤',e)})
-  if(num<20)missions.splice(0,1);third()
+  if(num<20){missions.splice(0,1);third()}
  }
 }
 
