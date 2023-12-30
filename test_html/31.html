@@ -98,18 +98,24 @@ async function third(){
  if(mimeType=='application/vnd.google-apps.folder'){
   const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
   ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
-  const newId=(await res.json()).id
+
+
+  const tmp=await res.json()
+  console.log('tmp',tmp)
+
+  const newId=tmp.id
+
+
   missions=missions.concat(await second(id,newId))
   missions.splice(0,1)
   third()
  }
  else{
-  console.log('num',num)
   num++
   fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
   .then(res=>res.json())
-  .then(data=>{if(num>=100){missions.splice(0,1);third()};num--})
+  .then(data=>{console.log('data',data);                            if(num>=100){missions.splice(0,1);third()};num--})
   if(num<100){missions.splice(0,1);third()}
  }
 }
