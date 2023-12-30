@@ -112,6 +112,7 @@ function emptyTrash(mail){
  xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/trash',true)
  xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
  xhr.send()
+ xhr.onload=()=>alert('全部清空')
 }
 async function emptySpecial(mail){
  if(onibgObj[mail].row<5){alert('請勿清空');return}
