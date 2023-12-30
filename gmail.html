@@ -113,17 +113,19 @@ function emptyTrash(mail){
  xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
  xhr.send()
 }
-function emptySpecial(mail){
+async function emptySpecial(mail){
  if(onibgObj[mail].row<5){alert('請勿清空');return}
  const result=confirm('確定要清空特殊檔？')
  if(!result)return
  const files=JSON.parse(onibgObj[mail].special)
- for(file of files){
+ for(const file of files){
   if(file.title!='onibg'){
-   const xhr=new XMLHttpRequest()
-   xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/'+file.id,true)
-   xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
-   xhr.send()
+   //const xhr=new XMLHttpRequest()
+   //xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/'+file.id,true)
+   //xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
+   //xhr.send()
+   const res=await fetch('https://www.googleapis.com/drive/v3/files/'+file.id,{method:'DELETE',headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
+   console.log('刪除：',await res.json())
   }
  }
 }
