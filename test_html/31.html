@@ -59,21 +59,26 @@ function trash(){
 let missions=[],num=0
 async function test(){
  const oldId='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f',newId=await first(oldId)
+
+/*
  missions=missions.concat(await second(oldId,newId))
  third()
+ */
 }
 
 
 async function first(oldId){
  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
  const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
- res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
+ res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
  ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,folderColorRgb:"#f83a22"})})//建立紅新資料夾
  const newId=(await res.json()).id
+ /*
  await fetch(`https://www.googleapis.com/drive/v3/files/${newId}/permissions/anyoneWithLink`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({role:'writer'})})//知道連結的任何人，權限改編輯者
  fetch(`https://www.googleapis.com/drive/v3/files/${newId}`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({modifiedTime:modifiedTime})})//改回舊資料夾時間
+*/
  return newId
 }
 
