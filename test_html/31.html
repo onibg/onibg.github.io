@@ -63,7 +63,6 @@ async function test(){
  third()
 }
 
-
 async function first(oldId){
  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
  const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
@@ -82,7 +81,7 @@ async function first(oldId){
  ,body:JSON.stringify({role:'writer',type:'user',emailAddress:'onibg.00001@gmail.com'})})//新增使用者共用
  const permissionId=(await res.json()).id
 
- fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}/permissions/${permissionId}`,{method:"DELETE",headers:{'Authorization':'Bearer '+token}})//刪除該使用者共用
+ await fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}/permissions/${permissionId}`,{method:"DELETE",headers:{'Authorization':'Bearer '+token}})//刪除該使用者共用
  
  fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({modifiedTime:ModifiedTime,folderColorRgb:"#f83a22"})})//父資料夾：改回原時間、設紅色
