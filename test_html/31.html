@@ -71,7 +71,7 @@ async function first(oldId){
  res=await fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}?fields=modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
  const{modifiedTime:ModifiedTime}=await res.json()//取父資料夾時間
 
- await fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}/permissions/anyoneWithLink`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
+ fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}/permissions/anyoneWithLink`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({role:'writer'})})//父資料夾：知道連結的任何人，權限改編輯者
 
  res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
