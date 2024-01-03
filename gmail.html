@@ -129,7 +129,7 @@ async function emptySpecial(mail){
 function sharePC(){
  console.log(onibgObj)
  for(const mail in onibgObj){
- ;(async()=>{
+ (async()=>{
   const res=await fetch(`https://www.googleapis.com/drive/v3/files/1ngQ2X0rYL1YRo7QydjD9YocvtFTxpHlZ?fields=sharedWithMeTime`,{headers:{Authorization:'Bearer '+onibgObj[mail].token}})
   const{sharedWithMeTime}=await res.json()
   console.log(mail,sharedWithMeTime)})()
