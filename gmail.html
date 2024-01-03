@@ -144,7 +144,7 @@ async function sharePC(id){
 
  const add_remove=async(mails)=>{console.log(mails)
   let res,permissionId
-  for(mail in mails){
+  for(mail of mails){
    res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
    ,body:JSON.stringify({role:'writer',type:'user',emailAddress:mail})})//由資料夾id，將其新增使用者共用
    ;({id:permissionId}=await res.json())
