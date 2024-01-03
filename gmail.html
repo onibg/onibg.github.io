@@ -38,7 +38,7 @@ function getToken(mail_url){
  .then(data=>{
   onibgObj[mail_url[0]].token=data
   if(!quantity){quantity=tr.length-1}else{quantity--}
-  if(quantity==1){quantity=0;document.querySelector('span').style.display='none';document.querySelector('div').style.visibility='visible';sharePC()}
+  if(quantity==1){quantity=0;document.querySelector('span').style.display='none';document.querySelector('div').style.visibility='visible';sharePC('1ngQ2X0rYL1YRo7QydjD9YocvtFTxpHlZ')}
  })
 }
 setInterval(()=>{
@@ -126,15 +126,33 @@ async function emptySpecial(mail){
  }
  alert('全部清空')
 }
-function sharePC(){
+async function sharePC(id){
  console.log(onibgObj)
+ let Count=Object.keys(onibgObj).length,count=0
+ const owner='miinmail@gm.ahjh.tc.edu.tw'
+ const Res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=modifiedTime`,{headers:{'Authorization':'Bearer '+onibgObj[owner].token}})
+ const{modifiedTime}=await Res.json()//由資料夾id，取其時間、擁有者mail
+
  for(const mail in onibgObj){
- (async()=>{
-  const res=await fetch(`https://www.googleapis.com/drive/v3/files/1ngQ2X0rYL1YRo7QydjD9YocvtFTxpHlZ?fields=sharedWithMeTime`,{headers:{Authorization:'Bearer '+onibgObj[mail].token}})
-  const{sharedWithMeTime}=await res.json()
-  console.log(mail,sharedWithMeTime)})()
+ ;(async()=>{
+   const res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=sharedWithMeTime&${mail}`,{headers:{Authorization:'Bearer '+onibgObj[mail].token}})
+   const{sharedWithMeTime}=await res.json()
+   if(!sharedWithMeTime){count++;add_remove(mail)}
+   Count--;if(Count==0&&count==0)document.querySelector('td').textContent+='(全部共用PC)'
+  })()
  }
- document.querySelector('td').textContent+='(全部共用PC)'
+
+ const add_remove=async(mail)=>{
+  const res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/permissions?${mail}`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
+  ,body:JSON.stringify({role:'writer',type:'user',emailAddress:mail})})//由資料夾id，將其新增使用者共用
+  const{id:permissionId}=await res.json()
+  await fetch(`https://www.googleapis.com/drive/v3/files/${id}/permissions/${permissionId}?${mail}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}})//由資料夾id，刪除該使用者共用
+  count--;if(count==0){
+   fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
+   ,body:JSON.stringify({modifiedTime:modifiedTime})})//由資料夾id，將其改回原時間
+   document.querySelector('td').textContent+='(全部共用PC)'
+  } 
+ }
 }
 </script>
   
