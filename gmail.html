@@ -127,6 +127,12 @@ async function emptySpecial(mail){
  alert('全部清空')
 }
 function sharePC(){
+
+  for(const mail in onibgObj){
+    console.log(mail,)
+  }
+    //getToken([mail,onibgObj[mail].url])}
+
   document.querySelector('td').textContent+='(全部共用PC)'
 
 
