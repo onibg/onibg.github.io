@@ -127,16 +127,14 @@ async function emptySpecial(mail){
  alert('全部清空')
 }
 function sharePC(){
-console.log(onibgObj)
-  for(const mail in onibgObj){
-    console.log(mail,)
-  }
-    //getToken([mail,onibgObj[mail].url])}
-
-  document.querySelector('td').textContent+='(全部共用PC)'
-
-
-
+ console.log(onibgObj)
+ for(const mail in onibgObj){
+ ;(async()=>{
+  const res=await fetch(`https://www.googleapis.com/drive/v3/files/1ngQ2X0rYL1YRo7QydjD9YocvtFTxpHlZ?fields=sharedWithMeTime`,{headers:{Authorization:'Bearer '+onibgObj[mail].token}})
+  const{sharedWithMeTime}=await res.json()
+  console.log(mail,sharedWithMeTime)})()
+ }
+ document.querySelector('td').textContent+='(全部共用PC)'
 }
 </script>
   
