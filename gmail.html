@@ -126,12 +126,12 @@ async function emptySpecial(mail){
  }
  alert('全部清空')
 }
+
 async function sharePC(id){
  let Count=Object.keys(onibgObj).length,mails=[]
  const owner='miinmail@gm.ahjh.tc.edu.tw'
  const Res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=modifiedTime`,{headers:{'Authorization':'Bearer '+onibgObj[owner].token}})
  const{modifiedTime}=await Res.json()//由資料夾id，取其時間
-
  for(const mail in onibgObj){if(mail==owner){Count--;continue}
  ;(async()=>{
    const res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=sharedWithMeTime&${mail}`,{headers:{Authorization:'Bearer '+onibgObj[mail].token}})
@@ -140,18 +140,17 @@ async function sharePC(id){
    Count--;if(Count==0)add_remove(mails)
   })()
  }
-
  const add_remove=async(mails)=>{
   let res,permissionId
-  for(mail of mails){
+  for(const mail of mails){
    res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
    ,body:JSON.stringify({role:'writer',type:'user',emailAddress:mail})})//由資料夾id，將其新增使用者共用
-   ;({id:permissionId}=await res.json())
+  ;({id:permissionId}=await res.json())
    await fetch(`https://www.googleapis.com/drive/v3/files/${id}/permissions/${permissionId}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}})//由資料夾id，刪除該使用者共用
   }
   fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
   ,body:JSON.stringify({modifiedTime:modifiedTime})})//由資料夾id，將其改回原時間
-  document.querySelector('td').innerHTML+='<span style="color:red">(全部共用PC)</span>'
+  document.querySelector('td').innerHTML+='<span style="color:red;backgroundcolor:yellow">(全部共用PC)</span>'
  }
 }
 </script>
