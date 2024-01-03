@@ -142,7 +142,7 @@ async function sharePC(id){
   })()
  }
 
- const add_remove=async(mails)=>{console.log(mails)
+ const add_remove=async(mails)=>{
   let res,permissionId
   for(mail of mails){
    res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
