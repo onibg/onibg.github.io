@@ -127,7 +127,6 @@ async function emptySpecial(mail){
  alert('全部清空')
 }
 async function sharePC(id){
- console.log(onibgObj)
  let Count=Object.keys(onibgObj).length,mails=[]
  const owner='miinmail@gm.ahjh.tc.edu.tw'
  const Res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=modifiedTime`,{headers:{'Authorization':'Bearer '+onibgObj[owner].token}})
@@ -142,7 +141,7 @@ async function sharePC(id){
   })()
  }
 
- const add_remove=async(mails)=>{console.log('mails',mails)
+ const add_remove=async(mails)=>{
   let res,permissionId
   for(mail of mails){
    res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
