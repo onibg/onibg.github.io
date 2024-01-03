@@ -150,7 +150,7 @@ async function sharePC(id){
   }
   fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
   ,body:JSON.stringify({modifiedTime:modifiedTime})})//由資料夾id，將其改回原時間
-  document.querySelector('td').innerHTML+='<span style="color:red;background-color:yellow">(全部共用PC)</span>'
+  document.querySelector('td').innerHTML+='<span style="color:red;background-color:yellow">全部共用PC</span>'
  }
 }
 </script>
