@@ -5,10 +5,10 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <button onclick="owner()">轉移</button>
-<button onclick="create()">轉建</button>
+<button onclick="create('onibg.00001@gmail.com','1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f')">轉建</button>
 <script>
-var token='ya29.a0AfB_byA7XdKeMrMs0DU7or55Y2rot22XM0L6-foy-f4LXtc1TdHVNY0eTr7Dqmwgr9hpTk4fkJId33q0-6i1rMTbIAJKsTkMZxRG26-TNgQb4qtGBpnIGNE9jgNEPTebmtLQxLmpahVIxF5tQH1KVh2Um2hGn0621MNraCgYKAQ4SARESFQHGX2MiHGFK00NFHgsRf96PCIFtOw0171'
-var token1='ya29.a0AfB_byCVliu8NYwGa5h72L8gKB6VuplD-TqgbxLyk39LdWQpUKQSl0MXWSLh9ItDB1mBVKRNxs0XVrtBE81w_3ahI6phR9mrAKr5PWuy8L550F_U8H6CgGUxDeogS4Z88ERk1ow5pPh5CScEqPhVt_2WQgWnRMY8_eIaCgYKARYSARMSFQHGX2Mi7X6Fgf-IMz0KA6pzBJQeCw0170'
+var token='ya29.a0AfB_byAgBQuqN_9GR6SxWyc6-KmuNprewWKLJsOAHjy8xYi6dLyUN9J5AWg4mIsV6uGm0CL4C1JAoRL-LVLEFj0uSK0rqNzMN1O6F1dcckfIt3CQRX00FH4ulCeb5Q5pyN54PwYLh6HgR4O6odLXv2s6j3uBeB3wdEVMaCgYKAdUSARASFQHGX2Mivjqnt_sUvXdr06Xn2RpjTg0171'
+var token1='ya29.a0AfB_byBTZ8lm2R7TNDkHGowR6TVNuyY2zOskJUvEmxDnphX_Ea9Ca8vQpsSrMS3powILZS88uXl1PZJypva7Ca_zhFWdaeM43vjtRSJfG7lQE9H7J4s-nQ_N15abXSSzzJxiGfPYNCJ33myXDurtkSZGy27g-dBKXCsaCgYKAVMSARASFQHGX2MiKG5Dujy-kwAlAh36JLqLEw0170'
 var xhr=new XMLHttpRequest()
 function about(){
  xhr.open('GET',`https://www.googleapis.com/drive/v3/about?fields=storageQuota`,true)
@@ -134,7 +134,7 @@ async function third(){
 async function create(mail,id){
  const newId=await first(id)
  console.log(newId)
- 
+
  const first=async(id)=>{
   let res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
   const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
