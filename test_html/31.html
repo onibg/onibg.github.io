@@ -135,14 +135,25 @@ async function third(){
 async function create(mail,id){
  const newId=await first(id)
  console.log(newId)
- 
- async function first(id){
-  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
+
+ async function first(oldId){
+  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
   const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
   res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
   ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
   return(await res.json()).id
  }
+
+ async function second(oldId,newId){
+
+
+
+ }
+
+
+
+
+
 }
 
 
