@@ -8,7 +8,7 @@
 <button onclick="create()">轉建</button>
 <script>
 var token='ya29.a0AfB_byA7XdKeMrMs0DU7or55Y2rot22XM0L6-foy-f4LXtc1TdHVNY0eTr7Dqmwgr9hpTk4fkJId33q0-6i1rMTbIAJKsTkMZxRG26-TNgQb4qtGBpnIGNE9jgNEPTebmtLQxLmpahVIxF5tQH1KVh2Um2hGn0621MNraCgYKAQ4SARESFQHGX2MiHGFK00NFHgsRf96PCIFtOw0171'
-var Token='ya29.a0AfB_byCVliu8NYwGa5h72L8gKB6VuplD-TqgbxLyk39LdWQpUKQSl0MXWSLh9ItDB1mBVKRNxs0XVrtBE81w_3ahI6phR9mrAKr5PWuy8L550F_U8H6CgGUxDeogS4Z88ERk1ow5pPh5CScEqPhVt_2WQgWnRMY8_eIaCgYKARYSARMSFQHGX2Mi7X6Fgf-IMz0KA6pzBJQeCw0170'
+var token1='ya29.a0AfB_byCVliu8NYwGa5h72L8gKB6VuplD-TqgbxLyk39LdWQpUKQSl0MXWSLh9ItDB1mBVKRNxs0XVrtBE81w_3ahI6phR9mrAKr5PWuy8L550F_U8H6CgGUxDeogS4Z88ERk1ow5pPh5CScEqPhVt_2WQgWnRMY8_eIaCgYKARYSARMSFQHGX2Mi7X6Fgf-IMz0KA6pzBJQeCw0170'
 var xhr=new XMLHttpRequest()
 function about(){
  xhr.open('GET',`https://www.googleapis.com/drive/v3/about?fields=storageQuota`,true)
@@ -57,7 +57,6 @@ function trash(){
  }//loop
 }//trash
 
-
 let missions=[],num=0
 async function test(){
  const oldId='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f',newId=await first(oldId)
@@ -75,7 +74,7 @@ async function first(oldId){
  fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}/permissions/anyoneWithLink`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({role:'writer'})})//父資料夾：知道連結的任何人，權限改編輯者
 
- res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
+ res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
  ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime,folderColorRgb:"#f83a22"})})//建立新資料夾、設紅色
  const newId=(await res.json()).id
 
@@ -109,7 +108,7 @@ async function third(){
  if(missions.length==0)return
  const{mimeType,name,id,modifiedTime,parents}=missions[0],mission=missions[0]
  if(mimeType=='application/vnd.google-apps.folder'){
-  const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
+  const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
   ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
   const{id:newId,error}=await res.json()
   if(error&&error.code==403){third();return}//User rate limit exceeded.造成403
@@ -118,7 +117,7 @@ async function third(){
  }
  else{
   let late=true;num++
-  fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+Token,'Content-Type':'application/json'}
+  fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
   .then(res=>res.json())
   .then(data=>{
@@ -129,5 +128,18 @@ async function third(){
   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
  }
 }
+
+
+
+async function create(mail,id){
+
+
+
+
+
+
+}
+
+
 
 </script>
