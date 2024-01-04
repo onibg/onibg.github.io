@@ -136,6 +136,7 @@ async function create(mail,id){
  const newId=await first(id)
  console.log(newId)
 
+ 
  async function first(id){
   let res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=mimeType,name,parents,modifiedTime,folderColorRgb`,{headers:{'Authorization':'Bearer '+token}})
   const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
