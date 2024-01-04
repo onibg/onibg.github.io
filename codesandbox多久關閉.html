@@ -7,6 +7,7 @@ xhr.onload=function(){
  console.log(xhr.response,new Date()-t+'毫秒，間隔:'+i+'秒')
  i+=10;req()
 }
+xhr.onerror=e=>{console.log('錯誤',e)}
 function req(){
  xhr.open("GET","https://oxri6.sse.codesandbox.io/",true)//預設為true(異步)
  setTimeout(function(){t=new Date();xhr.send()},1000*i)
