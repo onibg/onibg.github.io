@@ -63,7 +63,7 @@ async function test(){
  missions=missions.concat(await second(oldId,newId))
  third()
 }
-
+/*
 async function first(oldId){
  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
  const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
@@ -88,7 +88,7 @@ async function first(oldId){
  ,body:JSON.stringify({modifiedTime:ModifiedTime,folderColorRgb:"#f83a22"})})//父資料夾：改回原時間、設紅色
 
  return newId
-}
+}*/
 
 async function second(oldId,newId){
  let arr=[]
