@@ -62,89 +62,89 @@ async function test(){
  const oldId='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f',newId=await first(oldId)
  missions=missions.concat(await second(oldId,newId))
  third()
-}
-/*
-async function first(oldId){
- let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
- const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
+ 
+ async function first(oldId){
+     let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
+     const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
 
- res=await fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}?fields=modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
- const{modifiedTime:ModifiedTime}=await res.json()//取父資料夾時間
-
- fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}/permissions/anyoneWithLink`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
+     res=await fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}?fields=modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
+     const{modifiedTime:ModifiedTime}=await res.json()//取父資料夾時間
+     
+     fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}/permissions/anyoneWithLink`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({role:'writer'})})//父資料夾：知道連結的任何人，權限改編輯者
 
  res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
  ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime,folderColorRgb:"#f83a22"})})//建立新資料夾、設紅色
  const newId=(await res.json()).id
-
+ 
  res=await fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({role:'writer',type:'user',emailAddress:'onibg.00001@gmail.com'})})//新增使用者共用
  const permissionId=(await res.json()).id
-
+ 
  await fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}/permissions/${permissionId}`,{method:"DELETE",headers:{'Authorization':'Bearer '+token}})//刪除該使用者共用
  
  fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({modifiedTime:ModifiedTime,folderColorRgb:"#f83a22"})})//父資料夾：改回原時間、設紅色
-
+ 
  return newId
-}*/
+}
 
 async function second(oldId,newId){
- let arr=[]
- return await loop('')
- async function loop(pageToken){
-  const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${oldId}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,id,modifiedTime)&pageSize=1000&pageToken=${pageToken}`
-  ,{headers:{'Authorization':'Bearer '+token}})
+    let arr=[]
+    return await loop('')
+    async function loop(pageToken){
+        const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${oldId}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,id,modifiedTime)&pageSize=1000&pageToken=${pageToken}`
+        ,{headers:{'Authorization':'Bearer '+token}})
   const data=await res.json()
   arr=arr.concat(data.files)
   if(data.nextPageToken)return await loop(data.nextPageToken)
   else for(const i in arr){arr[i].parents=[newId]};return arr
- }
+}
 }
 
 
 async function third(){
- console.log(num,missions)
- if(missions.length==0)return
- const{mimeType,name,id,modifiedTime,parents}=missions[0],mission=missions[0]
- if(mimeType=='application/vnd.google-apps.folder'){
-  const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
-  ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
-  const{id:newId,error}=await res.json()
-  if(error&&error.code==403){third();return}//User rate limit exceeded.造成403
+    console.log(num,missions)
+    if(missions.length==0)return
+    const{mimeType,name,id,modifiedTime,parents}=missions[0],mission=missions[0]
+    if(mimeType=='application/vnd.google-apps.folder'){
+        const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
+        ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
+        const{id:newId,error}=await res.json()
+        if(error&&error.code==403){third();return}//User rate limit exceeded.造成403
   missions=missions.concat(await second(id,newId))
   missions.splice(0,1);third()
- }
- else{
-  let late=true;num++
-  fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
-  ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
-  .then(res=>res.json())
-  .then(data=>{
-   if(late){missions.splice(0,1);third()}
-   if(data.error&&data.error.code==403){missions.push(mission);if(missions.length==1)third()}//User rate limit exceeded.造成403
-   num--;if(num==0&&missions.length==0)alert('複製完成')
-  })
-  if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
+}
+else{
+    let late=true;num++
+    fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
+    ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
+    .then(res=>res.json())
+    .then(data=>{
+        if(late){missions.splice(0,1);third()}
+        if(data.error&&data.error.code==403){missions.push(mission);if(missions.length==1)third()}//User rate limit exceeded.造成403
+        num--;if(num==0&&missions.length==0)alert('複製完成')
+    })
+    if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
  }
 }
 
+}
 
 
 async function create(mail,id){
- const newId=await first(id)
- console.log(newId)
-
- async function first(oldId){
-  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
-  const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
-  res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
-  ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
-  return(await res.json()).id
- }
-
- async function second(oldId,newId){
+    const newId=await first(id)
+    console.log(newId)
+    
+    async function first(oldId){
+        let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
+        const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
+        res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
+        ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
+        return(await res.json()).id
+    }
+    
+    async function second(oldId,newId){
 
 
 
