@@ -1,5 +1,5 @@
 <div>codesandbox多久關閉</div>
-<button onclick="t=new Date();i=0;xhr.send()">強制請求</button>
+<button onclick="t=new Date();i=0;req()">強制請求</button>
 <script>
 var xhr=new XMLHttpRequest()
 var t,i=10
@@ -10,7 +10,9 @@ xhr.onload=function(){
 }
 xhr.onerror=e=>{console.log('錯誤',e)}
 function req(){
- xhr.open("GET","https://oxri6.sse.codesandbox.io/",true)//預設為true(異步)
- setTimeout(function(){t=new Date();xhr.send()},1000*i)
+ setTimeout(function(){
+  xhr.open("GET","https://oxri6.sse.codesandbox.io/",true)//預設為true(異步)
+  t=new Date();xhr.send()
+ },1000*i)
 }
 </script>
