@@ -136,8 +136,8 @@ async function create(mail,id){
  const newId=await first(id)
  console.log(newId)
 
- const first=async(Id)=>{
-  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${Id}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
+ const first=async(id)=>{
+  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
   const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
   res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
   ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime,folderColorRgb:"#f83a22"})})//建立新資料夾、設紅色
