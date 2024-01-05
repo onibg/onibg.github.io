@@ -116,7 +116,7 @@ function player(videoId)
               +'\nhttps://script.google.com/macros/s/AKfycbytYkoh1s5smPqU1K2Hz3qs3aKBXSNYHEBmstuxzz_OczhGedvA/exec?url=https://idz.glitch.me/'+videoId+'.vtt'
  ;(async()=>{await navigator.clipboard.writeText(writeData)})()//2021/10/31加入
  var xhr=new XMLHttpRequest()//xhr.responseType="json"//設定回傳資料為json格式，預設為text
- xhr.open('GET',"https://id.oa.repl.co/"+videoId+".vtt",true)//xhr.open('GET',"https://idp.glitch.me/"+videoId+".vtt",true)
+ xhr.open('GET',"https://id-oa.onrender.com/"+videoId+".vtt",true)//xhr.open('GET',"https://idp.glitch.me/"+videoId+".vtt",true)
  xhr.send()
  xhr.onerror=function(){alert('有錯誤！')}
  document.getElementById("sub").src=''//2021/6/16加入，以刪除舊影片字幕
@@ -136,7 +136,7 @@ function player(videoId)
   var Blob0=new Blob([text.slice(0,-1)],{type:"text/plain;charset=utf-8"})
   var URL0=URL.createObjectURL(Blob0)
   document.getElementById("sub").src=URL0
-  video.src="https://id.oa.repl.co/"+videoId//video.src="https://idp.glitch.me/"+videoId
+  video.src="https://id-oa.onrender.com/"+videoId//video.src="https://idp.glitch.me/"+videoId
   video.currentTime=localStorage.getItem(videoId)-5
  }
 }
