@@ -1,59 +1,40 @@
-<!DOCTYPE html>
-<html>
-<!--<head>-->
 <meta charset="UTF-8">
 <title>407班影片欣賞</title>
 <style>
-  button {
-    user-select: text
-  }
-
-  body {
-    text-align: center
-  }
-
-  video::-webkit-media-controls-fullscreen-button {
-    display: none
-  }
-
-  /*全螢幕按鈕消失*/
-  /*video::-webkit-media-controls{display:none !important}控制條全消失*/
-  ::cue {
-    font-size: 140%;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5)
-  }
-
-  div {
-    margin: 0 auto;
-    /*div水平置中*/
-    display: flex;
-    /*align-items:center;這2個新CSS，可讓其子元素如：video垂直置中*/
-    border: 0px solid red;
-    resize: both;
-    /*右下角有調整div大小的標籤*/
-    overflow: hidden;
-    /*自動隱藏超出的文字或圖片，永不產生捲軸*/
-  }
-
+ button{user-select:text}
+ body{text-align:center}
+ video::-webkit-media-controls-fullscreen-button{display:none}
+ /*全螢幕按鈕消失*/
+ /*video::-webkit-media-controls{display:none !important}控制條全消失*/
+ ::cue{font-size:140%;color:white;background-color:rgba(0,0,0,0.5)}
+ div{
+  margin:0 auto;
+  /*div水平置中*/
+  display:flex;
+  /*align-items:center;這2個新CSS，可讓其子元素如：video垂直置中*/
+  border:0px solid red;
+  resize:both;
+  /*右下角有調整div大小的標籤*/
+  overflow:hidden;
+  /*自動隱藏超出的文字或圖片，永不產生捲軸*/
+ }
   /*video{object-fit:contain}預設就是contain*/
   /*video{position:relative;top:-120px}調整video上下位置*/
   /*video{object-position:50% 50%}預設就是video的內容(影像)置中*/
-  video {
-    position: relative;
-    border: 0px solid blue
-  }
+ video{
+  position:relative;
+  border:0px solid blue
+ }
 </style>
 </head>
 <!--<body background="https://drive.google.com/uc?export=view&id=1oMC3B7RKyB7PFZrB9103OXlqp5X1Oeua">-->
-
 <body background="https://lh3.googleusercontent.com/d/1oMC3B7RKyB7PFZrB9103OXlqp5X1Oeua">
-  <div>
-    <video width="100%" height="100%" autoplay controls controlsList="nodownload">
-      <track id="sub" label="繁中字幕" default>
-    </video>
-  </div>
-  <button></button>
+<div>
+ <video width="100%" height="100%" autoplay controls controlsList="nodownload">
+  <track id="sub" label="繁中字幕" default>
+ </video>
+</div>
+<button></button>
   <script>
     var video = document.getElementsByTagName('video')[0], div = document.getElementsByTagName('div')[0], button = document.getElementsByTagName('button')[0]
     var videoTop = 0, videoHeight = 100
@@ -187,6 +168,4 @@
       if (played) {video.play(); played = false}
     }
   </script>
-  <!--</body>-->
-
-</html>
+  </body>
