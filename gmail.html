@@ -38,7 +38,9 @@ function getToken(mail_url){
  .then(data=>{
   onibgObj[mail_url[0]].token=data
   if(!quantity){quantity=tr.length-1}else{quantity--}
-  if(quantity==1){quantity=0;document.querySelector('span').style.display='none';document.querySelector('div').style.visibility='visible';sharePC('1ngQ2X0rYL1YRo7QydjD9YocvtFTxpHlZ')}
+  if(quantity==1){console.log("document.querySelector('span').style.display",document.querySelector('span').style.display)
+   quantity=0;document.querySelector('span').style.display='none';document.querySelector('div').style.visibility='visible';sharePC('1ngQ2X0rYL1YRo7QydjD9YocvtFTxpHlZ')
+  }
  })
 }
 setInterval(()=>{
