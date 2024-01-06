@@ -115,7 +115,7 @@ function emptyTrash(mail){
  xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/trash',true)
  xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
  xhr.send()
- xhr.onload=()=>alert('全部清空')
+ xhr.onload=()=>alert('清空完成')
 }
 async function emptySpecial(mail){
  if(onibgObj[mail].row<5){alert('請勿清空');return}
@@ -127,7 +127,7 @@ async function emptySpecial(mail){
    const res=await fetch('https://www.googleapis.com/drive/v3/files/'+file.id,{method:'DELETE',headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
   }
  }
- alert('全部清空')
+ alert('清空完成')
 }
 
 async function sharePC(id){
