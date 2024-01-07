@@ -204,9 +204,9 @@ async function create(mail,oldId){
 
 async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e739c943ab0b4c53348a4af
  var sourceName
- const newId=await first(oldId)
- if(!newId){console.log(sourceName+'\n'+mail+'擁有檔案完成');return}
- let missions=await second(oldId,newId),num=0
+ const id=await first(oldId)
+ if(!id){console.log(sourceName+'\n'+mail+'擁有檔案完成');return}
+ let missions=await second(id),num=0
  //third()
 
  async function first(oldId){
@@ -214,7 +214,6 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const{mimeType,name,parents,modifiedTime,owners:[{emailAddress:owner}]}=await res.json();sourceName=name//取舊資料夾或檔案資訊
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
   if(mimeType=='application/vnd.google-apps.folder')return oldId
   else{
    if(mail==owner)return 
@@ -232,10 +231,19 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
     await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}})//刪除舊檔案
    }
   }
-
-
-
-}
+ }
+ async function second(id){
+  let arr=[]
+  return await loop('')
+  async function loop(pageToken){
+   const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false and not mimeType=application/vnd.google-apps.folder&orderBy=folder&fields=nextPageToken,files(mimeType,name,id,modifiedTime)&pageSize=1000&pageToken=${pageToken}`
+   ,{headers:{'Authorization':'Bearer '+token}})
+   const data=await res.json()
+   arr=arr.concat(data.files)
+   if(data.nextPageToken)return await loop(data.nextPageToken)
+   else for(const i in arr){arr[i].parents=[oldId,newId]};return arr
+  }
+ }
 
 
 
