@@ -134,14 +134,22 @@ else{
 
 async function create(mail,oldId){
  const newId=await first(oldId)
+ console.log(newId)
+ return
  let missions=await second(oldId,newId),num=0
  third()
 
  async function first(oldId){
   let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
-  const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
-  res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
-  ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
+  const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾或檔案資訊
+  if(mineType=='application/vnd.google-apps.folder'){
+   res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
+   ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
+  }
+  else{
+   fetch(`https://www.googleapis.com/drive/v3/files/${oldId}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
+   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
+  }
   return(await res.json()).id
  }
     
@@ -154,10 +162,9 @@ async function create(mail,oldId){
    const data=await res.json()
    arr=arr.concat(data.files)
    if(data.nextPageToken)return await loop(data.nextPageToken)
-   else for(const i in arr){arr[i].parents=[oldId,newId]};return arr//{arr[i].parents=[newId]}
+   else for(const i in arr){arr[i].parents=[oldId,newId]};return arr
   }
  }
-
 
  async function third(){
   console.log(num,missions)
@@ -165,7 +172,7 @@ async function create(mail,oldId){
   const{mimeType,name,id,modifiedTime,parents}=missions[0],mission=missions[0]
   if(mimeType=='application/vnd.google-apps.folder'){
    const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
-         ,body:JSON.stringify({mimeType:mimeType,name:name,parents:[parents[1]],modifiedTime:modifiedTime})})//建立新資料夾
+   ,body:JSON.stringify({mimeType:mimeType,name:name,parents:[parents[1]],modifiedTime:modifiedTime})})//建立新資料夾
    const{id:newId,error}=await res.json()
    if(error&&error.code==403){third();return}//User rate limit exceeded.造成403
    missions=missions.concat(await second(id,newId))
@@ -173,10 +180,6 @@ async function create(mail,oldId){
   }
   else{
    let late=true;num++
-   /*
-   fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
-   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
-  */
    fetch(`https://www.googleapis.com/drive/v3/files/${id}?removeParents=${parents[0]}&addParents=${parents[1]}&${Math.random()}`
    ,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}})//搬移舊檔案
    .then(res=>res.json())
