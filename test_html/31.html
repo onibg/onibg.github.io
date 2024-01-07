@@ -131,7 +131,6 @@ else{
 
 }
 
-
 async function create(mail,oldId){
  var sourceName
  const newId=await first(oldId)
@@ -191,11 +190,33 @@ async function create(mail,oldId){
    if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   }
  }
+}
+
+async function owner(mail,oldId){
+ var sourceName
+ const newId=await first(oldId)
+ if(!newId){console.log(sourceName+'\n'+mail+'重建檔案完成');return}
+
+ //let missions=await second(oldId,newId),num=0
+ //third()
+
+ async function first(oldId){
+  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
+  const{mimeType,name,parents,modifiedTime}=await res.json();sourceName=name//取舊資料夾或檔案資訊
+  if(mimeType=='application/vnd.google-apps.folder'){
+   res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
+   ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
+   return(await res.json()).id
+  }
+  else{
+   res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
+   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
+  }
+ }
+
 
 
 
 
 }
-
-
 </script>
