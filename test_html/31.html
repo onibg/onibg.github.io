@@ -156,7 +156,7 @@ async function create(mail,oldId){
    const data=await res.json()
    arr=arr.concat(data.files)
    if(data.nextPageToken)return await loop(data.nextPageToken)
-   else for(const i in arr){arr[i].parents.push(newId)};return arr//{arr[i].parents=[newId]}
+   else for(const i in arr){arr[i].parents=[oldId,newId]};return arr//{arr[i].parents=[newId]}
   }
  }
 
