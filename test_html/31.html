@@ -237,13 +237,14 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   let arr=[]
   return await loop('')
   async function loop(pageToken){
-   const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false and mimeType!='application/vnd.google-apps.folder'&fields=nextPageToken,files(mimeType,name,parents,modifiedTime,id)&pageSize=1000&pageToken=${pageToken}`
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+   const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,id,modifiedTime)&pageSize=1000&pageToken=${pageToken}`
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    ,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
    const data=await res.json()
    arr=arr.concat(data.files)
    if(data.nextPageToken)return await loop(data.nextPageToken)
-   else return arr
+   else for(const i in arr){arr[i].parents=[id]};return arr
   }
  }
 
