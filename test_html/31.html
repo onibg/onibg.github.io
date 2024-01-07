@@ -158,7 +158,7 @@ async function create(mail,oldId){
   }
   else{
    await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
-   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
+   ,body:JSON.stringify({modifiedTime:modifiedTime})})//複製舊檔案
   }
  }
     
@@ -233,7 +233,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
    }
    else{
     await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
-    ,body:JSON.stringify({})})//複製舊檔案
+    ,body:JSON.stringify({modifiedTime:modifiedTime})})//複製舊檔案
    }
   }
 
