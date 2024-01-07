@@ -142,7 +142,7 @@ async function create(mail,oldId){
  async function first(oldId){
   let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
   const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾或檔案資訊
-  if(mineType=='application/vnd.google-apps.folder'){
+  if(mimeType=='application/vnd.google-apps.folder'){
    res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
    ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
   }
