@@ -204,19 +204,18 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
  async function first(oldId){
   let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime,owners`,{headers:{'Authorization':'Bearer '+token}})
   const{mimeType,name,parents,modifiedTime,owners:[{emailAddress:owner}]}=await res.json();sourceName=name//取舊資料夾或檔案資訊
-  console.log(mimeType,name,parents,modifiedTime,owner)
 
 
-/*
   if(mimeType=='application/vnd.google-apps.folder'){
    res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
    ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
    return(await res.json()).id
   }
   else{
-   res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
-   ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
-*/
+   res=await fetch(`https://www.googleapis.com/drive/v2/files/${oldId}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
+   ,body:JSON.stringify({role:'writer',type:'user',value:mail,pendingOwner:true})})
+   console.log(await res.json())
+
 
 
 
