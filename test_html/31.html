@@ -202,7 +202,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
  //third()
 
  async function first(oldId){
-  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
+  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=*`,{headers:{'Authorization':'Bearer '+token}})
 
 console.log(await res.json())
 
