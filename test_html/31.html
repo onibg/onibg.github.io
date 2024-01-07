@@ -134,7 +134,7 @@ else{
 
 async function create(mail,oldId){
  const newId=await first(oldId)
- console.log(newId)
+ if(!newId)alert('重建檔案完成')
  return
  let missions=await second(oldId,newId),num=0
  third()
@@ -145,12 +145,12 @@ async function create(mail,oldId){
   if(mimeType=='application/vnd.google-apps.folder'){
    res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
    ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
+   return(await res.json()).id
   }
   else{
    res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
    ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
   }
-  return(await res.json()).id
  }
     
  async function second(oldId,newId){
@@ -186,7 +186,7 @@ async function create(mail,oldId){
    .then(data=>{
     if(late){missions.splice(0,1);third()}
     if(data.error&&data.error.code==403){missions.push(mission);if(missions.length==1)third()}//User rate limit exceeded.造成403
-    num--;if(num==0&&missions.length==0)alert('重建完成')
+    num--;if(num==0&&missions.length==0)alert('重建資料夾完成')
    })
    if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   }
