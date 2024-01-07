@@ -204,9 +204,8 @@ async function create(mail,oldId){
 
 async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e739c943ab0b4c53348a4af
  var sourceName
- //const newId=
- await first(oldId)
- //if(!newId){console.log(sourceName+'\n'+mail+'重建檔案完成');return}
+ const newId=await first(oldId)
+ if(!newId){console.log(sourceName+'\n'+mail+'擁有檔案完成');return}
 
  //let missions=await second(oldId,newId),num=0
  //third()
@@ -234,6 +233,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
    else{
     await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
     ,body:JSON.stringify({modifiedTime:modifiedTime})})//複製舊檔案
+    await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}})//刪除舊檔案
    }
   }
 
