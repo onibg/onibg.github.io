@@ -5,7 +5,7 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <button onclick="owner()">轉移</button>
-<button onclick="create('onibg.00001@gmail.com','1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f')">轉建</button>
+<button onclick="create('onibg.00001@gmail.com','1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f')">重建</button>
 <script>
 var token='ya29.a0AfB_byD34-1XUQx3Wr6XENNu9R7wz5Ox8EHNfv1sBkZC_YUXmuoDq8l6zAL7w6iMb9GljyTpLVPf6aNetqaWS5cGbRXP16F2N5bPOCb5t60WXuccCPylcmIfafOlB-48ZMgECCN8Ebb3PL42uFLg9s5naJoEZJn4-byQaCgYKAbASARASFQHGX2Mi7tTElFrXsisbrZ3J-6cX0A0171'
 var token1='ya29.a0AfB_byBR-vCjQd3PGuQhLBgYcotGzU70a2vZa9Y-jj1LRDmEYDdJ_Rx2jEgDcN-iYCQtexdFiXgb1W4QMWi1N9--wEzE9cldpJsA6uqg8zSNtTDq25aH6zeUrxxr3pt4hRWdalLuqEpup6BjLQOlVR7sSiRdG3yjzOsaCgYKAQsSARISFQHGX2MigZ0qV9m68QYF12UD1RdPOA0170'
@@ -134,11 +134,9 @@ else{
 
 async function create(mail,oldId){
  const newId=await first(oldId)
- console.log(newId)
  let missions=await second(oldId,newId),num=0
- //console.log(missions)
  third()
-    
+
  async function first(oldId){
   let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
   const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
@@ -185,7 +183,7 @@ async function create(mail,oldId){
    .then(data=>{
     if(late){missions.splice(0,1);third()}
     if(data.error&&data.error.code==403){missions.push(mission);if(missions.length==1)third()}//User rate limit exceeded.造成403
-    num--;if(num==0&&missions.length==0)alert('轉建完成')
+    num--;if(num==0&&missions.length==0)alert('重建完成')
    })
    if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   }
