@@ -15,7 +15,7 @@ onibgObj={
 ,'onibg.00001@gmail.com':{token:'ya29.a0AfB_byAAfRgZthrUW7XEGaqTW4eZd97-R6LAuhfRg3Bu4M74pMIzRLIJzDBqIxYlOKK3XQnYO1c4LBU8JPRgf0UZN6IxyHeFwzFn4OS7kotMExUYoeDUR7qAMjg14eGiJYhlvNcIosOlpu12qCX3cH_wvh3-aee8JK4aCgYKAdISARMSFQHGX2MinZhn-TnNSwtM_ILdD_QTqA0170'}
 ,'onibg.00002@gmail.com':{token:'ya29.a0AfB_byDpQxO__54NRcJzczNs1e4Ivk1w4LdfzrrOzmCZlpxIXUlnkYROOEXGc1B0bp4j2Suxufz6yKGAmZNZ9daq4danWg08Klll9gCoCYv71FS2e-2q2N5Igm6IZuHKsakIXNj-QTv8fB1-aumHb5PEBgj9RxIY44saCgYKAd0SARASFQHGX2MiGUkyzcEfWRhN8j0E-9B0qg0170'}
 }
-
+const delay=i=>new Promise(resolve=>setTimeout(resolve,i))
 
 
 
@@ -218,7 +218,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   else{
    if(mail==owner)return
    if(mail.split('@')[1]==owner.split('@')[1]){
-    await fetch(`https://www.googleapis.com/drive/v2/files/${oldId}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
+    res=await fetch(`https://www.googleapis.com/drive/v2/files/${oldId}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
     ,body:JSON.stringify({role:'writer',type:'user',value:mail,pendingOwner:true})})
     await fetch(`https://www.googleapis.com/drive/v2/files/${oldId}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
     ,body:JSON.stringify({role:'owner',type:'user',value:mail})})
@@ -263,27 +263,36 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   }
   else{
    if(mail==owner){missions.splice(0,1);third();if(num==0&&missions.length==0)console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成');return}
-   let late=true;num++
+   let res={},i=-100,late=true;num++
    if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
    if(mail.split('@')[1]==owner.split('@')[1]){
-    await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
-    ,body:JSON.stringify({role:'writer',type:'user',value:mail,pendingOwner:true})})
-    await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
-    ,body:JSON.stringify({role:'owner',type:'user',value:mail})})
-    fetch(`https://www.googleapis.com/drive/v3/files/${id}?${Math.random()}`,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[Gmail].token,'Content-Type':'application/json'}
-    ,body:JSON.stringify({modifiedTime:modifiedTime})})
+    while(res.status!=200){await delay(i+=100)
+     res=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
+     ,body:JSON.stringify({role:'writer',type:'user',value:mail,pendingOwner:true})})
+    };delete res.status;i=-100
+    while(res.status!=200){await delay(i+=100)
+     res=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
+     ,body:JSON.stringify({role:'owner',type:'user',value:mail})})
+    };delete res.status;i=-100
+    while(res.status!=200){await delay(i+=100)
+     res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?${Math.random()}`,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[Gmail].token,'Content-Type':'application/json'}
+     ,body:JSON.stringify({modifiedTime:modifiedTime})})
+    }
    }
    else{
-    await fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
-    ,body:JSON.stringify({modifiedTime:modifiedTime})})//複製舊檔案
-    await fetch(`https://www.googleapis.com/drive/v3/files/${id}?${Math.random()}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}})//刪除舊檔案
+    while(res.status!=200){await delay(i+=100)
+     await fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
+     ,body:JSON.stringify({modifiedTime:modifiedTime})})//複製舊檔案
+    };delete res.status;i=-100
+    while(res.status!=200){await delay(i+=100)
+     await fetch(`https://www.googleapis.com/drive/v3/files/${id}?${Math.random()}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}})//刪除舊檔案
+    }
    }
    if(late){missions.splice(0,1);third()}
-   //????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
-   if(data.error&&data.error.code==403){missions.push(mission);if(missions.length==1)third()}//User rate limit exceeded.造成403
-    num--;if(num==0&&missions.length==0)console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成')
+   //if(data.error&&data.error.code==403){missions.push(mission);if(missions.length==1)third()}//User rate limit exceeded.造成403
+   num--;if(num==0&&missions.length==0)console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成')
 
-    
+
    
   }//else
  }//third()
