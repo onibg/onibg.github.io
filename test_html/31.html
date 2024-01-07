@@ -134,7 +134,7 @@ else{
 
 async function create(mail,oldId){
 
-  fetch(`https://www.googleapis.com/drive/v3/files/13eaBKYyTILlsxXVobzV9BhP0Yv9yncbH?addParents=1-Qui-99G1zj44tBXxaD6ESiIO5hpFXT5`,{method:"PATCH",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
+  fetch(`https://www.googleapis.com/drive/v3/files/13eaBKYyTILlsxXVobzV9BhP0Yv9yncbH?removeParents=1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f&addParents=1-Qui-99G1zj44tBXxaD6ESiIO5hpFXT5`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({})})
 
 
