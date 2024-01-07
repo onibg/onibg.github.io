@@ -133,6 +133,16 @@ else{
 
 
 async function create(mail,oldId){
+
+    fetch(`https://www.googleapis.com/drive/v3/files/13eaBKYyTILlsxXVobzV9BhP0Yv9yncbH}`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
+   ,body:JSON.stringify({parents:["1-Qui-99G1zj44tBXxaD6ESiIO5hpFXT5"]})})
+
+
+
+
+
+
+    return
  const newId=await first(oldId)
  console.log(newId)
  let missions=await second(oldId,newId),num=0
