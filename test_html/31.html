@@ -134,8 +134,7 @@ else{
 
 async function create(mail,oldId){
  const newId=await first(oldId)
- if(!newId)alert('重建檔案完成')
- return
+ if(!newId){alert('重建檔案完成');return}
  let missions=await second(oldId,newId),num=0
  third()
 
