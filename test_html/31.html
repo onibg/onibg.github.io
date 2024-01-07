@@ -5,10 +5,10 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <button onclick="create('onibg.00001@gmail.com','1nlrf3Td1_WSYTfMcGypld5pdfroz-jsz')">重建</button>
-<button onclick="owner('onibg.00001@gmail.com','1nlrf3Td1_WSYTfMcGypld5pdfroz-jsz')">擁有</button>
+<button onclick="owner('onibg.00001@gmail.com','1AqajWNNYIdhv3slc-XUolmNSp9HV8RlB')">擁有</button>
 <script>
-var token='ya29.a0AfB_byDbUc_4Fy1Ljm97JJWmj-9dH9__1lsBNB_SsRfeCwylQ0d4j64kkxn_vi4vHJKjNUvrI-F5lFKO4lPIoSUhUNBF0jynx-4JbekE0-f9mhN4KWix8yr9dkDVtpnhEALl9rpfVxn3iZ79MO3n6AHnaqq3fxUbUIs9aCgYKARsSARMSFQHGX2MihjuTWcWzkQ_CTZelAyQm9w0171'
-var token1='ya29.a0AfB_byCrhRpolHoAwfPnWLm4LNKJrdcofFBW7UiShlI3oCtpuVwcusQdM9XH7g9gc5Vw0XhBq8AHEzCngSEh_CfQHqpqDZuihkq0lfwzdt2Cw7kqHgioUJxRJc5AydTtt1uadZihjq-pb7OgiOFqrf_OuJu5Bdmct40aCgYKAcASARASFQHGX2MiASjNVhs0ViuEBLeMRc_XOw0170'
+var token='ya29.a0AfB_byAN13Q13aXGL66Df7qXsZxJEF4N-jbPewEAvFF5j-2fr97DdnjAjR8qcvstGsG8qVLhEsQZlJMC91TRd1ZekPMtHYy-VHTxBlAGdI0dYdp4kAcciKNFXhWP9Q49csQAPIOl_dL5zPOMVSkxqEXXUYZUdi5CiLqCaCgYKAWISARESFQHGX2Mi-wn0t34M-Vz6yENm-mwcWA0171'
+var token1='ya29.a0AfB_byDwEYtwcblZ_lxFUIw7V5m-P897khCn0QQnB-DdM_ai2kexa61syh0IZFbysqmt-GGaabau7ceAmh0D2qckPsDiV-P0O6X_TsPKMFxYg_zIej7lRN-h-tm3CEwqlH5L6A9StS2c_0A6KhzFKKVvgaj4Xkhc5icaCgYKAfESARASFQHGX2MiuBE3zZSwvmof4XUf68XX_w0170'
 var xhr=new XMLHttpRequest()
 function about(){
  xhr.open('GET',`https://www.googleapis.com/drive/v3/about?fields=storageQuota`,true)
@@ -192,17 +192,26 @@ async function create(mail,oldId){
  }
 }
 
-async function owner(mail,oldId){
+async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e739c943ab0b4c53348a4af
  var sourceName
- const newId=await first(oldId)
- if(!newId){console.log(sourceName+'\n'+mail+'重建檔案完成');return}
+ //const newId=
+ await first(oldId)
+ //if(!newId){console.log(sourceName+'\n'+mail+'重建檔案完成');return}
 
  //let missions=await second(oldId,newId),num=0
  //third()
 
  async function first(oldId){
   let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
-  const{mimeType,name,parents,modifiedTime}=await res.json();sourceName=name//取舊資料夾或檔案資訊
+
+console.log(await res.json())
+
+
+//  const{mimeType,name,parents,modifiedTime}=await res.json();sourceName=name//取舊資料夾或檔案資訊
+
+
+
+/*
   if(mimeType=='application/vnd.google-apps.folder'){
    res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
    ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
@@ -211,6 +220,27 @@ async function owner(mail,oldId){
   else{
    res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
    ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
+*/
+
+
+
+
+/*
+   let res=await fetch(`https://www.googleapis.com/drive/v2/files/${element}`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
+                              let body=await res.json()
+                              const thisMail=body.owners[0].emailAddress
+                              const {modifiedDate}=body
+                              res=await fetch(`https://www.googleapis.com/drive/v2/files/${element}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[thisMail].token,'Content-Type':'application/json'},body:JSON.stringify({role:'writer',type:'user',value:newOwnerMail,pendingOwner:true})})
+                              body=await res.json()
+                              res=await fetch(`https://www.googleapis.com/drive/v2/files/${element}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[newOwnerMail].token,'Content-Type':'application/json'},body:JSON.stringify({role:'owner',type:'user',value:newOwnerMail})})
+                                                                                                             //?moveToNewOwnersRoot=true
+                              body=await res.json()
+                              console.log(thisMail,body)
+                              fetch(`https://www.googleapis.com/drive/v2/files/${element}?setModifiedDate=true`,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[newOwnerMail].token,'Content-Type':'application/json'},body:JSON.stringify({modifiedDate:modifiedDate})})
+
+*/
+
+
   }
  }
 
