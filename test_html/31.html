@@ -7,8 +7,8 @@
 <button onclick="owner()">轉移</button>
 <button onclick="create('onibg.00001@gmail.com','1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f')">轉建</button>
 <script>
-var token='ya29.a0AfB_byDZQDw9ziNFqWvTlkxtv4SV54t4Nk54z_I5nXY1mSmgYmxwVuMCSdvySMERUvrcqVwQVSiQOFtFcYI-Mrc8YmnBGPOcxOmxx9LuKSzzZ6XSmIgc1pXr2IRq3O52qQKNcq-5NnJWTHtHbKnYdFwsRklCnjnnh6MaCgYKAZcSARISFQHGX2MiE0rEiVAdwjNFX-_cjzn1RA0170'
-var token1='ya29.a0AfB_byBRZ6nyBUqcXY661EjJMIvfire-i1kLBIz8zPbj2M3_idXzbt-6PGZvbhWKwQKcbFDxqmgxcCuaOaTNBWZg2iSaKiXPMTPNDfm1_qbjuXn46KXgJ27zm0LTFB9T7kJWJDy5dh7rA7rRJKHKElA4LyhcWYwrALkaCgYKAawSARASFQHGX2MiKoGLU0L5nheHOaXMewKQQQ0170'
+var token='ya29.a0AfB_byD34-1XUQx3Wr6XENNu9R7wz5Ox8EHNfv1sBkZC_YUXmuoDq8l6zAL7w6iMb9GljyTpLVPf6aNetqaWS5cGbRXP16F2N5bPOCb5t60WXuccCPylcmIfafOlB-48ZMgECCN8Ebb3PL42uFLg9s5naJoEZJn4-byQaCgYKAbASARASFQHGX2Mi7tTElFrXsisbrZ3J-6cX0A0171'
+var token1='ya29.a0AfB_byBR-vCjQd3PGuQhLBgYcotGzU70a2vZa9Y-jj1LRDmEYDdJ_Rx2jEgDcN-iYCQtexdFiXgb1W4QMWi1N9--wEzE9cldpJsA6uqg8zSNtTDq25aH6zeUrxxr3pt4hRWdalLuqEpup6BjLQOlVR7sSiRdG3yjzOsaCgYKAQsSARISFQHGX2MigZ0qV9m68QYF12UD1RdPOA0170'
 var xhr=new XMLHttpRequest()
 function about(){
  xhr.open('GET',`https://www.googleapis.com/drive/v3/about?fields=storageQuota`,true)
@@ -133,16 +133,6 @@ else{
 
 
 async function create(mail,oldId){
-
-  fetch(`https://www.googleapis.com/drive/v3/files/13eaBKYyTILlsxXVobzV9BhP0Yv9yncbH?removeParents=1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f&addParents=1-Qui-99G1zj44tBXxaD6ESiIO5hpFXT5`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
- ,body:JSON.stringify({})})
-
-
-
-
-
-
-    return
  const newId=await first(oldId)
  console.log(newId)
  let missions=await second(oldId,newId),num=0
