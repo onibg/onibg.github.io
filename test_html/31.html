@@ -5,10 +5,10 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <button onclick="owner()">轉移</button>
-<button onclick="create('miinmail@gm.ahjh.tc.edu.tw','1IY4pi_JoPpet0J8hmZZtGehC784zw8y5')">重建</button>
+<button onclick="create('onibg.00001@gmail.com','1nlrf3Td1_WSYTfMcGypld5pdfroz-jsz')">重建</button>
 <script>
 var token='ya29.a0AfB_byDbUc_4Fy1Ljm97JJWmj-9dH9__1lsBNB_SsRfeCwylQ0d4j64kkxn_vi4vHJKjNUvrI-F5lFKO4lPIoSUhUNBF0jynx-4JbekE0-f9mhN4KWix8yr9dkDVtpnhEALl9rpfVxn3iZ79MO3n6AHnaqq3fxUbUIs9aCgYKARsSARMSFQHGX2MihjuTWcWzkQ_CTZelAyQm9w0171'
-var token1='ya29.a0AfB_byDbUc_4Fy1Ljm97JJWmj-9dH9__1lsBNB_SsRfeCwylQ0d4j64kkxn_vi4vHJKjNUvrI-F5lFKO4lPIoSUhUNBF0jynx-4JbekE0-f9mhN4KWix8yr9dkDVtpnhEALl9rpfVxn3iZ79MO3n6AHnaqq3fxUbUIs9aCgYKARsSARMSFQHGX2MihjuTWcWzkQ_CTZelAyQm9w0171'
+var token1='ya29.a0AfB_byCrhRpolHoAwfPnWLm4LNKJrdcofFBW7UiShlI3oCtpuVwcusQdM9XH7g9gc5Vw0XhBq8AHEzCngSEh_CfQHqpqDZuihkq0lfwzdt2Cw7kqHgioUJxRJc5AydTtt1uadZihjq-pb7OgiOFqrf_OuJu5Bdmct40aCgYKAcASARASFQHGX2MiASjNVhs0ViuEBLeMRc_XOw0170'
 var xhr=new XMLHttpRequest()
 function about(){
  xhr.open('GET',`https://www.googleapis.com/drive/v3/about?fields=storageQuota`,true)
@@ -133,14 +133,15 @@ else{
 
 
 async function create(mail,oldId){
+ var sourceName
  const newId=await first(oldId)
- if(!newId){alert('重建檔案完成');return}
+ if(!newId){console.log(sourceName+'\n重建檔案完成');return}
  let missions=await second(oldId,newId),num=0
  third()
 
  async function first(oldId){
   let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
-  const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾或檔案資訊
+  const{mimeType,name,parents,modifiedTime}=await res.json();sourceName=name//取舊資料夾或檔案資訊
   if(mimeType=='application/vnd.google-apps.folder'){
    res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
    ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
@@ -185,7 +186,7 @@ async function create(mail,oldId){
    .then(data=>{
     if(late){missions.splice(0,1);third()}
     if(data.error&&data.error.code==403){missions.push(mission);if(missions.length==1)third()}//User rate limit exceeded.造成403
-    num--;if(num==0&&missions.length==0)alert('重建資料夾完成')
+    num--;if(num==0&&missions.length==0)console.log(sourceName+'\n重建資料夾完成')
    })
    if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   }
