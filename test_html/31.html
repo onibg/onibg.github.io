@@ -166,7 +166,7 @@ async function create(mail,oldId){
    const data=await res.json()
    arr=arr.concat(data.files)
    if(data.nextPageToken)return await loop(data.nextPageToken)
-   else for(const i in arr){arr[i].parents=[newId]};return arr
+   else for(const i in arr){arr[i].parents.push(newId)};return arr//{arr[i].parents=[newId]}
   }
  }
 
@@ -177,7 +177,7 @@ async function create(mail,oldId){
   const{mimeType,name,id,modifiedTime,parents}=missions[0],mission=missions[0]
   if(mimeType=='application/vnd.google-apps.folder'){
    const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
-         ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
+         ,body:JSON.stringify({mimeType:mimeType,name:name,parents:[parents[1]],modifiedTime:modifiedTime})})//建立新資料夾
    const{id:newId,error}=await res.json()
    if(error&&error.code==403){third();return}//User rate limit exceeded.造成403
    missions=missions.concat(await second(id,newId))
@@ -189,8 +189,8 @@ async function create(mail,oldId){
    fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
    ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
   */
-   fetch(`https://www.googleapis.com/drive/v3/files/${id}?${Math.random()}`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
-   ,body:JSON.stringify({parents:parents})})//由資料夾id，將其改回原時間
+   fetch(`https://www.googleapis.com/drive/v3/files/${id}?removeParents=${parents[0]}&addParents=${parents[1]}&${Math.random()}`
+   ,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}})//搬移舊檔案
    .then(res=>res.json())
    .then(data=>{
     if(late){missions.splice(0,1);third()}
