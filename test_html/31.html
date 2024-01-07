@@ -179,7 +179,7 @@ async function create(mail,oldId){
    fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
    ,body:JSON.stringify({parents:parents,modifiedTime:modifiedTime})})//複製舊檔案
   */
-   fetch(`https://www.googleapis.com/drive/v3/files/${id}?${Math.random()}`,{method:"PATCH",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
+   fetch(`https://www.googleapis.com/drive/v3/files/${id}?${Math.random()}`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
    ,body:JSON.stringify({parents:parents})})//由資料夾id，將其改回原時間
    .then(res=>res.json())
    .then(data=>{
