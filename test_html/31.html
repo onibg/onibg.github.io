@@ -5,15 +5,15 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <button onclick="create('onibg.00001@gmail.com','1nlrf3Td1_WSYTfMcGypld5pdfroz-jsz')">以新對象重建資料夾，並搬移檔案</button>
- <button onclick="owner('onibg.00002@gmail.com','1MPswfmx_fB4eX9u6yCYma-qvq6gj1Z7k')">資料夾不變，內部檔案更改擁有者</button>
+ <button onclick="owner('onibg.00001@gmail.com','1MPswfmx_fB4eX9u6yCYma-qvq6gj1Z7k')">資料夾不變，內部檔案更改擁有者</button>
 <script>
 var token='ya29.a0AfB_byAN13Q13aXGL66Df7qXsZxJEF4N-jbPewEAvFF5j-2fr97DdnjAjR8qcvstGsG8qVLhEsQZlJMC91TRd1ZekPMtHYy-VHTxBlAGdI0dYdp4kAcciKNFXhWP9Q49csQAPIOl_dL5zPOMVSkxqEXXUYZUdi5CiLqCaCgYKAWISARESFQHGX2Mi-wn0t34M-Vz6yENm-mwcWA0171'
 var token1='ya29.a0AfB_byDwEYtwcblZ_lxFUIw7V5m-P897khCn0QQnB-DdM_ai2kexa61syh0IZFbysqmt-GGaabau7ceAmh0D2qckPsDiV-P0O6X_TsPKMFxYg_zIej7lRN-h-tm3CEwqlH5L6A9StS2c_0A6KhzFKKVvgaj4Xkhc5icaCgYKAfESARASFQHGX2MiuBE3zZSwvmof4XUf68XX_w0170'
 var Gmail='miinmail@gm.ahjh.tc.edu.tw'
 onibgObj={
- 'miinmail@gm.ahjh.tc.edu.tw':{token:'ya29.a0AfB_byDM122By5XUn8TKrPLxPEOQKHZDEqr8RvOkNE8WK7l2IYtc-g0ofVyqHhQnqA1MLscBRC3TY6nVrM4I0Vlxw1nCbDBFzCecbCcuPIXosmkrR5RQpKuowcGuOT5q89pdQyGgUbVRneqwYZibxAY7thIUPdLhC3_9aCgYKAQUSARASFQHGX2MioAIP7nt2lZqkKvqEZS980A0171'}
-,'onibg.00001@gmail.com':{token:'ya29.a0AfB_byCHD8bdSvO_sOM4jJC8ETf5m-ZUIoLk-Y55GCAcImZLwbVheMlz93-X4Q2Jh3ClYQtY6-1ivWayJRXaaNjYte8hi32QBOdRJXhxudomSVw7mNWYeHBGiiW9JmWhnnXI620xBL-SsvS_gwAnew8RtDbxnBtxLHkaCgYKATkSARASFQHGX2MigZLrU9T7ECkZT6y55duADQ0170'}
-,'onibg.00002@gmail.com':{token:'ya29.a0AfB_byBZMYlu-VLETp2iTfO_kTCq2IJNSYYuBIp9h30xh7kQxEfQm6cqNXwXhF4IR4P-UN7qeyuPbgeNj7LZGaskQvkGY6DXxL-qbsmvSTXdvqhfwYcAl_2TLP8cksm_Xq4kDB-4kyRSI5MujvVrmiHijIr3WJzK2OoaCgYKAdUSARASFQHGX2MiIDKOt4bBuo_XTHfw768eGw0170'}
+ 'miinmail@gm.ahjh.tc.edu.tw':{token:'ya29.a0AfB_byB-HK16Dlph9teXy1O_lMWpw_9AXMEuyVwvz2t1iwCrADSX-tPFowM7FEE03FufFroN34ootVyj1wh-zDkJy9eIbaED1j3tP3rbxpQtqh8jhgjn5WgUmQZKRMYqlzogNT6TC6PK5vPgceCA8MZ7Wgm-4p1sMSRSaCgYKARwSARISFQHGX2MiaNf3PL9-rdXnoW-44pPFrg0171'}
+,'onibg.00001@gmail.com':{token:'ya29.a0AfB_byD-flQfY_8Ht8IbvYB51iYeWG_015fum9Z67pGagQ6kf_N6QZtrIYWQQJiQOcU0RVYobWFuNwRSNKCUHwPZ-DSxtKGJAipiJ5MhtkeT-ycKpuRKjefxNQ88Z_iWLZ5i7wE-7uoqN4Wp9VGRwQlPA49PePVwtYwaCgYKAeoSARASFQHGX2MimjlavtcHnG9z-YOHCkiqEA0170'}
+,'onibg.00002@gmail.com':{token:'ya29.a0AfB_byCcNu-6iEma4j_tHurpd1notPVJT222ch5WRWmfVFPYx6B0DAd6rMSH8HCoXkJDq4BluoDdlzcguOUDLY2G1Xi2pXgCbAdIVquDDyKAxQ2a-QEjaJtIxyg9CrppTDthgCeC6y5_2P_wBU5Ac4m73RXVlJx4nLwaCgYKAdgSARMSFQHGX2MiPdMJqfIbnGonjKBZ0jdguA0170'}
 }
 
 var xhr=new XMLHttpRequest()
