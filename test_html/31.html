@@ -5,15 +5,15 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <button onclick="create('onibg.00001@gmail.com','1nlrf3Td1_WSYTfMcGypld5pdfroz-jsz')">重建</button>
-<button onclick="owner('miinmail@gm.ahjh.tc.edu.tw','1MPswfmx_fB4eX9u6yCYma-qvq6gj1Z7k')">擁有</button>
+<button onclick="owner('onibg.00001@gmail.com','1MPswfmx_fB4eX9u6yCYma-qvq6gj1Z7k')">擁有</button>
 <script>
 var token='ya29.a0AfB_byAN13Q13aXGL66Df7qXsZxJEF4N-jbPewEAvFF5j-2fr97DdnjAjR8qcvstGsG8qVLhEsQZlJMC91TRd1ZekPMtHYy-VHTxBlAGdI0dYdp4kAcciKNFXhWP9Q49csQAPIOl_dL5zPOMVSkxqEXXUYZUdi5CiLqCaCgYKAWISARESFQHGX2Mi-wn0t34M-Vz6yENm-mwcWA0171'
 var token1='ya29.a0AfB_byDwEYtwcblZ_lxFUIw7V5m-P897khCn0QQnB-DdM_ai2kexa61syh0IZFbysqmt-GGaabau7ceAmh0D2qckPsDiV-P0O6X_TsPKMFxYg_zIej7lRN-h-tm3CEwqlH5L6A9StS2c_0A6KhzFKKVvgaj4Xkhc5icaCgYKAfESARASFQHGX2MiuBE3zZSwvmof4XUf68XX_w0170'
 var Gmail='miinmail@gm.ahjh.tc.edu.tw'
 onibgObj={
- 'miinmail@gm.ahjh.tc.edu.tw':{token:'ya29.a0AfB_byCLR1gG0RE3YQIMh4NvV1YXxZWOMNkc4sSqTcD2G1E3liyg6jGDTiJmSQke042TFTK8lY2mzrLjEUklXECGoDxYK7wYoceMAOuq-hYoVNHwOB015hZu1yw316U4-kHXgRVSYVWSvhwrSxKx1iD5skPxTiD_cis1aCgYKAWESAQ8SFQHGX2MiTpisct2TZu9iOPfOmDfTAw0171'}
-,'onibg.00001@gmail.com':{token:'ya29.a0AfB_byAAfRgZthrUW7XEGaqTW4eZd97-R6LAuhfRg3Bu4M74pMIzRLIJzDBqIxYlOKK3XQnYO1c4LBU8JPRgf0UZN6IxyHeFwzFn4OS7kotMExUYoeDUR7qAMjg14eGiJYhlvNcIosOlpu12qCX3cH_wvh3-aee8JK4aCgYKAdISARMSFQHGX2MinZhn-TnNSwtM_ILdD_QTqA0170'}
-,'onibg.00002@gmail.com':{token:'ya29.a0AfB_byDpQxO__54NRcJzczNs1e4Ivk1w4LdfzrrOzmCZlpxIXUlnkYROOEXGc1B0bp4j2Suxufz6yKGAmZNZ9daq4danWg08Klll9gCoCYv71FS2e-2q2N5Igm6IZuHKsakIXNj-QTv8fB1-aumHb5PEBgj9RxIY44saCgYKAd0SARASFQHGX2MiGUkyzcEfWRhN8j0E-9B0qg0170'}
+ 'miinmail@gm.ahjh.tc.edu.tw':{token:'ya29.a0AfB_byDdnqOKrU2sd11ANpKLPcA_oxtJm2lomrwaVaklKbRyzUa_qQNExYXE640cbbC-cT0y5N1jWZvKiT-d4zKBeTFoLQnznqOoM02hSPLZJx4HL4HF5_FNyIYMBabbnVFb1BBoiSRp1eALSTzL2DSTSJv0SCFtpXQKaCgYKAZ8SARASFQHGX2Mi6uphMkl4m8C3D7Fy-miIjA0171'}
+,'onibg.00001@gmail.com':{token:'ya29.a0AfB_byCECmV6l0JkTjhZxGPD1HgBnCQWMtUcx7x2eNaHw5wMNWllznW2jhQhwz9OngMK0tiXaXdkl7wswA-aQb7SfX5pONVo8GHGvpSf2mDhyZNq6Dh9HboqukJWaasMtehW8Bg6-3VnaqemGRqEwbECjRpmyN48-nYaCgYKAToSARISFQHGX2MiSWhlg8P_LGzpoxoBh_0OBA0170'}
+,'onibg.00002@gmail.com':{token:'ya29.a0AfB_byBElo2uhRSFaI11LTQoStWWkrXFLtfPwin7DjDLnJmeIOzXfyCGiRDxx6NzWhRfl_uWJehszp6BrsI9yDwt66HTf5ItvcbBorYuN2rk1Qs4HJJfuRutTsUIUv-t6UggRwCX2RyKZ14FyUUeFX5Wy2_98Zh90FsaCgYKAXoSARASFQHGX2MiL4i7mF-Zb7q2yk7CzcVXsw0170'}
 }
 
 var xhr=new XMLHttpRequest()
@@ -204,7 +204,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
  const id=await first(oldId)
  if(!id){console.log(sourceName+'\n'+mail+'檔案轉移擁有者完成');return}
  let missions=await second(id),num=0
- //third()
+ third()
 
  async function first(oldId){
   let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime,owners`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
