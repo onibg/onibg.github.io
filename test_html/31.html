@@ -278,11 +278,11 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
    }
    else{
     while(res.status!=200){await delay(i+=100)
-     await fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
+     res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({modifiedTime:modifiedTime})})//複製舊檔案
     };delete res.status;i=-100
     while(res.status!=200){await delay(i+=100)
-     await fetch(`https://www.googleapis.com/drive/v3/files/${id}?${Math.random()}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}})//刪除舊檔案
+     res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?${Math.random()}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}})//刪除舊檔案
     }
    }
    if(late){missions.splice(0,1);third()}
