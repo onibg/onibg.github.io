@@ -15,9 +15,6 @@ onibgObj={
 ,'onibg.00001@gmail.com':{token:'ya29.a0AfB_byAAfRgZthrUW7XEGaqTW4eZd97-R6LAuhfRg3Bu4M74pMIzRLIJzDBqIxYlOKK3XQnYO1c4LBU8JPRgf0UZN6IxyHeFwzFn4OS7kotMExUYoeDUR7qAMjg14eGiJYhlvNcIosOlpu12qCX3cH_wvh3-aee8JK4aCgYKAdISARMSFQHGX2MinZhn-TnNSwtM_ILdD_QTqA0170'}
 ,'onibg.00002@gmail.com':{token:'ya29.a0AfB_byDpQxO__54NRcJzczNs1e4Ivk1w4LdfzrrOzmCZlpxIXUlnkYROOEXGc1B0bp4j2Suxufz6yKGAmZNZ9daq4danWg08Klll9gCoCYv71FS2e-2q2N5Igm6IZuHKsakIXNj-QTv8fB1-aumHb5PEBgj9RxIY44saCgYKAd0SARASFQHGX2MiGUkyzcEfWRhN8j0E-9B0qg0170'}
 }
-const delay=i=>new Promise(resolve=>setTimeout(resolve,i))
-
-
 
 var xhr=new XMLHttpRequest()
 function about(){
@@ -251,7 +248,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   console.log(num,missions)
   if(missions.length==0)return
   ///////////////////////////////////////////////////////////////////////////////
-  const{mimeType,name,id,modifiedTime,parents,owners:[{emailAddress:owner}]}=missions[0],mission=missions[0]
+  const{mimeType,name,id,modifiedTime,parents,owners:[{emailAddress:owner}]}=missions[0]
   ///////////////////////////////////////////////////////////////////////////////
   if(mimeType=='application/vnd.google-apps.folder'){
    //const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
@@ -295,7 +292,11 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
    
   }//else
  }//third()
-
-
 }
+
+async function delay(i){return new Promise(resolve=>setTimeout(resolve,i))}
+
+
+
+
 </script>
