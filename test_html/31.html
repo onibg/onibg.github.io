@@ -269,9 +269,9 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
    }
    //const tmp=await second(id);missions=missions.concat(tmp);console.log('tmp',tmp)
    //const tmp=await second(id);missions=missions.concat(tmp)
-   console.log('前',id,missions)
+   console.log('前',id,[].concat(missions))
    missions=missions.concat(await second(id))
-   console.log('後',id,missions)
+   console.log('後',id,[].concat(missions))
   }
   else{
    //if(mail==owner){num--;missions.splice(0,1);third();return}
