@@ -245,12 +245,12 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
  }
 
  async function third(){
-  console.log(num,[].concat(missions))
+  console.log(num,missions)
   if(missions.length==0){if(num==0){console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成')};return}
   const{mimeType,id,modifiedTime,parents,owners:[{emailAddress:owner}],sharedWithMeTime}=missions[0]
   let late=true;num++
+  if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   if(mimeType=='application/vnd.google-apps.folder'){
-   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
    if(!sharedWithMeTime){
     let res=400,i=-100,Res
     while(res>=400){await delay(i+=100)
@@ -272,7 +272,6 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   }
   else{
    let res=401,i=-100
-   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
    if(mail==owner);//都不做
    else if(mail.split('@')[1]==owner.split('@')[1]){
     while(res>400){await delay(i+=100)//允許發生400錯誤
