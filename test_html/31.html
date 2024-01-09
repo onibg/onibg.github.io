@@ -267,18 +267,13 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
      ,body:JSON.stringify({modifiedTime:modifiedTime})}))
     }
    }
-   //const tmp=await second(id);missions=missions.concat(tmp);console.log('tmp',tmp)
-   //const tmp=await second(id);missions=missions.concat(tmp)
-   console.log('前',id,[].concat(missions))
-   missions=missions.concat(await second(id))
-   console.log('後',id,[].concat(missions))
+   //missions=missions.concat(await second(id))//會先將missions保留值；等待second(id)傳回期間，若missions有改變，則被忽略(很糟糕)，second(id)傳回後是和一開始missions保留值合併，改良如下！
+   const tmp=await second(id);missions=missions.concat(tmp)
   }
   else{
-   //if(mail==owner){num--;missions.splice(0,1);third();return}
    let res=401,i=-100
    if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
-
-   if(mail==owner){}
+   if(mail==owner);//都不做
    else if(mail.split('@')[1]==owner.split('@')[1]){
     while(res>400){await delay(i+=100)//允許發生400錯誤
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
