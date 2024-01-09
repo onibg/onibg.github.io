@@ -263,8 +263,8 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/permissions/${permissionId}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}}))//由資料夾id，刪除該使用者共用
     };res=400;i=-100
     while(res>=400){await delay(i+=100)
-    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
-     ,body:JSON.stringify({modifiedTime:modifiedTime})}))//由資料夾id，將其改回原時間
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[Gmail].token,'Content-Type':'application/json'}
+     ,body:JSON.stringify({modifiedTime:modifiedTime})}))
     }
    }
    missions=missions.concat(await second(id))
@@ -274,26 +274,26 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
    let res=401,i=-100
    if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
    if(mail.split('@')[1]==owner.split('@')[1]){
-    while(res>400){await delay(i+=100)
-    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
+    while(res>400){await delay(i+=100)//允許發生400錯誤
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({role:'writer',type:'user',value:mail,pendingOwner:true})}))
     };res=401;i=-100
-    while(res>400){await delay(i+=100)
-    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
+    while(res>400){await delay(i+=100)//允許發生400錯誤
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({role:'owner',type:'user',value:mail})}))
     };res=400;i=-100
     while(res>=400){await delay(i+=100)
-    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?${Math.random()}`,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[Gmail].token,'Content-Type':'application/json'}
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[Gmail].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({modifiedTime:modifiedTime})}))
     }
    }
    else{
     while(res>=400){await delay(i+=100)
-    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({modifiedTime:modifiedTime,parents:parents})}))//複製舊檔案
     };res=400;i=-100
     while(res>=400){await delay(i+=100)
-    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?${Math.random()}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}}))//刪除舊檔案
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}}))//刪除舊檔案
     }
    }
   }
