@@ -229,7 +229,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
  }
 
  async function second(id){
-  let res=400,i=-100,Res,arr=[]
+  let res=400,i=-100,Res,data,arr=[]
   return await loop('')
   async function loop(pageToken){
    while(res>=400){await delay(i+=100)
@@ -237,7 +237,8 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
     ,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
     res=Res.status
    };res=400;i=-100
-   arr=arr.concat((await Res.json()).files)
+   data=await Res.json()
+   arr=arr.concat(data.files)
    if(data.nextPageToken)return await loop(data.nextPageToken)
    else for(const i in arr){arr[i].parents=[id]};return arr
   }
