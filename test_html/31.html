@@ -233,7 +233,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   return await loop('')
   async function loop(pageToken){
    while(res>=400){await delay(i+=100)
-    Res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,id,modifiedTime,owners,sharedWithMeTime)&pageSize=1000&pageToken=${pageToken}`
+    Res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(name,mimeType,id,modifiedTime,owners,sharedWithMeTime)&pageSize=1000&pageToken=${pageToken}`
     ,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
     res=Res.status
    };res=400;i=-100
