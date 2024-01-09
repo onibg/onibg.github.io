@@ -269,7 +269,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
    }
    //const tmp=await second(id);missions=missions.concat(tmp);console.log('tmp',tmp)
    console.log('前',id)
-   missions=missions.concat(await second(id))
+   missions=missions.concat((await second(id)))
    console.log('後',id)
    //const tmp=await second(id);missions=missions.concat(tmp)
   }
