@@ -246,7 +246,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
 
  async function third(){
   console.log(num,missions)
-  if(missions.length==0){if(num==0){console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成')};return}
+  if(missions.length==0){if(num==0){console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成')};setInterval(()=>console.log(num,missions),2000);return}
   const{mimeType,id,modifiedTime,parents,owners:[{emailAddress:owner}],sharedWithMeTime}=missions[0]
   let late=true;num++
   if(mimeType=='application/vnd.google-apps.folder'){
