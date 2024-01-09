@@ -204,7 +204,6 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
  const id=await first(oldId)
  if(!id){console.log(sourceName+'\n'+mail+'檔案轉移擁有者完成');return}
  let missions=await second(id),num=0
- console.log(missions);return
  third()
 
  async function first(oldId){
