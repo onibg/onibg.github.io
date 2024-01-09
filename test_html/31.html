@@ -5,7 +5,7 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <button onclick="create('onibg.00001@gmail.com','1nlrf3Td1_WSYTfMcGypld5pdfroz-jsz')">以新對象重建資料夾，並搬移檔案</button>
- <button onclick="owner('onibg.00001@gmail.com','1GJK7qPgqurCHwWAevjMGb6_0wWKTlmX5')">資料夾不變，內部檔案更改擁有者</button>
+ <button onclick="owner('onibg.00001@gmail.com','1iIy9RMLROT_PFsrRqeWmp7h2NWVNNAR0')">資料夾不變，內部檔案更改擁有者</button>
 <script>
 var token='ya29.a0AfB_byAN13Q13aXGL66Df7qXsZxJEF4N-jbPewEAvFF5j-2fr97DdnjAjR8qcvstGsG8qVLhEsQZlJMC91TRd1ZekPMtHYy-VHTxBlAGdI0dYdp4kAcciKNFXhWP9Q49csQAPIOl_dL5zPOMVSkxqEXXUYZUdi5CiLqCaCgYKAWISARESFQHGX2Mi-wn0t34M-Vz6yENm-mwcWA0171'
 var token1='ya29.a0AfB_byDwEYtwcblZ_lxFUIw7V5m-P897khCn0QQnB-DdM_ai2kexa61syh0IZFbysqmt-GGaabau7ceAmh0D2qckPsDiV-P0O6X_TsPKMFxYg_zIej7lRN-h-tm3CEwqlH5L6A9StS2c_0A6KhzFKKVvgaj4Xkhc5icaCgYKAfESARASFQHGX2MiuBE3zZSwvmof4XUf68XX_w0170'
@@ -268,8 +268,8 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
     }
    }
    //const tmp=await second(id);missions=missions.concat(tmp);console.log('tmp',tmp)
-   //missions=missions.concat(await second(id))
-   const tmp=await second(id);missions=missions.concat(tmp)
+   missions=missions.concat(await second(id))
+   //const tmp=await second(id);missions=missions.concat(tmp)
   }
   else{
    //if(mail==owner){num--;missions.splice(0,1);third();return}
