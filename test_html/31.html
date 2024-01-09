@@ -207,10 +207,8 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
  third()
 
  async function first(oldId){
-  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime,owners`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  const{mimeType,name,parents,modifiedTime,owners:[{emailAddress:owner}]}=await res.json();sourceName=name//取舊資料夾或檔案資訊
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,modifiedTime,owners`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
+  const{mimeType,name,modifiedTime,owners:[{emailAddress:owner}]}=await res.json();sourceName=name//取舊資料夾或檔案資訊
   if(mimeType=='application/vnd.google-apps.folder')return oldId
   else{
    if(mail==owner)return
@@ -233,9 +231,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   let arr=[]
   return await loop('')
   async function loop(pageToken){
-   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-   const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,id,modifiedTime,owners,sharedWithMeTime)&pageSize=1000&pageToken=${pageToken}`
-   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,id,modifiedTime,owners,sharedWithMeTime)&pageSize=1000&pageToken=${pageToken}`
    ,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
    const data=await res.json()
    arr=arr.concat(data.files)
@@ -247,21 +243,10 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
  async function third(){
   console.log(num,missions)
   if(missions.length==0)return
-  ///////////////////////////////////////////////////////////////////////////////
-  const{mimeType,name,id,modifiedTime,parents,owners:[{emailAddress:owner}],sharedWithMeTime}=missions[0]
-  ///////////////////////////////////////////////////////////////////////////////
+  const{mimeType,id,modifiedTime,parents,owners:[{emailAddress:owner}],sharedWithMeTime}=missions[0]
+  let late=true;num++
   if(mimeType=='application/vnd.google-apps.folder'){
-   //const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
-   //,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime})})//建立新資料夾
-   //const{id:newId,error}=await res.json()
-   //if(error&&error.code==403){third();return}//User rate limit exceeded.造成403
-
-
- //const owner='miinmail@gm.ahjh.tc.edu.tw'
- //const Res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=modifiedTime`,{headers:{'Authorization':'Bearer '+onibgObj[owner].token}})
- //const{modifiedTime}=await Res.json()//由資料夾id，取其時間
- //for(const mail in onibgObj){if(mail==owner){Count--;continue}
- //;(async()=>{
+   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
    if(!sharedWithMeTime){
     let res=400,i=-100,Res
     while(res>=400){await delay(i+=100)
@@ -279,11 +264,10 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
     }
    }
    missions=missions.concat(await second(id))
-   missions.splice(0,1);third()
   }
   else{
    if(mail==owner){missions.splice(0,1);third();if(num==0&&missions.length==0)console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成');return}
-   let res=401,i=-100,late=true;num++
+   let res=401,i=-100
    if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
    if(mail.split('@')[1]==owner.split('@')[1]){
     while(res>400){await delay(i+=100)
@@ -308,12 +292,9 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?${Math.random()}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}}))//刪除舊檔案
     }
    }
-   if(late){missions.splice(0,1);third()}
-   //if(data.error&&data.error.code==403){missions.push(mission);if(missions.length==1)third()}//User rate limit exceeded.造成403
-   num--;if(num==0&&missions.length==0)console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成')
-
-   
-  }//else
+  }
+  if(late){missions.splice(0,1);third()}
+  num--;if(num==0&&missions.length==0)console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成')
  }//third()
 }
 
