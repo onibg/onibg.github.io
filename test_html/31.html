@@ -270,10 +270,12 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
    missions=missions.concat(await second(id))
   }
   else{
-   if(mail==owner){num--;missions.splice(0,1);third();return}
+   //if(mail==owner){num--;missions.splice(0,1);third();return}
    let res=401,i=-100
    if(num<10){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
-   if(mail.split('@')[1]==owner.split('@')[1]){
+
+   if(mail==owner){}
+   else if(mail.split('@')[1]==owner.split('@')[1]){
     while(res>400){await delay(i+=100)//允許發生400錯誤
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({role:'writer',type:'user',value:mail,pendingOwner:true})}))
