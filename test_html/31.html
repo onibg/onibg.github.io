@@ -268,8 +268,10 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
     }
    }
    //const tmp=await second(id);missions=missions.concat(tmp);console.log('tmp',tmp)
-   //missions=missions.concat(await second(id))
-   const tmp=await second(id);missions=missions.concat(tmp)
+   //const tmp=await second(id);missions=missions.concat(tmp)
+   console.log('前',missions)
+   missions=missions.concat(await second(id))
+   console.log('後',missions)
   }
   else{
    //if(mail==owner){num--;missions.splice(0,1);third();return}
