@@ -64,7 +64,7 @@ function trash(){
  }//loop
 }//trash
 
-let missions=[],num=0
+//let missions=[],num=0
 async function test(){
  const oldId='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f',newId=await first(oldId)
  missions=missions.concat(await second(oldId,newId))
@@ -246,7 +246,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
 
  async function third(){
   console.log(num,missions)
-  if(missions.length==0)return
+  if(missions.length==0){if(num==0){console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成')};return}
   const{mimeType,id,modifiedTime,parents,owners:[{emailAddress:owner}],sharedWithMeTime}=missions[0]
   let late=true;num++
   if(mimeType=='application/vnd.google-apps.folder'){
@@ -270,7 +270,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
    missions=missions.concat(await second(id))
   }
   else{
-   if(mail==owner){missions.splice(0,1);third();if(num==0&&missions.length==0)console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成');return}
+   if(mail==owner){num--;missions.splice(0,1);third();return}
    let res=401,i=-100
    if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
    if(mail.split('@')[1]==owner.split('@')[1]){
@@ -297,8 +297,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
     }
    }
   }
-  if(late){missions.splice(0,1);third()}
-  num--;if(num==0&&missions.length==0)console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成')
+  num--;if(late){missions.splice(0,1)};third()
  }//third()
 }
 
