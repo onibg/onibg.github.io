@@ -293,7 +293,6 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
      ,body:JSON.stringify({modifiedTime:modifiedTime,parents:parents})}))//複製舊檔案
     };res=400;i=-100
     while(res>=400){await delay(i+=100)
-    console.log(res,id);
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}}))//刪除舊檔案
     }
    }
