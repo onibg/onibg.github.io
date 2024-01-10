@@ -266,7 +266,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   let late=true;num++
   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   if(mimeType=='application/vnd.google-apps.folder'){
-   if(!sharedWithMeTime){
+   if(false&&!sharedWithMeTime){//false&&不再處理
     let res=500,i=-100,Res
     while(res>=400){await delay(i+=100)
      Res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
@@ -288,7 +288,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   else{
    let res=500,i=-100
    if(mail==owner);//都不做
-   else if(mail.split('@')[1]==owner.split('@')[1]){
+   else if(false&&mail.split('@')[1]==owner.split('@')[1]){//false&&不再處理
     while(res>400){await delay(i+=100)//允許發生400錯誤
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({role:'writer',type:'user',value:mail,pendingOwner:true})}))
