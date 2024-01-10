@@ -79,7 +79,7 @@ function special(mail){
   xhr.send()
   xhr.onload=()=>{
  //result=result.concat(xhr.response.items.filter(item=>!item.parents[0]||item.parents[0].isRoot===true||(item.copyable===false&&item.mimeType!='application/vnd.google-apps.folder')))//!item.parents[0]代表無父目錄(unorganized)；item.parents[0].isRoot===true代表有root父目錄；item.copyable===false代表可疑檔案
-   result=result.concat(xhr.response.items.filter(item=>item.parents[0]&&item.parents[0].isRoot===true||(item.copyable===false&&item.mimeType!='application/vnd.google-apps.folder')))//!item.parents[0]代表無父目錄(unorganized)；item.parents[0].isRoot===true代表有root父目錄；item.copyable===false代表可疑檔案
+   result=result.concat(xhr.response.items.filter(item=>item.parents[0]&&item.parents[0].isRoot===true||(item.copyable===false&&item.mimeType!='application/vnd.google-apps.folder')))//去除以上的無父目錄(unorganized)
    if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
    else{
     const row=tr[onibgObj[mail].row]
