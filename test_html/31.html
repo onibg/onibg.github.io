@@ -249,7 +249,8 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
     while(res>=400){await delay(i+=100)
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({modifiedTime:modifiedTime,parents:parents})}))//複製舊檔案
-    };res=500;i=-100
+     if(res==404)res=-500//代表找不到檔案，因為是可疑檔案
+    };res+=500;i=-100
     while(res>=400){await delay(i+=100)
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}}))//刪除舊檔案
     }
