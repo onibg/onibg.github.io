@@ -298,7 +298,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
     }
    }
    //missions=missions.concat(await second(id))//會先將missions保留值；等待second(id)傳回期間，若missions有改變，則被忽略(很糟糕)，second(id)傳回後是和一開始missions保留值合併，改良如下！
-   const tmp=await second(id);missions=missions.concat(tmp)
+   const tmp=await second(id);missions=missions.concat(tmp)//註解則不遞迴裡層
   }
   else{
    let res=500,i=-100
