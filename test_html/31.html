@@ -263,7 +263,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   return await loop('')
   async function loop(pageToken){
    while(res>=400){await delay(i+=100)
-    Res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,id,modifiedTime,owners,sharedWithMeTime)&pageSize=1000&pageToken=${pageToken}`
+    Res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(name,mimeType,id,modifiedTime,owners,sharedWithMeTime)&pageSize=1000&pageToken=${pageToken}`
     ,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
     res=Res.status
    };res=500;i=-100
@@ -277,7 +277,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
  async function third(){
   console.log(num,missions)
   if(missions.length==0){if(num==0){console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成')};return}
-  const{mimeType,id,modifiedTime,parents,owners:[{emailAddress:owner}],sharedWithMeTime}=missions[0]
+  const{name,mimeType,id,modifiedTime,parents,owners:[{emailAddress:owner}],sharedWithMeTime}=missions[0]
   let late=true;num++
   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   if(mimeType=='application/vnd.google-apps.folder'){
@@ -321,8 +321,8 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
     while(res>=400){await delay(i+=100)
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({modifiedTime:modifiedTime,parents:parents})}))//複製舊檔案
-     if(res==404){res=-500;sourceName+='\n可疑檔案'}//代表找不到檔案，因為是可疑檔案
-    };res=500;i=-100
+     if(res==404){res=-500;sourceName+='\n可疑檔案 '+name}//代表找不到檔案，因為是可疑檔案
+    };res+=500;i=-100
     while(res>=400){await delay(i+=100)
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}}))//刪除舊檔案
     }
