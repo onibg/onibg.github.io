@@ -5,7 +5,7 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <button onclick="create('miinmail@gm.ahjh.tc.edu.tw','1Cv2muxWPrNbfxI7e24DfHc_XfnK_UWnL')">以新對象重建資料夾，搬移原檔案</button>
- <button onclick="owner('onibg.00017@gmail.com','1zP408OqhuuJMskiv9BLcL1cJSEmq1Kg3')">資料夾不變，內部檔案更改擁有者</button>
+ <button onclick="owner('onibg.00018@gmail.com','1HhmMbvec5xjDJbJq86rfGdlSBD-vCpgq')">資料夾不變，內部檔案更改擁有者</button>
 <script>
 var Gmail='miinmail@gm.ahjh.tc.edu.tw'
 var onibgObj={}
@@ -84,30 +84,30 @@ async function test(){
  const oldId='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f',newId=await first(oldId)
  missions=missions.concat(await second(oldId,newId))
  third()
- 
+
  async function first(oldId){
      let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
      const{mimeType,name,parents,modifiedTime}=await res.json()//取舊資料夾資訊
 
      res=await fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}?fields=modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
      const{modifiedTime:ModifiedTime}=await res.json()//取父資料夾時間
-     
+
      fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}/permissions/anyoneWithLink`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({role:'writer'})})//父資料夾：知道連結的任何人，權限改編輯者
 
  res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+token1,'Content-Type':'application/json'}
  ,body:JSON.stringify({mimeType:mimeType,name:name,parents:parents,modifiedTime:modifiedTime,folderColorRgb:"#f83a22"})})//建立新資料夾、設紅色
  const newId=(await res.json()).id
- 
+
  res=await fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({role:'writer',type:'user',emailAddress:'onibg.00001@gmail.com'})})//新增使用者共用
  const permissionId=(await res.json()).id
- 
+
  await fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}/permissions/${permissionId}`,{method:"DELETE",headers:{'Authorization':'Bearer '+token}})//刪除該使用者共用
- 
+
  fetch(`https://www.googleapis.com/drive/v3/files/${parents[0]}`,{method:"PATCH",headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}
  ,body:JSON.stringify({modifiedTime:ModifiedTime,folderColorRgb:"#f83a22"})})//父資料夾：改回原時間、設紅色
- 
+
  return newId
 }
 
@@ -162,7 +162,7 @@ async function create(mail,oldId){
 
  async function first(oldId){
   let res=500,i=-100,Res
-  while(res>=400){await delay(i+=100) 
+  while(res>=400){await delay(i+=100)
    Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,modifiedTime,parents,resourceKey`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
    res=Res.status
   };res=500;i=-100
@@ -176,13 +176,13 @@ async function create(mail,oldId){
    return(await Res.json()).id
   }
   else{
-   while(res>=400){await delay(i+=100) 
+   while(res>=400){await delay(i+=100)
    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}/copy`,{method:"POST",headers:{"X-Goog-Drive-Resource-Keys":resourceKey?`${oldId}/${resourceKey}`:'','Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
     ,body:JSON.stringify({modifiedTime:modifiedTime,parents:parents})}))//複製舊檔案
    }
   }
  }
-    
+
  async function second(oldId,newId){
   let res=500,i=-100,Res,data,arr=[]
   return await loop('')
@@ -207,7 +207,7 @@ async function create(mail,oldId){
   let res=500,i=-100,Res
   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   if(mimeType=='application/vnd.google-apps.folder'){
-   while(res>=400){await delay(i+=100) 
+   while(res>=400){await delay(i+=100)
     Res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
     ,body:JSON.stringify({mimeType:mimeType,name:name,modifiedTime:modifiedTime,parents:[parents[1]]})})//建立新資料夾
     res=Res.status
@@ -233,7 +233,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
 
  async function first(oldId){
   let res=500,i=-100,Res
-  while(res>=400){await delay(i+=100)  
+  while(res>=400){await delay(i+=100)
    Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,modifiedTime,owners,parents,resourceKey`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
    res=Res.status
   };res=500;i=-100
