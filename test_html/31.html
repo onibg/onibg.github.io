@@ -169,7 +169,7 @@ async function create(mail,oldId){
   const{mimeType,name,modifiedTime,parents,resourceKey}=await Res.json();sourceName=name//取舊資料夾或檔案資訊
   if(mimeType=='application/vnd.google-apps.folder'){
    while(res>=400){await delay(i+=100)
-    Res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
+    Res=await fetch(`https://www.googleapis.com/drive/v3/files?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
     ,body:JSON.stringify({mimeType:mimeType,name:name,modifiedTime:modifiedTime,parents:parents})})//建立新資料夾
     res=Res.status
    }
@@ -208,7 +208,7 @@ async function create(mail,oldId){
   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   if(mimeType=='application/vnd.google-apps.folder'){
    while(res>=400){await delay(i+=100)
-    Res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
+    Res=await fetch(`https://www.googleapis.com/drive/v3/files?${Math.random()}`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
     ,body:JSON.stringify({mimeType:mimeType,name:name,modifiedTime:modifiedTime,parents:[parents[1]]})})//建立新資料夾
     res=Res.status
    }
