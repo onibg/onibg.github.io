@@ -204,34 +204,24 @@ async function create(mail,oldId){
   if(missions.length==0){if(num==0)console.log(sourceName+'\n'+mail+'重建資料夾並搬移原檔案完成');return}
   const{name,mimeType,id,modifiedTime,parents}=missions[0]
   let late=true;num++
-
-
-
-
   let res=500,i=-100,Res
+  if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   if(mimeType=='application/vnd.google-apps.folder'){
    while(res>=400){await delay(i+=100) 
     Res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
     ,body:JSON.stringify({mimeType:mimeType,name:name,modifiedTime:modifiedTime,parents:[parents[1]]})})//建立新資料夾
     res=Res.status
    }
-   const{id:newId}=await Res.json()
-   missions=missions.concat(await second(id,newId))
-   missions.splice(0,1);third()
+   const tmp=await second(id,(await Res.json()).id);missions=missions.concat(tmp)
   }
   else{
-   let late=true;num++
-   fetch(`https://www.googleapis.com/drive/v3/files/${id}?removeParents=${parents[0]}&addParents=${parents[1]}`
-   ,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[Gmail].token,'Content-Type':'application/json'}})//搬移舊檔案
-   .then(res=>res.json())
-   .then(data=>{
-    if(late){missions.splice(0,1);third()}
-    if(data.error&&data.error.code==403){missions.push(mission);if(missions.length==1)third()}//User rate limit exceeded.造成403
-    num--;if(num==0&&missions.length==0)console.log(sourceName+'\n'+mail+'重建資料夾並搬移原檔案完成')
-   })
-   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
+   while(res>=400){await delay(i+=100)
+   ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?removeParents=${parents[0]}&addParents=${parents[1]}`
+     ,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[Gmail].token,'Content-Type':'application/json'}}))//搬移舊檔案
+   }
   }
- }
+  num--;if(late){missions.splice(0,1);third()}else{if(num==0)third()}
+ }//third()
 }
 
 async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e739c943ab0b4c53348a4af
