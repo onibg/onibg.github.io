@@ -217,7 +217,7 @@ async function create(mail,oldId){
   else{
    while(res>=400){await delay(i+=100)
    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?removeParents=${parents[0]}&addParents=${parents[1]}`
-     ,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[Gmail].token,'Content-Type':'application/json'}}))//搬移舊檔案
+    ,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[Gmail].token,'Content-Type':'application/json'}}))//搬移舊檔案
    }
   }
   num--;if(late){missions.splice(0,1);third()}else{if(num==0)third()}
