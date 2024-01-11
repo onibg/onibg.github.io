@@ -4,7 +4,7 @@
 <button onclick="special()">special</button>
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
-<button onclick="create('miinmail@gm.ahjh.tc.edu.tw','1Bd8gspt-qkZbhAtBbl4_4hI7uaWfSNS-')">以新對象重建資料夾，並搬移檔案</button>
+<button onclick="create('miinmail@gm.ahjh.tc.edu.tw','1Bd8gspt-qkZbhAtBbl4_4hI7uaWfSNS-')">以新對象重建資料夾，搬移原檔案</button>
  <button onclick="owner('onibg.00017@gmail.com','1zP408OqhuuJMskiv9BLcL1cJSEmq1Kg3')">資料夾不變，內部檔案更改擁有者</button>
 <script>
 var Gmail='miinmail@gm.ahjh.tc.edu.tw'
@@ -161,26 +161,38 @@ async function create(mail,oldId){
  third()
 
  async function first(oldId){
-  let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,modifiedTime,parents,resourceKey`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
-  const{mimeType,name,modifiedTime,parents}=await res.json();sourceName=name//取舊資料夾或檔案資訊
+  let res=500,i=-100,Res
+  while(res>=400){await delay(i+=100) 
+   Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,modifiedTime,parents,resourceKey`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
+   res=Res.status
+  };res=500;i=-100
+  const{mimeType,name,modifiedTime,parents,resourceKey}=await Res.json();sourceName=name//取舊資料夾或檔案資訊
   if(mimeType=='application/vnd.google-apps.folder'){
-   res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
-   ,body:JSON.stringify({mimeType:mimeType,name:name,modifiedTime:modifiedTime,parents:parents})})//建立新資料夾
-   return(await res.json()).id
+   while(res>=400){await delay(i+=100)
+    Res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
+    ,body:JSON.stringify({mimeType:mimeType,name:name,modifiedTime:modifiedTime,parents:parents})})//建立新資料夾
+    res=Res.status
+   }
+   return(await Res.json()).id
   }
   else{
-   await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}/copy`,{method:"POST",headers:{"X-Goog-Drive-Resource-Keys":resourceKey?`${oldId}/${resourceKey}`:'','Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
-   ,body:JSON.stringify({modifiedTime:modifiedTime,parents:parents})})//複製舊檔案
+   while(res>=400){await delay(i+=100) 
+   ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}/copy`,{method:"POST",headers:{"X-Goog-Drive-Resource-Keys":resourceKey?`${oldId}/${resourceKey}`:'','Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
+    ,body:JSON.stringify({modifiedTime:modifiedTime,parents:parents})}))//複製舊檔案
+   }
   }
  }
     
  async function second(oldId,newId){
-  let arr=[]
+  let res=500,i=-100,Res,data,arr=[]
   return await loop('')
   async function loop(pageToken){
-   const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${oldId}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(name,mimeType,id,modifiedTime)&pageSize=1000&pageToken=${pageToken}`
-   ,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
-   const data=await res.json()
+   while(res>=400){await delay(i+=100)
+    Res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${oldId}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(name,mimeType,id,modifiedTime)&pageSize=1000&pageToken=${pageToken}`
+    ,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
+    res=Res.status
+   };res=500;i=-100
+   data=await Res.json()
    arr=arr.concat(data.files)
    if(data.nextPageToken)return await loop(data.nextPageToken)
    else for(const i in arr){arr[i].parents=[oldId,newId]};return arr
@@ -189,13 +201,21 @@ async function create(mail,oldId){
 
  async function third(){
   console.log(num,missions)
-  if(missions.length==0)return
-  const{name,mimeType,id,modifiedTime,parents}=missions[0],mission=missions[0]
+  if(missions.length==0){if(num==0)console.log(sourceName+'\n'+mail+'重建資料夾並搬移原檔案完成');return}
+  const{name,mimeType,id,modifiedTime,parents}=missions[0]
+  let late=true;num++
+
+
+
+
+  let res=500,i=-100,Res
   if(mimeType=='application/vnd.google-apps.folder'){
-   const res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
-   ,body:JSON.stringify({mimeType:mimeType,name:name,modifiedTime:modifiedTime,parents:[parents[1]]})})//建立新資料夾
-   const{id:newId,error}=await res.json()
-   if(error&&error.code==403){third();return}//User rate limit exceeded.造成403
+   while(res>=400){await delay(i+=100) 
+    Res=await fetch(`https://www.googleapis.com/drive/v3/files`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
+    ,body:JSON.stringify({mimeType:mimeType,name:name,modifiedTime:modifiedTime,parents:[parents[1]]})})//建立新資料夾
+    res=Res.status
+   }
+   const{id:newId}=await Res.json()
    missions=missions.concat(await second(id,newId))
    missions.splice(0,1);third()
   }
@@ -207,7 +227,7 @@ async function create(mail,oldId){
    .then(data=>{
     if(late){missions.splice(0,1);third()}
     if(data.error&&data.error.code==403){missions.push(mission);if(missions.length==1)third()}//User rate limit exceeded.造成403
-    num--;if(num==0&&missions.length==0)console.log(sourceName+'\n'+mail+'重建資料夾完成')
+    num--;if(num==0&&missions.length==0)console.log(sourceName+'\n'+mail+'重建資料夾並搬移原檔案完成')
    })
    if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   }
@@ -279,10 +299,10 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   if(missions.length==0){if(num==0){console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成')};return}
   const{name,mimeType,id,modifiedTime,parents,owners:[{emailAddress:owner}],sharedWithMeTime,resourceKey}=missions[0]
   let late=true;num++
+  let res=500,i=-100,Res
   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   if(mimeType=='application/vnd.google-apps.folder'){
    if(false&&!sharedWithMeTime){//false&&不再處理
-    let res=500,i=-100,Res
     while(res>=400){await delay(i+=100)
      Res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({role:'writer',type:'user',emailAddress:mail})})//由資料夾id，將其新增使用者共用
@@ -301,7 +321,6 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
    const tmp=await second(id);missions=missions.concat(tmp)//註解則不遞迴裡層
   }
   else{
-   let res=500,i=-100
    if(mail==owner);//都不做
    else if(false&&mail.split('@')[1]==owner.split('@')[1]){//false&&不再處理
     while(res>400){await delay(i+=100)//允許發生400錯誤
