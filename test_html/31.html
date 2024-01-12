@@ -366,7 +366,7 @@ console.log(missions)
    Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,size`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
    res=Res.status
   }
-  const{mimeType,name,size}=await Res.json();Size+=size
+  const{mimeType,name,size}=await Res.json();Size+=+size||0
   if(mimeType=='application/vnd.google-apps.folder')return oldId
   else{
    sourceName=
