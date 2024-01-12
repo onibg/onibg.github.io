@@ -352,12 +352,11 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
 }
 
 async function content(oldId){
- var sourceName,Size=0
+ var sourceName,Size=0,foldersCount=0,filesCount=0
  const id=await first(oldId)
  if(!id){console.log(sourceName);return}
  let missions=await second(id),num=0
 console.log(missions)
-
  //third()
 
  async function first(oldId){
@@ -394,10 +393,49 @@ size:${Size}
    else return arr
   }
  }
+async function third(){
+  console.clear();console.log(num,missions)
+  if(missions.length==0){if(num==0){console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成')};return}
+  const{name,mimeType,id,modifiedTime,parents,owners:[{emailAddress:owner}],sharedWithMeTime,resourceKey}=missions[0]
+  let late=true;num++
+  let res=500,i=-100,Res
+  if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
+  if(mimeType=='application/vnd.google-apps.folder'){
+   if(false&&!sharedWithMeTime){//false&&不再處理
+    while(res>=400){await delay(i+=100)
+     Res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
+     ,body:JSON.stringify({role:'writer',type:'user',emailAddress:mail})})//由資料夾id，將其新增使用者共用
+     res=Res.status
+    };res=500;i=-100
+    const{id:permissionId}=await Res.json()
+    while(res>=400){await delay(i+=100)
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/permissions/${permissionId}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}}))//由資料夾id，刪除該使用者共用
+    };res=500;i=-100
+    while(res>=400){await delay(i+=100)
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[Gmail].token,'Content-Type':'application/json'}
+     ,body:JSON.stringify({modifiedTime:modifiedTime})}))
+    }
+   }
+   //missions=missions.concat(await second(id))//會先將missions保留值；等待second(id)傳回期間，若missions有改變，則被忽略(很糟糕)，second(id)傳回後是和一開始missions保留值合併，改良如下！
+   const tmp=await second(id);missions=missions.concat(tmp)//註解則不遞迴裡層
+  }
+  else{
 
 
+    while(res>=400){await delay(i+=100)
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy`,{method:"POST",headers:{"X-Goog-Drive-Resource-Keys":resourceKey?`${id}/${resourceKey}`:'','Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
+     ,body:JSON.stringify({modifiedTime:modifiedTime,parents:parents})}))//複製舊檔案
+     if(res==404){res=-500;sourceName+='\n可疑檔案 '+name}//404代表找不到檔案，可能是：可疑檔案||未提供檔案resourceKey||未提供parents的resourceKey
+    };res+=500;i=-100
+    while(res>=400){await delay(i+=100)
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}}))//刪除舊檔案
+     if(res==404)break//猜想有時檔案已經正常刪除，但卻回傳錯誤訊息，再刪除時，檔案已不存在！
+    }
 
-}//content()
+  }
+  num--;if(late){missions.splice(0,1);third()}else{if(num==0)third()}
+ }//third()
+}
 async function delay(i){return new Promise(resolve=>setTimeout(resolve,i))}
 
 
