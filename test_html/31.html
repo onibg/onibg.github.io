@@ -427,10 +427,7 @@ size:${Size}
   let late=true;num++
   let res=500,i=-100,Res
   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
-  if(mimeType=='application/vnd.google-apps.folder'){
    const tmp=await second(id,name);missions=missions.concat(tmp)//註解則不遞迴裡層
-  }
-  else{  }
   num--;if(late){missions.splice(0,1);third()}else{if(num==0)third()}
  }//third()
 }
