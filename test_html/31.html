@@ -356,13 +356,9 @@ async function content(oldId){
  var foldersObj={},filesObj={}
  const{id,name}=await first(oldId)
  if(!id){console.log(sourceName);return}
+ sourceName=`來源名稱：${name}`
  let missions=await second(id,name),num=0
-console.log(missions)
-console.log('foldersCount',foldersCount)
-console.log('filesCount',filesCount)
-console.log(foldersObj,filesObj)
-console.log('Size',Size)
- //third()
+ third()
 
  async function first(oldId){
   let res=500,i=-100,Res
@@ -416,31 +412,29 @@ size:${Size}
 
 async function third(){
   console.clear();console.log(num,missions)
-  if(missions.length==0){if(num==0){console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成')};return}
+  if(missions.length==0){
+   if(num==0){
+    console.log(sourceName+`
+size:${Size}
+資料夾:${foldersCount}個
+檔案:${filesCount}個
+重複資料夾：${JSON.stringify(foldersObj)}
+重複檔案：${JSON.stringify(filesObj)}`)
+   }
+   return
+  }
   const{mimeType,name,size,id}=missions[0]
   let late=true;num++
   let res=500,i=-100,Res
   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   if(mimeType=='application/vnd.google-apps.folder'){
-   const tmp=await second(id);missions=missions.concat(tmp)//註解則不遞迴裡層
+   const tmp=await second(id,name);missions=missions.concat(tmp)//註解則不遞迴裡層
   }
-  else{
-
-
-    while(res>=400){await delay(i+=100)
-    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy`,{method:"POST",headers:{"X-Goog-Drive-Resource-Keys":resourceKey?`${id}/${resourceKey}`:'','Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
-     ,body:JSON.stringify({modifiedTime:modifiedTime,parents:parents})}))//複製舊檔案
-     if(res==404){res=-500;sourceName+='\n可疑檔案 '+name}//404代表找不到檔案，可能是：可疑檔案||未提供檔案resourceKey||未提供parents的resourceKey
-    };res+=500;i=-100
-    while(res>=400){await delay(i+=100)
-    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}}))//刪除舊檔案
-     if(res==404)break//猜想有時檔案已經正常刪除，但卻回傳錯誤訊息，再刪除時，檔案已不存在！
-    }
-
-  }
+  else{  }
   num--;if(late){missions.splice(0,1);third()}else{if(num==0)third()}
  }//third()
 }
+
 async function delay(i){return new Promise(resolve=>setTimeout(resolve,i))}
 
 
