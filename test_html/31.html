@@ -440,11 +440,16 @@ async function delay(i){return new Promise(resolve=>setTimeout(resolve,i))}
 
 async function path(id){
  let res=500,i=-100,Res,Path=''
- while(res>=400){await delay(i+=100)
-  Res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=name`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
-  res=Res.status
- };res=500;i=-100
- Path=(await Res.json()).name+'/'+Path
+
+ while(id){
+  while(res>=400){await delay(i+=100)
+   Res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=parents,name`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
+   res=Res.status
+  };res=500;i=-100
+  Res=await Res.json()
+  Path=Res.name+'/'+Path
+  id=Res.parents?Res.parents[0]:''
+ }
  return Path
 
 
