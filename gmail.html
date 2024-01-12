@@ -138,7 +138,7 @@ async function sharePC(id){
  const{modifiedTime}=await Res.json()//由資料夾id，取其時間
  for(const mail in onibgObj){if(mail==owner){Count--;continue}
  ;(async()=>{
-   const res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=sharedWithMeTime&${Math.random()}`,{headers:{Authorization:'Bearer '+onibgObj[mail].token}})
+   const res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=sharedWithMeTime`,{headers:{Authorization:'Bearer '+onibgObj[mail].token}})
    const{sharedWithMeTime}=await res.json()
    if(!sharedWithMeTime){mails.push(mail)}
    Count--;if(Count==0)add_remove(mails)
