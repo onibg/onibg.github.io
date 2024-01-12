@@ -208,7 +208,7 @@ async function create(mail,oldId){
  }
 
  async function third(){
-  console.log(num,missions)
+  console.clear();console.log(num,missions)
   if(missions.length==0){if(num==0)console.log(sourceName+'\n'+mail+'重建資料夾並搬移原檔案完成');return}
   const{name,mimeType,id,modifiedTime,parents}=missions[0]
   let late=true;num++
