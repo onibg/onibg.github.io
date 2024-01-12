@@ -361,7 +361,7 @@ async function content(oldId){
  async function first(oldId){
   let res=500,i=-100,Res
   while(res>=400){await delay(i+=100)
-   Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,size`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
+   Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=*`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
    res=Res.status
   };res=500;i=-100
   const{mimeType,name}=await Res.json()
