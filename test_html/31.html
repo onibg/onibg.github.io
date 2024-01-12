@@ -88,7 +88,7 @@ async function test(){
  //for(mission of missions){
 ;(async()=>{
   const res=await fetch(`https://www.googleapis.com/drive/v3/files/${'1F7HQZS7qRNSRz5cUeotpXskAPEXxedZY'}?alt=media`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
-  console.log(await res.arrayBuffer())
+  console.log(await res.blob())
  })()
 //}
 
