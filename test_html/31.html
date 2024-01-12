@@ -80,9 +80,11 @@ function trash(){
 
 //let missions=[],num=0
 async function test(){
- const oldId='1N__5vR2pwHDNDgTic7DHPSjr44lo3W5f',newId=await first(oldId)
+ let missions=[]
+ const oldId='1hCtD5B3Lx8zZXdUvcl92DR77TmCX_aP6',newId='await first(oldId)'
  missions=missions.concat(await second(oldId,newId))
- third()
+console.log(missions)
+ //third()
 
  async function first(oldId){
      let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
@@ -111,16 +113,16 @@ async function test(){
 }
 
 async function second(oldId,newId){
-    let arr=[]
-    return await loop('')
-    async function loop(pageToken){
-        const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${oldId}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,id,modifiedTime)&pageSize=1000&pageToken=${pageToken}`
-        ,{headers:{'Authorization':'Bearer '+token}})
+ let arr=[]
+ return await loop('')
+ async function loop(pageToken){
+  const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${oldId}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,id,modifiedTime)&pageSize=1000&pageToken=${pageToken}`
+  ,{headers:{'Authorization':'Bearer '+token}})
   const data=await res.json()
   arr=arr.concat(data.files)
   if(data.nextPageToken)return await loop(data.nextPageToken)
   else for(const i in arr){arr[i].parents=[newId]};return arr
-}
+ }
 }
 
 
