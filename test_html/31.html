@@ -400,7 +400,7 @@ size:${Size}
     arr.forEach((item,index)=>{const fullName=folderName+'/'+item.name
      if(index<foldersCount)
      {if(foldersArr.includes(item.name)){foldersObj[fullName]=foldersObj[fullName]?++foldersObj[fullName]:1}else{foldersArr.push(item.name)}}
-     else{
+     else{console.log('item.size',item.size)
       Size+=+item.size||0
       if(filesArr.includes(item.name)){filesObj[fullName]=filesObj[fullName]?++filesObj[fullName]:1}else{filesArr.push(item.name)}
      }
