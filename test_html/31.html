@@ -424,19 +424,6 @@ async function third(){
   if(mimeType=='application/vnd.google-apps.folder'){
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
  while(res>=400){await delay(i+=100)
      Res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({role:'writer',type:'user',emailAddress:mail})})//由資料夾id，將其新增使用者共用
