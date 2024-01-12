@@ -410,7 +410,7 @@ size:${Size}
   }
  }
 
-async function third(){
+ async function third(){
   console.clear();console.log(num,missions)
   if(missions.length==0){
    if(num==0){
@@ -423,11 +423,11 @@ size:${Size}
    }
    return
   }
-  const{mimeType,name,size,id}=missions[0]
+  const{id,name}=missions[0]
   let late=true;num++
   let res=500,i=-100,Res
   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
-   const tmp=await second(id,name);missions=missions.concat(tmp)//註解則不遞迴裡層
+  const tmp=await second(id,name);missions=missions.concat(tmp)//註解則不遞迴裡層
   num--;if(late){missions.splice(0,1);third()}else{if(num==0)third()}
  }//third()
 }
