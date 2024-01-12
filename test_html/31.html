@@ -405,7 +405,7 @@ size:${Size}
       if(filesArr.includes(item.name)){filesObj[fullName]=filesObj[fullName]?++filesObj[fullName]:1}else{filesArr.push(item.name)}
      }
     })
-    return arr
+    return arr.splice(0,foldersNum)
    }
   }
  }
