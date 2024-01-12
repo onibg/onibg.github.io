@@ -117,7 +117,7 @@ async function second(oldId,newId){
  return await loop('')
  async function loop(pageToken){
   const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${oldId}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,id,modifiedTime)&pageSize=1000&pageToken=${pageToken}`
-  ,{headers:{'Authorization':'Bearer '+token}})
+  ,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
   const data=await res.json()
   arr=arr.concat(data.files)
   if(data.nextPageToken)return await loop(data.nextPageToken)
