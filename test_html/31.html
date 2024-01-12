@@ -353,9 +353,11 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
 
 async function content(oldId){
  var sourceName,Size=0,foldersCount=0,filesCount=0
- const id=await first(oldId)
+ var foldersObj={},filesObj={}
+ var foldersArr=[],filesArr=[]
+ const{id,name}=await first(oldId)
  if(!id){console.log(sourceName);return}
- let missions=await second(id),num=0
+ let missions=await second(id,name),num=0
 console.log(missions)
  //third()
 
@@ -366,7 +368,7 @@ console.log(missions)
    res=Res.status
   }
   const{mimeType,name,size}=await Res.json();Size+=+size||0
-  if(mimeType=='application/vnd.google-apps.folder')return oldId
+  if(mimeType=='application/vnd.google-apps.folder')return{id:oldId,name:name}
   else{
    sourceName=
 `來源名稱：${name}
@@ -378,19 +380,50 @@ size:${Size}
   }
  }
 
- async function second(id){
+ async function second(id,name){
   let res=500,i=-100,Res,data,arr=[]
   return await loop('')
   async function loop(pageToken){
    while(res>=400){await delay(i+=100)
     Res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,size,id)&pageSize=1000&pageToken=${pageToken}`
-    ,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
+    ,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})                              //一定要orderBy=folder
     res=Res.status
    };res=500;i=-100
    data=await Res.json()
    arr=arr.concat(data.files)
    if(data.nextPageToken)return await loop(data.nextPageToken)
-   else return arr
+   else{
+
+
+
+    let foldersCount=arr.findIndex(item=>item.mimeType!='application/vnd.google-apps.folder')
+    if(foldersCount==-1)foldersCount=arr.length
+    let filesCount=arr.length-foldersCount
+    const foldersObj={},filesObj={}
+    const foldersArr=[],filesArr=[]
+    arr.forEach((item,index)=>{
+     if(index<foldersCount)
+     {if(foldersArr.includes(item.name)){foldersObj[item.name]=foldersObj[item.name]?++foldersObj[item.name]:1}else{foldersArr.push(item.name)}}
+     else
+     {if(filesArr.includes(item.name)){filesObj[item.name]=filesObj[item.name]?++filesObj[item.name]:1}else{filesArr.push(item.name)}}
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+    for(const i in arr){arr[i].parentName=name}
+return arr
+
+
+   }
   }
  }
 async function third(){
