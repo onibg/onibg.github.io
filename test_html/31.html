@@ -6,7 +6,7 @@
 <button onclick="test()">test</button>
 <button onclick="create('miinmail@gm.ahjh.tc.edu.tw','1Cv2muxWPrNbfxI7e24DfHc_XfnK_UWnL')">以新對象重建資料夾，搬移原檔案</button>
  <button onclick="owner('nibgo.00021@gmail.com','1wOwhNfeyFnJFgPd68Ob0NJda_rgEYA-0')">資料夾不變，內部檔案更改擁有者</button>
-<button onclick="content('1UNWBYDfqYJA4jHYgbOVrjJAk54eYU-uKmlBwIqNvCotfuz5S6Luy_3Fs')">內容</button>
+<button onclick="content('1ghMG6pScnMdsEcRAw5DlkfmhLDSZnIj2')">內容</button>
 <script>
 var Gmail='miinmail@gm.ahjh.tc.edu.tw'
 var onibgObj={}
@@ -352,7 +352,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
 }
 
 async function content(oldId){
- var sourceName,Size
+ var sourceName,Size=0
  const id=await first(oldId)
  if(!id){console.log(sourceName);return}
  let missions=await second(id),num=0
@@ -366,12 +366,12 @@ console.log(missions)
    Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,size`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
    res=Res.status
   }
-  const{mimeType,name,size}=await Res.json()
+  const{mimeType,name,size}=await Res.json();Size+=size
   if(mimeType=='application/vnd.google-apps.folder')return oldId
   else{
    sourceName=
 `來源名稱：${name}
-size:${size}
+size:${Size}
 資料夾:0個
 檔案:1個
 重複資料夾：{}
