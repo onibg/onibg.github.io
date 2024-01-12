@@ -87,7 +87,7 @@ async function test(){
  //third()
  for(mission of missions){
 ;(async()=>{
-  const res=await fetch(`https://www.googleapis.com/drive/v3/files/${mission.id}?fields=*`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
+  const res=await fetch(`https://www.googleapis.com/drive/v3/files/${'1F7HQZS7qRNSRz5cUeotpXskAPEXxedZY'}?fields=*`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
   console.log(await res.json())
  })()
 }
