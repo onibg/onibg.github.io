@@ -398,7 +398,7 @@ size:${Size}
     foldersCount+=foldersNum;filesCount+=filesNum
     const foldersArr=[],filesArr=[]
     arr.forEach((item,index)=>{const fullName=folderName+'/'+item.name
-     if(index<foldersCount)
+     if(index<foldersNum)
      {if(foldersArr.includes(item.name)){foldersObj[fullName]=foldersObj[fullName]?++foldersObj[fullName]:1}else{foldersArr.push(item.name)}}
      else{console.log('item.size',item.size)
       Size+=+item.size||0
