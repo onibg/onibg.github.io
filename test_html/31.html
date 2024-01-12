@@ -83,8 +83,26 @@ async function test(){
  let missions=[]
  const oldId='1hCtD5B3Lx8zZXdUvcl92DR77TmCX_aP6',newId='await first(oldId)'
  missions=missions.concat(await second(oldId,newId))
-console.log(missions)
+ console.log(missions)
  //third()
+ for(mission of missions){
+;(async()=>{
+  const res=await fetch(`https://www.googleapis.com/drive/v3/files/${mission.id}?fields=*`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
+  console.log(await res.json())
+ })()
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
  async function first(oldId){
      let res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,parents,modifiedTime`,{headers:{'Authorization':'Bearer '+token}})
