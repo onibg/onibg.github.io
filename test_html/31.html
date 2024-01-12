@@ -399,7 +399,7 @@ size:${Size}
     let foldersCount=arr.findIndex(item=>item.mimeType!='application/vnd.google-apps.folder')
     if(foldersCount==-1)foldersCount=arr.length
     let filesCount=arr.length-foldersCount
-    const foldersObj={},filesObj={}
+    //const foldersObj={},filesObj={}
     const foldersArr=[],filesArr=[]
     arr.forEach((item,index)=>{
      if(index<foldersCount)
