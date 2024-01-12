@@ -351,22 +351,22 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
  }//third()
 }
 
-async function content(id){
+async function content(oldId){
  var sourceName
- const id=await first(id)
+ const id=await first(oldId)
  if(!id){console.log(sourceName);return}
  //let missions=await second(id),num=0
  //third()
 
- async function first(id){
+ async function first(oldId){
   let res=500,i=-100,Res
   while(res>=400){await delay(i+=100)
-   Res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=mimeType,name,size`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
+   Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,size`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
    res=Res.status
   };res=500;i=-100
   const{mimeType,name}=await Res.json()
 
-  if(mimeType=='application/vnd.google-apps.folder')return id
+  if(mimeType=='application/vnd.google-apps.folder')return oldId
   else{
    sourceName=
 `來源名稱：${name}
