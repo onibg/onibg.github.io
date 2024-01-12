@@ -356,6 +356,8 @@ async function content(oldId){
  const id=await first(oldId)
  if(!id){console.log(sourceName);return}
  let missions=await second(id),num=0
+console.log(missions)
+
  //third()
 
  async function first(oldId){
