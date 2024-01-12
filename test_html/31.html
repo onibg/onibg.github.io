@@ -355,7 +355,7 @@ async function content(oldId){
  var sourceName
  const id=await first(oldId)
  if(!id){console.log(sourceName);return}
- //let missions=await second(id),num=0
+ let missions=await second(id),num=0
  //third()
 
  async function first(oldId){
@@ -363,9 +363,8 @@ async function content(oldId){
   while(res>=400){await delay(i+=100)
    Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,size`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
    res=Res.status
-  };res=500;i=-100
+  }
   const{mimeType,name,size}=await Res.json()
-
   if(mimeType=='application/vnd.google-apps.folder')return oldId
   else{
    sourceName=
@@ -378,6 +377,21 @@ size:${size}
   }
  }
 
+ async function second(id){
+  let res=500,i=-100,Res,data,arr=[]
+  return await loop('')
+  async function loop(pageToken){
+   while(res>=400){await delay(i+=100)
+    Res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,size,id)&pageSize=1000&pageToken=${pageToken}`
+    ,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
+    res=Res.status
+   };res=500;i=-100
+   data=await Res.json()
+   arr=arr.concat(data.files)
+   if(data.nextPageToken)return await loop(data.nextPageToken)
+   else return arr
+  }
+ }
 
 
 
