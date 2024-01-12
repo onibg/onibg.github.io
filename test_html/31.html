@@ -87,7 +87,7 @@ async function test(){
  //third()
  for(mission of missions){
 ;(async()=>{
-  const res=await fetch(`https://www.googleapis.com/drive/v3/files/${'1F7HQZS7qRNSRz5cUeotpXskAPEXxedZY'}`,{headers:{'Authorization':'Bearer '+Math.randon()}})
+  const res=await fetch(`https://www.googleapis.com/drive/v3/files/${'1F7HQZS7qRNSRz5cUeotpXskAPEXxedZY'}`,{headers:{'Authorization':'Bearer '+Math.random()}})
   console.log(await res.json())
  })()
 }
