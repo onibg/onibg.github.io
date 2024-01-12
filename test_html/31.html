@@ -400,7 +400,7 @@ size:${Size}
     arr.forEach((item,index)=>{const fullName=folderName+'/'+item.name
      if(index<foldersNum)
      {if(foldersArr.includes(item.name)){foldersObj[fullName]=foldersObj[fullName]?++foldersObj[fullName]:1}else{foldersArr.push(item.name)}}
-     else{console.log('item.size',item.size)
+     else{
       Size+=+item.size||0
       if(filesArr.includes(item.name)){filesObj[fullName]=filesObj[fullName]?++filesObj[fullName]:1}else{filesArr.push(item.name)}
      }
@@ -411,7 +411,7 @@ size:${Size}
  }
 
 async function third(){
-  /*console.clear();*/console.log(num,missions)
+  console.clear();console.log(num,missions)
   if(missions.length==0){
    if(num==0){
     console.log(sourceName+`
