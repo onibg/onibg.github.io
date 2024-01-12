@@ -5,7 +5,7 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <button onclick="create('miinmail@gm.ahjh.tc.edu.tw','0Bxqf-PGnadp7dmJZazBuZWVaN3M')">以新對象重建資料夾，搬移原檔案</button>
- <button onclick="owner('onibg.00024@gmail.com','1ZvbjBZMBhpD1AsJuMUHfxPEeglpHM0cT')">資料夾不變，內部檔案更改擁有者</button>
+ <button onclick="owner('onibg.00025@gmail.com','1fXS-cerp5Z4Rz3EAEqpI3305O6G8m9q4')">資料夾不變，內部檔案更改擁有者</button>
 <button onclick="content('1Na1SUyQ5fRKd6XWDeEehPICv9ozeMV2O')">內容</button>
 <script>
 var Gmail='miinmail@gm.ahjh.tc.edu.tw'
@@ -320,7 +320,11 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
    const tmp=await second(id);missions=missions.concat(tmp)//註解則不遞迴裡層
   }
   else{
-   if(mail==owner);//都不做
+
+
+   if(mail==owner||owner!=Gmail);//都不做
+
+
    else if(false&&mail.split('@')[1]==owner.split('@')[1]){//false&&不再處理
     while(res>400){await delay(i+=100)//允許發生400錯誤
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
