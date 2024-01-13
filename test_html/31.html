@@ -5,8 +5,9 @@
 <button onclick="trash()">trash</button>
 <button onclick="test()">test</button>
 <button onclick="create('miinmail@gm.ahjh.tc.edu.tw','1Qhbylqm_Tohmv7RZLKvdPFj_uDpF5xAh')">以新對象重建資料夾，搬移原檔案</button>
- <button onclick="owner('zhang.00034@gmail.com','1Qhbylqm_Tohmv7RZLKvdPFj_uDpF5xAh')">資料夾不變，內部檔案更改擁有者</button>
-<button onclick="content('1wu0urWJaqzwekpUt_7WVJu3gU9p91oR5')">內容</button>
+ <button onclick="owner('zhang.00034@gmail.com','1MLxnQaIHfcYANhGeW6bhlO8hstPrVG-F')">資料夾不變，內部檔案更改擁有者</button>
+<button onclick="content('','1wu0urWJaqzwekpUt_7WVJu3gU9p91oR5')">內容</button>
+               <!--若前方非空字串，會列出擁有者為miinmail@gm.ahjh.tc.edu.tw的檔案-->
 <script>
 var Gmail='miinmail@gm.ahjh.tc.edu.tw'
 var onibgObj={}
@@ -363,7 +364,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
  }//third()
 }
 
-async function content(oldId){
+async function content(mail,oldId){
  var sourceName,Size=0,foldersCount=0,filesCount=0
  var foldersObj={},filesObj={}
  const{id,name}=await first(oldId)
