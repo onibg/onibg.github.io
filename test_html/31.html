@@ -369,10 +369,9 @@ async function content(mail,oldId){
    Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,size,owners`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
    res=Res.status
   }
-  let{mimeType,name,size,owners:[{emailAddress:owner}]}=await Res.json();Size+=+size||0
+  const{mimeType,name,size,owners:[{emailAddress:owner}]}=await Res.json();Size+=+size||0
   if(mimeType=='application/vnd.google-apps.folder')return{id:oldId,name:name}
   else{
-   owner=owner==mail?name:''
    sourceName=
 `來源名稱：${name}
 size:${Size}
@@ -381,7 +380,7 @@ size:${Size}
 重複資料夾：{}
 重複檔案：{}
 ↓擁有者為：${mail}
-${owner}`
+${owner==mail?name:''}`
   }
  }
 
