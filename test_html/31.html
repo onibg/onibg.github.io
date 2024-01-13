@@ -366,10 +366,11 @@ async function content(mail,oldId){
  async function first(oldId){
   let res=500,i=-100,Res
   while(res>=400){await delay(i+=100)
-   Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,size,owners`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
+   Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,size,owners`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
    res=Res.status
   }
-  const{mimeType,name,size,owners:[{emailAddress:owner}]}=await Res.json();Size+=+size||0
+  const{mimeType,size,owners:[{emailAddress:owner}]}=await Res.json();Size+=+size||0
+  const name=await path(oldId)
   if(mimeType=='application/vnd.google-apps.folder')return{id:oldId,name:name}
   else{
    sourceName=
@@ -380,7 +381,7 @@ size:${Size}
 重複資料夾：{}
 重複檔案：{}
 ↓擁有者為：${mail}
-${owner==mail?await path(oldId):''}`
+${owner==mail?name:''}`
    return ''
   }
  }
