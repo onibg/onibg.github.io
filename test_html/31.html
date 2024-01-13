@@ -369,7 +369,7 @@ async function content(mail,oldId){
    Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,size,owners`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
    res=Res.status
   }
-  const{mimeType,name,size,owners:[{emailAddress:owner}]}=await Res.json();Size+=+size||0
+  let{mimeType,name,size,owners:[{emailAddress:owner}]}=await Res.json();Size+=+size||0
   if(mimeType=='application/vnd.google-apps.folder')return{id:oldId,name:name}
   else{
    owner=owner==mail?name:''
