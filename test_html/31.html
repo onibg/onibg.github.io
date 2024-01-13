@@ -357,7 +357,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
 async function content(mail,oldId){
  var sourceName,Size=0,foldersCount=0,filesCount=0
  var foldersObj={},filesObj={}
-const{id,name}=(await first(oldId))
+const{id,name}=await first(oldId)
 console.log(id,name)
 return
  if(!id){console.log(sourceName);return}
@@ -383,6 +383,7 @@ size:${Size}
 重複檔案：{}
 ↓擁有者為：${mail}
 ${owner==mail?name:''}`
+return{id:'',name:name}
   }
  }
 
