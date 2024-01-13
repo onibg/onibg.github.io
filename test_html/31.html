@@ -342,7 +342,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
     while(res>=400){await delay(i+=100)
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy`,{method:"POST",headers:{"X-Goog-Drive-Resource-Keys":resourceKey?`${id}/${resourceKey}`:'','Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({modifiedTime:modifiedTime,parents:parents})}))//複製舊檔案
-     if(res==404){res=-500;sourceName+='\n可疑檔案 '+await path(parents[0])+name}//404代表找不到檔案，可能是：可疑檔案||未提供檔案resourceKey||未提供parents的resourceKey
+     if(res==404){res=-500;const tmp=await path(parents[0]);sourceName+='\n可疑檔案 '+tmp+name}//404代表找不到檔案，可能是：可疑檔案||未提供檔案resourceKey||未提供parents的resourceKey
     };res+=500;i=-100
     while(res>=400){await delay(i+=100)
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}}))//刪除舊檔案
@@ -442,7 +442,9 @@ size:${Size}
 
 async function delay(i){return new Promise(resolve=>setTimeout(resolve,i))}
 
+const pathObj={}
 async function path(id){
+ if(pathObj[id]){return pathObj[id]}
  let res=500,i=-100,Res,Path=''
  while(id){
   while(res>=400){await delay(i+=100)
@@ -453,7 +455,7 @@ async function path(id){
   Path=Res.name+'/'+Path
   id=Res.parents?Res.parents[0]:''
  }
- return Path
+ pathObj[id]=Path;return Path
 }
 
 
