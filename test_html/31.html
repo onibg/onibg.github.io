@@ -358,8 +358,6 @@ async function content(mail,oldId){
  var sourceName,Size=0,foldersCount=0,filesCount=0
  var foldersObj={},filesObj={}
 const{id,name}=await first(oldId)
-console.log(id,name)
-return
  if(!id){console.log(sourceName);return}
  sourceName=`來源名稱：${name}`
  let missions=await second(id,name),num=0
