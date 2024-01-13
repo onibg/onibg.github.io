@@ -372,7 +372,7 @@ async function content(mail,oldId){
   const{mimeType,size,owners:[{emailAddress:owner}]}=await Res.json();Size+=+size||0
   let name=await path(oldId)
   if(mimeType=='application/vnd.google-apps.folder')return{id:oldId,name:name}
-  else{name=name.slice(0,-1)
+  else{
    sourceName=
 `來源名稱：${name}
 size:${Size}
@@ -405,6 +405,8 @@ ${owner==mail?name:''}`
     foldersCount+=foldersNum;filesCount+=filesNum
     const foldersArr=[],filesArr=[]
     arr.forEach((item,index)=>{
+
+
 
 
 
@@ -464,6 +466,7 @@ async function path(id){
   Path=Res.name+'/'+Path
   id=Res.parents?Res.parents[0]:''
  }
+ Path=Path.slice(0,-1)
  pathObj[id]=Path;return Path
 }
 
