@@ -404,9 +404,17 @@ ${owner==mail?name:''}`
     let filesNum=arr.length-foldersNum
     foldersCount+=foldersNum;filesCount+=filesNum
     const foldersArr=[],filesArr=[]
-    arr.forEach((item,index)=>{const fullName=folderName+'/'+item.name
-     if(index<foldersNum)
-     {if(foldersArr.includes(item.name)){foldersObj[fullName]=foldersObj[fullName]?++foldersObj[fullName]:1}else{foldersArr.push(item.name)}}
+    arr.forEach((item,index)=>{
+
+
+
+
+
+const fullName=folderName+'/'+item.name
+     if(index<foldersNum){
+      if(foldersArr.includes(item.name)){foldersObj[fullName]=foldersObj[fullName]?++foldersObj[fullName]:1}else{foldersArr.push(item.name)}
+      arr[index].name=fullName
+     }
      else{
       if(item.owners[0].emailAddress==mail){result+='\n'+fullName}
       Size+=+item.size||0
