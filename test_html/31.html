@@ -370,9 +370,9 @@ async function content(mail,oldId){
    res=Res.status
   }
   const{mimeType,size,owners:[{emailAddress:owner}]}=await Res.json();Size+=+size||0
-  const name=await path(oldId)
+  let name=await path(oldId)
   if(mimeType=='application/vnd.google-apps.folder')return{id:oldId,name:name}
-  else{
+  else{name=name.slice(0,-1)
    sourceName=
 `來源名稱：${name}
 size:${Size}
