@@ -7,7 +7,7 @@
 <button onclick="create('miinmail@gm.ahjh.tc.edu.tw','1Qhbylqm_Tohmv7RZLKvdPFj_uDpF5xAh')">以新對象重建資料夾，搬移原檔案</button>
  <button onclick="owner('zhang.00034@gmail.com','1MLxnQaIHfcYANhGeW6bhlO8hstPrVG-F')">資料夾不變，內部檔案更改擁有者</button>
 <button onclick="content('','1wu0urWJaqzwekpUt_7WVJu3gU9p91oR5')">內容</button>
-               <!--若前方非空字串，會列出擁有者為miinmail@gm.ahjh.tc.edu.tw的檔案-->
+               <!--若前方非空字串，會列出擁有者為如：miinmail@gm.ahjh.tc.edu.tw的檔案-->
 <script>
 var Gmail='miinmail@gm.ahjh.tc.edu.tw'
 var onibgObj={}
@@ -321,19 +321,9 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
    const tmp=await second(id);missions=missions.concat(tmp)//註解則不遞迴裡層
   }
   else{
-
-
-
-
-
-//*******************************************************************************************************************
+//**************************************************************************
    if(mail==owner||owner!=Gmail);//都不做
-//*******************************************************************************************************************
-
-
-
-
-
+//**************************************************************************
    else if(false&&mail.split('@')[1]==owner.split('@')[1]){//false&&不再處理
     while(res>400){await delay(i+=100)//允許發生400錯誤
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
@@ -376,19 +366,22 @@ async function content(mail,oldId){
  async function first(oldId){
   let res=500,i=-100,Res
   while(res>=400){await delay(i+=100)
-   Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,size`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
+   Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,name,size,owners`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
    res=Res.status
   }
-  const{mimeType,name,size}=await Res.json();Size+=+size||0
+  const{mimeType,name,size,owners:[{emailAddress:owner}]}=await Res.json();Size+=+size||0
   if(mimeType=='application/vnd.google-apps.folder')return{id:oldId,name:name}
   else{
+   owner=owner==mail?name:''
    sourceName=
 `來源名稱：${name}
 size:${Size}
 資料夾:0個
 檔案:1個
 重複資料夾：{}
-重複檔案：{}`
+重複檔案：{}
+↓擁有者為：${mail}
+${owner}`
   }
  }
 
