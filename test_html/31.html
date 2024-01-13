@@ -380,7 +380,7 @@ size:${Size}
 重複資料夾：{}
 重複檔案：{}
 ↓擁有者為：${mail}
-${owner==mail?name:''}`
+${owner!==mail?await path(id)+name:''}`
 return{id:'',name:name}
   }
  }
