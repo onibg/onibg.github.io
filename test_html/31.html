@@ -355,7 +355,7 @@ async function owner(mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
 }
 
 async function content(mail,oldId){
- var sourceName,Size=0,foldersCount=0,filesCount=0
+ var sourceName,Size=0,foldersCount=0,filesCount=0,result=''
  var foldersObj={},filesObj={}
  const{id,name}=await first(oldId)
  if(!id){console.log(sourceName);return}
@@ -390,7 +390,7 @@ ${owner==mail?await path(oldId):''}`
   return await loop('')
   async function loop(pageToken){
    while(res>=400){await delay(i+=100)
-    Res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,size,id)&pageSize=1000&pageToken=${pageToken}`
+    Res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,size,id,owners)&pageSize=1000&pageToken=${pageToken}`
     ,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})                              //一定要orderBy=folder
     res=Res.status
    };res=500;i=-100
@@ -407,6 +407,7 @@ ${owner==mail?await path(oldId):''}`
      if(index<foldersNum)
      {if(foldersArr.includes(item.name)){foldersObj[fullName]=foldersObj[fullName]?++foldersObj[fullName]:1}else{foldersArr.push(item.name)}}
      else{
+      if(item.owners[0].emailAddress==mail){result+='\n'+fullname}
       Size+=+item.size||0
       if(filesArr.includes(item.name)){filesObj[fullName]=filesObj[fullName]?++filesObj[fullName]:1}else{filesArr.push(item.name)}
      }
@@ -425,7 +426,8 @@ size:${Size}
 資料夾:${foldersCount}個
 檔案:${filesCount}個
 重複資料夾：${JSON.stringify(foldersObj)}
-重複檔案：${JSON.stringify(filesObj)}`)
+重複檔案：${JSON.stringify(filesObj)}
+↓擁有者為：${mail}${result}`)
    }
    return
   }
