@@ -405,14 +405,7 @@ ${owner==mail?name:''}`
     foldersCount+=foldersNum;filesCount+=filesNum
     const foldersArr=[],filesArr=[]
     arr.forEach((item,index)=>{
-
-
-
-
-
-
-
-const fullName=folderName+'/'+item.name
+     const fullName=folderName+'/'+item.name
      if(index<foldersNum){
       if(foldersArr.includes(item.name)){foldersObj[fullName]=foldersObj[fullName]?++foldersObj[fullName]:1}else{foldersArr.push(item.name)}
       arr[index].name=fullName
