@@ -407,7 +407,7 @@ ${owner==mail?await path(oldId):''}`
      if(index<foldersNum)
      {if(foldersArr.includes(item.name)){foldersObj[fullName]=foldersObj[fullName]?++foldersObj[fullName]:1}else{foldersArr.push(item.name)}}
      else{
-      if(item.owners[0].emailAddress==mail){result+='\n'+fullname}
+      if(item.owners[0].emailAddress==mail){result+='\n'+fullName}
       Size+=+item.size||0
       if(filesArr.includes(item.name)){filesObj[fullName]=filesObj[fullName]?++filesObj[fullName]:1}else{filesArr.push(item.name)}
      }
