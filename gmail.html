@@ -11,12 +11,6 @@ div{visibility:hidden;display:inline}
 <script>
  var span=document.querySelector('span')
  var inputs=document.querySelectorAll('input')
-
-
-
-
-
-
  var table=document.querySelector('table'),tr
  var onibgObj={},quantity=0
  fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?onibg')
@@ -73,6 +67,7 @@ function read(){
   //row.children[4].textContent=remain+'＝'+((remain/1073741824).toFixed(2)+'G').padStart(6,' ')
     if(row.children[2].textContent!=row.children[3].textContent){row.children[3].style.backgroundColor='red'}else{row.children[3].style.backgroundColor='black'}
   })
+  if(inputs[0].checked)rename(mail)
  }
 }
 function special(mail){
@@ -135,6 +130,13 @@ async function emptySpecial(mail){
   }
  }
  alert('清空完成')
+}
+
+function rename(mail){
+ console.log(mail,onibgObj[mail].token)
+
+
+
 }
 
 async function sharePC(id){
