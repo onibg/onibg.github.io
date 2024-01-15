@@ -138,7 +138,9 @@ async function rename(mail){
  ,{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
  res=(await res.json()).files[0].id
  fetch(`https://www.googleapis.com/drive/v3/files/${res}`,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
- ,body:JSON.stringify({name:randomName(5)})})
+ ,body:JSON.stringify(`{name:${randomName(5)}}`)
+
+})
 
  const randomName=length=>{
   let result=''
