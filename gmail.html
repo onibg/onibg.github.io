@@ -87,7 +87,7 @@ function special(mail){
     onibgObj[mail].special=JSON.stringify(result)
     result.forEach((item,index)=>{delete item.id;item.parents=item.parents[0]&&item.parents[0].id;result[index]=item})
     row.children[5].textContent=JSON.stringify(result)
-    if(result.length==1&&result[0].title=='onibg'){row.children[5].style.backgroundColor='black'}else{row.children[5].style.backgroundColor='red'}
+    if(result.length==1&&result[0].mimeType=='application/vnd.google-apps.script'){row.children[5].style.backgroundColor='black'}else{row.children[5].style.backgroundColor='red'}
    }
   }
  }
@@ -125,7 +125,7 @@ async function emptySpecial(mail){
  if(!result)return
  const files=JSON.parse(onibgObj[mail].special)
  for(const file of files){
-  if(file.title!='onibg'){
+  if(file.mimeType!='application/vnd.google-apps.script'){
    const res=await fetch('https://www.googleapis.com/drive/v3/files/'+file.id,{method:'DELETE',headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
   }
  }
