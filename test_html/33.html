@@ -1,10 +1,5 @@
 <div>fetch</div>
 <script>
- fetch(`https://www.googleapis.com/drive/v3/files/2111132145/copy`,{method:"POST",headers:{'Authorization':'Bearer 123321321321','Content-Type':'application/json'}
-  ,body:JSON.stringify({})})
-  .then(res=>{console.log(res.status);return res.json()})
-  .then(data=>{console.log('data',data)})
-  .catch(e=>{console.log('錯誤',e)})
-
+ console.log(new Date())
 
 </script>
