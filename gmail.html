@@ -135,7 +135,7 @@ async function emptySpecial(mail){
 async function rename(mail){
  if(onibgObj[mail].row<5)return
 
- let res=await fetch(`https://www.googleapis.com/drive/v3/files?q='root' in parents and trashed=false&fields=files(name,mimeType,id,modifiedTime)`
+ let res=await fetch(`https://www.googleapis.com/drive/v3/files?q='root' in parents and mimeType=application/vnd.google-apps.script and trashed=false&fields=files(name,mimeType,id,modifiedTime)`
  ,{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
  res=await res.json()
  console.log(mail,res)
