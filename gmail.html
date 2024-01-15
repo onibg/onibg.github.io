@@ -137,7 +137,7 @@ async function rename(mail){
 
  let res=await fetch(`https://www.googleapis.com/drive/v3/files?q='root' in parents and trashed=false&fields=files(name,mimeType,id,modifiedTime)`
  ,{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
- res=res.json()
+ res=await res.json()
  console.log(mail,res)
 }
 
