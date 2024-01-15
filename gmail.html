@@ -132,11 +132,13 @@ async function emptySpecial(mail){
  alert('清空完成')
 }
 
-function rename(mail){
- console.log(mail,onibgObj[mail].row,onibgObj[mail].token)
+async function rename(mail){
+ if(onibgObj[mail].row<5)return
 
-
-
+ let res=await fetch(`https://www.googleapis.com/drive/v3/files?q='root' in parents and trashed=false&fields=files(name,mimeType,id,modifiedTime)`
+ ,{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
+ res=res.json()
+ console.log(mail,res)
 }
 
 async function sharePC(id){
