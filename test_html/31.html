@@ -52,8 +52,8 @@ function remainSort(size){
   return a[1]-b[1]
  })
  console.log(remainArr)
- let obj=remainArr.findIndex(item=>size<=item[1])
- console.log(obj)
+ const index=remainArr.findIndex(item=>size<=item[1])
+ return remainArr[index][0]
 }
 
 var xhr=new XMLHttpRequest()
