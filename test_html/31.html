@@ -10,7 +10,7 @@
 <!--若前方非空字串，會列出擁有者為如：miinmail@gm.ahjh.tc.edu.tw的檔案-->
 <script>
 var Gmail='miinmail@gm.ahjh.tc.edu.tw'
-var onibgObj={},quantity=0,remainArr=[]
+var onibgObj={},quantity=0
 fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?onibg')
 .then(res=>res.text())
 .then(data=>{
@@ -38,8 +38,8 @@ function getRemain(mail_url){
  .then(res=>res.json())
  .then(data=>{
   quantity--;const remain=data.storageQuota.limit-data.storageQuota.usage
-  if(mail_url[0]!='delicadiesel@gmail.com'&&mail_url[0].includes('@gmail.com'))remainArr.push([mail_url[0],remain])
-  if(quantity==0){alert('就緒');remainSort()}
+  onibgObj[mail_url[0]].remain=remain
+  if(quantity==0){alert('就緒')}
  })
 
 }
@@ -47,10 +47,11 @@ setInterval(()=>{
  for(var mail in onibgObj){getToken([mail,onibgObj[mail].url])}
 },3000000)
 
-function remainSort(size){
- remainArr.sort(function(a,b){
-  return a[1]-b[1]
- })
+function chooseMail(size){
+ const remainArr=[]
+ for(var mail in onibgObj)
+ {if(mail.includes('@gmail.com')&&mail!='delicadiesel@gmail.com')remainArr.push([mail,onibgObj[mail].remain])}
+ remainArr.sort(function(a,b){return a[1]-b[1]})
  console.log(remainArr)
  const index=remainArr.findIndex(item=>size<=item[1])
  if(index!=-1)return remainArr[index][0]
