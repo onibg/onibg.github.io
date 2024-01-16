@@ -47,7 +47,7 @@ setInterval(()=>{
  for(var mail in onibgObj){getToken([mail,onibgObj[mail].url])}
 },3000000)
 
-function remainSort(){
+function remainSort(size){
  remainArr.sort(function(a,b){
   return a[1]-b[1]
  })
