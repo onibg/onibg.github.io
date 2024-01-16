@@ -38,7 +38,7 @@ function getRemain(mail_url){
  .then(res=>res.json())
  .then(data=>{
   quantity--;const remain=data.storageQuota.limit-data.storageQuota.usage
-  remainArr.push([mail_url[0],remain])
+  if(mail_url[0]!='delicadiesel@gmail.com'&&mail_url[0].includes('@gmail.com'))remainArr.push([mail_url[0],remain])
   if(quantity==0){alert('就緒');remainSort()}
  })
 
