@@ -48,9 +48,10 @@ setInterval(()=>{
 },3000000)
 
 function remainSort(){
+ remainArr.sort(function(a,b){
+  return a[1]>b[1]
+ })
  console.log(remainArr)
-
-
 }
 
 var xhr=new XMLHttpRequest()
