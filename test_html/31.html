@@ -274,7 +274,8 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   const{mimeType,modifiedTime,owners:[{emailAddress:owner}],parents,resourceKey,size}=await Res.json();sourceName=await path(oldId)//取舊資料夾或檔案資訊
   if(mimeType=='application/vnd.google-apps.folder')return oldId
   else{
-   if(!Mail){mail=chooseMail(size)}else{mail=Mail}
+   if(!Mail){mail=chooseMail(size)}else mail=Mail
+   if(!mail)mail=owner
    if(mail==owner||!mail)return
    onibgObj[mail].remain-=+size||0
    if(mail.split('@')[1]==owner.split('@')[1]){
@@ -328,8 +329,23 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   const{name,mimeType,id,modifiedTime,parents,owners:[{emailAddress:owner}],sharedWithMeTime,resourceKey,size}=missions[0]
   let late=true;num++
   let res=500,i=-100,Res,mail
-  if(!Mail){mail=chooseMail(size)}else{mail=Mail}
+  if(!Mail){if(size)mail=chooseMail(size)}else mail=Mail
+  if(!mail)mail=owner
+
+
+
   console.log(mail);                                           onibgObj[mail].remain-=+size||0
+
+
+
+
+
+
+
+
+
+
+
   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   if(mimeType=='application/vnd.google-apps.folder'){
    if(false&&!sharedWithMeTime){//false&&不再處理
