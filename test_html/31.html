@@ -322,12 +322,16 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
  }
 
  async function third(){
-  console.clear();console.log(num,missions)
+///////////////////////////////////////////////  console.clear();console.log(num,missions)
+
+
   if(missions.length==0){if(num==0){console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成')};return}
   const{name,mimeType,id,modifiedTime,parents,owners:[{emailAddress:owner}],sharedWithMeTime,resourceKey,size}=missions[0]
   let late=true;num++
   let res=500,i=-100,Res
   if(!Mail){mail=chooseMail(size)}else{mail=Mail}
+
+
 
 if(id=='1bkkhYLl5vkNogPux3lIjjq1xt6byR01v')console.log(size,mail)
 
