@@ -348,7 +348,7 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
    const tmp=await second(id);missions=missions.concat(tmp)//註解則不遞迴裡層
   }
   else{
-   if(!Mail){mail=chooseMail(size)}else{mail=Mail}
+   if(!Mail){mail=chooseMail(size)}else{mail=Mail};                                console.log('前',mail)
 //**************************************************************************
    if(mail==owner||owner!=Gmail||!mail);//都不做
 //**************************************************************************
