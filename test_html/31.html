@@ -347,10 +347,10 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
     };res=500;i=-100
     const{id:permissionId}=await Res.json()
     while(res>=400){await delay(i+=100)
-    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/permissions/${permissionId}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}}))//由資料夾id，刪除該使用者共用
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/permissions/${permissionId}`,{method:"DELETE",headers:{Authorization:'Bearer '+onibgObj[owner].token}}))//由資料夾id，刪除該使用者共用
     };res=500;i=-100
     while(res>=400){await delay(i+=100)
-    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[Gmail].token,'Content-Type':'application/json'}
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"PATCH",headers:{Authorization:'Bearer '+onibgObj[Gmail].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({modifiedTime:modifiedTime})}))
     }
    }
@@ -363,15 +363,15 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
 //**************************************************************************
    else if(false&&mail.split('@')[1]==owner.split('@')[1]){//false&&不再處理
     while(res>400){await delay(i+=100)//允許發生400錯誤
-    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions`,{method:"POST",headers:{Authorization:'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({role:'writer',type:'user',value:mail,pendingOwner:true})}))
     };res=500;i=-100
     while(res>400){await delay(i+=100)//允許發生400錯誤
-    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v2/files/${id}/permissions`,{method:"POST",headers:{Authorization:'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({role:'owner',type:'user',value:mail})}))
     };res=500;i=-100
     while(res>=400){await delay(i+=100)
-    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"PATCH",headers:{'Authorization':'Bearer '+onibgObj[Gmail].token,'Content-Type':'application/json'}
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"PATCH",headers:{Authorization:'Bearer '+onibgObj[Gmail].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({modifiedTime:modifiedTime})}))
     }
    }
@@ -382,7 +382,7 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
      if(res==404){res=-500;const tmp=await path(parents[0]);sourceName+='\n可疑檔案 '+tmp+'/'+name;onibgObj[mail].remain+=+size||0}//404代表找不到檔案，可能是：可疑檔案||未提供檔案resourceKey||未提供parents的resourceKey
     };res+=500;i=-100
     while(res>=400){await delay(i+=100)
-    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}}))//刪除舊檔案
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"DELETE",headers:{Authorization:'Bearer '+onibgObj[owner].token}}))//刪除舊檔案
      if(res==404)break//猜想有時檔案已經正常刪除，但卻回傳錯誤訊息，再刪除時，檔案已不存在！
     }
    }
@@ -403,7 +403,7 @@ async function content(mail,oldId){
  async function first(oldId){
   let res=500,i=-100,Res
   while(res>=400){await delay(i+=100)
-   Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,size,owners`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
+   Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,size,owners`,{headers:{Authorization:'Bearer '+onibgObj[Gmail].token}})
    res=Res.status
   }
   const{mimeType,size,owners:[{emailAddress:owner}]}=await Res.json();Size+=+size||0
@@ -429,7 +429,7 @@ ${owner==mail?name:''}`
   async function loop(pageToken){
    while(res>=400){await delay(i+=100)
     Res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,size,id,owners)&pageSize=1000&pageToken=${pageToken}`
-    ,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})                              //一定要orderBy=folder
+    ,{headers:{Authorization:'Bearer '+onibgObj[Gmail].token}})                              //一定要orderBy=folder
     res=Res.status
    };res=500;i=-100
    data=await Res.json()
@@ -489,7 +489,7 @@ async function path(id){
  let res=500,i=-100,Res,Path=''
  while(id){
   while(res>=400){await delay(i+=100)
-   Res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=parents,name`,{headers:{'Authorization':'Bearer '+onibgObj[Gmail].token}})
+   Res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?fields=parents,name`,{headers:{Authorization:'Bearer '+onibgObj[Gmail].token}})
    res=Res.status
   };res=500;i=-100
   Res=await Res.json()
