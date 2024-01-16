@@ -10,7 +10,7 @@
 <!--若前方非空字串，會列出擁有者為如：miinmail@gm.ahjh.tc.edu.tw的檔案-->
 <script>
 var Gmail='miinmail@gm.ahjh.tc.edu.tw'
-var onibgObj={}
+var onibgObj={},quantity=0
 fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?onibg')
 .then(res=>res.text())
 .then(data=>{
@@ -20,16 +20,26 @@ fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOG
   if(!mail_url[1].startsWith('https://'))continue
   onibgObj[mail_url[0]]={}
   onibgObj[mail_url[0]].url=mail_url[1]
-  getToken(mail_url)
+  quantity++;getToken(mail_url)
  }
 })
+
 function getToken(mail_url){
  fetch(mail_url[1])
  .then(res=>res.text())
- .then(data=>{onibgObj[mail_url[0]].token=data})
+ .then(data=>{
+  onibgObj[mail_url[0]].token=data
+  getRemain(mail_url)
+ })
 }
-function remail(mail_url){
 
+function getRemain(mail_url){
+ fetch('https://www.googleapis.com/drive/v3/about?fields=storageQuota&'+mail_url[0],{headers:{Authorization:'Bearer '+onibgObj[mail_url[0]].token}})
+ .then(res=>res.json())
+ .then(data=>{
+  quantity--;onibgObj[mail_url[0]].remain=data.storageQuota.limit-data.storageQuota.usage
+  if(quantity==0)alert('就緒')
+ })
 
 }
 setInterval(()=>{
