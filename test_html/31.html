@@ -276,7 +276,7 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   else{
    if(!Mail){mail=chooseMail(size)}else mail=Mail
    if(!mail)mail=owner
-   if(mail==owner||!mail)return
+   if(mail==owner)return
    onibgObj[mail].remain-=+size||0
    if(mail.split('@')[1]==owner.split('@')[1]){
     while(res>400){await delay(i+=100)//允許發生400錯誤
@@ -329,23 +329,14 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   const{name,mimeType,id,modifiedTime,parents,owners:[{emailAddress:owner}],sharedWithMeTime,resourceKey,size}=missions[0]
   let late=true;num++
   let res=500,i=-100,Res,mail
-  if(!Mail){if(size)mail=chooseMail(size)}else mail=Mail
+  if(!Mail){
+   if(owner==Gmail){if(size)mail=chooseMail(size)}//************************
+  }else mail=Mail
   if(!mail)mail=owner
-
-
-
-  console.log(mail);                                           onibgObj[mail].remain-=+size||0
-
-
-
-
-
-
-
-
-
-
-
+//**************************************************************************
+  if(mail==owner||owner!=Gmail);//都不做
+  else onibgObj[mail].remain-=+size||0
+//**************************************************************************
   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   if(mimeType=='application/vnd.google-apps.folder'){
    if(false&&!sharedWithMeTime){//false&&不再處理
@@ -368,7 +359,7 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   }
   else{
 //**************************************************************************
-   if(mail==owner||owner!=Gmail||!mail);//都不做
+   if(mail==owner||owner!=Gmail);//都不做
 //**************************************************************************
    else if(false&&mail.split('@')[1]==owner.split('@')[1]){//false&&不再處理
     while(res>400){await delay(i+=100)//允許發生400錯誤
