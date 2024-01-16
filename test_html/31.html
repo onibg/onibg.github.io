@@ -28,8 +28,8 @@ function getToken(mail_url){
  fetch(mail_url[1])
  .then(res=>res.text())
  .then(data=>{
-  if(!onibgObj[mail_url[0]].token)getRemain(mail_url)
-  onibgObj[mail_url[0]].token=data
+  if(!onibgObj[mail_url[0]].token){onibgObj[mail_url[0]].token=data;getRemain(mail_url)}
+  else onibgObj[mail_url[0]].token=data
  })
 }
 
@@ -49,6 +49,7 @@ setInterval(()=>{
 
 function remainSort(){
  console.log(remainArr)
+
 
 }
 
