@@ -28,6 +28,10 @@ function getToken(mail_url){
  .then(res=>res.text())
  .then(data=>{onibgObj[mail_url[0]].token=data})
 }
+function remail(mail_url){
+
+
+}
 setInterval(()=>{
  for(var mail in onibgObj){getToken([mail,onibgObj[mail].url])}
 },3000000)
