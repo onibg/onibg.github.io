@@ -53,7 +53,7 @@ function chooseMail(size){
  {if(mail.includes('@gmail.com')&&mail!='delicadiesel@gmail.com')remainArr.push([mail,onibgObj[mail].remain])}
  remainArr.sort(function(a,b){return a[1]-b[1]})
  //console.log(remainArr)
- const index=remainArr.findIndex(item=>size<=item[1])
+ const index=remainArr.findIndex(item=>+size<=item[1])
  if(index!=-1)return remainArr[index][0]
 }
 
