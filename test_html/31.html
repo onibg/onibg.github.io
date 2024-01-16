@@ -275,7 +275,7 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   if(mimeType=='application/vnd.google-apps.folder')return oldId
   else{
    if(!Mail){mail=chooseMail(size)}else{mail=Mail}
-   if(mail==owner)return
+   if(mail==owner||!mail)return
    onibgObj[mail].remain-=size
    if(mail.split('@')[1]==owner.split('@')[1]){
     while(res>400){await delay(i+=100)//允許發生400錯誤
@@ -350,7 +350,7 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   else{
    if(!Mail){mail=chooseMail(size)}else{mail=Mail}
 //**************************************************************************
-   if(mail==owner||owner!=Gmail);//都不做
+   if(mail==owner||owner!=Gmail||!mail);//都不做
 //**************************************************************************
    else if(false&&mail.split('@')[1]==owner.split('@')[1]){//false&&不再處理
     while(res>400){await delay(i+=100)//允許發生400錯誤
