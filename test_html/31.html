@@ -39,6 +39,7 @@ function getRemain(mail_url){
  .then(data=>{
   quantity--;const remain=data.storageQuota.limit-data.storageQuota.usage
   remainArr.push([mail_url[0],remain])
+  console.log(quantity)
   if(quantity==0){alert('就緒');remainSort()}
  })
 
