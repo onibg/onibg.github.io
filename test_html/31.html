@@ -377,7 +377,7 @@ if(id=='1bkkhYLl5vkNogPux3lIjjq1xt6byR01v')console.log(size,mail)
    }
    else{
     while(res>=400){await delay(i+=100)
-    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy`,{method:"POST",headers:{"X-Goog-Drive-Resource-Keys":resourceKey?`${id}/${resourceKey}`:'','Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy`,{method:"POST",headers:{   'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({modifiedTime:modifiedTime,parents:parents})}))//複製舊檔案
      if(res==404){res=-500;const tmp=await path(parents[0]);sourceName+='\n可疑檔案 '+tmp+'/'+name;onibgObj[mail].remain+=size||0}//404代表找不到檔案，可能是：可疑檔案||未提供檔案resourceKey||未提供parents的resourceKey
     };res+=500;i=-100
