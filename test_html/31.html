@@ -259,14 +259,14 @@ async function create(mail,oldId){
 }
 
 async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e739c943ab0b4c53348a4af
- var sourceName,mail
+ var sourceName
  const id=await first(oldId)
- if(!id){console.log(sourceName+'\n'+mail+'檔案轉移擁有者完成');return}
+ if(!id){console.log(sourceName+'檔案轉移擁有者完成');return}
  let missions=await second(id),num=0
  third()
 
  async function first(oldId){
-  let res=500,i=-100,Res
+  let res=500,i=-100,Res,mail
   while(res>=400){await delay(i+=100)
    Res=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}?fields=mimeType,modifiedTime,owners,parents,resourceKey,size`,{headers:{Authorization:'Bearer '+onibgObj[Gmail].token}})
    res=Res.status
@@ -276,7 +276,7 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   else{
    if(!Mail){mail=chooseMail(size)}else{mail=Mail}
    if(mail==owner||!mail)return
-   onibgObj[mail].remain-=size||0
+   onibgObj[mail].remain-=+size||0
    if(mail.split('@')[1]==owner.split('@')[1]){
     while(res>400){await delay(i+=100)//允許發生400錯誤
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v2/files/${oldId}/permissions`,{method:"POST",headers:{Authorization:'Bearer '+onibgObj[owner].token,'Content-Type':'application/json'}
@@ -295,8 +295,9 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
     while(res>=400){await delay(i+=100)
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}/copy`,{method:"POST",headers:{"X-Goog-Drive-Resource-Keys":resourceKey?`${oldId}/${resourceKey}`:'',Authorization:'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({modifiedTime:modifiedTime,parents:parents})}))//複製舊檔案
-     if(res==404){res=-500;sourceName='可疑檔案 '+sourceName;onibgObj[mail].remain+=size||0}//404代表找不到檔案，可能是：可疑檔案||未提供檔案resourceKey||未提供parents的resourceKey
+     if(res==404){res=-500;sourceName='可疑檔案 '+sourceName;onibgObj[mail].remain+=+size||0}//404代表找不到檔案，可能是：可疑檔案||未提供檔案resourceKey||未提供parents的resourceKey
     };res+=500;i=-100
+    sourceName+='\n'+mail
     while(res>=400){await delay(i+=100)
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${oldId}`,{method:"DELETE",headers:{Authorization:'Bearer '+onibgObj[owner].token}}))//刪除舊檔案
      if(res==404)break//猜想有時檔案已經正常刪除，但卻回傳錯誤訊息，再刪除時，檔案已不存在！
@@ -328,7 +329,7 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
   if(missions.length==0){if(num==0){console.log(sourceName+'\n'+mail+'資料夾中檔案轉移擁有者完成')};return}
   const{name,mimeType,id,modifiedTime,parents,owners:[{emailAddress:owner}],sharedWithMeTime,resourceKey,size}=missions[0]
   let late=true;num++
-  let res=500,i=-100,Res
+  let res=500,i=-100,Res,mail
   if(!Mail){mail=chooseMail(size)}else{mail=Mail}
 
 
@@ -336,7 +337,7 @@ async function owner(Mail,oldId){//https://gist.github.com/tanaikech/685929fd4e7
 if(id=='1bkkhYLl5vkNogPux3lIjjq1xt6byR01v')console.log(size,mail)
 
 
-  onibgObj[mail].remain-=size||0
+  onibgObj[mail].remain-=+size||0
   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   if(mimeType=='application/vnd.google-apps.folder'){
    if(false&&!sharedWithMeTime){//false&&不再處理
@@ -379,7 +380,7 @@ if(id=='1bkkhYLl5vkNogPux3lIjjq1xt6byR01v')console.log(size,mail)
     while(res>=400){await delay(i+=100);                                            console.log(mail)
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy`,{method:"POST",headers:{'Authorization':'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
      ,body:JSON.stringify({modifiedTime:modifiedTime,parents:parents})}))//複製舊檔案
-     if(res==404){res=-500;const tmp=await path(parents[0]);sourceName+='\n可疑檔案 '+tmp+'/'+name;onibgObj[mail].remain+=size||0}//404代表找不到檔案，可能是：可疑檔案||未提供檔案resourceKey||未提供parents的resourceKey
+     if(res==404){res=-500;const tmp=await path(parents[0]);sourceName+='\n可疑檔案 '+tmp+'/'+name;onibgObj[mail].remain+=+size||0}//404代表找不到檔案，可能是：可疑檔案||未提供檔案resourceKey||未提供parents的resourceKey
     };res+=500;i=-100
     while(res>=400){await delay(i+=100)
     ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"DELETE",headers:{'Authorization':'Bearer '+onibgObj[owner].token}}))//刪除舊檔案
