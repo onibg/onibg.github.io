@@ -124,12 +124,21 @@ async function emptySpecial(mail){
  const result=confirm('確定要清空特殊檔？')
  if(!result)return
  const files=JSON.parse(onibgObj[mail].special)
+ let num=0
  for(const file of files){
   if(file.mimeType!='application/vnd.google-apps.script'){
-   const res=await fetch('https://www.googleapis.com/drive/v3/files/'+file.id,{method:'DELETE',headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
+   num++;if(num<5){del(mail,file.id)}else await del(mail,file.id)
   }
  }
- alert('清空完成')
+
+ async function del(mail,id){
+  let res=500;i=-100
+  while(res>=400){await delay(i+=100)
+  ;({status:res}==await fetch('https://www.googleapis.com/drive/v3/files/'+id,{method:'DELETE',headers:{'Authorization':'Bearer '+onibgObj[mail].token}}))
+   if(res==404)break//猜想有時檔案已經正常刪除，但卻回傳錯誤訊息，再刪除時，檔案已不存在！
+  }
+  num--;if(num==0)alert('清空完成')
+ }
 }
 
 async function rename(mail){
@@ -175,5 +184,7 @@ async function sharePC(id){
   document.querySelector('td').innerHTML+='<span style="color:red;background-color:yellow">全部共用PC</span>'
  }
 }
+
+async function delay(i){return new Promise(resolve=>setTimeout(resolve,i))}
 
 </script>
