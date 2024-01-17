@@ -461,7 +461,7 @@ ${owner==mail?name:''}`
      else{
       if(item.owners[0].emailAddress==mail){result+='\n'+fullName}
       Size+=+item.size||0
-      if(filesArr.includes(item.name)){filesObj[fullName]=filesObj[fullName]?++filesObj[fullName]:1;delArr.push(item.id)}else{filesArr.push(item.name)}
+      if(filesArr.includes(item.name)){filesObj[fullName]=filesObj[fullName]?++filesObj[fullName]:1;delArr.push([item.id,item.owners[0].emailAddress])}else{filesArr.push(item.name)}
      }
     })
     return arr.splice(0,foldersNum)
@@ -482,7 +482,19 @@ size:${Size}
 ↓擁有者為：${mail}${result}`)
    }
    const OK=confirm('確定要刪除重複檔？')
-   if(OK){console.log(delArr)}
+   if(!OK)return
+   for(const id_owner of delArr){
+    num++;if(num<50){del(id_owner)}else await del(id_owner)//數字暫定50，減少403
+   }
+   OK=false
+   async function del(arr2){
+    let res=500,i=-100
+    while(res>=400){await delay(i+=100)
+    ;({status:res}=await fetch('https://www.googleapis.com/drive/v3/files/'+arr2[0],{method:'DELETE',headers:{'Authorization':'Bearer '+onibgObj[arr2[1]].token}}))
+     if(res==404)break//猜想有時檔案已經正常刪除，但卻回傳錯誤訊息，再刪除時，檔案已不存在！
+    }
+    num--;if(num==0&&!OK)alert('刪除重複檔完成')
+   }
    return
   }
   const{id,name}=missions[0]
@@ -493,6 +505,8 @@ size:${Size}
   num--;if(late){missions.splice(0,1);third()}else{if(num==0)third()}
  }//third()
 }
+
+
 
 async function delay(i){return new Promise(resolve=>setTimeout(resolve,i))}
 
