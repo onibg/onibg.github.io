@@ -127,7 +127,7 @@ async function emptySpecial(mail){
  let num=0
  for(const file of files){
   if(file.mimeType!='application/vnd.google-apps.script'){
-   num++;if(num<5){del(file.id)}else await del(file.id)
+   num++;if(num<50){del(file.id)}else await del(file.id)//數字暫定50，減少403
   }
  }
 
