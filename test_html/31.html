@@ -481,6 +481,8 @@ size:${Size}
 重複檔案：${JSON.stringify(filesObj)}
 ↓擁有者為：${mail}${result}`)
    }
+   const result=confirm('確定要刪除重複檔？')
+
    return
   }
   const{id,name}=missions[0]
