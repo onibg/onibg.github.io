@@ -1,5 +1,32 @@
+<meta charset="utf-8">
+<input id="uploadfile" type="file">
 <script>
- console.log('92')
+//const chunkSize=5242880
+  (function()
+  {
+   var xhr=new XMLHttpRequest()
+   xhr.open("get","https://script.google.com/macros/s/AKfycbxHSWHtQg_qH-CSJGAbo5jUFqm6udTABUlweLugH1hpJVJnEo0/exec?onibg")
+   xhr.send()
+   xhr.onload=function(){at=xhr.response;console.log(at)}
+  })()
 
-
-</script>
+  document.getElementById('uploadfile').onchange=function()
+  {
+   var location,i=0
+   var file=this.files[0]
+   console.log(file)
+   var fr=new FileReader()
+   fr.readAsArrayBuffer(file)
+   fr.onload=function(){
+   console.log(fr)
+   var xhr=new XMLHttpRequest()
+       xhr.open("PATCH","https://www.googleapis.com/upload/drive/v3/files/1_dofHhW4aLGRjaz3nWZruyZbZ8EljBLA?uploadType=media")//更新此ID檔案，採用簡單上傳uploadType=media
+       xhr.setRequestHeader('Authorization',"Bearer "+at)
+       xhr.setRequestHeader('Content-Type',file.type)
+     //xhr.setRequestHeader('Content-Type',"application/json;charset=UTF-8")
+     //xhr.send(JSON.stringify({mimeType:file.type,name:file.name}))
+       xhr.send(new Uint8Array(fr.result))
+       xhr.onload=function(){console.log(xhr.response)}
+   }
+  }
+  </script>
