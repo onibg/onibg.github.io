@@ -48,6 +48,16 @@ setInterval(()=>{
 },3000000)
 
 function chooseMail(size){
+ if(!size)return
+ let result,lastDiff=Infinity
+ for(const mail in onibgObj){
+  if(mail.includes('@gmail.com')&&mail!='delicadiesel@gmail.com'){
+   const diff=onibgObj[mail].remain-+size
+   if(diff>=0&&diff<lastDiff){result=mail;lastDiff=diff}
+  }
+ }
+ return result
+/*
  const remainArr=[]
  for(var mail in onibgObj)
  {if(mail.includes('@gmail.com')&&mail!='delicadiesel@gmail.com')remainArr.push([mail,onibgObj[mail].remain])}
@@ -55,6 +65,7 @@ function chooseMail(size){
  //console.log(remainArr)
  const index=remainArr.findIndex(item=>+size<=item[1])
  if(index!=-1)return remainArr[index][0]
+*/
 }
 
 var xhr=new XMLHttpRequest()
