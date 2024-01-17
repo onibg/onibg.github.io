@@ -123,6 +123,7 @@ async function emptySpecial(mail){
  if(onibgObj[mail].row<5){alert('請勿清空');return}
  const result=confirm('確定要清空特殊檔？')
  if(!result)return
+ tr[onibgObj[mail].row].children[5].style.backgroundColor='black'
  const files=JSON.parse(onibgObj[mail].special)
  let num=0
  for(const file of files){
