@@ -121,7 +121,7 @@ function emptyTrash(mail){
 }
 async function emptySpecial(mail){
  if(onibgObj[mail].row<5){alert('請勿清空');return}
- const result=confirm('確定要清空特殊檔？')
+ let result=confirm('確定要清空特殊檔？')
  if(!result)return
  tr[onibgObj[mail].row].children[5].style.backgroundColor='black'
  const files=JSON.parse(onibgObj[mail].special)
@@ -131,14 +131,14 @@ async function emptySpecial(mail){
    num++;if(num<50){del(file.id)}else await del(file.id)//數字暫定50，減少403
   }
  }
-
+ result=false
  async function del(id){
   let res=500,i=-100
   while(res>=400){await delay(i+=100)
   ;({status:res}=await fetch('https://www.googleapis.com/drive/v3/files/'+id,{method:'DELETE',headers:{'Authorization':'Bearer '+onibgObj[mail].token}}))
    if(res==404)break//猜想有時檔案已經正常刪除，但卻回傳錯誤訊息，再刪除時，檔案已不存在！
   }
-  num--;if(num==0)alert('清空完成')
+  num--;if(num==0&&!result)alert('清空完成')
  }
 }
 
