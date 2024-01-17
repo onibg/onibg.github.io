@@ -132,7 +132,7 @@ async function emptySpecial(mail){
  }
 
  async function del(id){
-  let res=500;i=-100
+  let res=500,i=-100
   while(res>=400){await delay(i+=100)
   ;({status:res}==await fetch('https://www.googleapis.com/drive/v3/files/'+id,{method:'DELETE',headers:{'Authorization':'Bearer '+onibgObj[mail].token}}))
    if(res==404)break//猜想有時檔案已經正常刪除，但卻回傳錯誤訊息，再刪除時，檔案已不存在！
