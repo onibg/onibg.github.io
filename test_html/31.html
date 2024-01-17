@@ -481,7 +481,7 @@ size:${Size}
 重複檔案：${JSON.stringify(filesObj)}
 ↓擁有者為：${mail}${result}`)
    }
-   let OK=confirm('確定要刪除重複檔？')
+   if(delArr.length){let OK=confirm('確定要刪除重複檔？')}else return
    if(!OK)return
    for(const id_owner of delArr){
     num++;if(num<50){del(id_owner)}else await del(id_owner)//數字暫定50，減少403
