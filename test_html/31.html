@@ -51,7 +51,7 @@ function chooseMail(size){
  if(!size)return
  let result,lastDiff=Infinity
  for(const mail in onibgObj){
-  if(mail.includes('@gmail.com')&&mail!='delicadiesel@gmail.com'){
+  if(mail.includes('@gmail.com')&&mail!='delicadiesel@gmail.com'&&mail!='onibg.00001@gmail.com'&&mail!='onibg.00002@gmail.com'&&mail!='onibg.00003@gmail.com'){
    const diff=onibgObj[mail].remain-+size
    if(diff>=0&&diff<lastDiff){result=mail;lastDiff=diff}
   }
