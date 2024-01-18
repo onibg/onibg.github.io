@@ -490,7 +490,7 @@ size:${Size}
    async function del(arr2){
     let res=500,i=-100
     while(res>=400){await delay(i+=100)
-    ;({status:res}=await fetch('https://www.googleapis.com/drive/v3/files/'+arr2[0],{method:'DELETE',headers:{Authorization':'Bearer '+onibgObj[arr2[1]].token}}))
+    ;({status:res}=await fetch('https://www.googleapis.com/drive/v3/files/'+arr2[0],{method:'DELETE',headers:{Authorization:'Bearer '+onibgObj[arr2[1]].token}}))
      if(res==404)break//猜想有時檔案已經正常刪除，但卻回傳錯誤訊息，再刪除時，檔案已不存在！
     }
     num--;if(num==0&&!OK)alert('刪除重複檔完成')
