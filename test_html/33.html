@@ -20,7 +20,7 @@
    fr.onload=function(){
    console.log(fr)
    var xhr=new XMLHttpRequest()
-       xhr.open("PATCH","https://www.googleapis.com/drive/v2/files/1_dofHhW4aLGRjaz3nWZruyZbZ8EljBLA?timedTextLanguage=zh-Hant")//更新此ID檔案，採用簡單上傳uploadType=media
+       xhr.open("PUT","https://www.googleapis.com/drive/v2/files/1_dofHhW4aLGRjaz3nWZruyZbZ8EljBLA?uploadType=media&timedTextLanguage=zh-Hant")//更新此ID檔案，採用簡單上傳uploadType=media
        xhr.setRequestHeader('Authorization',"Bearer "+at)
        //xhr.setRequestHeader('Content-Type',file.type)
      //xhr.setRequestHeader('Content-Type',"application/json;charset=UTF-8")
