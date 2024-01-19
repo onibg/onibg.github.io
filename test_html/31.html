@@ -480,21 +480,21 @@ size:${Size}
 重複資料夾：${JSON.stringify(foldersObj)}
 重複檔案：${JSON.stringify(filesObj)}
 ↓擁有者為：${mail}${result}`)
-   }
-   if(delArr.length){var OK=confirm('確定要刪除重複檔？')}else return
-   if(!OK)return
-   for(const id_owner of delArr){
-    num++;if(num<50){del(id_owner)}else await del(id_owner)//數字暫定50，減少403
-   }
-   OK=false
-   async function del(arr2){
-    let res=500,i=-100
-    while(res>=400){await delay(i+=100)
-    ;({status:res}=await fetch('https://www.googleapis.com/drive/v3/files/'+arr2[0],{method:'DELETE',headers:{Authorization:'Bearer '+onibgObj[arr2[1]].token}}))
-     if(res==404)break//猜想有時檔案已經正常刪除，但卻回傳錯誤訊息，再刪除時，檔案已不存在！
+    if(delArr.length){var OK=confirm('確定要刪除重複檔？')}else return
+    if(!OK)return
+    for(const id_owner of delArr){
+     num++;if(num<50){del(id_owner)}else await del(id_owner)//數字暫定50，減少403
     }
-    num--;if(num==0&&!OK)alert('刪除重複檔完成')
-   }
+    OK=false
+    async function del(arr2){
+     let res=500,i=-100
+     while(res>=400){await delay(i+=100)
+     ;({status:res}=await fetch('https://www.googleapis.com/drive/v3/files/'+arr2[0],{method:'DELETE',headers:{Authorization:'Bearer '+onibgObj[arr2[1]].token}}))
+      if(res==404)break//猜想有時檔案已經正常刪除，但卻回傳錯誤訊息，再刪除時，檔案已不存在！
+     }
+     num--;if(num==0&&!OK)alert('刪除重複檔完成')
+    }
+   }//num==0
    return
   }
   const{id,name}=missions[0]
