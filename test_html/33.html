@@ -1,5 +1,22 @@
-<script>
- console.log('92')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datalist with Title</title>
+</head>
+<body>
 
+    <form action="#">
+        <label for="fruit">選擇水果：</label>
+        <input list="fruits" id="fruit" name="fruit" placeholder="請選擇水果">
 
-</script>
+        <datalist id="fruits">
+            <option value="蘋果"></option>
+            <option value="香蕉"></option>
+            <option value="橙子"></option>
+        </datalist>
+    </form>
+
+</body>
+</html>
