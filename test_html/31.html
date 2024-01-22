@@ -41,7 +41,6 @@ function getRemain(mail_url){
   onibgObj[mail_url[0]].remain=remain
   if(quantity==0){alert('就緒')}
  })
-
 }
 setInterval(()=>{
  for(var mail in onibgObj){getToken([mail,onibgObj[mail].url])}
