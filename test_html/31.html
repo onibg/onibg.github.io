@@ -440,7 +440,7 @@ ${owner==mail?name:''}`
   async function loop(pageToken){
    while(res>=400){await delay(i+=100)
     Res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder&fields=nextPageToken,files(mimeType,name,size,id,owners)&pageSize=1000&pageToken=${pageToken}`
-    ,{headers:{Authorization:'Bearer '+onibgObj[Gmail].token}})                              //一定要orderBy=folder
+    ,{headers:{Authorization:'Bearer '+onibgObj[Gmail].token}})                                //一定要orderBy=folder
     res=Res.status
    };res=500;i=-100
    data=await Res.json()
