@@ -1,11 +1,12 @@
-<button onclick="(sum('按鍵一'))()">console按了幾次</button>
-<button onclick="(sum('按鍵二'))()">console按了幾次</button>
+<button onclick="funA()">console按了幾次</button>
+<button onclick="funB()">console按了幾次</button>
 <script>
 //閉包好文章
 //https://jianline.com/javascript-closure/
 //作用域鏈是在函式被定義時決定，不是在被呼叫時決定
 
-
+const funA=sum('按鍵一')
+const funB=sum('按鍵二')
 
 
 
