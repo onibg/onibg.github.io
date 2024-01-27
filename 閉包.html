@@ -4,15 +4,10 @@
 //閉包好文章
 //https://jianline.com/javascript-closure/
 //作用域鏈是在函式被定義時決定，不是在被呼叫時決定
-
 const funA=sum('按鍵一')
 const funB=sum('按鍵二')
-
-
-
 function sum(str){
  let count=0
  return ()=>{count++;console.log(str+`按了${count}次`)}
 }
-
 </script>
