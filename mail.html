@@ -119,7 +119,7 @@ function emptyTrash(mail){
  xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/trash',true)
  xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
  xhr.send()
- xhr.onload=()=>alert('清空完成')
+ xhr.onload=()=>console.log('清空完成')
 }
 async function emptySpecial(mail){
  if(onibgObj[mail].row<5){alert('請勿清空');return}
@@ -140,7 +140,7 @@ async function emptySpecial(mail){
   ;({status:res}=await fetch('https://www.googleapis.com/drive/v3/files/'+id,{method:'DELETE',headers:{'Authorization':'Bearer '+onibgObj[mail].token}}))
    if(res==404)break//猜想有時檔案已經正常刪除，但卻回傳錯誤訊息，再刪除時，檔案已不存在！
   }
-  num--;if(num==0&&!result)alert('清空完成')
+  num--;if(num==0&&!result)console.log('清空完成')
  }
 }
 
