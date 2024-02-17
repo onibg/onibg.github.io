@@ -142,13 +142,14 @@
  }
  video.onwaiting=()=>{
   //console.log('waiting')
-  const t=video.currentTime
+  let t=video.currentTime
   played=!video.paused
   if(video.src.includes('idp.glitch.me')){
    waitingTimer=setTimeout(function(){
     console.log('idp.glitch.me→id-oa.onrender.com')
     video.src=video.src.replace('idp.glitch.me','id-oa.onrender.com');document.querySelector('span').style.color='blue'
     video.currentTime=t
+    t=document.getElementById("sub").src;document.getElementById("sub").src='';document.getElementById("sub").src=t//2024/2/17加入，以刪除舊影片字幕
    },5000)
   }
  }
