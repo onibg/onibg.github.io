@@ -1,5 +1,16 @@
-<script>
- console.log('95')
-
-
+<script>//結論：47-48分之間關閉
+var xhr=new XMLHttpRequest()
+var t,i=0//2700秒=45分
+xhr.onload=function()
+           {
+            var txt=xhr.response//.match(/<div class="([\s\S]*?)">/)[1]
+            console.log(txt,new Date()-t+'毫秒，間隔:'+(i-60)+'秒')
+            req()
+           }
+req()
+function req(){
+ xhr.open("GET","https://cors-oa.onrender.com/ilv.ilv.tw/proxy.php?https://grmn.deno.dev",true)//預設為true(異步)
+ i+=60
+ setTimeout(function(){t=new Date();xhr.send()},1000*i)
+}
 </script>
