@@ -1,11 +1,12 @@
 <script>//結論：47-48分之間關閉
 var xhr=new XMLHttpRequest()
-var t,i=0//2700秒=45分
+var t,i=300//2700秒=45分
 xhr.onload=function()
            {
             var txt=xhr.response//.match(/<div class="([\s\S]*?)">/)[1]
             console.log(txt,new Date()-t+'毫秒，間隔:'+i+'秒')
-            i+=60;req()
+          //i+=60
+            req()
            }
 req()
 function req(){
