@@ -2,9 +2,9 @@
 <button onclick="list()">list</button>
 <script>
  function list(){
-  var token ='ya29.a0AfB_byA6wFOq9ye_fzfNGgzaa-KLEQ5tIsha3e6orkHdLmY1AK4eQpQl2r68z6tktiMTr-omXjw2WqauEtZK9CulNy455AI03L4lSz4GCme1LxoJ5eWhY7XgFYjy8suc_miXY7uj_Gs6yDLxWca1BhJ_qZbJtK1f3AaCgYKATgSARASFQHGX2Miqn1SkzQx3Sjgn72IiSMMcA0169'
+  var token ='ya29.a0AfB_byCrH8MNVtjmZP4xOwK0YZqs6Htmw95KMkZppUb5UYQzZCN-Bx81c4uu6u6FWCDUH_9gVg4640S3L6laxjI4GODiI1mUVbWvqYxcwullZCq_yUDnthag_ihGk03QokVnu0M-f1SdOhRseVNmKSk-yYoNUpO41gaCgYKATwSAQ8SFQHGX2Miz7SZwDQT7cV8zRs91bwi4w0169'
   var xhr=new XMLHttpRequest()
-  xhr.open('GET',`https://gmail.googleapis.com/gmail/v1/users/yangcall106/messages`,true)
+  xhr.open('GET',`https://gmail.googleapis.com/gmail/v1/users/me/messages`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.send()
