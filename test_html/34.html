@@ -1,0 +1,15 @@
+<div>google Gmail list測試</div>
+<button onclick="list()">list</button>
+<script>
+ function list(){
+  var token ='ya29.a0AfB_byA8-yFWJx5fOIFimZgq4KQD250XTLjtQDI3q5DU1oeeB-uUOLpsHMmDwLx6qWsOzNCVc5yEj5QWCf03A5y3ss0vPjk6eNMaDwBVecr-i8MJ1DGCEZabJ08V13UpXKqlFOkQ8IvFB1CpFujWtu12sc0APfJe1waCgYKAZESARMSFQHGX2Mizhlu8kCEZWqTxu0K47Vk6g0169'
+  var xhr=new XMLHttpRequest()
+  xhr.open('GET',`https://gmail.googleapis.com/gmail/v1/users/me/messages`,true)
+  xhr.responseType='json'
+  xhr.setRequestHeader('Authorization','Bearer '+token)
+  xhr.send()
+  xhr.onload=()=>{
+   console.log(xhr.response)
+  }
+ }
+</script>
