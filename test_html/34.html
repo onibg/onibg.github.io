@@ -2,9 +2,10 @@
 <button onclick="list()">list</button>
 <script>
  function list(){
-  var token ='ya29.a0AfB_byD4Hc_71sLwkgeWiPlte892dJhKek8_xkV3NWzE_8Oid9iInJqmnOvIBGl2sG7I5CU6SknRZf-maPAceWZ_J0CBntqo77IC_JPT7EOHmFNOFORWw_a6T4_JoiVmePtYUnF_lEBdytLrTb8w4Raght3rvriDxQaCgYKAYESARISFQHGX2MixW6LbL3VbvAyGCIxSFXpxQ0169'
+  var token='ya29.a0AfB_byBEkk1DSd-6Lff5T4VawbQKV18G0m2edh-hTsOtrRYZ6noLaQXNonhnUh7D5GY-Qaeh7R4AzTJc_yZkHPafU9PJXuLgW_zebab8KN_qr2OG17grR89iQaOHcZG5gaL94CdHELTOkT0Cm85zBoEXfN_FtoEnv1gpaCgYKAZQSARESFQHGX2Mi9BeJ2o5l4dn_tc6Tg1sDiA0171'
+  var id='1KG5VjFcfAlWnW6wT_lbANYTBTsrlM3qJ'
   var xhr=new XMLHttpRequest()
-  xhr.open('GET',`https://gmail.googleapis.com/gmail/v1/users/me/messages`,true)
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files/${id}?fields=*`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.send()
