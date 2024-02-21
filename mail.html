@@ -122,10 +122,8 @@ function emptyTrash(mail){
  xhr.send()
  xhr.onload=()=>console.log('清空完成')
 }
-async function emptyMail(mail){
+function emptyMail(mail){
  if(onibgObj[mail].row<5){alert('請勿清空');return}
- let result=confirm('確定要清空郵件？')
- if(!result)return
  tr[onibgObj[mail].row].children[3].style.backgroundColor='black'
  const xhr=new XMLHttpRequest()
  xhr.open('GET',`https://gmail.googleapis.com/gmail/v1/users/me/messages?includeSpamTrash=true`,true)
@@ -133,7 +131,11 @@ async function emptyMail(mail){
  xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
  xhr.send()
  xhr.onload=()=>{
-  console.log(xhr.response)
+  console.log(xhr.response.messages)
+
+ let result=confirm('確定要清空郵件？')
+ if(!result)return
+
  }
 }
 async function emptySpecial(mail){
