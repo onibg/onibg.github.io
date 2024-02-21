@@ -143,7 +143,7 @@ function emptyMail(mail){
   for(item of arr){
    num++;del(item.id)
   }
-   function del(id){
+  async function del(id){
    let res=500,i=-100
    while(res>=400){await delay(i+=100)
    ;({status:res}=await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}`,{method:'DELETE',headers:{'Authorization':'Bearer '+onibgObj[mail].token}}))
