@@ -127,7 +127,14 @@ async function emptyMail(mail){
  let result=confirm('確定要清空郵件？')
  if(!result)return
  tr[onibgObj[mail].row].children[3].style.backgroundColor='black'
- console.log(mail)
+ const xhr=new XMLHttpRequest()
+ xhr.open('GET',`https://gmail.googleapis.com/gmail/v1/users/me/messages?includeSpamTrash=true`,true)
+ xhr.responseType='json'
+ xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
+ xhr.send()
+ xhr.onload=()=>{
+  console.log(xhr.response)
+ }
 }
 async function emptySpecial(mail){
  if(onibgObj[mail].row<5){alert('請勿清空');return}
