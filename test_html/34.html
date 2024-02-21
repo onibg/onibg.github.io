@@ -1,6 +1,7 @@
-<div>google Gmail list測試</div>
+<div>google Gmail測試</div>
 <button onclick="list()">list</button>
 <button onclick="read('18dc9c4ee6521bb9')">read</button>
+<button onclick="del('18dc9c4ee6521bb9')">delete</button>
 <script>
  var token='ya29.a0AfB_byAuve_cdBsOzXaUg_ARYJuzi0ZRjRNXbI7qwvsitLTzaFWaHwEmwY5ZoqYXA7-xRz-OK8o12OXM09KkOSUbHWwqgB1XAtnITEzkmEfB_LorEoKMjpU7ipKWeyryMu1OUgr3Oi8V9Ys45SigqjygrVoUXZ7KBAaCgYKAT0SAQ4SFQHGX2MiGOGx--Gze_hYS1pGwWVy9g0169'
  function list(){
@@ -16,6 +17,16 @@
  function read(id){
   var xhr=new XMLHttpRequest()
   xhr.open('GET',`https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}`,true)
+  xhr.responseType='json'
+  xhr.setRequestHeader('Authorization','Bearer '+token)
+  xhr.send()
+  xhr.onload=()=>{
+   console.log(xhr.response)
+  }
+ }
+ function del(id){
+  var xhr=new XMLHttpRequest()
+  xhr.open('DELETE',`https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.send()
