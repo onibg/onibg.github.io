@@ -28,7 +28,7 @@ div{visibility:hidden;display:inline}
    const cell=document.createElement('td')
    cell.textContent=mail_url[0]
    row.appendChild(cell)
-   row.innerHTML+=`<td onclick="emptyTrash('${mail_url[0]}')"></td><td></td><td></td><td style="text-align:right"></td><td onclick="emptySpecial('${mail_url[0]}')"></td>`
+   row.innerHTML+=`<td onclick="emptyTrash('${mail_url[0]}')"></td><td></td><td onclick="emptyMail('${mail_url[0]}')"></td><td style="text-align:right"></td><td onclick="emptySpecial('${mail_url[0]}')"></td>`
    table.appendChild(row)
    table.style.display='table';
   }
@@ -121,6 +121,9 @@ function emptyTrash(mail){
  xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
  xhr.send()
  xhr.onload=()=>console.log('清空完成')
+}
+function emptyMail(mail){
+ console.log(mail)
 }
 async function emptySpecial(mail){
  if(onibgObj[mail].row<5){alert('請勿清空');return}
