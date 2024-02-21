@@ -16,7 +16,7 @@
  function read(id){
   var xhr=new XMLHttpRequest()
   xhr.open('GET',`https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}`,true)
-  xhr.responseType='json'
+  //xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.send()
   xhr.onload=()=>{
