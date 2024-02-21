@@ -130,11 +130,15 @@ function emptyMail(mail){
  xhr.responseType='json'
  xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
  xhr.send()
- xhr.onload=()=>{
-  console.log(xhr.response.messages)
-
- let result=confirm('確定要清空郵件？')
- if(!result)return
+ xhr.onload=async()=>{
+  const arr=xhr.response.messages
+  if(!arr)return
+  for(item of arr){
+   const res=await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${item.id}`,{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
+   console.log(await res.json())
+  }
+  let result=confirm('確定要清空郵件？')
+  if(!result)return
 
  }
 }
