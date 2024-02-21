@@ -122,7 +122,11 @@ function emptyTrash(mail){
  xhr.send()
  xhr.onload=()=>console.log('清空完成')
 }
-function emptyMail(mail){
+async function emptyMail(mail){
+ if(onibgObj[mail].row<5){alert('請勿清空');return}
+ let result=confirm('確定要清空郵件？')
+ if(!result)return
+ tr[onibgObj[mail].row].children[3].style.backgroundColor='black'
  console.log(mail)
 }
 async function emptySpecial(mail){
