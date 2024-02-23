@@ -140,7 +140,7 @@ function emptyMail(mail){
   let result=confirm('確定要清空郵件？')
   if(!result)return
   let num=0
-  for(item of arr){
+  for(const item of arr){
    num++;del(item.id)
   }
   async function del(id){
