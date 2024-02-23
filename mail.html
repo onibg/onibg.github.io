@@ -133,7 +133,7 @@ function emptyMail(mail){
  xhr.onload=async()=>{
   const arr=xhr.response.messages
   if(!arr)return
-  for(item of arr){
+  for(const item of arr){
    const res=await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${item.id}`,{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
    console.log(await res.json())
   }
