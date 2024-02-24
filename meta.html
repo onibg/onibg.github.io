@@ -2,7 +2,7 @@
 <script>
 const cookie=''
 ;(async()=>{
-for(let row=7;row<=9;row++){
+for(let row=7;row<=7;row++){
  const res=await fetch(`https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?meta=${row}&cookie=${cookie}`)
  console.log(await res.text())
 }
