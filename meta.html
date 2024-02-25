@@ -1,19 +1,17 @@
 <title>取得mkv解析度</title>
-<button onclick="meta()">輸入處理的列範圍</button>
+<button onclick="meta()">輸入處理的列範圍</button><br>
 <input value='1' size="3">～<input value='100' size="3">
 <script>
 const cookie='__Secure-3PSID=g.a000ggjIcVnBeENwg4Bky5jf_4cMmwVcdUTnS_3Opdg3ePh_jXK5WHlz7JfW5YXUZchBVPX0HgACgYKARUSAQASFQHGX2MiS7LDhCqLEe9qZUR6D5hnLhoVAUF8yKpkf7b2oMtTVG2qhr7nru2O0076'
-function meta(){alert('vfdvfdv')}
-
-
-;(async()=>{
-try{
- for(let row=364;row<=366;row++){
-  let res=await fetch(`https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?meta=${row}&cookie=${cookie}`)
-  res=await res.text()
-  console.log(res)
-  if(res=='fail')break
- }
-}catch(e){console.log('錯誤',e)}
-})
+async function meta(){
+ const input=document.getElementsByTagName('input')
+ try{
+  for(let row=input[0].value;row<=input[1].value;row++){
+   let res=await fetch(`https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?meta=${row}&cookie=${cookie}`)
+   res=await res.text()
+   console.log(res)
+   if(res=='fail')break
+  }
+ }catch(e){console.log('錯誤',e)}
+}
 </script>
