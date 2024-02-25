@@ -9,7 +9,7 @@ var id='1Gds52GqaGNlyn4mbQ7ksA2VxFfOcnBCD'
   loop('')
   function loop(pageToken){
   xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='${id}' in parents and trashed=false&orderBy=folder,createdTime desc&fields=nextPageToken,files(mimeType,name,createdTime
-)&pageSize=1000&pageToken=${pageToken}`,true)
+)&pageSize=1000&pageToken=${pageToken}`,true)//使用「desc」修飾符反向排序
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.send()
