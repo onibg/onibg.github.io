@@ -6,7 +6,7 @@ const cookie='__Secure-3PSID=g.a000ggjIcVnBeENwg4Bky5jf_4cMmwVcdUTnS_3Opdg3ePh_j
 async function meta(){
  const input=document.getElementsByTagName('input')
  try{
-  for(let row=input[0].value;row<=input[1].value;row++){
+  for(let row=+input[0].value;row<=+input[1].value;row++){
    let res=await fetch(`https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?meta=${row}&cookie=${cookie}`)
    res=await res.text()
    console.log(res)
