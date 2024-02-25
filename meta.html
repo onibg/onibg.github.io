@@ -3,7 +3,7 @@
 const cookie=''
 ;(async()=>{
 try{
- for(let row=13;row<=50;row++){
+ for(let row=51;row<=100;row++){
   let res=await fetch(`https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?meta=${row}&cookie=${cookie}`)
   res=await res.text()
   console.log(res)
