@@ -3,7 +3,7 @@
 const cookie='__Secure-3PSID=g.a000ggjIcVnBeENwg4Bky5jf_4cMmwVcdUTnS_3Opdg3ePh_jXK5WHlz7JfW5YXUZchBVPX0HgACgYKARUSAQASFQHGX2MiS7LDhCqLEe9qZUR6D5hnLhoVAUF8yKpkf7b2oMtTVG2qhr7nru2O0076'
 ;(async()=>{
 try{
- for(let row=501;row<=600;row++){
+ for(let row=601;row<=700;row++){
   let res=await fetch(`https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?meta=${row}&cookie=${cookie}`)
   res=await res.text()
   console.log(res)
