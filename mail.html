@@ -132,12 +132,12 @@ function emptyMail(mail){
  xhr.send()
  xhr.onload=async()=>{
   const arr=xhr.response.messages
-  if(!arr)return
+  if(!arr){console.log(mail+' 無郵件');return}
   for(const item of arr){
    const res=await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${item.id}`,{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
    console.log(await res.json())
   }
-  let result=confirm('確定要清空郵件？')
+  let result=confirm('確定要清空'+mail+'的郵件？')
   if(!result)return
   let num=0
   for(const item of arr){
