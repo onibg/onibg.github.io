@@ -1,19 +1,20 @@
 <script>
-async function asyncConfirm(message) {
+function asyncConfirm(message) {
   return new Promise((resolve) => {
-    const confirmation = confirm(message);
-    resolve(confirmation);
+    setTimeout(() => {
+      const confirmation = confirm(message);
+      resolve(confirmation);
+    }, 0);
   });
 }
 
-async function example() {
-  console.log('Before confirm');
+console.log('Before confirm');
 
-  const result = await asyncConfirm('Are you sure?');
-
+asyncConfirm('Are you sure?').then((result) => {
   console.log('After confirm');
   console.log('Result:', result);
-}
+});
 
-example();
+console.log('Continuing with other code...');
+
 </script>
