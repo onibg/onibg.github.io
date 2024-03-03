@@ -144,7 +144,7 @@ function emptyMail(mail){
    for(const item of arr){
     num++;del(item.id)
    }
-  },1000)
+  },5000)
   async function del(id){
    let res=500,i=-100
    while(res>=400){await delay(i+=100)
