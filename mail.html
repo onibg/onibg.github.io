@@ -137,12 +137,14 @@ function emptyMail(mail){
    const res=await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${item.id}`,{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
    console.log(await res.json())
   }
-  let result=confirm('確定要清空'+mail+'的郵件？')
-  if(!result)return
-  let num=0
-  for(const item of arr){
-   num++;del(item.id)
-  }
+  setTimeout(()=>{
+   let result=confirm('確定要清空'+mail+'的郵件？')
+   if(!result)return
+   let num=0
+   for(const item of arr){
+    num++;del(item.id)
+   }
+  },0)
   async function del(id){
    let res=500,i=-100
    while(res>=400){await delay(i+=100)
