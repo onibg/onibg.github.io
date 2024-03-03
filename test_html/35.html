@@ -1,8 +1,10 @@
 <script>
 function asyncConfirm(message) {
   return new Promise(resolve=>{
-   const confirmation=confirm(message);
-   resolve(confirmation);
+    setTimeout(() => {
+      const confirmation = confirm(message);
+      resolve(confirmation);
+    }, 0);
   });
 }
 
