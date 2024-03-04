@@ -98,6 +98,16 @@ function special(mail){
 function transfer(mail){
  event.preventDefault()
  console.log('transfer',mail)
+ let Num=prompt("輸入數字對應mail，搬移原檔案至此mail","00000")
+ Num=+Num
+ if(!Num)return//取消
+ console.log(onibgObj)
+ //const Mail=Object.keys(onibgObj).filter(key=>key.replace(/\D/g,'')==Num)[0]
+  //if(!Mail)Mail='any'
+
+
+
+
 }
 function trash(mail){
  let result=[],xhr=new XMLHttpRequest()
