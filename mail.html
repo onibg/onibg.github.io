@@ -103,8 +103,22 @@ function transfer(mail){
  const Mail=Object.keys(onibgObj).filter(key=>key.replace(/\D/g,'')==Num)[0]
  console.log(Mail)
 
-
-
+ let result=[],xhr=new XMLHttpRequest()
+ loop('')
+ function loop(pageToken){
+  xhr.open('GET',`https://www.googleapis.com/drive/v2/files?q='me' in owners and trashed=false&fields=nextPageToken,items(mimeType,parents,id,copyable)&pageSize=1000&pageToken=${pageToken}`,true)
+  xhr.responseType='json'
+  xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
+  xhr.send()
+  xhr.onload=()=>{
+   if(xhr.status!=200){setTimeout(()=>loop(pageToken),1000);return}
+   result=result.concat(xhr.response.items.filter(item=>item.mimeType!='application/vnd.google-apps.folder'&&item.copyable===true&&!(item.parents[0]&&item.parents[0].isRoot===true)))//非資料夾、可複製、不在Root目錄
+   if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
+   else{
+    console.log(result)
+   }
+  }
+ }
 }
 function trash(mail){
  let result=[],xhr=new XMLHttpRequest()
