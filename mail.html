@@ -97,12 +97,10 @@ function special(mail){
 }
 function transfer(mail){
  event.preventDefault()
- console.log('transfer',mail)
  let Num=prompt("輸入數字對應mail，搬移"+mail+"的原檔案至此mail","00000")
  Num=+Num
  if(!Num)return//取消
  const Mail=Object.keys(onibgObj).filter(key=>key.replace(/\D/g,'')==Num)[0]
-  //if(!Mail)Mail='any'
  console.log(Mail)
 
 
