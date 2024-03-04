@@ -27,7 +27,7 @@ div{visibility:hidden;display:inline}
    const row=document.createElement('tr')
    const cell=document.createElement('td')
    cell.textContent=mail_url[0]
-   cell.setAttribute("oncontextmenu","transfer(this.textContent)")
+   if(i>3)cell.setAttribute("oncontextmenu","transfer(this.textContent)")
    row.appendChild(cell)
    row.innerHTML+=`<td onclick="emptyTrash('${mail_url[0]}')"></td><td></td><td onclick="emptyMail('${mail_url[0]}')"></td><td style="text-align:right"></td><td onclick="emptySpecial('${mail_url[0]}')"></td>`
    table.appendChild(row)
