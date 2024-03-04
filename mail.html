@@ -101,10 +101,9 @@ function transfer(mail){
  let Num=prompt("輸入數字對應mail，搬移原檔案至此mail","00000")
  Num=+Num
  if(!Num)return//取消
- console.log(Object.keys(onibgObj))
- //const Mail=Object.keys(onibgObj).filter(key=>key.replace(/\D/g,'')==Num)[0]
+ const Mail=Object.keys(onibgObj).filter(key=>key.replace(/\D/g,'')==Num)[0]
   //if(!Mail)Mail='any'
-
+ console.log(Mail)
 
 
 
