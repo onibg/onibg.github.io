@@ -13,7 +13,8 @@ div{visibility:hidden;display:inline}
  var span=document.querySelector('span')
  var inputs=document.querySelectorAll('input')
  var table=document.querySelector('table'),tr
- var onibgObj={},quantity=0
+ var onibgObj={},quantity=0,mouseStatus=true
+ document.onmouseenter=()=>mouseStatus=true;document.onmouseleave=()=>mouseStatus=false
  fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec'+location.search)
  .then(res=>res.text())
  .then(data=>{let i=0
@@ -116,6 +117,35 @@ function transfer(mail){
    if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
    else{
     console.log(result)
+
+let late=true;num++
+  let res=500,i=-100,Res,mail
+if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
+
+while(res>=400){await delay(i+=100)
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy`,{method:"POST",headers:{"X-Goog-Drive-Resource-Keys":resourceKey?`${id}/${resourceKey}`:'',Authorization:'Bearer '+onibgObj[mail].token,'Content-Type':'application/json'}
+     ,body:JSON.stringify({modifiedTime:modifiedTime,parents:parents})}))//複製舊檔案
+     if(res==404){res=-500;const tmp=await path(parents[0]);sourceName+='\n可疑檔案 '+tmp+'/'+name;onibgObj[mail].remain+=+size||0}//404代表找不到檔案，可能是：可疑檔案||未提供檔案resourceKey||未提供parents的resourceKey
+    };res+=500;i=-100
+    while(res>=400){await delay(i+=100)
+    ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"DELETE",headers:{Authorization:'Bearer '+onibgObj[owner].token}}))//刪除舊檔案
+     if(res==404)break//猜想有時檔案已經正常刪除，但卻回傳錯誤訊息，再刪除時，檔案已不存在！
+    }
+   }
+
+
+num--;if(late){missions.splice(0,1);third()}else{if(num==0)third()}
+
+
+
+
+
+
+
+
+
+
+
    }
   }
  }
@@ -163,12 +193,12 @@ function emptyMail(mail){
    const res=await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${item.id}`,{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
    console.log(await res.json())
   }
+  while(!mouseStatus)
+  {setTimeout(()=>console.log(new Date()),1000)}
   let result=confirm('確定要清空'+mail+'的郵件？')
   if(!result)return
   let num=0
-  for(const item of arr){
-   num++;del(item.id)
-  }
+  for(const item of arr){num++;del(item.id)}
   async function del(id){
    let res=500,i=-100
    while(res>=400){await delay(i+=100)
