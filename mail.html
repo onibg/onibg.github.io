@@ -117,7 +117,7 @@ function transfer(mail){
    if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
    else{
     console.log(result)
-
+/*
 let late=true;num++
   let res=500,i=-100,Res,mail
 if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
@@ -140,7 +140,7 @@ num--;if(late){missions.splice(0,1);third()}else{if(num==0)third()}
 
 
 
-
+*/
 
 
 
@@ -149,7 +149,7 @@ num--;if(late){missions.splice(0,1);third()}else{if(num==0)third()}
    }
   }
  }
-}
+}//transfer()
 function trash(mail){
  let result=[],xhr=new XMLHttpRequest()
  loop('')
