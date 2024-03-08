@@ -2,8 +2,9 @@
 <button onclick="list()">list</button>
 <button onclick="read('18dc9c4ee6521bb9')">read</button>
 <button onclick="del('18dc9c4ee6521bb9')">delete</button>
+<button onclick="meta('1bBN94fwFBqC8kOUTiI3I9RocwbMFSr3W')">meta</button>
 <script>
- var token='ya29.a0AfB_byAuve_cdBsOzXaUg_ARYJuzi0ZRjRNXbI7qwvsitLTzaFWaHwEmwY5ZoqYXA7-xRz-OK8o12OXM09KkOSUbHWwqgB1XAtnITEzkmEfB_LorEoKMjpU7ipKWeyryMu1OUgr3Oi8V9Ys45SigqjygrVoUXZ7KBAaCgYKAT0SAQ4SFQHGX2MiGOGx--Gze_hYS1pGwWVy9g0169'
+ var token='ya29.a0Ad52N38UHpNzEWroBPGutLEjbcRpl-s2d3mgjHcT89J5tYEZL6IOb2wy_3lWQ55XTjvovlJl-rgeweW7lUIW81gD5p2hXKGU6FguWUVdSqECq8JguJ7tbdIh0RxrhrtnPC3WlJ0-oIj-C_OMvJvbL48oEGSuEXuuOasNaCgYKAWESARMSFQHGX2MiXhdSye9ir1xSCGd7h0mJbQ0171'
  function list(){
   var xhr=new XMLHttpRequest()
   xhr.open('GET',`https://gmail.googleapis.com/gmail/v1/users/me/messages?includeSpamTrash=true`,true)
@@ -34,4 +35,15 @@
    console.log(xhr.response)
   }
  }
+ function meta(id){
+  var xhr=new XMLHttpRequest()
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files/${id}`,true)
+  xhr.responseType='json'
+  xhr.setRequestHeader('Authorization','Bearer '+token)
+  xhr.send()
+  xhr.onload=()=>{
+   console.log(xhr.response)
+  }
+ }
+
 </script>
