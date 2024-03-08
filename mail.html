@@ -98,7 +98,7 @@ function special(mail){
 }
 function transfer(mail){
  event.preventDefault()
- let result=confirm('確定要清空雲端硬碟並保留Root目錄檔案、資料夾？\n需已轉移豪邁影城mkv檔！')
+ let result=confirm('確定要清空雲端硬碟並保留Root目錄檔案、資料夾？\n需已轉移豪邁影城mkv檔！'),missions=[],num=0,xhr=new XMLHttpRequest()
  if(!result)return
  loop('')
  function loop(pageToken){
