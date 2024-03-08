@@ -98,7 +98,7 @@ function special(mail){
 }
 function transfer(mail){//以miinmail@gm.ahjh.tc.edu.tw搜尋
  event.preventDefault()
- let Num=prompt("輸入數字對應mail，搬移"+mail+"的原檔案至此mail","00000")
+ let Num=prompt("輸入數字對應mail，搬移"+mail+"的原檔案至此mail\n需已轉移豪邁影城mkv檔！","00000")
  Num=+Num
  if(!Num)return//取消
  const Mail=Object.keys(onibgObj).filter(key=>key.replace(/\D/g,'')==Num)[0]
@@ -117,7 +117,7 @@ function transfer(mail){//以miinmail@gm.ahjh.tc.edu.tw搜尋
   }
  }
  async function third(){
-  console.clear();console.log(num,missions);return
+  console.clear();console.log(num,missions)
   if(missions.length==0){if(num==0){console.log("完成搬移"+mail+"的原檔案至"+Mail)};return}
   const{parents,id,modifiedTime}=missions[0]
   let late=true;num++
