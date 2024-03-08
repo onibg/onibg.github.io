@@ -117,7 +117,7 @@ function transfer(mail){
   }//onload()
  }//loop()
  async function third(){
-  console.clear();console.log(num,missions)
+  console.clear();console.log(num,missions);return
   if(missions.length==0){if(num==0){console.log("完成搬移"+mail+"的原檔案至"+Mail)};return}
   const{mimeType,parents,id,modifiedDate:modifiedTime}=missions[0]
   let late=true;num++
