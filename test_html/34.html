@@ -9,7 +9,7 @@
   var xhr=new XMLHttpRequest()
 //xhr.open('GET',`https://gmail.googleapis.com/gmail/v1/users/me/messages?includeSpamTrash=true`,true)
 //xhr.open('GET',`https://www.googleapis.com/drive/v2/files?q='me' in owners and trashed=false&fields=items(mimeType,parents,id,copyable,modifiedDate)&pageSize=1000`,true)
-  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='me' in owners and trashed=false&fields=files(mimeType)&pageSize=1000`,true)
+  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='me' in owners and trashed=false&fields=files(mimeType,parents,id,modifiedTime)&pageSize=1000`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.send()
