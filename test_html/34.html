@@ -37,7 +37,7 @@
  }
  function meta(id){
   var xhr=new XMLHttpRequest()
-  xhr.open('GET',`https://www.googleapis.com/drive/v3/files/${id}?fields=*`,true)
+  xhr.open('GET',`https://www.googleapis.com/drive/v2/files/${id}?fields=*`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.send()
