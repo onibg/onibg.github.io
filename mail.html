@@ -98,34 +98,41 @@ function special(mail){
 }
 function transfer(mail){
  event.preventDefault()
- let result=confirm('確定要清空雲端硬碟並保留Root目錄檔案、資料夾？\n需已轉移豪邁影城mkv檔！'),missions=[],num=0,xhr=new XMLHttpRequest()
- if(!result)return
+ let Num=prompt("輸入數字對應mail，搬移"+mail+"的原檔案至此mail","00000")
+ Num=+Num
+ if(!Num)return//取消
+ const Mail=Object.keys(onibgObj).filter(key=>key.replace(/\D/g,'')==Num)[0]
+ let missions=[],num=0,xhr=new XMLHttpRequest()
  loop('')
  function loop(pageToken){
-  xhr.open('GET',`https://www.googleapis.com/drive/v2/files?q='me' in owners and trashed=false&fields=nextPageToken,items(mimeType,parents,id)&pageSize=1000&pageToken=${pageToken}`,true)
+  xhr.open('GET',`https://www.googleapis.com/drive/v2/files?q='me' in owners and trashed=false&fields=nextPageToken,items(mimeType,parents,id,copyable,modifiedDate)&pageSize=1000&pageToken=${pageToken}`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
   xhr.send()
   xhr.onload=()=>{
    if(xhr.status!=200){setTimeout(()=>loop(pageToken),1000);return}
-   missions=missions.concat(xhr.response.items.filter(item=>item.mimeType!='application/vnd.google-apps.folder'&&!(item.parents[0]&&item.parents[0].isRoot===true)))//非資料夾、不在Root目錄
+   missions=missions.concat(xhr.response.items.filter(item=>item.mimeType!='application/vnd.google-apps.folder'&&item.copyable===true&&!(item.parents[0]&&item.parents[0].isRoot===true)))//非資料夾、可複製、不在Root目錄
    if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
    else third()
-  }
- }
+  }//onload()
+ }//loop()
  async function third(){
-  console.clear();console.log(num,missions)
-  if(missions.length==0){if(num==0){console.log("已清空"+mail+"的雲端硬碟")};return}
-  const{id}=missions[0]
+  console.clear();console.log(num,missions);return
+  if(missions.length==0){if(num==0){console.log("完成搬移"+mail+"的原檔案至"+Mail)};return}
+  const{mimeType,parents,id,modifiedDate:modifiedTime}=missions[0]
   let late=true;num++
-  let res=500,i=-100
+  let res=500,i=-100,Res
   if(num<50){late=false;missions.splice(0,1);third()}//數字暫定50，減少403
   while(res>=400){await delay(i+=100)
-  ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"DELETE",headers:{Authorization:'Bearer '+onibgObj[mail].token}}))
+  ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/copy`,{method:"POST",headers:{Authorization:'Bearer '+onibgObj[Mail].token,'Content-Type':'application/json'}
+   ,body:JSON.stringify({modifiedTime:modifiedTime,parents:parents})}))//複製舊檔案
+  };res=500;i=-100
+  while(res>=400){await delay(i+=100)
+  ;({status:res}=await fetch(`https://www.googleapis.com/drive/v3/files/${id}`,{method:"DELETE",headers:{Authorization:'Bearer '+onibgObj[mail].token}}))//刪除舊檔案
    if(res==404)break//猜想有時檔案已經正常刪除，但卻回傳錯誤訊息，再刪除時，檔案已不存在！
   }
   num--;if(late){missions.splice(0,1);third()}else{if(num==0)third()}
- }
+ }//third()
 }
 function trash(mail){
  let result=[],xhr=new XMLHttpRequest()
