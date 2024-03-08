@@ -4,12 +4,12 @@
 <button onclick="del('18dc9c4ee6521bb9')">delete</button>
 <button onclick="meta('1bBN94fwFBqC8kOUTiI3I9RocwbMFSr3W')">meta</button>
 <script>
- var token='ya29.a0Ad52N384zD-bFFI6k9cph_r8P6UHvlw2Y9ftm_nRoP8j2r2wmGb2AfQVciWKhKEzP8bJ752nglDhLwkCshQLgFqI7JDFFpwLvnHYexiQgS5t2j0mX4RQTVYMp_54Gx3XA-x6w_qlk_Yz2dGfjoNaISPo2CAo0m8-N7waCgYKASQSARESFQHGX2Mi_5O9bYcMXnJXWwrjlGxvCg0170'
+ var token='ya29.a0Ad52N3-F8VDA3QO7ZcOWAgkM_s83N91g5m_EuZMXNUugUcntsmUJcRs4H1INbBinLmUwyYIzU2qGvG42UrFsU02Dk86oRKMi_wHFR6nBMU3kseHAceytOwpdfhsxdFRNcec17kFTHui28o7QSCf4YPZxVRVwfOQyZBAaCgYKARUSARISFQHGX2Mibt71nqLYcDjNtp80bYg7Bw0170'
  function list(){
   var xhr=new XMLHttpRequest()
 //xhr.open('GET',`https://gmail.googleapis.com/gmail/v1/users/me/messages?includeSpamTrash=true`,true)
-//xhr.open('GET',`https://www.googleapis.com/drive/v2/files?q='me' in owners and trashed=false&fields=items(mimeType,parents,id,copyable,modifiedDate)&pageSize=1000`,true)
-  xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='me' in owners and trashed=false&fields=files(mimeType,parents,id,modifiedTime)&pageSize=1000`,true)
+  xhr.open('GET',`https://www.googleapis.com/drive/v2/files?q='me' in owners and trashed=false&fields=items(mimeType,parents,id,copyable,modifiedDate)&pageSize=1000`,true)
+//xhr.open('GET',`https://www.googleapis.com/drive/v3/files?q='me' in owners and trashed=false&fields=files(mimeType,parents,id,modifiedTime)&pageSize=1000`,true)
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+token)
   xhr.send()
