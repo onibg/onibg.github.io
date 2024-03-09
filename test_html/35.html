@@ -6,8 +6,9 @@ console.log(cycle(num))
 console.log(num)
 
 function cycle(n) {
- num=++n
- return num
+ num=++n;
+ if(num>3)num=1
+return num
 }
 
 
