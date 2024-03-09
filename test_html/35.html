@@ -1,26 +1,12 @@
 <script>
-function asyncConfirm(message) {
-  return new Promise(resolve=>{
-    setTimeout(() => {
-      const confirmation = confirm(message);
-      resolve(confirmation);
-    }, 0);
-  });
+
+
+
+function cycle(num) {
+ return ++num
 }
 
-console.log('Before confirm');
+console.log(cycle(1))
 
-setTimeout(()=>{
- const confirmation=confirm('Hello World')
- console.log(confirmation)
-},0)
-
-/*
-asyncConfirm('Are you sure?').then((result) => {
-  console.log('After confirm');
-  console.log('Result:', result);
-});*/
-
-console.log('Continuing with other code...');
 
 </script>
