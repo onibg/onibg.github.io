@@ -1,12 +1,12 @@
 <title>取得mkv解析度</title>
-<button onclick="meta()">輸入處理的列範圍</button><input type="checkbox"><br>
+<button onclick="meta()">輸入處理的列範圍</button><input type="checkbox">是否更新字幕庫<br>
 <input value='1' size="3">～<input value='100' size="3">
 <script>
 const cookie='__Secure-3PSID=g.a000hAjIcWcDAXf2qwbizJFhUir4zEDjjZqwb_8ffj6pcxqHZ54PvfFoJ0O1288y5JW1jL-93wACgYKAVYSAQASFQHGX2MiIYmp5uIKyOREZeIYtIq75xoVAUF8yKqXbGV0V-0g5dpZWDeB4cET0076'
 async function meta(){
  const input=document.getElementsByTagName('input')
  try{
-  for(let row=input[0].value;row<=input[1].value;row++){
+  for(let row=input[1].value;row<=input[2].value;row++){
    let res=await fetch(`https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?meta=${row}&cookie=${cookie}`)
    res=await res.text()
    console.log(res)
