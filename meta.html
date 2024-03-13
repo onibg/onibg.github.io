@@ -7,7 +7,7 @@ async function meta(){
  const input=document.getElementsByTagName('input')
  try{
   for(let row=input[1].value;row<=input[2].value;row++){
-   let res=await fetch(`https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?meta=${row}&cookie=${cookie}`)
+   let res=await fetch(`https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?meta=${row}&cookie=${cookie}${input[0].checked?'&update':''}`)
    res=await res.text()
    console.log(res)
    if(res=='fail')break
