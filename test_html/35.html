@@ -94,12 +94,12 @@
                     'source-layer': 'contours',
                     filter: ['>', ['get', 'level'], 0],
                     paint: {
-                        'text-halo-color': 'white',
+                        'text-halo-color': 'red',
                         'text-halo-width': 1
                     },
                     layout: {
                         'symbol-placement': 'line',
-                        'text-size': 12,
+                        'text-size': 10,
                         'text-field': [
                             'concat',
                             ['number-format', ['get', 'ele'], {}],
