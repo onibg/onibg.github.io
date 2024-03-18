@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contour Map with OSM Mapnik using Leaflet</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-vectorgrid/dist/Leaflet.VectorGrid.bundled.min.js"></script> <!-- 包含了所有依赖的压缩版本 -->
+  <script>
+    var map = L.map('map').setView([0, 0], 1);
+
+L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=mxpo1EjfuJp6F5KoZ21r', {
+  attribution: '&copy; MapTiler, &copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// 加入等高线图层
+var contourLayer = L.vectorGrid.protobuf('https://api.maptiler.com/tiles/contours/{z}/{x}/{y}.pbf?key=mxpo1EjfuJp6F5KoZ21r', {
+  rendererFactory: L.svg.tile,
+  minZoom: 9, // Minimum zoom level according to the tilejson
+  maxZoom: 14 // Maximum zoom level according to the tilejson
+}).addTo(map);
+
+  </script>
+</body>
+</html>
