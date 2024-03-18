@@ -31,8 +31,8 @@ L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=mxpo1Ejfu
 // 加入等高线图层
 var contourLayer = L.vectorGrid.protobuf('https://api.maptiler.com/tiles/contours/{z}/{x}/{y}.pbf?key=mxpo1EjfuJp6F5KoZ21r', {
   rendererFactory: L.svg.tile,
-  minZoom: 9, // Minimum zoom level according to the tilejson
-  maxZoom: 14 // Maximum zoom level according to the tilejson
+  minZoom: 15, // Minimum zoom level according to the tilejson
+  maxZoom: 18 // Maximum zoom level according to the tilejson
 }).addTo(map);
 
   </script>
