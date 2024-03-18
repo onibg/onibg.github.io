@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PBF 圖磚解析示例</title>
+  <title>Contour Map with OSM Mapnik using Maplibre</title>
   <style>
     body {
       margin: 0;
@@ -27,13 +27,43 @@
     });
 
     map.on('load', function () {
-      fetch('https://api.maptiler.com/tiles/contours/14/2616/6333.pbf?key=mxpo1EjfuJp6F5KoZ21r')
-        .then(response => response.arrayBuffer())
-        .then(arrayBuffer => {
-          var tile = new maplibregl.VectorTile(arrayBuffer);
-          var layers = tile.layers;
-          console.log(layers); // View the layers and their features in the console
-        });
+      map.addSource('contours', {
+        type: 'vector',
+        tiles: ['https://api.maptiler.com/tiles/contours/{z}/{x}/{y}.pbf?key=mxpo1EjfuJp6F5KoZ21r'],
+        minzoom: 9, // Minimum zoom level according to the tilejson
+        maxzoom: 14 // Maximum zoom level according to the tilejson
+      });
+
+      map.addLayer({
+        'id': 'contour-lines',
+        'type': 'line',
+        'source': 'contours',
+        'source-layer': 'contour',
+        'layout': {},
+        'paint': {
+          'line-color': '#ff0000', // Adjust color as needed
+          'line-opacity': 0.8, // Adjust opacity as needed
+          'line-width': 1 // Adjust width as needed
+        }
+      });
+
+      map.addLayer({
+        'id': 'contour-labels',
+        'type': 'symbol',
+        'source': 'contours',
+        'source-layer': 'contour',
+        'layout': {
+          'text-field': ['to-string', ['get', 'height']], // Display height value
+          'text-font': ['Open Sans Regular'], // Adjust font family as needed
+          'text-size': 12, // Adjust font size as needed
+          'text-anchor': 'center', // Center the text horizontally
+          'symbol-placement': 'line', // Place symbols along the line
+          'symbol-spacing': 100 // Adjust spacing between symbols as needed
+        },
+        'paint': {
+          'text-color': '#000000' // Adjust text color as needed
+        }
+      });
     });
   </script>
 </body>
