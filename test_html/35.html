@@ -22,7 +22,7 @@
   <script>
     var map = new maplibregl.Map({
       container: 'map',
-      style: 'https://api.maptiler.com/maps/streets/style.json?key=mxpo1EjfuJp6F5KoZ21r', // Replace with your MapTiler access token
+      style: 'https://api.maptiler.com/maps/streets/style.json?key=YOUR_MAPTILER_ACCESS_TOKEN', // Replace with your MapTiler access token
       center: [0, 0],
       zoom: 1
     });
@@ -46,7 +46,7 @@
           'line-opacity': 0.8, // Adjust opacity as needed
           'line-width': 1 // Adjust width as needed
         }
-      }, 'waterway-label');
+      });
 
       map.addLayer({
         'id': 'osm-mapnik',
