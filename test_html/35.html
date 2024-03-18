@@ -46,18 +46,6 @@
           'line-width': 1 // Adjust width as needed
         }
       });
-
-      map.addLayer({
-        'id': 'osm-mapnik',
-        'type': 'raster',
-        'source': {
-          'type': 'raster',
-          'tiles': ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'],
-          'tileSize': 256
-        },
-        'minzoom': 0,
-        'maxzoom': 19
-      });
     });
   </script>
 </body>
