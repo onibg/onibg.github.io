@@ -1,68 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contour Map with OSM Mapnik using Maplibre</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-    }
-    #map {
-      width: 100vw;
-      height: 100vh;
-    }
-  </style>
-</head>
-<body>
-  <div id="map"></div>
-  <script src="https://unpkg.com/maplibre-gl@2"></script>
+  <html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Topo (EPSG:3857) – MapTiler Cloud</title>
+    <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.1/maptiler-sdk.umd.min.js"></script>
+      <link href="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.1/maptiler-sdk.css" rel="stylesheet" />
+
+    <style>
+      body { margin:0; padding:0; }
+      #map { position:absolute; top:0; bottom:0; width:100%; }
+      #ol-logo { position:absolute; bottom:6px; left:6px; z-index:999; }
+      #ol-logo img { width: 100px; }
+      .ol-zoom { right: .5em; left: unset; }
+      .chess {
+        background:
+          repeating-conic-gradient(
+            #fff 0deg 90deg,
+            #e6e6e6 0deg 180deg)
+          0 0/40px 40px round;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map" ></div>
+    <script>
+      var useRetina = window.devicePixelRatio > 1;
+    </script>
+
   <script>
-    var map = new maplibregl.Map({
+    maptilersdk.setRTLTextPlugin('https://cdn.maptiler.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js');
+    var map = new maptilersdk.Map({
       container: 'map',
-      style: 'https://api.maptiler.com/maps/streets/style.json?key=mxpo1EjfuJp6F5KoZ21r', // Replace with your MapTiler access token
-      center: [0, 0],
-      zoom: 1
+      style: 'https://api.maptiler.com/maps/topo-v2/style.json?key=mxpo1EjfuJp6F5KoZ21r',
+      hash: true,
+      maptilerLogo: true,
+      language: maptilersdk.Language.STYLE_LOCK
     });
 
-    map.on('load', function () {
-      map.addSource('contours', {
-        type: 'vector',
-        tiles: ['https://api.maptiler.com/tiles/contours/{z}/{x}/{y}.pbf?key=mxpo1EjfuJp6F5KoZ21r'],
-        minzoom: 9, // Minimum zoom level according to the tilejson
-        maxzoom: 14 // Maximum zoom level according to the tilejson
-      });
-
-      map.addLayer({
-        'id': 'contour-lines',
-        'type': 'line',
-        'source': 'contours',
-        'source-layer': 'contour',
-        'layout': {},
-        'paint': {
-          'line-color': '#ff0000', // Adjust color as needed
-          'line-opacity': 0.8, // Adjust opacity as needed
-          'line-width': 1 // Adjust width as needed
-        }
-      });
-
-      map.addLayer({
-        'id': 'contour-labels',
-        'type': 'symbol',
-        'source': 'contours',
-        'source-layer': 'contour',
-        'layout': {
-          'text-field': ['to-string', ['get', 'height']], // Display height value
-          'text-font': ['Open Sans Regular'], // Adjust font family as needed
-          'text-size': 12, // Adjust font size as needed
-          'text-anchor': 'center' // Center the text horizontally
-        },
-        'paint': {
-          'text-color': '#000000' // Adjust text color as needed
-        }
-      });
-    });
   </script>
-</body>
-</html>
+
+  </body>
+  </html>
