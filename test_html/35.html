@@ -1,116 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Add Contour Lines</title>
-    <meta property="og:description" content="Add contour lines to your map from a raster-dem source." />
-    <meta charset='utf-8'>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@4.1.1/dist/maplibre-gl.css' />
-    <script src='https://unpkg.com/maplibre-gl@4.1.1/dist/maplibre-gl.js'></script>
-    <style>
-        body { margin: 0; padding: 0; }
-        html, body, #map { height: 100%; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contour Map with OSM Mapnik</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
 </head>
 <body>
-<div id="map"></div>
-<script src="https://unpkg.com/maplibre-contour@0.0.5/dist/index.min.js"></script>
-<script>
-    const demSource = new mlcontour.DemSource({
-        url: 'https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png',
-        encoding: 'mapbox',
-        maxzoom: 12,
-        // offload contour line computation to a web worker
-        worker: true
+  <div id="map"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/mapbox-gl@2.6.1/dist/mapbox-gl.js"></script>
+  <script>
+    mapboxgl.accessToken = 'mxpo1EjfuJp6F5KoZ21r'; // Replace with your Mapbox access token
+
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'https://api.maptiler.com/maps/streets/style.json?key=mxpo1EjfuJp6F5KoZ21r', // Replace with your MapTiler access token
+      center: [0, 0],
+      zoom: 1
     });
 
-    // calls maplibregl.addProtocol to register a dynamic vector tile provider that
-    // downloads raster-dem tiles, computes contour lines, and encodes as a vector
-    // tile for each tile request from maplibre
-    demSource.setupMaplibre(maplibregl);
+    map.on('load', function () {
+      map.addSource('contours', {
+        type: 'vector',
+        tiles: ['https://api.maptiler.com/tiles/contours/{z}/{x}/{y}.pbf?key=mxpo1EjfuJp6F5KoZ21r'],
+        minzoom: 0,
+        maxzoom: 14
+      });
 
-    const map = (window.map = new maplibregl.Map({
-        container: 'map',
-        zoom: 13,
-        center: [11.3229, 47.2738],
-        hash: true,
-        style: {
-            version: 8,
-            glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf',
-            sources: {
-                hillshadeSource: {
-                    type: 'raster-dem',
-                    // share cached raster-dem tiles with the contour source
-                    tiles: [demSource.sharedDemProtocolUrl],
-                    tileSize: 512,
-                    maxzoom: 12
-                },
-                contourSourceFeet: {
-                    type: 'vector',
-                    tiles: [
-                        demSource.contourProtocolUrl({
-                        // meters to feet
-                            multiplier: 3.28084,
-                            overzoom: 1,
-                            thresholds: {
-                            // zoom: [minor, major]
-                                11: [200, 1000],
-                                12: [100, 500],
-                                13: [100, 500],
-                                14: [50, 200],
-                                15: [20, 100]
-                            },
-                            elevationKey: 'ele',
-                            levelKey: 'level',
-                            contourLayer: 'contours'
-                        })
-                    ],
-                    maxzoom: 15
-                }
-            },
-            layers: [
-                {
-                    id: 'hills',
-                    type: 'hillshade',
-                    source: 'hillshadeSource',
-                    layout: {visibility: 'visible'},
-                    paint: {'hillshade-exaggeration': 0.25}
-                },
-                {
-                    id: 'contours',
-                    type: 'line',
-                    source: 'contourSourceFeet',
-                    'source-layer': 'contours',
-                    paint: {
-                        'line-opacity': 0.5,
-                        // "major" contours have level=1, "minor" have level=0
-                        'line-width': ['match', ['get', 'level'], 1, 1, 0.5]
-                    }
-                },
-                {
-                    id: 'contour-text',
-                    type: 'symbol',
-                    source: 'contourSourceFeet',
-                    'source-layer': 'contours',
-                    //filter: ['>', ['get', 'level'], 0],
-                    paint: {
-                        'text-halo-color': 'white',
-                        'text-halo-width': 1
-                    },
-                    layout: {
-                        'symbol-placement': 'line',
-                        'text-size': 10,
-                        'text-field': [
-                            'concat',
-                            ['number-format', ['get', 'ele'], {}],
-                            '\''
-                        ],
-                        'text-font': ['Noto Sans Bold']
-                    }
-                }
-            ]
+      map.addLayer({
+        'id': 'contour-lines',
+        'type': 'line',
+        'source': 'contours',
+        'source-layer': 'contours',
+        'layout': {},
+        'paint': {
+          'line-color': '#ff0000', // Adjust color as needed
+          'line-opacity': 0.8, // Adjust opacity as needed
+          'line-width': 1 // Adjust width as needed
         }
-    }));
-</script>
+      }, 'waterway-label');
+
+      map.addLayer({
+        'id': 'osm-mapnik',
+        'type': 'raster',
+        'source': {
+          'type': 'raster',
+          'tiles': ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'],
+          'tileSize': 256
+        },
+        'minzoom': 0,
+        'maxzoom': 19
+      });
+    });
+  </script>
 </body>
 </html>
