@@ -1,15 +1,15 @@
+<div>剪貼簿測試</div>
 <div>剪貼簿測試11</div>
 <button onclick="read()">
     讀取剪貼簿
 </button>
 <script>
-var test='],'
-    //setTimeout(read,3000)
+//setTimeout(read,3000)
 window.onclick=()=>{read()}
 //read()
 function read(){
 navigator.clipboard.readText().then(text => {
-      alert(text); // 剪貼簿中的內容
+alert(text); // 剪貼簿中的內容
 });
 }
 </script>
