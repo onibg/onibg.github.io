@@ -11,12 +11,13 @@
       document.onkeydown=show
       function show(x)
       {
-        console.log(x.which+','+x.keyCode+','+x.charCode+','+x.key)
+        console.log(x.which+','+x.keyCode+','+x.charCode+','+x.key+','+x.code)
         var ew=window.event.which//或event.which
         var ek=window.event.keyCode//或event.keyCode
         var ec=window.event.charCode//或event.charCode
         var ey=window.event.key//或event.key
-        document.body.innerHTML+='which:'+ew+',keyCode:'+ek+',charCode:'+ec+',key:'+ey+'<br>'
+        var ee=window.event.code//或event.code
+        document.body.innerHTML+='棄用which:'+ew+',棄用keyCode:'+ek+',沒用charCode:'+ec+',key:'+ey+',code:'+ee+'<br>'
         //keychar=String.fromCharCode(keynum)
       }
       /*JavaScript裡which、keyCode、charCode的差別
