@@ -47,7 +47,7 @@
   video.focus()
   div.requestFullscreen()
  }
- document.addEventListener("keydown",function(e){
+ document.addEventListener("keydown",function(e){if(e.code=='KeyF')button.click()
   if(!document.fullscreenElement)return
   if(e.ctrlKey&&e.key=='Enter'){
    if(video.style.objectFit=="fill"){video.style.objectFit="contain"}else{video.style.objectFit="fill"}
@@ -56,7 +56,6 @@
   else if(e.ctrlKey&&e.code=='Numpad2'){videoTop+=1;video.style.top=videoTop+"%"}
   else if(!e.ctrlKey&&e.code=='Numpad8'){videoHeight+=1;video.style.height=videoHeight+"%"}
   else if(!e.ctrlKey&&e.code=='Numpad2'){videoHeight-=1;video.style.height=videoHeight+"%"}
-  else if(e.code=='KeyF')console.log(1)
  })
 
  video.addEventListener("mousewheel",function(e){
