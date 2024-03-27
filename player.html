@@ -47,7 +47,8 @@
   video.focus()
   div.requestFullscreen()
  }
- document.addEventListener("keydown",function(e){if(e.code=='KeyF')button.click();if(e.code=='KeyG')document.exitFullscreen()
+ document.addEventListener("keydown",function(e){
+  if(e.code=='KeyF'){if(document.fullscreenElement){document.exitFullscreen()}else button.click()}
   if(!document.fullscreenElement)return
   if(e.ctrlKey&&e.key=='Enter'){
    if(video.style.objectFit=="fill"){video.style.objectFit="contain"}else{video.style.objectFit="fill"}
