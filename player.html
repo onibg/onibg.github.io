@@ -56,6 +56,7 @@
   else if(e.ctrlKey&&e.code=='Numpad2'){videoTop+=1;video.style.top=videoTop+"%"}
   else if(!e.ctrlKey&&e.code=='Numpad8'){videoHeight+=1;video.style.height=videoHeight+"%"}
   else if(!e.ctrlKey&&e.code=='Numpad2'){videoHeight-=1;video.style.height=videoHeight+"%"}
+  else if(e.code=='KeyF')button.click()
  })
 
  video.addEventListener("mousewheel",function(e){
