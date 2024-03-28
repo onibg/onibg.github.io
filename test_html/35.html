@@ -28,8 +28,10 @@
       zoom: 1
     });
 const server=()=>{
- if((new Date().getTime()%2)==0)return 'topo'
- else return 'opot'
+ //if((new Date().getTime()%2)==0)return 'topo'
+ //else return 'opot'
+var useTopo = Math.random() < 0.5
+if(useTopo){return 'topo'}else{return 'opot'}
 }
     map.on('load', function () {
       map.addSource('contours', {
