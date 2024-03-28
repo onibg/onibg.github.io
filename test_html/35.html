@@ -28,7 +28,7 @@
       zoom: 1
     });
 const server=()=>{
- if(new Date().getTime()%2)return 'topo'
+ if(new Date().getTime()%2==0)return 'topo'
  else return 'opot'
 }
     map.on('load', function () {
