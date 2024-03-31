@@ -10,20 +10,14 @@ div{visibility:hidden;display:inline}
 <tr><td>Gmail</td><td>Trash用量</td><td>Drive用量</td><td>總用量</td><td>剩餘量</td><td>root、unorganized、abuse</td></tr>
 </table>
 <script>
- var span=document.querySelector('span')
- var inputs=document.querySelectorAll('input')
- var table=document.querySelector('table'),tr
- var onibgObj={},quantity=0,mouseStatus
- document.onmouseenter=()=>mouseStatus=true;document.onmouseleave=()=>mouseStatus=false
+var span=document.querySelector('span')
+var inputs=document.querySelectorAll('input')
+var table=document.querySelector('table'),tr
+var onibgObj={},quantity=0,mouseStatus
+document.onmouseenter=()=>mouseStatus=true;document.onmouseleave=()=>mouseStatus=false
 
-
-
-
-
-
-
-
-
+start()
+function start(){
  fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec'+location.search)
  .then(res=>res.text())
  .then(data=>{let i=0
@@ -44,7 +38,8 @@ div{visibility:hidden;display:inline}
    table.style.display='table';
   }
  tr=document.querySelectorAll('tr')
-})
+ })
+}
 function getToken(mail_url){
  const controller=new AbortController()
  const timeout=setTimeout(()=>{controller.abort();getToken(mail_url)},3000)//請求超時3秒處理
