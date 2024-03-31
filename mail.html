@@ -37,10 +37,10 @@ div{visibility:hidden;display:inline}
  tr=document.querySelectorAll('tr')
 })
 function getToken(mail_url){
- //const controller=new AbortController()
- //const timeout=setTimeout(()=>{controller.abort();getToken(mail_url)},3000)//請求超時處理
- fetch(mail_url[1]/*,{signal:controller.signal}*/)
- .then(res=>{console.log(res.status);/*clearTimeout(timeout);*/res.text()})
+ const controller=new AbortController()
+ const timeout=setTimeout(()=>{controller.abort();getToken(mail_url)},3000)//請求超時3秒處理
+ fetch(mail_url[1],{signal:controller.signal})
+ .then(res=>{clearTimeout(timeout);return res.text()})
  .then(data=>{
   onibgObj[mail_url[0]].token=data
   if(!quantity){quantity=tr.length-1}else{quantity--}
