@@ -15,6 +15,15 @@ div{visibility:hidden;display:inline}
  var table=document.querySelector('table'),tr
  var onibgObj={},quantity=0,mouseStatus
  document.onmouseenter=()=>mouseStatus=true;document.onmouseleave=()=>mouseStatus=false
+
+
+
+
+
+
+
+
+
  fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec'+location.search)
  .then(res=>res.text())
  .then(data=>{let i=0
