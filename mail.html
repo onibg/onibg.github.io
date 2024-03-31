@@ -18,7 +18,7 @@ document.onmouseenter=()=>mouseStatus=true;document.onmouseleave=()=>mouseStatus
 start()
 function start(){
  const controller=new AbortController()
- const timeout=setTimeout(()=>{controller.abort();start()},2100)//請求超時3秒處理
+ const timeout=setTimeout(()=>{controller.abort();start()},2300)//請求超時3秒處理
  fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec'+location.search,{signal:controller.signal})
  .then(res=>{clearTimeout(timeout);return res.text()})
  .then(data=>{let i=0
