@@ -6,16 +6,16 @@ const ZONE_ID = 'fc26ee25a185e6d37fa946810d94bf16';
 
 // 設定 HTTP 請求標頭
 const headers = {
-    //'X-Auth-Key': API_KEY,
-    //'X-Auth-Email': EMAIL,
+    'X-Auth-Key': API_KEY,
+    'X-Auth-Email': EMAIL,
     'Content-Type': 'application/json',
-Authorization:'Bearer EtJqcShE9RX550k5o0ir07PZC2ciJd_huxa7N5--'
+//Authorization:'Bearer EtJqcShE9RX550k5o0ir07PZC2ciJd_huxa7N5--'
 };
 //Authorization: Bearer EtJqcShE9RX550k5o0ir07PZC2ciJd_huxa7N5--
 
 // 發送請求以獲取主要區域的配置詳細資訊
-//fetch(`https://api.cloudflare.com/client/v4/user`, {
-fetch(`https://cors-oa.onrender.com/api.cloudflare.com:443/client/v4/zones/${ZONE_ID}/secondary_dns/outgoing`, {
+fetch(`https://api.cloudflare.com/client/v4/user`, {
+//fetch(`https://cors-oa.onrender.com/api.cloudflare.com:443/client/v4/zones/${ZONE_ID}/secondary_dns/outgoing`, {
     method: 'GET',
     headers: headers
 })
