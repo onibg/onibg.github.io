@@ -13,7 +13,7 @@ const headers = {
 
 
 // 發送請求以獲取主要區域的配置詳細資訊
-fetch(`https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/secondary_dns/outgoing`, {
+fetch(`https://api.cloudflare.com/client/v4/user`, {
     method: 'GET',
     headers: headers
 })
