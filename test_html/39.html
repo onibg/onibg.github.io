@@ -1,3 +1,27 @@
 <script>
+// Cloudflare API 相關設定
+const API_KEY = 'YOUR_API_KEY';
+const EMAIL = 'YOUR_EMAIL';
+const ZONE_ID = 'YOUR_ZONE_ID';
 
+// 設定 HTTP 請求標頭
+const headers = {
+    'X-Auth-Key': API_KEY,
+    'X-Auth-Email': EMAIL,
+    'Content-Type': 'application/json'
+};
+
+// 發送請求以獲取主要區域的配置詳細資訊
+fetch(`https://api.cloudflare.com/client/v4/zones/${ZONE_ID}`, {
+    method: 'GET',
+    headers: headers
+})
+.then(response => response.json())
+.then(data => {
+    // 輸出主要區域的配置詳細資訊
+    console.log('主要區域配置詳細資訊：', data.result);
+})
+.catch(error => {
+    console.error('獲取主要區域配置詳細資訊時發生錯誤：', error);
+});
 </script>
