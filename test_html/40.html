@@ -1,5 +1,8 @@
+<button onclick="getAuth()">開始</button>
 <script>
-fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?onibg')
- .then(res=>res.text())
- .then(data=>console.log(data))
+async function getAuth(){
+ let res=await fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?onibg')
+ res=await res.text()
+ console.log(data)
+}
 </script>
