@@ -29,6 +29,7 @@ if(document.getElementsByName("radio")[0].checked){show();return false}'>
 </form>
 <div></div>
 <script>
+console.log(location.search)
 var t=document.getElementsByTagName("textarea")[0]
 function show()
 {
@@ -37,7 +38,7 @@ for(var i=0;i<=12;i++)
 {str+=arr[i].name+"="+arr[i].value+"&"}
 str=str.slice(0,-1)
 var xhr=new XMLHttpRequest()
-xhr.open("POST","https://call-oa.onrender.com/?url=https://school.tc.edu.tw/score-manage/score-query/get-score-data")
+xhr.open("POST",`https://call-oa.onrender.com/?url=https://school.tc.edu.tw/score-manage/score-query/get-score-data`)
 xhr.setRequestHeader("content-type","application/x-www-form-urlencoded")
 xhr.send(str+'&save_type=')
 xhr.onload=function(){
