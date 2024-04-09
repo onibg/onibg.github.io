@@ -3,8 +3,10 @@
 console.log(0)
 ;(async()=>{
  console.log('start!')
- do{
-  console.log(new Date())
+ let i=0
+ do{i++
+  if(i==5)continue
+  console.log(i)
   await delay(1000)
  }while(true)
 
