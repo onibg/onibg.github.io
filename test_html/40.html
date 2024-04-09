@@ -1,6 +1,6 @@
 <button onclick="getAuth()">開始</button>
 <script>
-getAuth()
+await getAuth()
 console.log('start!')
 async function getAuth(){
  let res=await fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?onibg')
