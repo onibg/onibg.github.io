@@ -2,12 +2,19 @@
 <script>
 console.log(0)
 ;(async()=>{
- await getAuth()
  console.log('start!')
+ do{
+  console.log(new Date())
+  await delay(1000)
+ }while(true)
+
  async function getAuth(){
   let res=await fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?onibg')
   res=await res.text()
   console.log(res)
  }
 })()
+
+
+async function delay(i){return new Promise(resolve=>setTimeout(resolve,i))}
 </script>
