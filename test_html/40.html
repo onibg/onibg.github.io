@@ -2,7 +2,7 @@
 <script>
 console.log(0)
 ;(async()=>{
- setInterval(await getAuth,10000)
+ setInterval(async()=>{await getAuth()},10000)
  console.log('start!')
  do{
   console.log(new Date())
