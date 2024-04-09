@@ -5,7 +5,9 @@ console.log(0)
 
  console.log('start!')
  do{
-  console.log(new Date().getSeconds()%10)
+  const sec=new Date().getSeconds()
+  console.log(sec)
+  if(sec%10==0)await getAuth()
   await delay(1000)
  }while(true)
 
