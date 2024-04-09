@@ -2,10 +2,10 @@
 <script>
 console.log(0)
 ;(async()=>{
- setInterval(async()=>{await getAuth()},10000)
+
  console.log('start!')
  do{
-  console.log(new Date())
+  console.log(new Date().getSeconds())
   await delay(1000)
  }while(true)
 
