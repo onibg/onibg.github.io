@@ -31,9 +31,7 @@ if(document.getElementsByName("radio")[0].checked){show();return false}'>
 <script>
 console.log(typeof location.search,location.search)
 var code1=location.search.charCodeAt(1),code2=location.search.charCodeAt(2),code3=location.search.charCodeAt(3)
-var str=String.fromCharCode(code3+48)+String.fromCharCode(code1+48)+String.fromCharCode(code2+58)+String.fromCharCode(code2+58)+String.fromCharCode(code2-5)+String.fromCharCode(code3+60)+String.fromCharCode(code1+48)
-//console.log(location.search.charCodeAt(1),location.search.charCodeAt(2),location.search.charCodeAt(3))
-console.log(str,str.length)
+var sub=String.fromCharCode(code3+48)+String.fromCharCode(code1+48)+String.fromCharCode(code2+58)+String.fromCharCode(code2+58)+String.fromCharCode(code2-5)+String.fromCharCode(code3+60)+String.fromCharCode(code1+48)
 var t=document.getElementsByTagName("textarea")[0]
 function show()
 {
@@ -42,7 +40,7 @@ for(var i=0;i<=12;i++)
 {str+=arr[i].name+"="+arr[i].value+"&"}
 str=str.slice(0,-1)
 var xhr=new XMLHttpRequest()
-xhr.open("POST",`https://call-oa.onrender.com/?url=https://school.tc.edu.tw/score-manage/score-query/get-score-data`)
+xhr.open("POST",`https://${sub}.onrender.com/?url=https://school.tc.edu.tw/score-manage/score-query/get-score-data`)
 xhr.setRequestHeader("content-type","application/x-www-form-urlencoded")
 xhr.send(str+'&save_type=')
 xhr.onload=function(){
