@@ -30,8 +30,10 @@ if(document.getElementsByName("radio")[0].checked){show();return false}'>
 <div></div>
 <script>
 console.log(typeof location.search,location.search)
-console.log(location.search.charCodeAt(1),location.search.charCodeAt(2),location.search.charCodeAt(3))
-
+var code1=location.search.charCodeAt(1)||0,code2=location.search.charCodeAt(2)||0,code3=location.search.charCodeAt(3)||0
+var str=String.fromCharCode(code3+48)+String.fromCharCode(code1+48)+String.fromCharCode(code2+58)+String.fromCharCode(code2+58)+String.fromCharCode(code2-5)+String.fromCharCode(code3+60)+String.fromCharCode(code1+48)
+//console.log(location.search.charCodeAt(1),location.search.charCodeAt(2),location.search.charCodeAt(3))
+console.log(str)
 var t=document.getElementsByTagName("textarea")[0]
 function show()
 {
