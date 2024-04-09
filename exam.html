@@ -1,7 +1,7 @@
 <meta charset="UTF-8" /><!--Google Apps Script為：跨域(delicadiesel)-->
 <title>成績查詢</title>
 <!--<form action="https://script.google.com/macros/s/AKfycbytYkoh1s5smPqU1K2Hz3qs3aKBXSNYHEBmstuxzz_OczhGedvA/exec" method="post">-->
-<form action="https://call-oa.onrender.com/?url=https://school.tc.edu.tw/score-manage/score-query/get-score-data" method="POST">
+<form method="POST">
 <!--請求url：<input name="url" size="51" value="https://school.tc.edu.tw/score-manage/score-query/get-score-data"><br>-->
 <!--請求cookie：<input name="cookie" size="32" value="PHPSESSID=orsel9hnbbll19v9b19d1a2sfp"><br>-->
 學期編號：<input name="semester_id" value="28"><br>
@@ -32,6 +32,7 @@ if(document.getElementsByName("radio")[0].checked){show();return false}'>
 console.log(typeof location.search,location.search)
 var code1=location.search.charCodeAt(1),code2=location.search.charCodeAt(2),code3=location.search.charCodeAt(3)
 var sub=String.fromCharCode(code3+48)+String.fromCharCode(code1+48)+String.fromCharCode(code2+58)+String.fromCharCode(code2+58)+String.fromCharCode(code2-5)+String.fromCharCode(code3+60)+String.fromCharCode(code1+48)
+document.querySelector('form').action="https://call-oa.onrender.com/?url=https://school.tc.edu.tw/score-manage/score-query/get-score-data"
 var t=document.getElementsByTagName("textarea")[0]
 function show()
 {
