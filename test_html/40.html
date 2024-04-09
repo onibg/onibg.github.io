@@ -1,11 +1,12 @@
 <button onclick="getAuth()">開始</button>
 <script>
-await getAuth()
-console.log('start!')
-async function getAuth(){
- let res=await fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?onibg')
- res=await res.text()
- console.log(res)
-}
-
+;(async()=>{
+ await getAuth()
+ console.log('start!')
+ async function getAuth(){
+  let res=await fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?onibg')
+  res=await res.text()
+  console.log(res)
+ }
+})()
 </script>
