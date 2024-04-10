@@ -1,10 +1,11 @@
 <button onclick="start()">每隔1秒請求</button>
 <script>
+let i=0
 async function start(){
  console.log('start!')
  while(true){
   const sec=new Date().getSeconds()
-  try{const res=await fetch('https://grmn.iqiq.cc/17/109800/56132.pbf')
+  try{const res=await fetch(`https://grmn.iqiq.cc/10/${++i}`)
    console.log(sec,res.status)
   }catch(e){console.log(sec,e)}
   await delay(1000)
