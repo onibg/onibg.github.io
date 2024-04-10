@@ -1,26 +1,16 @@
-<button onclick="getAuth()">開始</button>
+<button onclick="getAuth()">每隔1秒請求</button>
 <script>
-console.log(0)
 ;(async()=>{
-
  console.log('start!')
- do{
+ while(true){
   const sec=new Date().getSeconds()
   console.log(sec)
-  if(sec%10==0)await getAuth()
   await delay(1000)
- }while(true)
+ }
 
 
 })()
 
 
-
-
- async function getAuth(){
-  let res=await fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?onibg')
-  res=await res.text()
-  console.log(res)
- }
 async function delay(i){return new Promise(resolve=>setTimeout(resolve,i))}
 </script>
