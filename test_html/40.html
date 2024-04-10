@@ -1,6 +1,6 @@
-<button onclick="getAuth()">每隔1秒請求</button>
+<button onclick="start()">每隔1秒請求</button>
 <script>
-;(async()=>{
+async function start(){
  console.log('start!')
  while(true){
   const sec=new Date().getSeconds()
@@ -8,9 +8,8 @@
   console.log(sec,res.status)
   await delay(1000)
  }
+}
 
-
-})()
 
 
 async function delay(i){return new Promise(resolve=>setTimeout(resolve,i))}
