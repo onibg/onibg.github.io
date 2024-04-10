@@ -4,7 +4,8 @@
  console.log('start!')
  while(true){
   const sec=new Date().getSeconds()
-  console.log(sec)
+  const res=await fetch('https://grmn.iqiq.cc/17/109800/56132.pbf')
+  console.log(sec,res.status)
   await delay(1000)
  }
 
