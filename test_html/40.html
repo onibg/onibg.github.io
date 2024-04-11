@@ -1,4 +1,5 @@
 <button onclick="start()">每隔1秒請求</button>
+<button onclick="domain()">更改Domains</button>
 <script>
 let i=0
 async function start(){
@@ -12,6 +13,14 @@ async function start(){
  }
 }
 
+async function domain(){
+ try{
+  let res=await fetch('https://dash.deno.com/_api/projects/opot/domains',{method:"POST",
+   headers:{'Content-Type':'application/json',Cookie:'token=ddw_qRU3nPZmDsvprNhftQFzYj0yYHDwDN0Dikrw'},body:'{"domain":"erty.iqiq.cc"}'})
+  res=await res.json()
+  console.log(res)
+ }catch(error){console.error('Error:',error)}
+}
 
 async function delay(i){return new Promise(resolve=>setTimeout(resolve,i))}
 </script>
