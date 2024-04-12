@@ -4,10 +4,11 @@ test
 <script>
 function test(){
  for(let i=1;i<=100;i++){
-  console.log(i)
-  fetch(`https://grmn.iqiq.cc/18/219087/${113096+i}`)
+  request(`https://grmn.iqiq.cc/18/219087/${113096+i}`)
  }
 }
-
+function request(url){
+ fetch(url).then(res=>res.arrayBuffer()).then(buf=>console.log(buf))
+}
 
 </script>
