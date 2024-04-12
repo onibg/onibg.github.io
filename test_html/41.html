@@ -2,14 +2,14 @@
 test
 </button>
 <script>
-var i=0
+
 function test(){
  for(let i=1;i<=100;i++){
-  request(`https://grmn.iqiq.cc/18/219087/${113096+i}`)
+  request(i,`https://grmn.iqiq.cc/18/219087/${113096+i}`)
  }
 }
-function request(url){
- fetch(url).then(res=>res.arrayBuffer()).then(buf=>console.log(++i))
+function request(i,url){
+ fetch(url).then(res=>res.arrayBuffer()).then(buf=>console.log(i))
 }
 
 </script>
