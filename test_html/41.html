@@ -2,14 +2,15 @@
 test
 </button>
 <script>
-
+var startTime,num=1000
 function test(){
- for(let i=1;i<=1000;i++){
+ startTime=new Date()
+ for(let i=1;i<=num;i++){
   request(i,`https://grmn.iqiq.cc/18/219087/${113096+i}`)
  }
 }
 function request(i,url){
- fetch(url).then(res=>res.arrayBuffer()).then(buf=>console.log(i))
+ fetch(url).then(res=>res.arrayBuffer()).then(buf=>{num--;console.log(i);if(num==0)console.log(new Date()-startTime)})
 }
 
 </script>
