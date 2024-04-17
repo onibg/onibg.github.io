@@ -1,13 +1,54 @@
 <script>
-
 test()
-
-
-function test(){
- try{
- lert('hello')
-}catch(e){console.log('錯誤',e);return}
-console.log('後面')
+function test() {
+ var xhr=new XMLHttpRequest();
+ xhr.open('GET','https://script.google.com/macros/s/AKfycbwC42_mTmRl9XV5KTrWbU9o2mjAHJC3X_xj2VqEld9iLkGdrrQXI75xQ81V4hlEY473gA/exec?target=ilv.tw',true)
+ xhr.send()
+ xhr.onload=function(){
+console.log(xhr.response)
 
 }
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+  xhr.timeout = 5000;
+
+  // 監聽超時事件
+  xhr.ontimeout = function () {
+    console.log('請求超時');
+    xhr.abort(); // 手動終止請求
+
+    // 重新傳送請求
+    makeRequest();
+  };
+
+  // 監聽請求完成事件
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      console.log('請求成功');
+    } else {
+      console.log('請求失敗');
+    }
+  };
+*/
 </script>
