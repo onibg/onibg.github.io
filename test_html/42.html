@@ -2,10 +2,19 @@
 test()
 function test() {
  var xhr=new XMLHttpRequest();
+ xhr.timeout = 5000;
+
+// 監聽超時事件
+xhr.ontimeout = function () {
+  console.log('請求超時');
+};
+
+
+
  xhr.open('GET','https://script.google.com/macros/s/AKfycbwC42_mTmRl9XV5KTrWbU9o2mjAHJC3X_xj2VqEld9iLkGdrrQXI75xQ81V4hlEY473gA/exec?target=ilv.tw',true)
  xhr.send()
  xhr.onload=function(){
-console.log(xhr.response)
+  console.log(xhr.response)
 
 }
 
