@@ -2,10 +2,8 @@
 test()
 function test(){
  var xhr=new XMLHttpRequest();
- xhr.timeout=7000;
- xhr.ontimeout=function(){
-  console.log('請求超時')
- }
+ //xhr.timeout=7000;
+ //xhr.ontimeout=function(){console.log('請求超時')}
  xhr.open('GET','https://cors-rrw.onrender.com/idp.glitch.me:443/1x_dBP9696YROrp4GcdlNCRNae-WDVzle',true)
  xhr.responseType="arraybuffer"
  xhr.send()
@@ -13,5 +11,13 @@ function test(){
   console.log(xhr.response)
  }
 }
+xhr.onreadystatechange=function(){
+ console.log(xhr.readyState)
+}
+
+
+
+
+
 
 </script>
