@@ -7,6 +7,7 @@ function test(){
   console.log('請求超時')
  }
  xhr.open('GET','https://ilv.ilv.tw/test.mp4',true)
+ xhr.responseType="arraybuffer"
  xhr.send()
  xhr.onload=function(){
   console.log(xhr.response)
