@@ -15,3 +15,4 @@ function request(i,url){
  fetch(url).then(res=>res.arrayBuffer()).then(buf=>{num--;console.log(i);if(num==0)console.log(new Date()-startTime+'毫秒')})
 }
 </script>
+
