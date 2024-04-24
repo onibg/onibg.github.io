@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>畫面方向控制</title>
+<style>
+  button {
+    display: block;
+    margin: 10px;
+  }
+</style>
+</head>
+<body>
+
+<button id="portraitBtn">強制直向</button>
+<button id="landscapeBtn">強制橫向</button>
+
+<script>
+  document.getElementById('portraitBtn').addEventListener('click', function() {
+    lockScreenOrientation('portrait');
+  });
+
+  document.getElementById('landscapeBtn').addEventListener('click', function() {
+    lockScreenOrientation('landscape');
+  });
+
+  function lockScreenOrientation(orientation) {
+    if (screen.orientation && screen.orientation.lock) {
+      screen.orientation.lock(orientation).then(function() {
+        console.log('畫面方向已成功鎖定為 ' + orientation);
+      }).catch(function(error) {
+        console.error('無法鎖定畫面方向：', error);
+      });
+    } else {
+      console.error('瀏覽器不支持 ScreenOrientation API');
+    }
+  }
+</script>
+
+</body>
+</html>
