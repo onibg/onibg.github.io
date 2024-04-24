@@ -1,42 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>畫面方向控制</title>
-<style>
-  button {
-    display: block;
-    margin: 10px;
-  }
-</style>
-</head>
-<body>
-
-<button id="portraitBtn">強制直向</button>
-<button id="landscapeBtn">強制橫向</button>
-
+<div id="example_container">
+  <button id="fullscreen_button">Fullscreen</button>
+  <button id="lock_button">Lock</button>
+  <button id="unlock_button">Unlock</button>
+  <textarea id="log" rows="7" cols="85"></textarea>
+</div>
 <script>
-  document.getElementById('portraitBtn').addEventListener('click', function() {
-    lockScreenOrientation('portrait');
-  });
+const log = document.getElementById("log");
 
-  document.getElementById('landscapeBtn').addEventListener('click', function() {
-    lockScreenOrientation('landscape');
-  });
+// Lock button: Lock the screen to the other orientation (rotated by 90 degrees)
+const rotate_btn = document.querySelector("#lock_button");
+rotate_btn.addEventListener("click", () => {
+  log.textContent += `Lock pressed \n`;
 
-  function lockScreenOrientation(orientation) {
-    if (screen.orientation && screen.orientation.lock) {
-      screen.orientation.lock(orientation).then(function() {
-        console.log('畫面方向已成功鎖定為 ' + orientation);
-      }).catch(function(error) {
-        console.error('無法鎖定畫面方向：', error);
-      });
-    } else {
-      console.error('瀏覽器不支持 ScreenOrientation API');
-    }
-  }
+  const oppositeOrientation = screen.orientation.type.startsWith("portrait")
+    ? "landscape"
+    : "portrait";
+  screen.orientation
+    .lock(oppositeOrientation)
+    .then(() => {
+      log.textContent = `Locked to ${oppositeOrientation}\n`;
+    })
+    .catch((error) => {
+      log.textContent += `${error}\n`;
+    });
+});
+
+// Unlock button: Unlock the screen orientation (if locked)
+const unlock_btn = document.querySelector("#unlock_button");
+unlock_btn.addEventListener("click", () => {
+  log.textContent += "Unlock pressed \n";
+  screen.orientation.unlock();
+});
+
+// Full screen button: Set the example to fullscreen.
+const fullscreen_btn = document.querySelector("#fullscreen_button");
+fullscreen_btn.addEventListener("click", () => {
+  log.textContent += "Fullscreen pressed \n";
+  const container = document.querySelector("#example_container");
+  container.requestFullscreen().catch((error) => {
+    log.textContent += `${error}\n`;
+  });
+});
 </script>
-
-</body>
-</html>
