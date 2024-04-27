@@ -1,30 +1,57 @@
-    <title>43Display a map</title>
-    <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css'>
-    <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
-    <style>
-
-        body { margin: 0; padding: 0; }
-
-         #map { height: 100%; }
-
-    </style>
-
+<title>43Display a map</title>
+<link rel='stylesheet' href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css'>
+<script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
+<style>
+ body{margin:0;padding:0}
+ #map{height:100%}
+</style>
 <div id="map"></div>
-
 <script>
+ const map=new maplibregl.Map({
+  container:'map',//container id
+  style:'https://demotiles.maplibre.org/style.json',//style URL
+  center:[120.60052,24.11133],//starting position [lng,lat]
+  zoom:9,//starting zoom
+ })
 
-    const map = new maplibregl.Map({
+ map.on('load',function(){
+  map.addSource('contours',{
+   type:'vector',
+   tiles:[`https://topo.iqiq.cc/{z}/{x}/{y}.pbf`],
+   minzoom:9,
+   maxzoom:14
+  })
 
-        container: 'map', // container id
+  map.addLayer({
+   id:'contour-lines',
+   type:'line',
+   source:'contours',
+   'source-layer':'contour',
+   layout:{},
+   paint:{
+          'line-color':'#ff0000',//Adjust color as needed
+          'line-opacity':0.8,//Adjust opacity as needed
+          'line-width':1//Adjust width as needed
+         }
+  })
 
-        style: 'https://demotiles.maplibre.org/style.json', // style URL
-
-        center: [120.60052,24.11133], // starting position [lng, lat]
-
-        zoom: 9, // starting zoom
-
-
-    });
-
+  map.addLayer({
+   id:'contour-labels',
+   type:'symbol',
+   source:'contours',
+   'source-layer':'contour',
+   layout:{
+           'text-field':['to-string',['get','height']],//Display height value
+           'text-font':['Open Sans Regular'],//Adjust font family as needed
+           'text-size':10,//Adjust font size as needed
+           'text-anchor':'center',//Center the text horizontally
+           'symbol-placement':'line',//Place symbols along the line
+           'symbol-spacing':100//Adjust spacing between symbols as needed
+          },
+   paint:{
+          'text-color':'#000000'//Adjust text color as needed
+         }
+  })
+ })//load
 
 </script>
