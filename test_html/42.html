@@ -4,17 +4,14 @@
 <script>
 function test(){
  var xhr=new XMLHttpRequest();
- //xhr.timeout=7000;
- //xhr.ontimeout=function(){console.log('請求超時')}
- xhr.open('GET','https://cors-rrw.onrender.com/idp.glitch.me:443/1x_dBP9696YROrp4GcdlNCRNae-WDVzle',true)
- xhr.responseType="arraybuffer"
+ xhr.open('GET','https://tdx.transportdata.tw/api/basic/v2/Rail/Metro/StationExit/TMRT?$format=JSON',true)
+ xhr.setRequestHeader('Authorization','Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJER2lKNFE5bFg4WldFajlNNEE2amFVNm9JOGJVQ3RYWGV6OFdZVzh3ZkhrIn0.eyJleHAiOjE3MTQ2Mjk2MDMsImlhdCI6MTcxNDU0MzIwMywianRpIjoiZWUyNjc3YmItODBjZi00Y2Y0LTgwMDctNjhiZDEzZDE0ZjNkIiwiaXNzIjoiaHR0cHM6Ly90ZHgudHJhbnNwb3J0ZGF0YS50dy9hdXRoL3JlYWxtcy9URFhDb25uZWN0Iiwic3ViIjoiM2EwNTM5MGUtZDBlYS00ZjczLTkyM2YtODRlZmZlMzhlNmQ2IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibWlpbm1haWwtYjM1YmYxZGYtOTk4Mi00ODE1IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJzdGF0aXN0aWMiLCJwcmVtaXVtIiwibWFhcyIsImFkdmFuY2VkIiwiZ3JlZW5tYWFzIiwiaGlzdG9yaWNhbCIsImJhc2ljIl19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJ1c2VyIjoiZDlmYzlhMGYifQ.Fz7YuABjcQHwben0U0lCrmHw-tHdQ-56Ciry5Ho7GznhLT7RUPDr-6ZJHy8r0GDYlnpnw9YUFQCikL49K0weILPS3vTT90scT65VT7raOrDBQorCDp78ApB9XIiN4v3DRGUrrEjiBEdMBH5ATPptZg42jVPjZ-mgKBXYwfrR8q1yfjMhw1GEbD40polaDcYse7yvmnoMB4I7FZ-hznyNOZO-8Dy70832lw1cF5kQ4rVeHJAv2LImauvAVbV1_9xd3t0xBamRxXU_IuHb9RRb9lRLHR5WcGMFNq02ALL9U7UpLbaedSFY7HM40sFwXoX3KCYJlE2YyNqiKaHNIAz4eA')
+ xhr.responseType="json"
  xhr.send()
  xhr.onload=function(){
   console.log(xhr.response)
  }
-xhr.onreadystatechange=function(){
- console.log(xhr.readyState)
-}
+//xhr.onreadystatechange=function(){console.log(xhr.readyState)}
 
 }
 
