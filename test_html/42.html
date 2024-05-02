@@ -8,7 +8,6 @@ function getToken(){
  xhr.open('GET','https://call-oa.onrender.com/twoTokens?format=JSON',true)
  xhr.send()
  xhr.onload=function(){
- console.log(xhr.response)
  token=xhr.response.split('\n')[0]
  console.log(token)
  }
