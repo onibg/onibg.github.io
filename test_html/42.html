@@ -53,13 +53,13 @@ makeKML('https://tdx.transportdata.tw/api/basic/v2/Rail/Metro/StationExit/NTMC?$
 
 function makeKML(url,name,index){
  var xhr=new XMLHttpRequest()
- xhr.open('GET',url,true)
+ xhr.open('GET',url,false)
  xhr.setRequestHeader('Authorization','Bearer '+token)
  xhr.responseType="json"
  xhr.send()
- xhr.onload=function(){
+ //xhr.onload=function(){
   console.log(xhr.response)
- }
+ //}
 }
 
 }
