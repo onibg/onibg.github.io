@@ -53,9 +53,9 @@ makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/Keelung?
 
 function makeKML(url,name,index){
  var xhr=new XMLHttpRequest()
+ xhr.open('GET',url,true)
  xhr.setRequestHeader('Authorization','Bearer '+token)
  xhr.responseType="json"
- xhr.open('GET',url,true)
  xhr.send()
  xhr.onload=function(){
   console.log(xhr.response)
