@@ -9,8 +9,8 @@ function getToken(){
  xhr.send()
  xhr.onload=function(){
  console.log(xhr.response)
- //token=
- //console.log(token)
+ token=xhr.response.split('\n')[0]
+ console.log(token)
  }
 }
 
