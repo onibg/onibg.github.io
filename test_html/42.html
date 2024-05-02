@@ -1,9 +1,70 @@
 
-<button onclick="test()">test</button>
+<button onclick="getToken()">getToken</button>
+<button onclick="start()">start</button>
 
 <script>
-function test(){
- var xhr=new XMLHttpRequest();
+function getToken(){
+ var xhr=new XMLHttpRequest()
+ xhr.open('GET','https://call-oa.onrender.com/twoTokens?format=JSON',true)
+ xhr.send()
+ xhr.onload=function(){
+ console.log(xhr.response)
+ //token=
+ //console.log(token)
+ }
+}
+
+function start(){
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/Keelung?$format=JSON','基隆市',0)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/Taipei?$format=JSON','台北市',1)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/NewTaipei?$format=JSON','新北市',2)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/Taoyuan?$format=JSON','桃園市',3)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/HsinchuCounty?$format=JSON','新竹縣',4)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/Hsinchu?$format=JSON','新竹市',5)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/MiaoliCounty?$format=JSON','苗栗縣',6)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/Taichung?$format=JSON','台中市',7)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/ChanghuaCounty?$format=JSON','彰化縣',8)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/NantouCounty?$format=JSON','南投縣',9)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/YunlinCounty?$format=JSON','雲林縣',10)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/ChiayiCounty?$format=JSON','嘉義縣',11)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/Chiayi?$format=JSON','嘉義市',12)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/Tainan?$format=JSON','台南市',13)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/Kaohsiung?$format=JSON','高雄市',14)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/PingtungCounty?$format=JSON','屏東縣',15)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/YilanCounty?$format=JSON','宜蘭縣',16)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/HualienCounty?$format=JSON','花蓮縣',17)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/TaitungCounty?$format=JSON','台東縣',18)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/LienchiangCounty?$format=JSON','連江縣',19)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/KinmenCounty?$format=JSON','金門縣',20)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/PenghuCounty?$format=JSON','澎湖縣',21)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/InterCity?$format=JSON','公路客運',22)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Tourism/Bus/StopOfRoute/TaiwanTrip?$format=JSON','台灣好行',23)
+makeKML('https://tdx.transportdata.tw/api/basic/v3/Rail/TRA/StationExit?$format=JSON','火車站',27)
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Rail/THSR/StationExit?$format=JSON','捷運站',28)//高鐵站
+makeKML('https://tdx.transportdata.tw/api/basic/v3/Rail/AFR/Station?$format=JSON','輕軌站',29)//阿里山火車
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Rail/Metro/Station/NTALRT?$format=JSON','輕軌站',30)//安坑輕軌站
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Rail/Metro/Station/NTDLRT?$format=JSON','輕軌站',31)//淡海輕軌站
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Rail/Metro/Station/KLRT?$format=JSON','輕軌站',32)//高雄輕軌站
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Rail/Metro/StationExit/TRTCMG?$format=JSON','捷運站',33)//貓空纜車
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Rail/Metro/StationExit/TRTC?$format=JSON','捷運站',34)//台北捷運站
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Rail/Metro/StationExit/TYMC?$format=JSON','捷運站',35)//桃園捷運站
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Rail/Metro/StationExit/KRTC?$format=JSON','捷運站',36)//高雄捷運站
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Rail/Metro/StationExit/TMRT?$format=JSON','捷運站',37)//台中捷運站
+makeKML('https://tdx.transportdata.tw/api/basic/v2/Rail/Metro/StationExit/NTMC?$format=JSON','捷運站',38)//新北捷運站
+
+function makeKML(url,name,index){
+ var xhr=new XMLHttpRequest()
+
+
+
+
+
+}
+
+
+
+
+
  xhr.open('GET','https://tdx.transportdata.tw/api/basic/v2/Rail/Metro/StationExit/TMRT?$format=JSON',true)
  xhr.setRequestHeader('Authorization','Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJER2lKNFE5bFg4WldFajlNNEE2amFVNm9JOGJVQ3RYWGV6OFdZVzh3ZkhrIn0.eyJleHAiOjE3MTQ2Mjk2MDMsImlhdCI6MTcxNDU0MzIwMywianRpIjoiZWUyNjc3YmItODBjZi00Y2Y0LTgwMDctNjhiZDEzZDE0ZjNkIiwiaXNzIjoiaHR0cHM6Ly90ZHgudHJhbnNwb3J0ZGF0YS50dy9hdXRoL3JlYWxtcy9URFhDb25uZWN0Iiwic3ViIjoiM2EwNTM5MGUtZDBlYS00ZjczLTkyM2YtODRlZmZlMzhlNmQ2IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibWlpbm1haWwtYjM1YmYxZGYtOTk4Mi00ODE1IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJzdGF0aXN0aWMiLCJwcmVtaXVtIiwibWFhcyIsImFkdmFuY2VkIiwiZ3JlZW5tYWFzIiwiaGlzdG9yaWNhbCIsImJhc2ljIl19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJ1c2VyIjoiZDlmYzlhMGYifQ.Fz7YuABjcQHwben0U0lCrmHw-tHdQ-56Ciry5Ho7GznhLT7RUPDr-6ZJHy8r0GDYlnpnw9YUFQCikL49K0weILPS3vTT90scT65VT7raOrDBQorCDp78ApB9XIiN4v3DRGUrrEjiBEdMBH5ATPptZg42jVPjZ-mgKBXYwfrR8q1yfjMhw1GEbD40polaDcYse7yvmnoMB4I7FZ-hznyNOZO-8Dy70832lw1cF5kQ4rVeHJAv2LImauvAVbV1_9xd3t0xBamRxXU_IuHb9RRb9lRLHR5WcGMFNq02ALL9U7UpLbaedSFY7HM40sFwXoX3KCYJlE2YyNqiKaHNIAz4eA')
  xhr.responseType="json"
