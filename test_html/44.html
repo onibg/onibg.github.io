@@ -1,9 +1,9 @@
 <script>
-fetch('https://api.ipify.org')
-.then(res=>{//throw new Error('錯誤');
-//return res.text()
-if(res.status==200)return res.text();else throw new Error('非200')
-})
-.then(data=>{console.log('data',data)})
+const xhr=new XMLHttpRequest()
+xhr.open('GET',`https://www.googleapis.com/drive/v3/files`,true)
+xhr.responseType='json'
+xhr.send()
+xhr.onload=()=>{console.log(xhr.response)}
+
 setInterval(()=>console.log('hi'),1000)
 </script>
