@@ -62,21 +62,24 @@ function read(){
   const row=tr[onibgObj[mail].row]
   for(let i=1;i<=5;i++){row.children[i].textContent='';row.children[i].style.backgroundColor='black'}
   trash(mail);if(onibgObj[mail].row>3)special(mail)
-  fetch('https://www.googleapis.com/drive/v3/about?fields=storageQuota&'+mail,{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
-  .then(res=>res.json())
-  .then(data=>{
-    const remain=data.storageQuota.limit-data.storageQuota.usage
-    row.children[1].textContent=data.storageQuota.usageInDriveTrash+row.children[1].textContent
-    row.children[2].textContent=data.storageQuota.usageInDrive
-    if(onibgObj[mail].row<=3)return
-    row.children[3].textContent=data.storageQuota.usage
-    let remainG=Math.floor(remain/1073741824*100)/100+''
-    const index=remainG.indexOf('.');if(index==-1){remainG+='.'}
-    remainG=remainG.slice(0,index).padStart(2,' ')+remainG.slice(index).padEnd(3,'0')+'G'
-    row.children[4].textContent=remain+'＝'+remainG
-  //row.children[4].textContent=remain+'＝'+((remain/1073741824).toFixed(2)+'G').padStart(6,' ')
-    if(row.children[2].textContent!=row.children[3].textContent){row.children[3].style.backgroundColor='red'}else{row.children[3].style.backgroundColor='black'}
-  })
+  Fetch()
+  function Fetch(){
+   fetch('https://www.googleapis.com/drive/v3/about?fields=storageQuota&'+mail,{headers:{'Authorization':'Bearer '+onibgObj[mail].token}})
+   .then(res=>{if(res.status!=200)throw new Error('status非200');return res.json()})
+   .then(data=>{
+     const remain=data.storageQuota.limit-data.storageQuota.usage
+     row.children[1].textContent=data.storageQuota.usageInDriveTrash+row.children[1].textContent
+     row.children[2].textContent=data.storageQuota.usageInDrive
+     if(onibgObj[mail].row<=3)return
+     row.children[3].textContent=data.storageQuota.usage
+     let remainG=Math.floor(remain/1073741824*100)/100+''
+     const index=remainG.indexOf('.');if(index==-1){remainG+='.'}
+     remainG=remainG.slice(0,index).padStart(2,' ')+remainG.slice(index).padEnd(3,'0')+'G'
+     row.children[4].textContent=remain+'＝'+remainG
+   //row.children[4].textContent=remain+'＝'+((remain/1073741824).toFixed(2)+'G').padStart(6,' ')
+     if(row.children[2].textContent!=row.children[3].textContent){row.children[3].style.backgroundColor='red'}else{row.children[3].style.backgroundColor='black'}
+   }).catch(e=>Fetch())
+  }
   if(inputs[0].checked)rename(mail)
  }
 }
