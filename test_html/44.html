@@ -1,13 +1,11 @@
 <script>
 const xhr=new XMLHttpRequest()
+xhr.open('GET',`https://api.ipify.org`,true)
+xhr.responseType='json'
 xhr.onreadystatechange=()=>{
  console.log('readyState',xhr.readyState,xhr.status)
  if(xhr.status!=200)xhr.abort()
 }
-
-xhr.open('GET',`https://www.googleapis.com/drive/v3/files`,true)
-xhr.responseType='json'
-
 
 xhr.send()
 xhr.onload=()=>{console.log(xhr.response)}
