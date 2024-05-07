@@ -7,9 +7,9 @@ function start(){
  xhr.responseType='text'
  xhr.send()
  xhr.response=null
- xhr.onreadystatechange=()=>{console.log(xhr.readyState,xhr.status)
+ xhr.onreadystatechange=()=>{
+  console.log(xhr.readyState,xhr.status,xhr.response)
   if(xhr.readyState==2&&xhr.status!=200){xhr.abort();url='https://api.ipify.org';}
-  console.log(xhr.readyState,xhr.response)
  }
  xhr.onload=()=>{console.log('結果',xhr.response)}
 }
