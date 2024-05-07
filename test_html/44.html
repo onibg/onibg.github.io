@@ -1,6 +1,6 @@
 <script>
 fetch('https://www.googleapis.com/drive/v3/about?fields=storageQuota&')
-.then(res=>{if(res.status!=200)throw new Error('Status is not 200');return res.json()})
+.then(res=>{if(res.status!=200)throw new Error('Status is not 200');else return res.json()})
 .then(data=>{console.log('data',data)})
 
 </script>
