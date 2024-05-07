@@ -8,7 +8,6 @@ function start(){
  xhr.send()
  xhr.onreadystatechange=()=>{
   if(xhr.readyState==2&&xhr.status!=200){xhr.abort()}
-  if(xhr.readyState==4&&xhr.status!=200){url='https://api.ipify.org';start()}
  }
  xhr.onload=()=>{console.log('結果',xhr.response)}
 }
