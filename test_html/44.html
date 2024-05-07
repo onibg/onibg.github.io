@@ -6,7 +6,6 @@ function start(){
  xhr.open('GET',url,true)
  xhr.responseType='text'
  xhr.send()
- xhr.response=null
  xhr.onreadystatechange=()=>{
   console.log(url,xhr.readyState,xhr.status,''+xhr.response)
   if(xhr.status>=400){xhr.abort();url='https://api.ipify.org';setTimeout(start,0)}
