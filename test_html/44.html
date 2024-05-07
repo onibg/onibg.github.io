@@ -9,7 +9,7 @@ function start(){
  xhr.response=null
  xhr.onreadystatechange=()=>{
   console.log(url,xhr.readyState,xhr.status,''+xhr.response)
-  if(xhr.readyState==2&&xhr.status!=200){xhr.abort();url='https://api.ipify.org';setTimeout(start,2000)}
+  if(xhr.readyState==2&&xhr.status!=200){xhr.abort();url='https://api.ipify.org';setTimeout(start,0)}
  }
  //xhr.onload=()=>{console.log('結果',xhr.response)}
 }
