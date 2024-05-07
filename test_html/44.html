@@ -13,11 +13,15 @@ function start(){
 }
 setInterval(()=>console.log('hi'),1000)
 
+let ok=false
 function test(){
  xhr.open('GET','https://api.ipify.org',true)
- xhr.responseType='text'
+ //xhr.responseType='text'
  xhr.send()
- xhr.onload=()=>{console.log('測試',xhr.response)}
+ xhr.onload=()=>{
+  console.log('測試',xhr.response)
+  if(!ok){ok=true;test()}
+ }
 }
 
 </script>
