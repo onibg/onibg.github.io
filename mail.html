@@ -171,6 +171,7 @@ function emptyTrash(mail){
  xhr.open('DELETE','https://www.googleapis.com/drive/v3/files/trash',true)
  xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
  xhr.send()
+ xhr.onreadystatechange=()=>{if(xhr.status>=400){xhr.abort();setTimeout(()=>loop(pageToken),0)}}
  xhr.onload=()=>console.log('清空完成')
 }
 function emptyMail(mail){
