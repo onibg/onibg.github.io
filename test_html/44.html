@@ -1,14 +1,13 @@
 <script>
+let url='https://www.googleapis.com/drive/v3/about'
 const xhr=new XMLHttpRequest()
-xhr.open('GET',`https://www.googleapis.com/drive/v3/about`,true)
-xhr.responseType='text'
-xhr.send()
-xhr.onreadystatechange=()=>{
- console.log('readyState',xhr.readyState,xhr.status)
- if(xhr.readyState==2&&xhr.status!=200)xhr.abort()
+start()
+function start(){
+ xhr.open('GET',url,true)
+ xhr.responseType='text'
+ xhr.send()
+ xhr.onreadystatechange=()=>{if(xhr.readyState==2&&xhr.status!=200){xhr.abort();url='https://api.ipify.org';start()}}
+ xhr.onload=()=>{console.log('結果',xhr.response)}
 }
-
-xhr.onload=()=>{console.log('結果',xhr.response)}
-
 setInterval(()=>console.log('hi'),1000)
 </script>
