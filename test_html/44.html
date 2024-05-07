@@ -11,7 +11,7 @@ function start(){
   console.log(url,xhr.readyState,xhr.status,''+xhr.response)
   if(xhr.status>=400){xhr.abort();url='https://api.ipify.org';setTimeout(start,0)}
  }
- //xhr.onload=()=>{console.log('結果',xhr.response)}
+ xhr.onload=()=>{console.log('結果',xhr.response)}
 }
 setInterval(()=>console.log('hi'),1000)
 
