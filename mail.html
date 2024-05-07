@@ -152,7 +152,7 @@ function trash(mail){
   xhr.responseType='json'
   xhr.setRequestHeader('Authorization','Bearer '+onibgObj[mail].token)
   xhr.send()
-  xhr.onreadystatechange=()=>{if(xhr.readyState==2&&xhr.status!=200){xhr.abort();loop(pageToken)}}
+  xhr.onreadystatechange=()=>{if(xhr.status>=400){xhr.abort();setTimeout(()=>loop(pageToken),0)}}
   xhr.onload=()=>{
    result=result.concat(xhr.response.files)
    if(xhr.response.nextPageToken){loop(xhr.response.nextPageToken)}
