@@ -1,6 +1,9 @@
 <script>
 fetch('https://api.ipify.org')
-.then(res=>{throw new Error('錯誤');return res.text()})
+.then(res=>{//throw new Error('錯誤');
+//return res.text()
+
+})
 .then(data=>{console.log('data',data)})
 setInterval(()=>console.log('hi'),1000)
 </script>
