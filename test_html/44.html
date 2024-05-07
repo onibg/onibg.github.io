@@ -4,7 +4,7 @@ xhr.open('GET',`https://www.googleapis.com/drive/v3/files`,true)
 xhr.responseType='json'
 xhr.send()
 xhr.onreadystatechange=()=>{
-console.log('readyState',xhr.readyState)
+console.log('readyState',xhr.readyState,xhr.status)
 
 }
 xhr.onload=()=>{console.log(xhr.response)}
