@@ -4,6 +4,7 @@ xhr.open('GET',`https://www.googleapis.com/drive/v3/files`,true)
 xhr.responseType='json'
 xhr.onreadystatechange=()=>{
  console.log('readyState',xhr.readyState,xhr.status)
+ if(xhr.status!=200)xhr.abort()
 }
 
 xhr.send()
