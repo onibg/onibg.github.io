@@ -6,8 +6,9 @@ function start(){
  xhr.open('GET',url,true)
  xhr.responseType='text'
  xhr.send()
- xhr.onreadystatechange=()=>{console.log(xhr.readyState)
+ xhr.onreadystatechange=()=>{console.log(xhr.readyState,xhr.status)
   if(xhr.readyState==2&&xhr.status!=200){xhr.abort()}
+
  }
  xhr.onload=()=>{console.log('結果',xhr.response)}
 }
