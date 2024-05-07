@@ -1,38 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map with only Tiles URL</title>
-    <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css'>
-    <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
-    <style>
-        body { margin: 0; padding: 0; }
-        #map { width: 100vw; height: 100vh; }
-    </style>
-</head>
-<body>
-    <div id="map"></div>
-    <script>
-        const map = new maplibregl.Map({
-            container: 'map',
-            style: '', // 清除地图的默认样式
-            center: [0, 0], // 设置初始中心点经纬度
-            zoom: 2, // 设置初始缩放级别
-            bearing: 0, // 设置地图初始旋转角度
-            pitch: 0 // 设置地图初始倾斜角度
-        });
+<title>43Display a map</title>
+<link rel='stylesheet' href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css'>
+<script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
+<style>
+ body{margin:0;padding:0}
+ #map{height:500px}
+</style>
+<div id="map"></div>
+<script>
+ const map=new maplibregl.Map({
+  container:'map',//container id
+  style:'https://api.maptiler.com/maps/openstreetmap/style.json?key=mxpo1EjfuJp6F5KoZ21r',
+//tiles: ["https://api.maptiler.com/tiles/v3-openmaptiles/{z}/{x}/{y}.pbf?key=mxpo1EjfuJp6F5KoZ21r"],
+  center:[120.60052,24.11133],//starting position [lng,lat]
+  zoom:9,//starting zoom
+ })
+ map.on('load',function(){
+  map.addSource('contours',{
+   type:'vector',
+   tiles:[`https://topo.iqiq.cc/{z}/{x}/{y}.pbf`],
+   //tiles:[`https://api.maptiler.com/tiles/v3-openmaptiles/{z}/{x}/{y}.pbf?key=mxpo1EjfuJp6F5KoZ21r`],
+   minzoom:9,
+   maxzoom:14
+  })
 
-        map.on('load', function() {
-            map.addLayer({
-                'id': 'tiles-layer',
-                'type': 'raster',
-                'source': {
-                    'type': 'raster',
-                    'tiles': ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png']
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+
+  map.addLayer({
+   id:'contour-lines',
+   type:'line',
+   source:'contours',
+   'source-layer':'contour',
+   layout:{},
+   paint:{
+          'line-color':'#ff0000',//Adjust color as needed
+          'line-opacity':0.8,//Adjust opacity as needed
+          'line-width':1//Adjust width as needed
+         }
+  })
+
+  map.addLayer({
+   id:'contour-labels',
+   type:'symbol',
+   source:'contours',
+   'source-layer':'contour',
+   layout:{
+           'text-field':['to-string',['get','height']],//Display height value
+           'text-font':['Open Sans Regular'],//Adjust font family as needed
+           'text-size':10,//Adjust font size as needed
+           'text-anchor':'center',//Center the text horizontally
+           'symbol-placement':'line',//Place symbols along the line
+           'symbol-spacing':100//Adjust spacing between symbols as needed
+          },
+   paint:{
+          'text-color':'#000000'//Adjust text color as needed
+         }
+  })
+
+ })//load
+</script>
