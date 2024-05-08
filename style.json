@@ -540,7 +540,7 @@
             "source-layer":"contour",
             "layout":{},
             "paint":{
-             "line-color":"#ffff00",
+             "line-color":"#ff0000",
              "line-opacity":0.8,
              "line-width":1
          }
