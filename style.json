@@ -563,7 +563,7 @@
                  }
         }
     ],
-    "bearing": 0,
+    "bearing":0,
     "sources": {
         "contours":{
             "type": "vector",
