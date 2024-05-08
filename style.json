@@ -8,7 +8,7 @@
   32.954120326746775
  ],
     "glyphs": "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
-    "layers": [
+    "layers":[
         {
             "id": "background",
             "type": "background",
@@ -544,6 +544,23 @@
              "line-opacity":0.8,
              "line-width":1
          }
+        },
+        {
+         "id":"contour-labels",
+         "type":"symbol",
+         "source":"contours",
+         "source-layer":"contour",
+         "layout":{
+                   "text-field":["to-string",["get","height"]],
+                   "text-font":["Open Sans Regular"],
+                   "text-size":10,
+                   "text-anchor":"center",
+                   "symbol-placement":"line",
+                   "symbol-spacing":100
+                  },
+         "paint":{
+                  "text-color":"#000000"
+                 }
         }
     ],
     "bearing": 0,
