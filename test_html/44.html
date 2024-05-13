@@ -1,28 +1,11 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
+<link href="https://unpkg.com/maplibre-gl@2.2.1/dist/maplibre-gl.css" rel='stylesheet' />
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+<script src="https://unpkg.com/maplibre-gl@2.2.1/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet@0.0.20/leaflet-maplibre-gl.js"></script>
 <script>
-let url='https://www.googleapis.com/drive/v3/about'
-const xhr=new XMLHttpRequest()
-start()
-function start(){
- xhr.open('GET',url,true)
- xhr.responseType='text'
- xhr.send()
- xhr.onreadystatechange=()=>{
-  console.log(url,xhr.readyState,xhr.status,''+xhr.response)
-  if(xhr.status>=400){xhr.abort();url='https://api.ipify.org';setTimeout(start,0)}
- }
- xhr.onload=()=>{console.log('結果',xhr.response)}
-}
-setInterval(()=>console.log('hi'),1000)
-
-let ok=false
-function test(){
- xhr.open('GET','https://api.ipify.org',true)
- //xhr.responseType='text'
- xhr.send()
- xhr.onload=()=>{
-  console.log('測試',xhr.response)
-  if(!ok){ok=true;test()}
- }
-}
-
+var map = L.map('map').setView([38.912753, -77.032194], 15);
+var gl = L.maplibreGL({
+	style: 'http://localhost:8080/style.json'
+}).addTo(map);
 </script>
