@@ -14,5 +14,8 @@
 var map = L.map('map').setView([24,121],9)
 var gl = L.maplibreGL({
 	style: 'http://localhost:8080/style.json'
-}).addTo(map);
+}).addTo(map)
+ map.on('zoom',()=>
+            console.log(map.getZoom())
+        );
 </script>
