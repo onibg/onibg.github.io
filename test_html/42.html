@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>叠加图片示例</title>
+<title>JavaScript动态创建叠加图片示例</title>
 <style>
   .container {
     position: relative;
@@ -21,10 +21,32 @@
 </head>
 <body>
 
-<div class="container">
-  <img class="image" src="https://c.tile.openstreetmap.org/16/54770/28185.png" alt="第二张图片">
-  <img class="image" src="http://127.0.0.1:3000/16/54770/28185.png" alt="第一张图片">
-</div>
+<div id="imageContainer" class="container"></div>
+
+<script>
+  // 创建容器 div
+  const container = document.createElement('div');
+  container.className = 'container';
+
+  // 创建第一张图片
+  const img1 = document.createElement('img');
+  img1.className = 'image';
+  img1.src = 'https://c.tile.openstreetmap.org/16/54770/28185.png';
+
+  // 创建第二张图片
+  const img2 = document.createElement('img');
+  img2.className = 'image';
+  img2.src = 'http://127.0.0.1:3000/16/54770/28185.png';
+
+  // 将图片添加到容器中
+  container.appendChild(img1);
+  container.appendChild(img2);
+
+  // 将容器添加到页面中
+  document.getElementById('imageContainer').appendChild(container);
+</script>
 
 </body>
 </html>
+
+
