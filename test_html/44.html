@@ -1,43 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leaflet with MapLibre GL using Pane</title>
-  <style>
-    body, #map { width: 100%; height: 100%; margin: 0; padding: 0; }
-    .leaflet-pane {
-      z-index: 1; /* 默认的 pane，用于底图 */
-    }
-    .maplibre-pane {
-      z-index: 2; /* 自定义的 pane，用于 MapLibre GL 图层 */
-    }
-  </style>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
-  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css">
-</head>
-<body>
-  <div id="map"></div>
+<title>向量Leaflet</title>
+<style>
+ body,#map{
+  width:100%;height:100%;margin:0;padding:0}
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
-  <script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js"></script>
+<link rel='stylesheet' href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css">
+<script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js"></script>
+<button onclick="map.addLayer(lf)">控制</button>
+<div id="map"></div>
+<script>
+var map = L.map('map').setView([24,121],9)
+var lf=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxNativeZoom:18,maxZoom:30})
+var gl=L.maplibreGL({style:'http://localhost:8080/style.json'}).addTo(map)
 
-  <script>
-    // 创建 Leaflet 地图对象
-    var map = L.map('map').setView([24, 121], 9);
 
-    // 创建 OpenStreetMap 图层并添加到默认的 pane 中
-    var osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxNativeZoom: 18, maxZoom: 30 });
-    osmLayer.addTo(map);
-
-    // 创建 MapLibre GL 图层并添加到一个新的 pane 中
-    var glLayer = L.maplibreGL({
-      style: 'http://localhost:8080/style.json' // MapLibre GL 样式文件 URL
-    });
-    var glPane = map.createPane('maplibre-pane');
-    glLayer.addTo(map);
-    glPane.appendChild(glLayer.getContainer()); // 将 MapLibre GL 图层的容器添加到新的 pane 中
-  </script>
-</body>
-</html>
+console.log('zoom',map.getZoom())
+map.on('zoom',()=>console.log('zoom',map.getZoom()))
+</script>
