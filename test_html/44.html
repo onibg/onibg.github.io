@@ -16,7 +16,7 @@ var map = L.map('map').setView([24,121],9)
 
 map.createPane('labels');
 map.getPane('labels').style.zIndex = -1;
-map.getPane('labels').style.pointerEvents = 'none';
+//map.getPane('labels').style.pointerEvents='none'
 var lf=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{pane:'labels',maxNativeZoom:18,maxZoom:30}).addTo(map)
 
 // L.marker([24,121],{pane:'labels'})
@@ -26,6 +26,7 @@ var lf=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{pane:'label
 var gl=L.maplibreGL({style:'http://localhost:8080/style.json'}).addTo(map)
 
 
+console.log('z-index',lf.getPane())
 console.log('zoom',map.getZoom())
 map.on('zoom',()=>console.log('zoom',map.getZoom()))
 </script>
