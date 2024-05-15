@@ -26,9 +26,9 @@ var lf=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxNativeZo
 //     .openPopup();
 var gl=L.maplibreGL({pane:'labels',
 transformRequest: (url, resourceType)=> {
-    if(url.startsWith('https://topo')) {
+    if(url.startsWith('https://topo')) {console.log(resourceType)
       return {
-       url: url+'?hello',
+       url: url,
        headers: { 'my-custom-header': true},
        //credentials: 'include'  // Include cookies for cross-origin requests
      }
