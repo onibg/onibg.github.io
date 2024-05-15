@@ -29,7 +29,7 @@ transformRequest: (url, resourceType)=> {
     if(url.startsWith('https://topo')) {console.log(resourceType)
       return {
        url: url,
-       headers: { 'my-custom-header': true},
+       //headers: { 'my-custom-header': true},
        //credentials: 'include'  // Include cookies for cross-origin requests
      }
     }
