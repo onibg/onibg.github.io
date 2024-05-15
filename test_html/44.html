@@ -24,8 +24,17 @@ var lf=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxNativeZo
 //     .bindPopup("Hello <b>Leaflet GL</b>!<br>Whoa, it works!")
 //     .addTo(map)
 //     .openPopup();
-var gl=L.maplibreGL({pane:'labels',style:
-{
+var gl=L.maplibreGL({pane:'labels',
+transformRequest: (url, resourceType)=> {
+    if(resourceType === 'Source') {
+      return {
+       url: url+'?hello',
+       headers: { 'my-custom-header': true},
+       //credentials: 'include'  // Include cookies for cross-origin requests
+     }
+    }
+  },
+style:{
   "version": 8,
   "name": "MapLibre",
   "metadata": {"maputnik:renderer": "mlgljs"},
