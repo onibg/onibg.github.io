@@ -29,7 +29,6 @@ lf.getPane().style.zIndex=-1
 //     .openPopup();
 var gl=L.maplibreGL({style:'http://localhost:8080/style.json'}).addTo(map)
 
-
 console.log('z-index',lf.getPane().style)
 console.log('zoom',map.getZoom())
 map.on('zoom',()=>console.log('zoom',map.getZoom()))
