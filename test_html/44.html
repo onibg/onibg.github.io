@@ -24,7 +24,115 @@ var lf=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxNativeZo
 //     .bindPopup("Hello <b>Leaflet GL</b>!<br>Whoa, it works!")
 //     .addTo(map)
 //     .openPopup();
-var gl=L.maplibreGL({pane:'labels',style:'http://localhost:8080/style.json'}).addTo(map)
+var gl=L.maplibreGL({pane:'labels',style:
+{
+  "version": 8,
+  "name": "MapLibre",
+  "metadata": {"maputnik:renderer": "mlgljs"},
+  "center": [17.65431710431244, 32.954120326746775],
+  "zoom": 1,
+  "sources": {
+    "contours": {
+      "type": "vector",
+      "tiles": ["https://topo.iqiq.cc/{z}/{x}/{y}.pbf"],
+      "minzoom": 9,
+      "maxzoom": 14
+    },
+    "maplibre": {
+      "url": "https://demotiles.maplibre.org/tiles/tiles.json",
+      "type": "vector"
+    }
+  },
+  "glyphs": "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
+  "layers": [
+
+    {
+      "id": "coastline",
+      "type": "line",
+      "source": "maplibre",
+      "source-layer": "countries",
+      "minzoom": 0,
+      "maxzoom": 24,
+      "filter": ["all"],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-blur": 0.5,
+        "line-color": "#198EC8",
+        "line-width": {"stops": [[0, 2], [6, 6], [14, 9], [22, 18]]}
+      }
+    },
+    {
+      "id": "countries-boundary",
+      "type": "line",
+      "source": "maplibre",
+      "source-layer": "countries",
+      "maxzoom": 24,
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(255, 255, 255, 1)",
+        "line-width": {"stops": [[1, 1], [6, 2], [14, 6], [22, 12]]},
+        "line-opacity": {"stops": [[3, 0.5], [6, 1]]}
+      }
+    },
+    {
+      "id": "countries-label",
+      "type": "symbol",
+      "source": "maplibre",
+      "source-layer": "centroids",
+      "minzoom": 2,
+      "maxzoom": 24,
+      "filter": ["all"],
+      "layout": {
+        "text-font": ["Open Sans Semibold"],
+        "text-size": {"stops": [[2, 10], [4, 12], [6, 16]]},
+        "text-field": {"stops": [[2, "{ABBREV}"], [4, "{NAME}"]]},
+        "visibility": "visible",
+        "text-max-width": 10,
+        "text-transform": {"stops": [[0, "uppercase"], [2, "none"]]}
+      },
+      "paint": {
+        "text-color": "rgba(8, 37, 77, 1)",
+        "text-halo-blur": {"stops": [[2, 0.2], [6, 0]]},
+        "text-halo-color": "rgba(255, 255, 255, 1)",
+        "text-halo-width": {"stops": [[2, 1], [6, 1.6]]}
+      }
+    },
+    {
+      "id": "contour-lines",
+      "type": "line",
+      "source": "contours",
+      "source-layer": "contour",
+      "paint": {
+        "line-color": "#000000",
+        "line-opacity": 0.5,
+        "line-width": ["match", ["get", "nth_line"], 10, 1.5, 5, 1, 0.5]
+      }
+    },
+    {
+      "id": "contour-labels",
+      "type": "symbol",
+      "source": "contours",
+      "source-layer": "contour",
+      "layout": {
+        "text-field": "{height}",
+        "text-size": 10,
+        "symbol-spacing": 120,
+        "symbol-placement": "line"
+      },
+      "paint": {"text-opacity": 0.8, "text-color": "#000000"}
+    }
+  ],
+  "id": "gekug9i"
+}
+}).addTo(map)
 
 console.log('zoom',map.getZoom())
 map.on('zoom',()=>console.log('zoom',map.getZoom()))
