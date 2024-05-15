@@ -14,14 +14,11 @@
 <script>
 var map = L.map('map').setView([24,121],9)
 
-map.createPane('labels');
+//map.createPane('labels');
 
 map.getPane('labels').style.zIndex = -1;
 //map.getPane('labels').style.pointerEvents='none'
 var lf=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{pane:'labels',maxNativeZoom:18,maxZoom:30}).addTo(map)
-
-lf.getPane().style.zIndex=-1
-
 
 // L.marker([24,121],{pane:'labels'})
 //     .bindPopup("Hello <b>Leaflet GL</b>!<br>Whoa, it works!")
@@ -29,7 +26,6 @@ lf.getPane().style.zIndex=-1
 //     .openPopup();
 var gl=L.maplibreGL({style:'http://localhost:8080/style.json'}).addTo(map)
 
-console.log('z-index',lf.getPane().style)
 console.log('zoom',map.getZoom())
 map.on('zoom',()=>console.log('zoom',map.getZoom()))
 </script>
