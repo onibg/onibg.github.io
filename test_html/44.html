@@ -25,8 +25,8 @@ transformRequest: (url, resourceType)=> {
     if(resourceType=='Tile'&&url.startsWith('https://topo.iqiq.cc')) {console.log(resourceType,url)
       return {
        url: url,
-       headers: { 'hello':'world'},
-       credentials: 'include'  // Include cookies for cross-origin requests
+       //headers: { 'hello':'world'},
+       //credentials: 'include'  // Include cookies for cross-origin requests
      }
     }
   },
