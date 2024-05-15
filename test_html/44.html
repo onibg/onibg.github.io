@@ -15,16 +15,16 @@
 var map = L.map('map').setView([24,121],9)
 
 map.createPane('labels');
-
-map.getPane('labels').style.zIndex = -1;
-//map.getPane('labels').style.pointerEvents='none'
-var lf=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{pane:'labels',maxNativeZoom:18,maxZoom:30}).addTo(map)
+map.getPane('labels').style.zIndex=-1
+//map.getPane('labels').style.pointerEvents='none'//若將圖塊放在其他地圖圖層之上，會造成圖塊將捕獲點擊和觸摸，可設定none避免
+//資料來源：https://leafletjs.com/examples/map-panes/
+var lf=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxNativeZoom:18,maxZoom:30}).addTo(map)
 
 // L.marker([24,121],{pane:'labels'})
 //     .bindPopup("Hello <b>Leaflet GL</b>!<br>Whoa, it works!")
 //     .addTo(map)
 //     .openPopup();
-var gl=L.maplibreGL({style:'http://localhost:8080/style.json'}).addTo(map)
+var gl=L.maplibreGL({pane:'labels',style:'http://localhost:8080/style.json'}).addTo(map)
 
 console.log('zoom',map.getZoom())
 map.on('zoom',()=>console.log('zoom',map.getZoom()))
