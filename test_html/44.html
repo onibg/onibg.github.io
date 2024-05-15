@@ -26,7 +26,7 @@ var lf=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{pane:'label
 var gl=L.maplibreGL({style:'http://localhost:8080/style.json'}).addTo(map)
 
 
-console.log('z-index',lf.getPane())
+console.log('z-index',lf.getPane().style)
 console.log('zoom',map.getZoom())
 map.on('zoom',()=>console.log('zoom',map.getZoom()))
 </script>
