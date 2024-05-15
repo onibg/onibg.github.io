@@ -26,10 +26,10 @@ var lf=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxNativeZo
 //     .openPopup();
 var gl=L.maplibreGL({pane:'labels',
 transformRequest: (url, resourceType)=> {
-    if(resourceType=='Tile') {console.log(resourceType,url)
+    if(resourceType=='Tile'&&url.startsWith('https://topo.iqiq.cc')) {console.log(resourceType,url)
       return {
        url: url,
-       //headers: { 'my-custom-header': true},
+       headers: { 'hello':'world'},
        //credentials: 'include'  // Include cookies for cross-origin requests
      }
     }
