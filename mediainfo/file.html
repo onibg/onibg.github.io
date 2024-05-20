@@ -2,8 +2,8 @@
 <input type="file" id="fileinput">
 <script src="https://unpkg.com/mediainfo.js/dist/mediainfo.min.js"></script>
 <script>
-var fileinput = document.getElementById('fileinput')
-var output = document.getElementById('output')
+var fileinput=document.getElementById('fileinput')
+var output=document.getElementById('output')
 MediaInfo({format:'JSON'},//設定預設值，成功後產生mediainfo物件，並執行以下callback;format有(object、JSON、XML、HTML、text)
           function(mediainfo){
           fileinput.addEventListener('change',function(){onChangeFile(mediainfo)})
