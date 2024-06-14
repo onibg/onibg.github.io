@@ -1,11 +1,23 @@
 <title>tdx</title>
-<button onclick="test()">開始</button>
+<button onclick="token()">開始</button>
+<button onclick="token()">開始</button>
 <script>
 var i=0
-function test(){
+function token(){
  fetch("https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token"
-        ,{method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},body:"grant_type=client_credentials&client_id=delicadiesel-546a02d3-4d38-4a2d&client_secret=1e651c9a-d651-4302-b1e7-d1c2a87962dd"})
+       ,{method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},body:"grant_type=client_credentials&client_id=delicadiesel-546a02d3-4d38-4a2d&client_secret=1e651c9a-d651-4302-b1e7-d1c2a87962dd"})
   .then(res=>res.json()).then(obj=>{tdx=obj.access_token;console.log(tdx)})
+}
+
+function request(){
+ fetch('https://tdx.transportdata.tw/api/basic/v3/Rail/AFR/Station'
+       ,{headers:{'Authorization':'Bearer '+tdx}})
+  .then(res=>res.json()).then(data=>{console.log(data)}).catch(e=>console.log('請求tdxArr錯誤',e))
+
+
+
+
+
 }
 
 </script>
