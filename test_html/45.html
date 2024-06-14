@@ -3,10 +3,9 @@
 <script>
 var i=0
 function test(){
- const j=i
- fetch('https://script.google.com/macros/s/AKfycbxn74EUmgbR5Ub2eawJJewv1GKKc8LnOGIEIHZ-M6gYOcaqNk9y8bZodDxlkBiiQGks/exec?onibg')
- .then(res=>res.text()).then(data=>console.log(j+'\n'+data))
- i++
+ fetch("https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token"
+        ,{method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},body:"grant_type=client_credentials&client_id=delicadiesel-546a02d3-4d38-4a2d&client_secret=1e651c9a-d651-4302-b1e7-d1c2a87962dd"})
+  .then(res=>res.json()).then(obj=>{tdx=obj.access_token;console.log(tdx)})
 }
 
 </script>
