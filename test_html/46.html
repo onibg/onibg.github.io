@@ -4,17 +4,9 @@
 
 async function request(){
 
- for(let x=219924;x<219934;x++)
-  console.log(x)
-/*
-fetch(`https://tw.iqiq.cc/18/219924/112250.png`
-       ,{headers:{'Authorization':'Bearer '+tdx}})
-  .then(res=>res.json()).then(data=>{console.log(data)}).catch(e=>console.log('請求tdxArr錯誤',e))
-*/
-
-
-
-
+ for(let x=219924;x<219934;x++){
+  const res=await fetch(`https://tw.iqiq.cc/18/${x}/112250.png`)
+  console.log(res)
+ }
 }
-
 </script>
