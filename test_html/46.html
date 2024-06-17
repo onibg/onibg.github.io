@@ -6,7 +6,7 @@ async function request(){
 
  for(let x=219924;x<219934;x++){
   const res=await fetch(`https://tw.iqiq.cc/18/${x}/112250.png`)
-  console.log(res)
+  console.log(await res.arrayBuffer())
  }
 }
 </script>
