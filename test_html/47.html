@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板</title>
+    <style>
+        #messages {
+            margin-top: 20px;
+        }
+        .message {
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>留言板</h1>
+    <textarea id="messageInput" rows="4" cols="50" placeholder="請輸入您的留言"></textarea>
+    <button id="submitMessage">提交留言</button>
+
+    <div id="messages"></div>
+
+    <script>
+        function convertUrlsToLinks(text) {
+            const urlPattern = /(https?:\/\/[^\s]+)/g;
+            return text.replace(urlPattern, '<a href="$1" target="_blank">$1</a>');
+        }
+
+        document.getElementById('submitMessage').addEventListener('click', function() {
+            const messageInput = document.getElementById('messageInput');
+            const messageText = messageInput.value;
+            if (messageText.trim() === "") return;
+
+            const formattedMessage = convertUrlsToLinks(messageText);
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.innerHTML = formattedMessage;
+
+            document.getElementById('messages').appendChild(messageDiv);
+            messageInput.value = "";
+        });
+    </script>
+</body>
+</html>
