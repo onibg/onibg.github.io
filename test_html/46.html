@@ -1,6 +1,21 @@
 <title>18blank</title>
 <button onclick="request()">請求</button>
+<button id="openLinksButton">開啟連結</button>
+<textarea id="myTextarea" rows="10" cols="50">
+這裡是一個範例：
+https://www.example.com
+https://www.anotherexample.com
+</textarea>
 <script>
+document.getElementById('openLinksButton').addEventListener('click',function(){
+ const textareaContent=document.getElementById('myTextarea').value
+ const lines=textareaContent.split('\n')
+ const urlPattern=/(https:\/\/[^\s]+)/g
+ lines.forEach(line=>{
+  const urls=line.match(urlPattern)
+  if(urls)urls.forEach(url=>window.open(url,'_blank'))
+ })
+})
 
 async function request(){
 
