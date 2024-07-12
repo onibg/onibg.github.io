@@ -5,7 +5,6 @@
         document.getElementById('myTextarea').addEventListener('click', function(event) {
             const textarea = event.target;
             const text = textarea.value;
-            const selectionStart=textarea.selectionStart
             const lines=text.split("\n")
             const row=text.slice(0,textarea.selectionStart).split("\n").length-1
             const clickedLine=lines[row]
