@@ -11,6 +11,7 @@
             const clickedLine=lines[row]
             const url=clickedLine.match(/(https?|ftp|file|ws|wss):\/\/.+/i)
             console.log(row,url&&url[0])
+            console.log(event)
             // console.log(`點擊行的文字: ${clickedLine}`)
             // console.log(textarea.selectionStart)
         });
