@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Textarea Row Click</title>
-</head>
-<body>
-    <textarea id="myTextarea" rows="10" cols="50"></textarea>
-
-    <script>
+<meta charset="UTF-8">
+<title>Textarea Row Click</title>
+<textarea id="myTextarea"></textarea>
+<script>
         document.getElementById('myTextarea').addEventListener('click', function(event) {
             const textarea = event.target;
             const text = textarea.value;
@@ -25,6 +18,4 @@
             // 輸出點擊行的文字
             console.log(`點擊行的文字: ${clickedLine}`);
         });
-    </script>
-</body>
-</html>
+</script>
