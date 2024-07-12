@@ -10,6 +10,8 @@
             height: 100px;
             padding: 10px;
             position: relative;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
         }
         .link-button {
             background-color: #007bff;
@@ -19,7 +21,7 @@
             cursor: pointer;
             font-size: 12px;
             position: absolute;
-            display: none;
+            display: inline;
         }
         .link-button:hover {
             background-color: #0056b3;
@@ -29,11 +31,13 @@
 <body>
     <h1>留言板</h1>
     <textarea id="messageInput" rows="4" cols="50" placeholder="請輸入您的留言"></textarea>
+    <div id="buttonsContainer"></div>
     <button id="submitMessage">提交留言</button>
 
     <script>
         const textarea = document.getElementById('messageInput');
         const submitButton = document.getElementById('submitMessage');
+        const buttonsContainer = document.getElementById('buttonsContainer');
 
         function addLinkButtons(text) {
             const urlPattern = /(https?:\/\/[^\s]+)/g;
@@ -47,47 +51,42 @@
             return positions;
         }
 
-        function showLinkButton(url, top, left) {
+        function createLinkButton(url, top, left) {
             let button = document.createElement('button');
             button.className = 'link-button';
             button.textContent = '開啟連結';
             button.style.top = `${top}px`;
             button.style.left = `${left}px`;
             button.onclick = () => window.open(url, '_blank');
-
-            document.body.appendChild(button);
+            return button;
         }
 
         function updateLinkButtons() {
-            document.querySelectorAll('.link-button').forEach(btn => btn.remove());
+            buttonsContainer.innerHTML = ''; // 清除现有的按钮
 
             const text = textarea.value;
             const positions = addLinkButtons(text);
+            const lines = text.split('\n');
+            const rect = textarea.getBoundingClientRect();
             const lineHeight = parseInt(window.getComputedStyle(textarea).lineHeight);
 
             positions.forEach(pos => {
                 const beforeText = text.substring(0, pos.index);
-                const lines = beforeText.split('\n');
-                const lastLine = lines[lines.length - 1];
-                const top = lines.length * lineHeight;
-                const left = lastLine.length * 7.2; // Approximate width of each character
+                const textLines = beforeText.split('\n');
+                const lineCount = textLines.length - 1;
+                const charCount = textLines[lineCount].length;
 
-                const rect = textarea.getBoundingClientRect();
-                showLinkButton(pos.url, rect.top + window.scrollY + top, rect.left + window.scrollX + left);
+                const top = rect.top + window.scrollY + (lineCount * lineHeight);
+                const left = rect.left + window.scrollX + (charCount * 7.2); // 估计每个字符的宽度
+
+                const button = createLinkButton(pos.url, top, left);
+                buttonsContainer.appendChild(button);
             });
         }
 
-        submitButton.addEventListener('click', function() {
-            updateLinkButtons();
-        });
-
-        textarea.addEventListener('input', function() {
-            updateLinkButtons();
-        });
-
-        window.addEventListener('resize', function() {
-            updateLinkButtons();
-        });
+        submitButton.addEventListener('click', updateLinkButtons);
+        textarea.addEventListener('input', updateLinkButtons);
+        window.addEventListener('resize', updateLinkButtons);
     </script>
 </body>
 </html>
