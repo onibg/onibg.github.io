@@ -11,6 +11,7 @@
             const url=clickedLine.match(/(https?|ftp|file|ws|wss):\/\/.+/i)
             console.log(row,url&&url[0])
             console.log(event.ctrlKey)
+            if(event.ctrlKey)open('https://tw.yahoo.com')
             // console.log(`點擊行的文字: ${clickedLine}`)
             // console.log(textarea.selectionStart)
         });
