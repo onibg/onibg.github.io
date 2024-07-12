@@ -5,7 +5,7 @@
         document.getElementById('myTextarea').addEventListener('click', function(event) {
             const textarea = event.target;
             const text = textarea.value;
-
+            const selectionStart=textarea.selectionStart
             // 獲取點擊處的行號
             const row = textarea.value.substr(0, textarea.selectionStart).split("\n").length - 1;
 
@@ -20,6 +20,7 @@
 
             // 輸出點擊行的文字
             console.log(`點擊行的文字: ${clickedLine}`)
-            console.log(row,isUrl&&isUrl[0])
+            // console.log(row,isUrl&&isUrl[0])
+            console.log(selectionStart)
         });
 </script>
