@@ -3,90 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>留言板</title>
-    <style>
-        #messageInput {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            position: relative;
-            white-space: pre-wrap;
-            overflow-wrap: break-word;
-        }
-        .link-button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 5px;
-            cursor: pointer;
-            font-size: 12px;
-            position: absolute;
-            display: inline;
-        }
-        .link-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>Textarea Row Click</title>
 </head>
 <body>
-    <h1>留言板</h1>
-    <textarea id="messageInput" rows="4" cols="50" placeholder="請輸入您的留言"></textarea>
-    <div id="buttonsContainer"></div>
-    <button id="submitMessage">提交留言</button>
+    <textarea id="myTextarea" rows="10" cols="50"></textarea>
 
     <script>
-        const textarea = document.getElementById('messageInput');
-        const submitButton = document.getElementById('submitMessage');
-        const buttonsContainer = document.getElementById('buttonsContainer');
-
-        function addLinkButtons(text) {
-            const urlPattern = /(https?:\/\/[^\s]+)/g;
-            let match;
-            let positions = [];
-
-            while ((match = urlPattern.exec(text)) !== null) {
-                positions.push({ url: match[0], index: match.index });
-            }
-
-            return positions;
-        }
-
-        function createLinkButton(url, top, left) {
-            let button = document.createElement('button');
-            button.className = 'link-button';
-            button.textContent = '開啟連結';
-            button.style.top = `${top}px`;
-            button.style.left = `${left}px`;
-            button.onclick = () => window.open(url, '_blank');
-            return button;
-        }
-
-        function updateLinkButtons() {
-            buttonsContainer.innerHTML = ''; // 清除现有的按钮
-
+        document.getElementById('myTextarea').addEventListener('click', function(event) {
+            const textarea = event.target;
             const text = textarea.value;
-            const positions = addLinkButtons(text);
-            const lines = text.split('\n');
-            const rect = textarea.getBoundingClientRect();
-            const lineHeight = parseInt(window.getComputedStyle(textarea).lineHeight);
 
-            positions.forEach(pos => {
-                const beforeText = text.substring(0, pos.index);
-                const textLines = beforeText.split('\n');
-                const lineCount = textLines.length - 1;
-                const charCount = textLines[lineCount].length;
+            // 獲取點擊處的行號
+            const row = textarea.value.substr(0, textarea.selectionStart).split("\n").length - 1;
 
-                const top = rect.top + window.scrollY + (lineCount * lineHeight);
-                const left = rect.left + window.scrollX + (charCount * 7.2); // 估计每个字符的宽度
+            // 獲取所有行
+            const lines = text.split("\n");
 
-                const button = createLinkButton(pos.url, top, left);
-                buttonsContainer.appendChild(button);
-            });
-        }
+            // 取得點擊行的文字
+            const clickedLine = lines[row];
 
-        submitButton.addEventListener('click', updateLinkButtons);
-        textarea.addEventListener('input', updateLinkButtons);
-        window.addEventListener('resize', updateLinkButtons);
+            // 輸出點擊行的文字
+            console.log(`點擊行的文字: ${clickedLine}`);
+        });
     </script>
 </body>
 </html>
