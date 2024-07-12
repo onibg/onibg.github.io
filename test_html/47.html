@@ -14,9 +14,9 @@
 
             // 取得點擊行的文字
             const clickedLine=lines[row]
-            const urlPattern=/^(https?|ftp|file|ws|wss):\/\/.+/i
+            const urlPattern=/(https?|ftp|file|ws|wss):\/\/.+/i
 
-            const isUrl = urlPattern.test(clickedLine);
+            const isUrl = urlPattern.match(clickedLine);
 
             // 輸出點擊行的文字
             console.log(`點擊行的文字: ${clickedLine}`,isUrl,textarea.selectionStart);
