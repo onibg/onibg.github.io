@@ -13,8 +13,9 @@
             const lines = text.split("\n");
 
             // 取得點擊行的文字
-            const clickedLine = lines[row];
-            const urlPattern = /https?:\/\/[^\s/$.?#].[^\s]*/i;
+            const clickedLine=lines[row]
+            const urlPattern=/^(https?|ftp|file|ws|wss):\/\/.+/i
+
             const isUrl = urlPattern.test(clickedLine);
 
             // 輸出點擊行的文字
