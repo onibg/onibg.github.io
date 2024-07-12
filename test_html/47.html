@@ -16,7 +16,7 @@
             const clickedLine=lines[row]
             const urlPattern=/(https?|ftp|file|ws|wss):\/\/.+/i
 
-            const isUrl = urlPattern.test(clickedLine);
+            const isUrl = clickedLine.match(urlPattern);
 
             // 輸出點擊行的文字
             console.log(`點擊行的文字: ${clickedLine}`,isUrl);
