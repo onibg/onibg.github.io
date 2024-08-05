@@ -3,6 +3,7 @@
 <textarea ondblclick="window.open('https://tw.yahoo.com')" id="myTextarea">World</textarea>
 
 <script>
+    console.log('start')
         document.getElementById('myTextarea').addEventListener('click', function(event) {
             const textarea = event.target;
             const text = textarea.value;
