@@ -1,7 +1,28 @@
-<title>測試即時</title>
-<div>Hello 3</div>
+<title>711</title>
+<button onclick="token()">開始</button>
+<button onclick="request()">請求</button>
 <script>
-console.log('world',2)
+function token(){
 
+console.log('test')
+
+return
+ fetch("https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token"
+     //,{method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},body:"grant_type=client_credentials&client_id=delicadiesel-546a02d3-4d38-4a2d&client_secret=1e651c9a-d651-4302-b1e7-d1c2a87962dd"})
+       ,{method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},body:"grant_type=client_credentials&client_id=miinmail-b35bf1df-9982-4815&client_secret=5a34311a-712a-40c3-98bf-4f911b9eb70b"})
+  .then(res=>{if(!res.ok)throw new Error(`getTdxToken error! status:${res.status}`);return res.json()}).then(obj=>{tdx=obj.access_token;console.log(tdx)}).catch(e=>console.log(e))
+}
+
+function request(){
+return
+ fetch('https://tdx.transportdata.tw/api/basic/v3/Rail/AFR/Station'
+       ,{headers:{'Authorization':'Bearer '+tdx}})
+  .then(res=>res.json()).then(data=>{console.log(data)}).catch(e=>console.log('請求tdxArr錯誤',e))
+
+
+
+
+
+}
 
 </script>
