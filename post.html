@@ -7,10 +7,12 @@ function post(){
 console.log('test')
 
 return
- fetch("https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token"
-     //,{method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},body:"grant_type=client_credentials&client_id=delicadiesel-546a02d3-4d38-4a2d&client_secret=1e651c9a-d651-4302-b1e7-d1c2a87962dd"})
-       ,{method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},body:"grant_type=client_credentials&client_id=miinmail-b35bf1df-9982-4815&client_secret=5a34311a-712a-40c3-98bf-4f911b9eb70b"})
-  .then(res=>{if(!res.ok)throw new Error(`getTdxToken error! status:${res.status}`);return res.json()}).then(obj=>{tdx=obj.access_token;console.log(tdx)}).catch(e=>console.log(e))
+ fetch("https://emap.pcsc.com.tw/EMapSDK.aspx",
+       {method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},
+       body:"commandid=Search0007&x1=120605335&y1=24023927&x2=120636363&y2=24041682"})
+ .then(res=>{if(!res.ok)throw new Error(`post error! status:${res.status}`);return res.text()})
+ .then(data=>{console.log(data)})
+ .catch(e=>console.log(e))
 }
 
 function request(){
