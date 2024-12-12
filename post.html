@@ -6,7 +6,7 @@ function post(){
 
  fetch("https://cors-rrw.onrender.com/emap.pcsc.com.tw:443/EMapSDK.aspx",
        {method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},
-       body:"commandid=Search0007&x1=120534267&y1=24020438&x2=120565295&y2=24038194"})
+       body:"commandid=Search0007&x1=120534267&y1=23020438&x2=120565295&y2=24038194"})
  .then(res=>{if(!res.ok)throw new Error(`post error! status:${res.status}`);return res.text()})
  .then(data=>{console.log(data)})
  .catch(e=>console.log(e))
