@@ -4,7 +4,7 @@
 <script>
 function post(){
 
- fetch("https://emap.pcsc.com.tw/EMapSDK.aspx",
+ fetch("https://cors-rrw.onrender.com/emap.pcsc.com.tw:443/EMapSDK.aspx",
        {method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},
        body:"commandid=Search0007&x1=120605335&y1=24023927&x2=120636363&y2=24041682"})
  .then(res=>{if(!res.ok)throw new Error(`post error! status:${res.status}`);return res.text()})
