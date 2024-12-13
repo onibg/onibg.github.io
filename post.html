@@ -1,11 +1,11 @@
 <title>711</title>
-<button onclick="post()">讀取711點位</button>
+<button onclick="postTest()">讀取711點位</button>
 <button onclick="request()">請求All16-17-18jpg80.json</button>
 <script>
 var auth,aspx=[]
 fetch('https://call-oa.onrender.com/twoTokens').then(res=>res.text()).then(data=>{data=data.split('\n');auth=data[1];console.log(auth)})
 
-function post(){
+function postTest(){
 
  fetch("https://cors-rrw.onrender.com/emap.pcsc.com.tw:443/EMapSDK.aspx",
        {method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},
@@ -27,12 +27,12 @@ function request(){
     z15[quotient][Math.floor(y/2)]=true
    }
   }
-  handle(z15)
+  mission(z15)
  }).catch(e=>console.log('請求All16-17-18jpg80.json錯誤',e))
 
 }
 
-function handle(obj){//共30526個
+function mission(obj){//共30526個
  const power2=Math.pow(2,15)
  for(let x in obj){x=+x
   for(let y in obj[x]){y=+y
