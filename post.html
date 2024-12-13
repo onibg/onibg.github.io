@@ -34,11 +34,11 @@ function request(){
 
 function handle(obj){
  const power2=Math.pow(2,15)
- for(const x in obj){
-  for(const y in obj[x]){
+ for(let x in obj){x=+x
+  for(let y in obj[x]){y=+y
    console.log(15,x,y)
   }
-  }
+ }
 
 /*
 const lon_min=360*x/power2-180,lon_max=360*(x+1)/power2-180
