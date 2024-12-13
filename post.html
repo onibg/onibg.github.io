@@ -1,8 +1,9 @@
 <title>711</title>
 <button onclick="postTest()">測試讀取711點位</button>
 <button onclick="request()">請求All16-17-18jpg80.json</button>
+<div>請求第0個</div>
 <script>
-var auth,aspx=[]
+var auth,aspx=[],num=0,div=document.querySelector('div')
 fetch('https://call-oa.onrender.com/twoTokens').then(res=>res.text()).then(data=>{data=data.split('\n');auth=data[1];console.log(auth)})
 
 function postTest(){
@@ -57,6 +58,7 @@ function post(){
        body:"commandid=Search0007&"+aspx[0]})
  .then(res=>{if(!res.ok)throw new Error(`post error! status:${res.status}`);return res.text()})
  .then(data=>{
+  div.textContent=`請求第${++num}個`
   const matches=data.match(/<GeoPosition>[\s\S]*?<\/GeoPosition>/g)//?非貪婪
   //\s匹配所有屬於空白類的字符、\S匹配所有屬於非空白類的字符，因此[\s\S]可以處理跨行的內容，較為保險
   //const geoPositions=matches||[]
