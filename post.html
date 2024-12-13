@@ -59,7 +59,7 @@ function post(){
   const matches=data.match(/<GeoPosition>[\s\S]*?<\/GeoPosition>/g)//?非貪婪
   //\s匹配所有屬於空白類的字符、\S匹配所有屬於非空白類的字符，因此[\s\S]可以處理跨行的內容，較為保險
   //const geoPositions=matches||[]
-  console.log(matches)
+  if(matches)console.log(matches)
   aspx.shift()//去除陣列的第一個元素
   post()
  })
