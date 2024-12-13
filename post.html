@@ -1,7 +1,10 @@
 <title>711</title>
-<button onclick="post()">讀取點位</button>
-<button onclick="request()">請求</button>
+<button onclick="post()">讀取711點位</button>
+<button onclick="request()">請求All16-17-18jpg80.json</button>
 <script>
+var auth
+fetch('https://call-oa.onrender.com/twoTokens').then(res=>res.text()).then(data=>{data=data.split('\n');auth=data[1]})
+
 function post(){
 
  fetch("https://cors-rrw.onrender.com/emap.pcsc.com.tw:443/EMapSDK.aspx",
@@ -13,7 +16,18 @@ function post(){
 }
 
 function request(){
+console.log(auth)
 return
+ const jsonUrl='https://www.googleapis.com/drive/v3/files/1EG8-IkWAPTiP_GwwDr0tsjEu8Hp33RxO?alt=media'
+
+jsonXhr.open('GET',jsonUrl,true)
+  jsonXhr.responseType='json'
+  jsonXhr.setRequestHeader('Authorization',auth)
+  jsonXhr.send()
+  jsonXhr.onload=()=>{
+   mapJson=jsonXhr.response
+
+
  fetch('https://tdx.transportdata.tw/api/basic/v3/Rail/AFR/Station'
        ,{headers:{'Authorization':'Bearer '+tdx}})
   .then(res=>res.json()).then(data=>{console.log(data)}).catch(e=>console.log('請求tdxArr錯誤',e))
