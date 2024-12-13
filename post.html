@@ -63,7 +63,11 @@ function post(){
   //\s匹配所有屬於空白類的字符、\S匹配所有屬於非空白類的字符，因此[\s\S]可以處理跨行的內容，較為保險
   //const geoPositions=matches||[]
   if(matches){
-   const result=matches.map(match=>match.replace(/<\/?GeoPosition>/g,''))
+   const result=matches.map(match=>{
+    let POIID=match.match(/<POIID>.*<\/POIID>/)
+    POIID=POIID&&POIID[0]
+    return POIID//.replace(/<\/?GeoPosition>/g,'')
+   })
    console.log(result)
   }
   aspx.shift()//去除陣列的第一個元素
