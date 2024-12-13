@@ -20,8 +20,10 @@ function request(){
  const jsonUrl='https://www.googleapis.com/drive/v3/files/1EG8-IkWAPTiP_GwwDr0tsjEu8Hp33RxO?alt=media'
  fetch(jsonUrl,{headers:{'Authorization':auth}})
  .then(res=>res.json()).then(data=>{
-  for(let x in data[16]){
-   console.log(16,x,data[16][x])
+  for(const x in data[16]){
+   for(const y in data[16][x]){
+    console.log(16,x,y)
+   }
   }
 
  }).catch(e=>console.log('請求All16-17-18jpg80.json錯誤',e))
