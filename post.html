@@ -29,27 +29,7 @@ function request(){
     z15[quotient][Math.floor(y/2)]=true
    }
   }
-  //console.log(z15)
-  var str=''
-  for(const x in z15){
-   for(const y in z15[x]){
-    str+=x+'/'+y+'\n'
-   }
-  }
-  var blob=new Blob([str])
-  var a=document.createElement('a')
-  //a.innerHTML='All15.xy'
-  a.href=URL.createObjectURL(blob)
-  a.download='All15.xy'
-  a.click()
-
-
-
-
-
-
-
-  //mission(z15)
+  mission(z15)
  }).catch(e=>console.log('請求All16-17-18jpg80.json錯誤',e))
 
 }
@@ -60,8 +40,8 @@ function mission(obj){//共30526個
   for(let y in obj[x]){y=+y
    const lon_min=360*x/power2-180,lon_max=360*(x+1)/power2-180
    let n
-   n=Math.PI*(1-2*y/power2);lat_max=Math.atan((Math.exp(n)-Math.exp(-n))/2)*180/Math.PI
-   n=Math.PI*(1-2*(y+1)/power2);lat_min=Math.atan((Math.exp(n)-Math.exp(-n))/2)*180/Math.PI
+   n=Math.PI*(1-2*y/power2);const lat_max=Math.atan((Math.exp(n)-Math.exp(-n))/2)*180/Math.PI
+   n=Math.PI*(1-2*(y+1)/power2);const lat_min=Math.atan((Math.exp(n)-Math.exp(-n))/2)*180/Math.PI
    let str=`x1=${lon_min.toFixed(6)}&y1=${lat_min.toFixed(6)}&x2=${lon_max.toFixed(6)}&y2=${lat_max.toFixed(6)}`
    str=str.replace(/\./g,"")
    aspx.push(str)
