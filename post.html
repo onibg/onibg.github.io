@@ -66,7 +66,7 @@ function post(){
    const result=matches.map(match=>{
     let POIID=match.match(/<POIID>.*<\/POIID>/)
     POIID=POIID&&POIID[0]
-    return POIID.replace(/<\/?POIID>/g,'')
+    return POIID.replace(/<\/?POIID>/,'')
    })
    console.log(result)
   }
