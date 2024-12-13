@@ -3,7 +3,7 @@
 <button onclick="request()">請求All16-17-18jpg80.json</button>
 <script>
 var auth
-fetch('https://call-oa.onrender.com/twoTokens').then(res=>res.text()).then(data=>{data=data.split('\n');auth=data[1]})
+fetch('https://call-oa.onrender.com/twoTokens').then(res=>res.text()).then(data=>{data=data.split('\n');auth=data[1];console.log(auth)})
 
 function post(){
 
@@ -16,11 +16,15 @@ function post(){
 }
 
 function request(){
- console.log(auth)
+
  const jsonUrl='https://www.googleapis.com/drive/v3/files/1EG8-IkWAPTiP_GwwDr0tsjEu8Hp33RxO?alt=media'
- fetch(jsonUrl,
-       {headers:{'Authorization':auth}})
- .then(res=>res.json()).then(data=>{console.log(data[16])}).catch(e=>console.log('請求All16-17-18jpg80.json錯誤',e))
+ fetch(jsonUrl,{headers:{'Authorization':auth}})
+ .then(res=>res.json()).then(data=>{
+  for(let index in data[16]){
+   console.log(index)
+  }
+
+ }).catch(e=>console.log('請求All16-17-18jpg80.json錯誤',e))
 
 
 return
