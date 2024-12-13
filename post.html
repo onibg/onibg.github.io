@@ -22,7 +22,7 @@ function request(){
  .then(res=>res.json()).then(data=>{
   for(const x in data[16]){
    for(const y in data[16][x]){
-    console.log(16,x,y)
+    console.log(15,Math.floor(x/2),Math.floor(y/2))
    }
   }
 
