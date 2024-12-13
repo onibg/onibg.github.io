@@ -40,8 +40,9 @@ function handle(obj){
    let n
    n=Math.PI*(1-2*y/power2);lat_max=Math.atan((Math.exp(n)-Math.exp(-n))/2)*180/Math.PI
    n=Math.PI*(1-2*(y+1)/power2);lat_min=Math.atan((Math.exp(n)-Math.exp(-n))/2)*180/Math.PI
-   console.log(15,`x1=${lon_min.toFixed(6)}&y1=${lat_min.toFixed(6)}&x2=${lon_max.toFixed(6)}&y2=${lat_max.toFixed(6)}`)
-
+   let str=`x1=${lon_min.toFixed(6)}&y1=${lat_min.toFixed(6)}&x2=${lon_max.toFixed(6)}&y2=${lat_max.toFixed(6)}`
+   str=str.replace(/\./g,"")
+   console.log(15,str)
   }
  }
 
