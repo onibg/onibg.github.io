@@ -19,12 +19,12 @@ function request(){
  const z15={}
  const jsonUrl='https://www.googleapis.com/drive/v3/files/1EG8-IkWAPTiP_GwwDr0tsjEu8Hp33RxO?alt=media'
  fetch(jsonUrl,{headers:{'Authorization':auth}})
- .then(res=>res.json()).then(data=>{
-  for(let x in data[16]){
-   for(let y in data[16][x]){
-    x=Math.floor(x/2);y=Math.floor(y/2)
-    z15[x]=z15[x]||{}
-    z15[x][y]=true
+ .then(res=>res.json()).then(data=>{let quotient
+  for(const x in data[16]){
+   const quotient=Math.floor(x/2)
+   z15[quotient]=z15[quotient]||{}
+   for(const y in data[16][x]){
+    z15[quotient][Math.floor(y/2)]=true
    }
   }
   console.log(z15)
