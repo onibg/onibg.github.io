@@ -50,8 +50,7 @@ function mission(obj){//共30526個
 }
 
 function post(){
- if(!aspx.length)return
-
+ if(!aspx.length){console.log('全部完成');return}
  fetch("https://emap.pcsc.com.tw/EMapSDK.aspx",//"https://cors-rrw.onrender.com/emap.pcsc.com.tw:443/EMapSDK.aspx",
        {method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},
        body:"commandid=Search0007&"+aspx[0]})
@@ -59,11 +58,10 @@ function post(){
  .then(data=>{
   const matches=data.match(/<GeoPosition>[\s\S]*?<\/GeoPosition>/g)//?非貪婪
   //\s匹配所有屬於空白類的字符、\S匹配所有屬於非空白類的字符，因此[\s\S]可以處理跨行的內容，較為保險
-  //const geoPositions= matches || [];
+  //const geoPositions=matches||[]
   console.log(matches)
-
   aspx.shift()//去除陣列的第一個元素
-
+  post()
  })
  .catch(e=>console.log(e))
 
