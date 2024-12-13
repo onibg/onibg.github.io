@@ -2,7 +2,7 @@
 <button onclick="post()">讀取711點位</button>
 <button onclick="request()">請求All16-17-18jpg80.json</button>
 <script>
-var auth
+var auth,aspx=[]
 fetch('https://call-oa.onrender.com/twoTokens').then(res=>res.text()).then(data=>{data=data.split('\n');auth=data[1];console.log(auth)})
 
 function post(){
@@ -42,17 +42,10 @@ function handle(obj){//共30526個
    n=Math.PI*(1-2*(y+1)/power2);lat_min=Math.atan((Math.exp(n)-Math.exp(-n))/2)*180/Math.PI
    let str=`x1=${lon_min.toFixed(6)}&y1=${lat_min.toFixed(6)}&x2=${lon_max.toFixed(6)}&y2=${lat_max.toFixed(6)}`
    str=str.replace(/\./g,"")
-   console.log(15,str)
+   aspx.push(str)
   }
  }
-
-
-
-
-
-
-
-
+ console.log(aspx.length)
 }
 
 
