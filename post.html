@@ -16,10 +16,15 @@ function post(){
 }
 
 function request(){
-console.log(auth)
+ console.log(auth)
+ const jsonUrl='https://www.googleapis.com/drive/v3/files/1EG8-IkWAPTiP_GwwDr0tsjEu8Hp33RxO?alt=media'
+ fetch(jsonUrl,
+       {headers:{'Authorization':auth}})
+ .then(res=>res.json()).then(data=>{console.log(data.length)}).catch(e=>console.log('請求All16-17-18jpg80.json錯誤',e))
+
+
 return
 /*
- const jsonUrl='https://www.googleapis.com/drive/v3/files/1EG8-IkWAPTiP_GwwDr0tsjEu8Hp33RxO?alt=media'
 
 jsonXhr.open('GET',jsonUrl,true)
   jsonXhr.responseType='json'
@@ -29,9 +34,7 @@ jsonXhr.open('GET',jsonUrl,true)
    mapJson=jsonXhr.response
 
 
- fetch('https://tdx.transportdata.tw/api/basic/v3/Rail/AFR/Station'
-       ,{headers:{'Authorization':'Bearer '+tdx}})
-  .then(res=>res.json()).then(data=>{console.log(data)}).catch(e=>console.log('請求tdxArr錯誤',e))
+
 */
 
 
