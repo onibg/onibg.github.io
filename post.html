@@ -30,6 +30,12 @@ function request(){
    }
   }
   console.log(z15)
+  for(const x in z15){
+  for(const y in z15[x]){
+   console.log(x,y)
+  }
+
+}
   //mission(z15)
  }).catch(e=>console.log('請求All16-17-18jpg80.json錯誤',e))
 
