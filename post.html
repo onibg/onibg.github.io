@@ -29,13 +29,26 @@ function request(){
     z15[quotient][Math.floor(y/2)]=true
    }
   }
-  console.log(z15)
+  //console.log(z15)
+  var str=''
   for(const x in z15){
-  for(const y in z15[x]){
-   console.log(x,y)
+   for(const y in z15[x]){
+    str+=x+'/'+y+'\n'
+   }
   }
+  var blob=new Blob([str])
+  var a=document.createElement('a')
+  //a.innerHTML='All15.xy'
+  a.href=URL.createObjectURL(blob)
+  a.download='All15.xy'
+  a.click()
 
-}
+
+
+
+
+
+
   //mission(z15)
  }).catch(e=>console.log('請求All16-17-18jpg80.json錯誤',e))
 
