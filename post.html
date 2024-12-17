@@ -8,11 +8,6 @@ var auth,aspx=[],num=0,div=document.querySelector('div')
 fetch('https://call-oa.onrender.com/twoTokens').then(res=>res.text()).then(data=>{data=data.split('\n');auth=data[1];console.log(auth)})
 
 function postIlv(){
-// const req=http.request('http://ilv.ilv.tw/ip.php',{method:'POST',headers:{"content-type":"application/x-www-form-urlencoded"}}).on('error',()=>{console.log('POST to ilv 錯誤')})
-//  req.write('data='+encodeURIComponent(str))
-//  req.end()
-
-
  fetch("https://ilv.ilv.tw/update.php",
        {method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},
        body:`html=${encodeURIComponent('何')}&list=${encodeURIComponent('&宏閔')}`})
