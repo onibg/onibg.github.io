@@ -15,7 +15,7 @@ function postIlv(){
 
  fetch("https://ilv.ilv.tw/update.php",
        {method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},
-        body:"html=何&list=宏閔"})
+        body:`html=${encodeURIComponent('何')}&list=${encodeURIComponent('&宏閔')}`})
  .catch(e=>console.log(e))
 }
 
