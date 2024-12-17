@@ -1,4 +1,5 @@
 <title>711</title>
+<button onclick="postIlv()">測試上傳ilv.ilv.tw/update.php</button>
 <button onclick="postTest()">測試讀取711點位</button>
 <button onclick="request()">請求All16-17-18jpg80.json</button>
 <div>請求第0個</div>
@@ -6,8 +7,19 @@
 var auth,aspx=[],num=0,div=document.querySelector('div')
 fetch('https://call-oa.onrender.com/twoTokens').then(res=>res.text()).then(data=>{data=data.split('\n');auth=data[1];console.log(auth)})
 
-function postTest(){
+function postIlv(){
+// const req=http.request('http://ilv.ilv.tw/ip.php',{method:'POST',headers:{"content-type":"application/x-www-form-urlencoded"}}).on('error',()=>{console.log('POST to ilv 錯誤')})
+//  req.write('data='+encodeURIComponent(str))
+//  req.end()
 
+
+ fetch("https://ilv.ilv.tw/update.php",
+       {method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},
+        body:"html=good&list=morning"})
+ .catch(e=>console.log(e))
+}
+
+function postTest(){
  fetch("https://emap.pcsc.com.tw/EMapSDK.aspx",//"https://cors-rrw.onrender.com/emap.pcsc.com.tw:443/EMapSDK.aspx",
        {method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},
         body:"commandid=Search0007&x1=120596924&y1=24106647&x2=120607910&y2=24116675"})
