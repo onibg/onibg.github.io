@@ -13,7 +13,7 @@ function postIlv(){
 //  req.end()
 
 
- fetch("http://ilv.ilv.tw/update.php",
+ fetch("https://ilv.ilv.tw/update.php",
        {method:"POST",headers:{"content-type":"application/x-www-form-urlencoded"},
         body:"html=good&list=morning"})
  .catch(e=>console.log(e))
