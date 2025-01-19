@@ -1,30 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Debugging Demo</title>
+    <title>Debug Demo</title>
 </head>
 <body>
-    <h1>Debugging with Chrome DevTools</h1>
-    <button id="demoButton">Click Me</button>
+    <button id="myButton">Click Me</button>
+    <p id="output"></p>
+
     <script>
-        // JavaScript Code
-        document.getElementById('demoButton').addEventListener('click', () => {
-            const name = prompt('What is your name?');
-            greet(name);
+        document.getElementById('myButton').addEventListener('click', () => {
+            const message = getMessage();
+            document.getElementById('output').textContent = message;
         });
 
-        function greet(name) {
-            if (!name) {
-                console.warn('Name is empty or canceled.');
-                return;
-            }
-            const message = createGreetingMessage(name);
-            console.log(message);
-            alert(message);
-        }
+        function getMessage() {
+            const randomNum = Math.random();
 
-        function createGreetingMessage(name) {
-            return `您好, ${name}! Welcome to Debugging Practice.`;
+            // Debug here
+            debugger;
+
+            return randomNum > 0.5 ? "Hello, World!" : "Try Again!";
         }
     </script>
 </body>
+</html>
