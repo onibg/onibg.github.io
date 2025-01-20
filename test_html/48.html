@@ -7,7 +7,9 @@ for(let i=0;i<10;i++){
 console.log(i)
 }
 
-fetch('https://script.google.com/macros/s/AKfycbwC42_mTmRl9XV5KTrWbU9o2mjAHJC3X_xj2VqEld9iLkGdrrQXI75xQ81V4hlEY473gA/exec?console=world')
+const str='何宏閔'
+
+fetch('https://script.google.com/macros/s/AKfycbwC42_mTmRl9XV5KTrWbU9o2mjAHJC3X_xj2VqEld9iLkGdrrQXI75xQ81V4hlEY473gA/exec?console='+encodeURIComponent(str))
 .then(res=>res.text()).then(data=>console.log(data))
 
     </script>
