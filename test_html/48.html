@@ -20,7 +20,8 @@ setInterval(async()=>{
  promises.push(Return)
  }
  const results=await Promise.all(promises)
- console.log(results)
+
+ results.forEach((item,index)=>console.log(index,item));
 })()
 
 async function getData(i){
