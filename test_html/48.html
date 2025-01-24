@@ -16,7 +16,7 @@ setInterval(async()=>{
 (async()=>{
 for(let i=0;i<100;i++){
  const Return=getData(i)
- console.log(Return)
+ setTimeout(()=>console.log(Return),1000)
 }
 })()
 
