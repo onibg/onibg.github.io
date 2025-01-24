@@ -3,13 +3,16 @@
 <script>
 
 
-// for(let i=0;i<10;i++){
-// console.log(i)
-// }
+for(let i=0;i<10;i++){
+ console.log(i,await getData())
+}
 
 const str='何宏閔!@#$%^&*():;"<>?/|'
 
-fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/test_html/49.html')
-.then(res=>res.text()).then(data=>console.log(data))
+async function getData(){
+ const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/test_html/49.html')
+ return await res.text()
+}
 
-    </script>
+
+</script>
