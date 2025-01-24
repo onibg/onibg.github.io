@@ -1,11 +1,7 @@
 <meta charset="UTF-8">
 <title>raw檔429測試</title>
 <script>
-(async()=>{
-for(let i=0;i<100;i++){
- getData(i)
-}
-})()
+
 
 /*
 var Old
@@ -17,12 +13,14 @@ setInterval(async()=>{
 },1000)
 */
 
-
-const str='何宏閔!@#$%^&*():;"<>?/|'
+(async()=>{
+for(let i=0;i<100;i++){
+ getData(i)
+}
+})()
 
 async function getData(i){
  const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/test_html/49.html',{method:'GET',cache: 'no-store',
- //const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/16.png',{method:'GET',cache: 'no-store',
 headers:{   /*Pragma: 'no-cache','Cache-Control':'no-cache'*/}})
  const data=await res.text()
  //return data
