@@ -7,9 +7,12 @@ for(let i=0;i<10;i++){
 }
 })()*/
 
+var Old
 setInterval(async()=>{
- console.log(await getData())
-
+ const New=await getData()
+ console.log(New)
+ if(New!=Old)console.log(new Date())
+ Old=New
 },1000)
 
 
@@ -17,11 +20,10 @@ setInterval(async()=>{
 const str='何宏閔!@#$%^&*():;"<>?/|'
 
 async function getData(){
- const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/refs/heads/main/test_html/49.html?_=' + Date.now(),{method:'GET',cache: 'no-store',
+ const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/test_html/49.html',{method:'GET',cache: 'no-store',
  //const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/16.png',{method:'GET',cache: 'no-store',
 headers:{   /*Pragma: 'no-cache','Cache-Control':'no-cache'*/}})
- const data=await res.text()
- return data
+ return await res.text()
 }
 
 
