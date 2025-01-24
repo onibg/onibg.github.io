@@ -3,8 +3,8 @@
 <script>
 (async()=>{
 for(let i=0;i<100;i++){
- //console.log(i,await getData())
- getData()
+ console.log(i,await getData())
+ //getData()
 }
 })()
 
@@ -26,8 +26,8 @@ async function getData(){
  //const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/16.png',{method:'GET',cache: 'no-store',
 headers:{   /*Pragma: 'no-cache','Cache-Control':'no-cache'*/}})
  const data=await res.text()
-// return data
-console.log(data)
+ return data
+//console.log(data)
 }
 
 
