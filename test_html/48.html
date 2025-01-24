@@ -3,7 +3,7 @@
 <script>
 (async()=>{
 for(let i=0;i<100;i++){
- console.log(i,getData())
+ console.log(i,getData(i))
  //getData()
 }
 })()
@@ -21,13 +21,13 @@ setInterval(async()=>{
 
 const str='何宏閔!@#$%^&*():;"<>?/|'
 
-async function getData(){
+async function getData(i){
  const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/test_html/49.html',{method:'GET',cache: 'no-store',
  //const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/16.png',{method:'GET',cache: 'no-store',
 headers:{   /*Pragma: 'no-cache','Cache-Control':'no-cache'*/}})
  const data=await res.text()
- return data
-//console.log(data)
+ //return data
+ console.log(i,data)
 }
 
 
