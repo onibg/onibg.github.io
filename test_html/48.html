@@ -15,15 +15,16 @@ setInterval(async()=>{
 
 (async()=>{
 for(let i=0;i<100;i++){
- getData(i)
+ const Return=getData(i)
+ console.log(Return)
 }
 })()
 
 async function getData(i){
  const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/test_html/49.html',{method:'GET',cache: 'no-store'})
  const data=await res.text()
- //return data
- console.log(i,data)
+ return data
+ //console.log(i,data)
 }
 
 
