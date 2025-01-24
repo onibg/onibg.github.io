@@ -13,7 +13,8 @@ const str='何宏閔!@#$%^&*():;"<>?/|'
 
 async function getData(){
 //  const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/test_html/49.html')
- const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/16.png')
+ const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/16.png',{
+headers:{'Cache-Control':'no-cache'}})
  return await res.blob()
 }
 
