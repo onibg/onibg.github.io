@@ -53,7 +53,6 @@ async function ES7(){
   console.log(3)
 })()
 console.log(4)
-</script>
 
 //Promise.all是JavaScript中用於平行處理多個非同步操作的工具。它接收一個Promise對象的陣列，並返回一個新的Promise，當陣列中的所有Promise都成功完成時，該Promise會被解析；如果其中任何一個Promise被拒絕，返回的Promise會立即被拒絕。
 //Promise.all(iterable)
@@ -95,8 +94,8 @@ console.log(4)
 //async function fetchData(){
 // const urls=[
 //  'https://jsonplaceholder.typicode.com/posts/1',
-    'https://jsonplaceholder.typicode.com/posts/2',
-    'https://jsonplaceholder.typicode.com/posts/3',
+//  'https://jsonplaceholder.typicode.com/posts/2',
+//  'https://jsonplaceholder.typicode.com/posts/3',
 // ];
 // const promises=urls.map(url=>fetch(url).then(res=>res.json()));
 // try{
@@ -120,4 +119,5 @@ console.log(4)
 //如果並行數量太多，可能會造成性能問題或伺服器負載過高。
 //總結
 //Promise.all是一個強大的工具，用於管理多個非同步任務。它可以幫助開發者簡化程式碼，尤其是在需要同時處理多個非同步操作時。然而，需要注意它的限制（如整體失敗時的行為），並根據實際需求選擇合適的工具或模式，例如Promise.allSettled或限制並行的庫（如 p-limit）。
+</script>
 
