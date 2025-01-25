@@ -2,13 +2,13 @@
 <title>raw檔429測試</title>
 <script>
 
-const test = async () => {
-    return 42; // 返回普通值
-};
+const test1=async()=>{return 42}//其實返回Promise.resolve(42)
+const test2=async()=>{return await Promise.resolve(42)}//return後的await其實無效，等同return Promise.resolve(42)
+
 
 ;(async()=>{
 
-console.log(test())
+console.log(test1())
 })()
 
 
