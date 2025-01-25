@@ -28,7 +28,7 @@ setInterval(async()=>{
 
 async function getData(i){
  const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/16.png',{method:'GET',cache: 'no-store'})
- const data=await res.text()
+ const data=await res.blob()
  return [i,data]
  //console.log(i,data)
 }
