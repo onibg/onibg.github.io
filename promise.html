@@ -54,3 +54,70 @@ async function ES7(){
 })()
 console.log(4)
 </script>
+
+//Promise.all是JavaScript中用於平行處理多個非同步操作的工具。它接收一個Promise對象的陣列，並返回一個新的Promise，當陣列中的所有Promise都成功完成時，該Promise會被解析；如果其中任何一個Promise被拒絕，返回的Promise會立即被拒絕。
+//Promise.all(iterable)
+//參數:iterable是一個可迭代對象（通常是一個陣列），其中的元素是Promise或任何其他值（會被自動包裝為已完成的Promise）。
+//返回值:一個新的Promise，它的await結果是一個陣列，包含輸入中所有Promise的結果，順序與輸入的順序一致。
+//使用場景
+//1.多個非同步操作同時完成:
+//當需要等待多個非同步操作完成後再繼續下一步。
+//2.收集多個非同步操作的結果:
+//如果需要處理所有操作的返回值，可以通過Promise.all獲取。
+//3.提高性能:
+//平行執行任務，而不是依次等待每個任務完成。
+//const promise1=Promise.resolve(10);
+//const promise2=new Promise(resolve=>setTimeout(()=>resolve(20),1000));
+//const promise3=Promise.resolve(30);
+//Promise.all([promise1, promise2, promise3]).then(results=>{
+// console.log(results); // [10, 20, 30]
+//});
+//特性和行為
+//1.按順序返回結果
+//即使promise2比其他Promise更晚完成，最終的結果陣列仍會保持與輸入順序一致。
+//2.任何一個失敗會導致整體失敗
+//如果輸入的Promise中有一個被拒絕（rejected），Promise.all返回的Promise也會立即被拒絕。
+//const promise1=Promise.resolve(10);
+//const promise2=Promise.reject('Error in promise2');
+//const promise3=Promise.resolve(30);
+//Promise.all([promise1, promise2, promise3])
+//.then(results=>console.log(results)) // 不會執行
+//.catch(error=>console.error(error)); // 輸出: "Error in promise2"
+//3.支援非Promise值
+//如果輸入的陣列中包含非Promise值，它會被轉換為一個已完成的Promise。
+//const promise1=10; // 非Promise值
+//const promise2=Promise.resolve(20);
+//Promise.all([promise1,promise2]).then(results=>{
+// console.log(results); // [10, 20]
+//});
+//實際應用場景
+//1.並行請求多個 API
+//async function fetchData(){
+// const urls=[
+//  'https://jsonplaceholder.typicode.com/posts/1',
+    'https://jsonplaceholder.typicode.com/posts/2',
+    'https://jsonplaceholder.typicode.com/posts/3',
+// ];
+// const promises=urls.map(url=>fetch(url).then(res=>res.json()));
+// try{
+//  const results=await Promise.all(promises);
+//  console.log(results); // 所有API的響應結果
+// }catch(error){console.error('一個請求失敗:',error);}
+//}
+//fetchData();
+//2.平行處理耗時操作
+//function delay(ms){
+// return new Promise(resolve=>setTimeout(()=>resolve(ms),ms));
+//}
+//const tasks=[delay(1000),delay(2000),delay(3000)];
+//Promise.all(tasks).then(results=>{
+// console.log('所有任務完成:',results); // [1000, 2000, 3000]
+//});
+//注意事項
+//Promise.all 不適合需要處理部分失敗的場景:
+//如果需要處理某些Promise的失敗而不是整體失敗，可以使用Promise.allSettled。
+//避免過多並行請求:
+//如果並行數量太多，可能會造成性能問題或伺服器負載過高。
+//總結
+//Promise.all是一個強大的工具，用於管理多個非同步任務。它可以幫助開發者簡化程式碼，尤其是在需要同時處理多個非同步操作時。然而，需要注意它的限制（如整體失敗時的行為），並根據實際需求選擇合適的工具或模式，例如Promise.allSettled或限制並行的庫（如 p-limit）。
+
