@@ -25,6 +25,8 @@ setInterval(async()=>{
 
 
 (async()=>{
+console.log(getData(0))
+/*
  for(let j=0;j<10;j++){
   const promises=[]
   for(let i=0;i<100;i++){
@@ -34,13 +36,13 @@ setInterval(async()=>{
   const results=await Promise.all(promises)
   results.forEach((item,index)=>{item[0]=j*100+item[0];console.log(item)})
  }
-
+*/
 })()
 
 async function getData(i){
  const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/test_html/49.html',{method:'GET',cache:'no-store'})
  const data=res.text()//await多餘
- return [i,data]
+ return data
  //console.log(i,data)
 }
 
