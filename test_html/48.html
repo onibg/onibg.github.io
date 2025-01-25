@@ -25,7 +25,7 @@ setInterval(async()=>{
 
 
 (async()=>{
-console.log(await getData(0))
+console.log(getData(0))
 /*
  for(let j=0;j<10;j++){
   const promises=[]
@@ -41,7 +41,7 @@ console.log(await getData(0))
 
 async function getData(i){
  const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/test_html/49.html',{method:'GET',cache:'no-store'})
- const data=res.text()//await多餘
+ const data=await res.text()//await多餘
  return [i,data]
  //console.log(i,data)
 }
