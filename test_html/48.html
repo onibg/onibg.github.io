@@ -33,17 +33,18 @@ setInterval(async()=>{
   }
   const results=await Promise.all(promises)
   results.forEach((item,index)=>{item[0]=j*100+item[0];console.log(item)})
+  console.log(await delay(1000))
  }
 })()
 
 async function getData(i){
  const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/test_html/49.html',{method:'GET',cache:'no-store'})
- const data=await res.text()//await多餘
+ const data=await res.text()
  return [i,data]
  //console.log(i,data)
 }
 
-
+const delay=async(ms)=>{return new Promise(resolve=>{setTimeout(()=>{resolve(`延遲${ms}毫秒`)},ms)})}
 
 
 </script>
