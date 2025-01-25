@@ -14,20 +14,26 @@ setInterval(async()=>{
 */
 
 (async()=>{
+
+
+
  const promises=[]
  for(let i=0;i<100;i++){
  const Return=getData(i)
  promises.push(Return)
  }
  const results=await Promise.all(promises)
+ results.forEach((item,index)=>console.log(item))
 
- results.forEach((item,index)=>console.log(index,item));
+
+
+
 })()
 
 async function getData(i){
  const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/test_html/49.html',{method:'GET',cache: 'no-store'})
  const data=await res.text()
- return data
+ return [i,data]
  //console.log(i,data)
 }
 
