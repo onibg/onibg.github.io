@@ -6,9 +6,9 @@ const test = async () => {
     return 42; // 返回普通值
 };
 
-;(()=>{
+;(async()=>{
 
-console.log(test())
+console.log(await test())
 })()
 
 
