@@ -14,19 +14,15 @@ setInterval(async()=>{
 */
 
 (async()=>{
-
-
-
- const promises=[]
- for(let i=0;i<100;i++){
- const Return=getData(i)
- promises.push(Return)
+ for(let j=0;j<10;j++){
+  const promises=[]
+  for(let i=0;i<100;i++){
+   const Return=getData(i)
+   promises.push(Return)
+  }
+  const results=await Promise.all(promises)
+  results.forEach((item,index)=>console.log(item))
  }
- const results=await Promise.all(promises)
- results.forEach((item,index)=>console.log(item))
-
-
-
 
 })()
 
