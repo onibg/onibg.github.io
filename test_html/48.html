@@ -39,7 +39,7 @@ setInterval(async()=>{
 
 async function getData(i){
  const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/test_html/49.html',{method:'GET',cache:'no-store'})
- const data= res.text()//await多餘
+ const data=await res.text()//await多餘
  return data
  //console.log(i,data)
 }
