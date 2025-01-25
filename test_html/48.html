@@ -1,27 +1,16 @@
 <meta charset="UTF-8">
 <title>raw檔429測試</title>
 <script>
-
+/*
 const test0=async()=>{return 42}
 const test1=async()=>{return Promise.resolve(42)}
-const test2=async()=>{return await Promise.resolve(42)}
-
-
+const test2=async()=>{return await Promise.resolve(42)}//await多餘
 ;(async()=>{
-
 console.log(test0())
 console.log(test1())
 console.log(test2())
-
 })()
-
-
-
-
-
-
-//test().then(result => console.log(result)); // 輸出：42
-
+*/
 
 
 /*
@@ -34,7 +23,7 @@ setInterval(async()=>{
 },1000)
 */
 
-/*
+
 (async()=>{
  for(let j=0;j<10;j++){
   const promises=[]
@@ -50,10 +39,10 @@ setInterval(async()=>{
 
 async function getData(i){
  const res=await fetch('https://raw.githubusercontent.com/onibg/onibg.github.io/main/test_html/49.html',{method:'GET',cache:'no-store'})
- const data=await res.text()
+ const data=await res.text()//await多餘
  return [i,data]
  //console.log(i,data)
 }
-*/
+
 
 </script>
