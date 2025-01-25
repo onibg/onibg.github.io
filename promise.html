@@ -56,7 +56,7 @@ console.log(4)
 
 
 //async函數的特性是，無論函數內部是否使用了await，它的返回值始終是Promise
-//const test=async()=>{return 42}//其實返回Promise.resolve(42)
+//const test=async()=>{return 42}//如果函數內返回的是一個普通值，這個值會被自動封裝成一個已解決(resolved)的Promise
 //const test=async()=>{return await Promise.resolve(42)}//return後的await其實無效，等同return Promise.resolve(42)
 //Promise.all是JavaScript中用於平行處理多個非同步操作的工具。它接收一個Promise對象的陣列，並返回一個新的Promise，當陣列中的所有Promise都成功完成時，該Promise會被解析；如果其中任何一個Promise被拒絕，返回的Promise會立即被拒絕。
 //Promise.all(iterable)
