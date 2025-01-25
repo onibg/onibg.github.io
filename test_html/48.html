@@ -23,6 +23,7 @@ setInterval(async()=>{
 },1000)
 */
 
+const delay=ms=>new Promise(resolve=>setTimeout(()=>resolve(`延遲${ms}毫秒`),ms))
 
 (async()=>{
  for(let j=0;j<10;j++){
@@ -44,7 +45,6 @@ async function getData(i){
  //console.log(i,data)
 }
 
-const delay=ms=>new Promise(resolve=>setTimeout(()=>resolve(`延遲${ms}毫秒`),ms))
 
 
 
