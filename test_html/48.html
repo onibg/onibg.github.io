@@ -2,15 +2,16 @@
 <title>raw檔429測試</title>
 <script>
 
+const test0=async()=>{return 42}
 const test1=async()=>{return Promise.resolve(42)}
 const test2=async()=>{return await Promise.resolve(42)}
 
 
 ;(async()=>{
 
+console.log(test0())
 console.log(test1())
 console.log(test2())
-console.log(test1()==test2())
 
 })()
 
