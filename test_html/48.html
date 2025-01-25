@@ -21,7 +21,7 @@ setInterval(async()=>{
    promises.push(Return)
   }
   const results=await Promise.all(promises)
-  results.forEach((item,index)=>console.log(item))
+  results.forEach((item,index)=>{item[0]=j*100+item[0];console.log(item)})
  }
 
 })()
