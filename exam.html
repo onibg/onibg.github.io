@@ -4,9 +4,9 @@
 <form method="POST">
 <!--請求url：<input name="url" size="51" value="https://school.tc.edu.tw/score-manage/score-query/get-score-data"><br>-->
 <!--請求cookie：<input name="cookie" size="32" value="PHPSESSID=orsel9hnbbll19v9b19d1a2sfp"><br>-->
-學期編號：<input name="semester_id" value="29"><br>
-班級編號：<input name="class_id" value="1073" readonly="readonly" style="color:gray" size="2">　<input name="class_number" value="305" size="10"><br>
-階段編號：<input name="test_sort" value="3"><br>
+學期編號：<input name="semester_id" value="30"><br>
+班級編號：<input name="class_id" value="1104" readonly="readonly" style="color:gray" size="2">　<input name="class_number" value="305" size="10"><br>
+階段編號：<input name="test_sort" value="1"><br>
 顯示模式：<input name="show_mode" value="mode_1"><br>
 加權運算：<input name="show_rate" value="0"><br>
 顯示調出及畢業學生：<input name="show_old_student" value="0"><br>
@@ -20,9 +20,9 @@
 <input type="submit" value="提交表單" onclick='
 document.getElementsByName("class_number")[0].select();
 var class_id={
-101:"1049",102:"1050",103:"1051",104:"1052",105:"1053",106:"1054",107:"1055",108:"1056",109:"1057",110:"1058",
-201:"1059",202:"1060",203:"1061",204:"1062",205:"1063",206:"1064",207:"1065",208:"1066",209:"1067",210:"1068",
-301:"1069",302:"1070",303:"1071",304:"1072",305:"1073",306:"1074",307:"1075",308:"1076",309:"1077",310:"1078",311:"1079"};
+101:"1080",102:"1081",103:"1082",104:"1083",105:"1084",106:"1085",107:"1086",108:"1087",109:"1088",110:"1089",
+201:"1090",202:"1091",203:"1092",204:"1093",205:"1094",206:"1095",207:"1096",208:"1097",209:"1098",210:"1099",
+301:"1100",302:"1101",303:"1102",304:"1103",305:"1104",306:"1105",307:"1106",308:"1107",309:"1108",310:"1109",311:"1110"}
 document.getElementsByName("class_id")[0].value=class_id[document.getElementsByName("class_number")[0].value];
 if(document.getElementsByName("radio")[0].checked){show();return false}'>
 <textarea rows="6" cols="52" style="resize:none"></textarea>
