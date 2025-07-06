@@ -54,8 +54,7 @@
     video.play()
     video.controls=false
     setTimeout(()=>video.controls=true,100)
-   }
-   return
+   };return
   }
   if(e.code=='KeyF'){if(document.fullscreenElement){document.exitFullscreen()}else{button.click();if(!video.paused){video.controls=false;setTimeout(()=>video.controls=true,100)}}}
   if(!document.fullscreenElement)return
