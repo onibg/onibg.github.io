@@ -48,17 +48,17 @@
   div.requestFullscreen()
  }
  document.addEventListener("keydown",function(e){
-  // if(e.code==='Space'){console.log('video.paused',video.paused)
-  //  if(!video.paused){video.controls=true;video.pause()}
-  //  setTimeout(()=>{
-  //   if(!video.paused){video.controls=false}
-  //  },1000)
+  e.preventDefault()
+  if(e.code==='Space'){console.log('video.paused',video.paused)
+//    if(!video.paused){video.controls=true;video.pause()}
+//    setTimeout(()=>{
+//     if(!video.paused){video.controls=false}
+//    },1000)
 
-//if(video.paused)video.controls=false;else video.controls=true
+// if(video.paused)video.controls=false;else video.controls=true
 
-  //}
+//   }
 
-e.preventDefault()
 
   if(e.code=='KeyF'){if(document.fullscreenElement){document.exitFullscreen()}else button.click()}
   if(!document.fullscreenElement)return
