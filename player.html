@@ -49,7 +49,7 @@
  }
  document.addEventListener("keydown",function(e){
   if(e.code==='Space'){
-   if(!video.paused)video.controls=true
+   if(!video.paused){video.controls=true;video.pause()}
    setTimeout(()=>{
     if(!video.paused){video.controls=false}
    },1000)
