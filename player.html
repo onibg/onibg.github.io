@@ -47,25 +47,18 @@
   video.focus()
   div.requestFullscreen()
  }
- document.addEventListener("keydown",function(e){
+ document.addEventListener("keydown",function(e){//若Chrome修復controls不會自動消失，該函式可回復至2025-7-6以前
   e.preventDefault()
-  if(e.code=='Space'){//console.log('video.paused',video.paused)
-   if(!video.paused){video.pause();video.controls=true}else{
+  if(e.code=='Space'){
+   if(!video.paused){video.pause();/*video.controls=true*/}else{
     video.play()
     video.controls=false
     setTimeout(()=>{
      video.controls=true
-    },10)
-
+    },100)
    }
-//    setTimeout(()=>{
-//     if(!video.paused){video.controls=false}
-//    },1000)
-
-// if(video.paused)video.controls=false;else video.controls=true
-
+   return
   }
-
 
   if(e.code=='KeyF'){if(document.fullscreenElement){document.exitFullscreen()}else button.click()}
   if(!document.fullscreenElement)return
