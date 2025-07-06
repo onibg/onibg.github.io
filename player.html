@@ -68,7 +68,7 @@ return
   else if(e.ctrlKey&&e.code=='Numpad2'){videoTop+=1;video.style.top=videoTop+"%"}
   else if(!e.ctrlKey&&e.code=='Numpad8'){videoHeight+=1;video.style.height=videoHeight+"%"}
   else if(!e.ctrlKey&&e.code=='Numpad2'){videoHeight-=1;video.style.height=videoHeight+"%"}
- })
+ },true)
  video.ondblclick=()=>{if(document.fullscreenElement)document.exitFullscreen()}//2024/9/26加入，解決有時全螢幕狀態dblclick無法回到一般狀態
  video.addEventListener("mousewheel",function(e){
   if(e.wheelDelta>0){video.currentTime-=1}else{video.currentTime+=1}
