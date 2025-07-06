@@ -49,8 +49,8 @@
  }
  document.addEventListener("keydown",function(e){
   e.preventDefault()
-  if(e.code=='Space'){console.log('video.paused',video.paused)
-//    if(!video.paused){video.controls=true;video.pause()}
+  if(e.code=='Space'){//console.log('video.paused',video.paused)
+   if(!video.paused){video.pause()}else{video.play()}
 //    setTimeout(()=>{
 //     if(!video.paused){video.controls=false}
 //    },1000)
