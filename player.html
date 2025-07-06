@@ -50,7 +50,7 @@
  document.addEventListener("keydown",function(e){console.log(e.code)
   if(e.code==='Space'){
    e.preventDefault()
-   //if(video.paused)video.play();else video.pause()
+   if(video.paused)video.play();else video.pause()
   //video.dispatchEvent(new MouseEvent('mousemove'))// 手動觸發一次滑鼠移動事件
 return
   }
