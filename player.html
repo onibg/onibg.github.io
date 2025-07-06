@@ -50,7 +50,14 @@
  document.addEventListener("keydown",function(e){
   e.preventDefault()
   if(e.code=='Space'){//console.log('video.paused',video.paused)
-   if(!video.paused){video.pause();video.controls=true}else{video.play();video.controls=false}
+   if(!video.paused){video.pause();video.controls=true}else{
+    video.play()
+    video.controls=false
+    setTimeout(()=>{
+     video.controls=true
+    },1000)
+
+   }
 //    setTimeout(()=>{
 //     if(!video.paused){video.controls=false}
 //    },1000)
