@@ -48,7 +48,7 @@
   div.requestFullscreen()
  }
  document.addEventListener("keydown",function(e){
-  if(e.code==='Space'){
+  if(e.code==='Space'){console.log('video.paused',video.paused)
    if(!video.paused){video.controls=true;video.pause()}
    setTimeout(()=>{
     if(!video.paused){video.controls=false}
