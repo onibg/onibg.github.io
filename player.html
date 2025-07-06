@@ -48,6 +48,17 @@
   div.requestFullscreen()
  }
  document.addEventListener("keydown",function(e){
+  if(e.code==='Space'){
+   e.preventDefault();
+   if(video.paused)video.play();else video.pause()
+  video.dispatchEvent(new MouseEvent('mousemove'))// 手動觸發一次滑鼠移動事件
+return
+  }
+
+
+
+
+
   if(e.code=='KeyF'){if(document.fullscreenElement){document.exitFullscreen()}else button.click()}
   if(!document.fullscreenElement)return
   if(e.ctrlKey&&e.key=='Enter'){
