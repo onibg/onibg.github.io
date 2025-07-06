@@ -50,7 +50,7 @@
  document.addEventListener("keydown",function(e){//若Chrome修復controls不會自動消失，該函式可回復至2025-7-6以前
   e.preventDefault()
   if(e.code=='Space'){
-   if(!video.paused){video.pause();/*video.controls=true*/}else{
+   if(!video.paused)video.pause();else{
     video.play()
     video.controls=false
     setTimeout(()=>{
@@ -59,8 +59,7 @@
    }
    return
   }
-
-  if(e.code=='KeyF'){if(document.fullscreenElement){document.exitFullscreen()}else button.click()}
+  if(e.code=='KeyF'){if(document.fullscreenElement){document.exitFullscreen()}else{button.click();console.log('video.paused',video.paused)}}
   if(!document.fullscreenElement)return
   if(e.ctrlKey&&e.key=='Enter'){
    if(video.style.objectFit=="fill"){video.style.objectFit="contain"}else{video.style.objectFit="fill"}
