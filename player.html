@@ -115,7 +115,7 @@
                 +'\nhttps://script.google.com/macros/s/AKfycbytYkoh1s5smPqU1K2Hz3qs3aKBXSNYHEBmstuxzz_OczhGedvA/exec?url=https://idz.glitch.me/'+videoId+'.vtt'
  ;(async()=>{await navigator.clipboard.writeText(writeData)})()//2021/10/31加入
   var xhr=new XMLHttpRequest()//xhr.responseType="json"//設定回傳資料為json格式，預設為text
-  xhr.open('GET',"https://idp.glitch.me/"+videoId+".vtt",true)//預設就是true(異步)
+  xhr.open('GET',"https://id-oa.onrender.com/"+videoId+".vtt",true)//預設就是true(異步)
   xhr.send()
   xhr.onerror=function(){alert('有錯誤！')}
   document.getElementById("sub").src=''//2021/6/16加入，以刪除舊影片字幕
@@ -133,14 +133,14 @@
    var Blob0=new Blob([text.slice(0,-1)],{type:"text/plain;charset=utf-8"})
    URL0=URL.createObjectURL(Blob0)
    document.getElementById("sub").src=URL0
-   video.src="https://idp.glitch.me/"+videoId
+   video.src="https://id-oa.onrender.com/"+videoId
    video.currentTime=localStorage.getItem(videoId)-5
   }
  }
 //確保載入video前，track已載入，cc方可順利出現。
 //↓2023/10/25加入更換源
  var loadingTimer,waitingTimer,played=false
- video.onloadstart=()=>{
+ video.onloadstart=()=>{return
   //console.log('loadstart')
   if(!loadingTimer){
    loadingTimer=setTimeout(function(){
@@ -149,7 +149,7 @@
    },15000)
   }
  }
- video.onwaiting=()=>{
+ video.onwaiting=()=>{return
   //console.log('waiting')
   let t=video.currentTime
   played=!video.paused
@@ -162,7 +162,7 @@
    },5000)
   }
  }
- video.oncanplay=()=>{
+ video.oncanplay=()=>{return
   //console.log('canplay')
   clearTimeout(loadingTimer);clearTimeout(waitingTimer)
   if(played){video.play();played=false}
