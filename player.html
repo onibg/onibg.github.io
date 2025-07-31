@@ -1,5 +1,5 @@
 <meta charset="UTF-8">
-<title>504班影片欣賞</title>
+<title>604班影片欣賞</title>
 <style>
  button{user-select:text}
  body{text-align:center}
@@ -34,7 +34,7 @@
   <track id="sub" label="繁中字幕" default>
  </video>
 </div>
-<button></button>
+<button><span style="color:red">(全螢幕)</span></button>
 <script>
  var video=document.getElementsByTagName('video')[0],div=document.getElementsByTagName('div')[0],button=document.getElementsByTagName('button')[0]
  var URL0,videoTop=0,videoHeight=100
@@ -126,7 +126,6 @@
   xhr.onload=function(){
    var data=xhr.response,split=data.split("\n")
    document.querySelector('span').style.color=source?'blue':'red'
-   button.innerHTML=split[0]+'<span>(全螢幕)</span>'
    var v=false//true
    var text=""//"WEBVTT\n\n"
    for(var i=1;i<split.length;i++){
