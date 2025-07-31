@@ -130,8 +130,9 @@
   xhr.onload=function(){
    var data=xhr.response,split=data.split("\n")
    const span=document.querySelector('span')
+   const color=source?'blue':'red'
    span.style.color=source?'blue':'red'
-   button.innerHTML=split[0]+span.outerHTML
+   button.innerHTML=split[0]+`<span style="color:${color}">(全螢幕)</span>`
    var v=false//true
    var text=""//"WEBVTT\n\n"
    for(var i=1;i<split.length;i++){
