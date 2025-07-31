@@ -126,6 +126,7 @@
   xhr.onload=function(){
    var data=xhr.response,split=data.split("\n")
    document.querySelector('span').style.color=source?'blue':'red'
+   button.innerHTML=split[0]+button.innerHTML
    var v=false//true
    var text=""//"WEBVTT\n\n"
    for(var i=1;i<split.length;i++){
