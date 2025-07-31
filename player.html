@@ -48,7 +48,7 @@
   div.requestFullscreen()
  }
  button.oncontextmenu=function(e){
-  //e.preventDefault()
+  e.preventDefault()
   if(document.querySelector('span').style.color=='red')XHR(true);else XHR()
  }
  document.addEventListener("keydown",function(e){//若Chrome修復controls不會自動消失，該函式可回復至2025-7-6以前
