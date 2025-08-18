@@ -4,16 +4,16 @@ body{text-align:center;background-color:black}
 button,input{font-size:200%;width:11%}
 button{color:blue;text-align:left}input{color:red}span{color:black}
 .circled{
-      display: inline-block;
-      color: red;                  /* 紅色數字 */
-      border: 2px solid red;       /* 紅色外圈 */
-      border-radius: 50%;          /* 變成圓形 */
-      width: 1.5em;                  /* 固定寬度 */
-      height: 1.5em;                 /* 固定高度 */
-      line-height: 1.5em;            /* 垂直置中 */
-      text-align: center;          /* 水平置中 */
-      font-weight: bold;           /* 粗體 */
-    }
+ display:inline-block;
+ color:red;
+ border:2px solid red;
+ border-radius:50%;
+ width:1.5em;
+ height:1.5em;
+ line-height:1.5em;
+ text-align:center;
+ font-weight:bold;
+}
 </style>
 <span style="color:red;font-size:200%">紅色圓圈數字代表順序</span>
 <br><br><br>
@@ -25,23 +25,18 @@ button{color:blue;text-align:left}input{color:red}span{color:black}
 <br><br><br>
 <button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>
 <br><br><br>
-<button>　</button>　<button>　</button>　<button>　</button>　<button>Ｘ</button>　<button>Ｘ</button>　<button>Ｘ</button>
+<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>
 <br><br><br>
 <input onclick="if(this.value=='執行'){stop=false;people();this.value='停止'}else{stop=true;this.value='執行'}" type="button" value="執行">
 <script>
 var buttons=document.getElementsByTagName('button'),stop=false
-for(let i of buttons){i.setAttribute("onclick","if(this.innerText!='Ｘ'){this.innerHTML='<span>Ｘ</span>'}else{this.innerText='　'}")}
 function people(){
  var num=['1白岳霖','2吳弘程','3李承軒','4施珺睿','5翁宇謙','6莊淙旭','7陳立恩','8陳崴仁','9黃祥峻','10葉子濬','11趙衍呈','12羅宇安','13王巧琳','14方語婕','15何欣亞','16余昱恩','17沈語婕','18侯瑄沂','19張宇彤','20張晴甄','21莊琬琳','22陳函郁','23陳苡晴','24葉霈晴','25劉芸圻','26魏季芃','27馮琳喬']
- num.sort(function(){return 0.5-Math.random()})
+ num.sort(()=>0.5-Math.random())
  let n=0
  for(let i of buttons){
-  if(i.innerText=='Ｘ'){continue}
-//   if(num[n]){i.innerText=(n+1)+num[n];n++}else{break}
-  if(num[n]){i.innerHTML=`<span class="circled">${n+1}</span>${num[n]}`;n++}else{break}
-}
+  if(num[n]){i.innerHTML=`<span class="circled">${n+1}</span>${num[n]}`;n++}else break
+ }
  if(!stop){setTimeout(people,100)}
 }
 </script>
-</body>
-</html>
