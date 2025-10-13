@@ -1,4 +1,4 @@
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <style>
 body{text-align:center;background-color:black}
 button,input{font-size:200%;width:10%}
@@ -16,18 +16,21 @@ button{color:blue}input{color:red}span{color:black}
 <br><br>
 <button>空</button>　<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>　<button>　</button>
 <br><br>
-<input onclick="if(this.value=='執行'){stop=false;people();this.value='停止'}else{stop=true;this.value='執行'}" type="button" value="執行">
+<input onclick="stop=!stop;if(!stop){this.value='倒數10秒';people()}" type="button" value="倒數10秒">
 <script>
-var buttons=document.getElementsByTagName('button'),stop=false
+var buttons=document.getElementsByTagName('button'),stop=true,timer=10000,input=document.querySelector('input')
+var num=['1白岳霖','2吳弘程','3李承軒','4施珺睿','5翁宇謙','6莊淙旭','7陳立恩','8陳崴仁','9黃祥峻','10葉子濬','11趙衍呈','12羅宇安','13王巧琳','14方語婕','15何欣亞','16余昱恩','17沈語婕','18侯瑄沂','19張宇彤','20張晴甄','21莊琬琳','22陳函郁','23陳苡晴','24葉霈晴','25劉芸圻','26魏季芃','27馮琳喬']
 for(let i of buttons){i.setAttribute("onclick","if(this.innerText!='空'){this.innerHTML='<span>空</span>'}else{this.innerText='　'}")}
 function people(){
- var num=['1白岳霖','2吳弘程','3李承軒','4施珺睿','5翁宇謙','6莊淙旭','7陳立恩','8陳崴仁','9黃祥峻','10葉子濬','11趙衍呈','12羅宇安','13王巧琳','14方語婕','15何欣亞','16余昱恩','17沈語婕','18侯瑄沂','19張宇彤','20張晴甄','21莊琬琳','22陳函郁','23陳苡晴','24葉霈晴','25劉芸圻','26魏季芃','27馮琳喬']
+ timer-=100
+ if(timer%1000===0)input.value=`倒數${timer/1000}秒`
  num.sort(function(){return 0.5-Math.random()})
  let n=0
  for(let i of buttons){
-  if(i.innerText=='空'){continue}
-  if(num[n]){i.innerText=num[n];n++}else{break}
-}
- if(!stop){setTimeout(people,100)}
+  if(i.innerText=='空')continue
+  if(num[n]){i.innerText=num[n];n++}else break
+ }
+ if(timer===0)stop=true
+ if(!stop)setTimeout(people,100);else{timer=10000;input.value='停止'}
 }
 </script>
