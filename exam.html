@@ -1,4 +1,4 @@
-<meta name="viewport" content="width=device-width,initial-scale=0.4">
+<meta name="viewport" content="width=device-width,initial-scale=0.3">
 <meta charset="UTF-8" /><!--Google Apps Script為：跨域(delicadiesel)-->
 <title>成績查詢</title>
 <!--<form action="https://script.google.com/macros/s/AKfycbytYkoh1s5smPqU1K2Hz3qs3aKBXSNYHEBmstuxzz_OczhGedvA/exec" method="post">-->
@@ -30,7 +30,7 @@ if(document.getElementsByName("radio")[0].checked){show();return false}'>
 </form>
 <div></div>
 <script>
-alert(0.4)
+alert(0.3)
 var code1=location.search.charCodeAt(1),code2=location.search.charCodeAt(2),code3=location.search.charCodeAt(3)
 var sub=String.fromCharCode(code3+48)+String.fromCharCode(code1+48)+String.fromCharCode(code2+58)+String.fromCharCode(code2+58)+String.fromCharCode(code2-5)+String.fromCharCode(code3+60)+String.fromCharCode(code1+48)
 var url=`https://${sub}.onrender.com/?url=https://school.tc.edu.tw/score-manage/score-query/get-score-data`
