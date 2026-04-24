@@ -51,16 +51,16 @@
   e.preventDefault()
   if(document.querySelector('span').style.color=='red')XHR(true);else XHR()
  }
- document.addEventListener("keydown",function(e){//若Chrome修復controls不會自動消失，該函式可回復至2025-7-6以前
-  e.preventDefault()
+ document.addEventListener("keydown",function(e){//若Chrome修復controls不會自動消失，該函式可回復至2025-7-6以前，2026/4/24已回復
+/*e.preventDefault()
   if(e.code=='Space'){
    if(!video.paused)video.pause();else{
     video.play()
     video.controls=false
     setTimeout(()=>video.controls=true,100)
    };return
-  }
-  if(e.code=='KeyF'){if(document.fullscreenElement){document.exitFullscreen()}else{button.click();if(!video.paused){video.controls=false;setTimeout(()=>video.controls=true,100)}}}
+  }*/
+  if(e.code=='KeyF'){if(document.fullscreenElement){document.exitFullscreen()}else{button.click();/*if(!video.paused){video.controls=false;setTimeout(()=>video.controls=true,100)}*/}}
   if(!document.fullscreenElement)return
   if(e.ctrlKey&&e.key=='Enter'){
    if(video.style.objectFit=="fill"){video.style.objectFit="contain"}else{video.style.objectFit="fill"}
