@@ -56,11 +56,13 @@
   if(e.code=='Space'){
    if(!video.paused)video.pause();else{
     video.play()
-    video.controls=false
-    setTimeout(()=>video.controls=true,100)
+    //已改用video.blur()控制//video.controls=false;setTimeout(()=>video.controls=true,100)
    };return
   }
-  if(e.code=='KeyF'){if(document.fullscreenElement){document.exitFullscreen()}else{button.click();if(!video.paused){video.controls=false;setTimeout(()=>video.controls=true,100)}}}
+  if(e.code=='KeyF'){if(document.fullscreenElement){document.exitFullscreen()}else{
+   button.click()
+   //已改用video.blur()控制//if(!video.paused){video.controls=false;setTimeout(()=>video.controls=true,100)}
+  }}
   if(!document.fullscreenElement)return
   if(e.ctrlKey&&e.key=='Enter'){
    if(video.style.objectFit=="fill"){video.style.objectFit="contain"}else{video.style.objectFit="fill"}
@@ -70,6 +72,9 @@
   else if(!e.ctrlKey&&e.code=='Numpad8'){videoHeight+=1;video.style.height=videoHeight+"%"}
   else if(!e.ctrlKey&&e.code=='Numpad2'){videoHeight-=1;video.style.height=videoHeight+"%"}
  },true)
+;['play','pause','seeked'].forEach(eventType=>{
+  video.addEventListener(eventType,()=>video.blur())//讓video失焦，確保控制條自動消失 2026/5/1加入
+ })//避免焦點在controls，導致controls出現外框，且無法獲取全域鍵盤事件
  video.ondblclick=()=>{if(document.fullscreenElement)document.exitFullscreen()}//2024/9/26加入，解決有時全螢幕狀態dblclick無法回到一般狀態
  video.addEventListener("mousewheel",function(e){
   if(e.wheelDelta>0){video.currentTime-=1}else{video.currentTime+=1}
