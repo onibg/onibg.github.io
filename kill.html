@@ -1,28 +1,38 @@
 <meta charset="UTF-8">
 <script>
-//var url='https://download2393.mediafire.com/hh6lgxao6idgjCXywUy8uOFgecBVL0isOynv0tddRSZGVPL3oeFi97ilCnqx2URNXPWxhqULLxsNLtkkXUp5JAN2Kp-KprQfcIHG2Gg3RXqaNycy4UWzupueo1ZXzwLDizpeuIzdub_xa_6gPm85g8Gr-xIPNgParRckWLC5Nc0/d4imslvpjzxi093/TWN+CN+NT+2023.30%28%E5%B7%B2%E8%A7%A3%E9%8E%96%29.RAR'
-var url='https://download2393.mediafire.com/51t4p7bg5xfgWQNGrYGw-Ry5LwuTBR34uE2LxHdPtEGe1FMovDHn10lx1dGO9E-mzP0wxBifYq1JuFmxeEZ2f8TfjRhd0kPmQIMhd4pWrogmoDKiwnBrm3_-ZBCHBBDJU968eVXUgFTge9XFijVVJhTHhIWiMUceBnjQx1MECrs/d4imslvpjzxi093/TWN+CN+NT+2023.30%28%E5%B7%B2%E8%A7%A3%E9%8E%96%29.RAR'
-//var url='https://'
-var size=1098893321,n=20,j
-function read(i){
- let xhr=new XMLHttpRequest()
- xhr.responseType='arraybuffer'
- xhr.open('GET',url,true)
- let max=Math.floor(size*Math.random())//max最大到size-1
- xhr.setRequestHeader('Range',`bytes=${max-99999}-${max}`)
+ function YouBike(){
+  fetch('https://md-oa.onrender.com/2').then(res=>res.json()).then(data=>{
+  console.log(data)
+ })
+
+/*
+xhr.open('GET',url[n],true)//預設就是true(異步)
  xhr.send()
- xhr.onload=()=>{j++
-  console.clear()
-  console.log(`總數:${j},第${i}`,new Uint8Array(xhr.response))
-  if(j==n){go()}
+ xhr.onload=function()
+ {
+  var obj=xhr.response
+  for(var i=0,L=obj.length;i<L;i++)
+  {
+   var pointName=obj[i].StationName.Zh_tw
+   var pointDes=obj[i].StationAddress.Zh_tw
+   pointName=pointName.replace(/\s+/g,"").replace(/&/g,"&amp;");if(pointDes)pointDes=pointDes.replace(/\s+/g,"").replace(/&/g,"&amp;");else pointDes='空'//去除所有空白，2026.6.30加入將&轉為&amp;
+   str2+=
+"<node id='"+(-i-1)+"' lat='"+obj[i].StationPosition.PositionLat+"' lon='"+obj[i].StationPosition.PositionLon+"'>"+
+"<tag k='YouBike2' v='"+pointName+"'/><tag k='note' v='"+pointDes+"'/></node>"
+  }
+  n++
+  if(n<url.length){makeOSM2(n,str2)}
+  else
+  {
+   var data=str1+str2+str3
+   var blob=new Blob([data])
+   var a=document.createElement('a')
+   a.innerHTML="單車站2.osm"
+   a.href=URL.createObjectURL(blob)
+   a.download="單車站2.osm"
+   document.body.appendChild(a);document.body.innerHTML+='<br>'
+  }
  }
-}
-
-
-go()
-function go(){j=0
- for(let i=1;i<=n;i++){
-  read(i)
+*/
  }
-}
 </script>
