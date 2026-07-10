@@ -1,15 +1,15 @@
 <meta charset="UTF-8">
 <script>
-alert(2)
+alert(3)
  function YouBike(){
   fetch('https://md-oa.onrender.com/2').then(res=>res.json()).then(obj=>{
    //console.log(obj)
    const geojson={
-    type: "FeatureCollection",
-      features:data.map(item=>({type:"Feature",
-                                properties:{id:item.StationUID,name:item.StationName.Zh_tw,des:item.StationAddress.Zh_tw},
-                                geometry:{type:"Point",coordinates:[StationPosition.PositionLon,StationPosition.PositionLat]}
-                               }))
+    type:"FeatureCollection",
+    features:obj.map(item=>({type:"Feature",
+                             properties:{id:item.StationUID,name:item.StationName.Zh_tw,des:item.StationAddress.Zh_tw},
+                             geometry:{type:"Point",coordinates:[StationPosition.PositionLon,StationPosition.PositionLat]}
+                            }))
    }
    console.log(geojson)
   })
