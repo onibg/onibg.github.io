@@ -3,8 +3,16 @@
 alert(2)
  function YouBike(){
   fetch('https://md-oa.onrender.com/2').then(res=>res.json()).then(obj=>{
-  console.log(obj)
- })
+   //console.log(obj)
+   const geojson={
+    type: "FeatureCollection",
+      features:data.map(item=>({type:"Feature",
+                                properties:{id:item.StationUID,name:item.StationName.Zh_tw,des:item.StationAddress.Zh_tw},
+                                geometry:{type:"Point",coordinates:[StationPosition.PositionLon,StationPosition.PositionLat]}
+                               }))
+   }
+   console.log(geojson)
+  })
 
 /*
 xhr.open('GET',url[n],true)//預設就是true(異步)
