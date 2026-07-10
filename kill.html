@@ -8,7 +8,7 @@ alert(3)
     type:"FeatureCollection",
     features:obj.map(item=>({type:"Feature",
                              properties:{id:item.StationUID,name:item.StationName.Zh_tw,des:item.StationAddress.Zh_tw},
-                             geometry:{type:"Point",coordinates:[StationPosition.PositionLon,StationPosition.PositionLat]}
+                             geometry:{type:"Point",coordinates:[item.StationPosition.PositionLon,item.StationPosition.PositionLat]}
                             }))
    }
    console.log(geojson)
