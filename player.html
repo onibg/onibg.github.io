@@ -43,7 +43,7 @@
   button.style.fontSize=.05*parseFloat(div.style.width)+'px'
  }).observe(div)
  video.focus()
- button.onclick=function(){
+ button.onclick=function(){navigator.clipboard.writeText(button.firstChild.textContent)//2026.7.12加入，用以複製電影名稱，後方.then()忽略了
   video.focus()
   div.requestFullscreen()
  }
