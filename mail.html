@@ -45,7 +45,7 @@ function getToken(mail_url){
  const controller=new AbortController()
  const timeout=setTimeout(()=>{controller.abort();getToken(mail_url)},30000)//請求超時30秒處理
  fetch(mail_url[1],{signal:controller.signal})
- .then(res=>{console.log('res.status:',res.status);clearTimeout(timeout);return res.text()})
+ .then(res=>{console.log(mail_url,res.status);clearTimeout(timeout);return res.text()})
  .then(data=>{
   onibgObj[mail_url[0]].token=data
   if(!quantity){quantity=tr.length-1}else{quantity--}
