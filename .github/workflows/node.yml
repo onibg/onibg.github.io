@@ -43,4 +43,3 @@ jobs:
       - name: 測試本機 HTTP
         run: |
           curl -v http://127.0.0.1:8080
-```
