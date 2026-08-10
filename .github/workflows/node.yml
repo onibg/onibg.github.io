@@ -1,48 +1,33 @@
-name: Node.js WebSocket 測試
+name: 測試 Actions 最大執行時間
 
 on:
   workflow_dispatch:
 
 jobs:
-  hello:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-
-      - name: 顯示環境
-        run: |
-          node -v
-          npm -v
-          uname -a
-          hostname
-
-      - name: WebSocket 連線 PC2
+      - name: 持續執行
         run: |
           node -e "
-          const ws = new WebSocket('ws://1.170.101.67');
+          const start = Date.now();
 
-          ws.onopen = () => {
-              console.log('================================');
-              console.log('已連線到 PC2 WebSocket Server');
-              console.log('================================');
+          console.log('開始:', new Date(start).toISOString());
 
-              ws.send('Hello from GitHub Actions');
-          };
+          setInterval(() => {
+              const elapsed = Date.now() - start;
 
-          ws.onmessage = event => {
-              console.log('收到 PC2:', event.data);
-          };
+              const seconds = Math.floor(elapsed / 1000);
+              const h = Math.floor(seconds / 3600);
+              const m = Math.floor((seconds % 3600) / 60);
+              const s = seconds % 60;
 
-          ws.onerror = error => {
-              console.error('WebSocket 錯誤:', error);
-          };
-
-          ws.onclose = () => {
-              console.log('PC2 WebSocket 連線關閉');
-          };
+              console.log(
+                  '已執行:',
+                  h + ' 小時',
+                  m + ' 分',
+                  s + ' 秒'
+              );
+          }, 60000);
           "

@@ -1,0 +1,48 @@
+name: Node.js WebSocket 測試
+
+on:
+  workflow_dispatch:
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: 顯示環境
+        run: |
+          node -v
+          npm -v
+          uname -a
+          hostname
+
+      - name: WebSocket 連線 PC2
+        run: |
+          node -e "
+          const ws = new WebSocket('ws://1.170.101.67');
+
+          ws.onopen = () => {
+              console.log('================================');
+              console.log('已連線到 PC2 WebSocket Server');
+              console.log('================================');
+
+              ws.send('Hello from GitHub Actions');
+          };
+
+          ws.onmessage = event => {
+              console.log('收到 PC2:', event.data);
+          };
+
+          ws.onerror = error => {
+              console.error('WebSocket 錯誤:', error);
+          };
+
+          ws.onclose = () => {
+              console.log('PC2 WebSocket 連線關閉');
+          };
+          "
