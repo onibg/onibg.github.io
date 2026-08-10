@@ -1,4 +1,5 @@
-name: Node.js 好的
+```yaml
+name: Node.js HTTP Server Test
 
 on:
   workflow_dispatch:
@@ -21,5 +22,26 @@ jobs:
           uname -a
           hostname
 
-      - name: Hello World
-        run: node -e "console.log('Hello World 789')"
+      - name: 啟動 Node.js Server
+        run: |
+          node -e "
+          const http = require('http');
+
+          const server = http.createServer((req, res) => {
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.end('Hello from GitHub Actions\\n');
+          });
+
+          server.listen(8080, '0.0.0.0', () => {
+            console.log('Server started on port 8080');
+          });
+          " > server.log 2>&1 &
+
+          sleep 2
+
+          cat server.log
+
+      - name: 測試本機 HTTP
+        run: |
+          curl -v http://127.0.0.1:8080
+```
