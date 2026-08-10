@@ -1,4 +1,4 @@
-name: Node.js 試驗
+name: Node.js 考驗
 
 on:
   workflow_dispatch:
