@@ -24,7 +24,7 @@ jobs:
       - name: WebSocket 連線 PC2
         run: |
           node -e "
-          const ws = new WebSocket('ws://1.170.101.67:18080');
+          const ws = new WebSocket('ws://1.170.101.67');
 
           ws.onopen = () => {
               console.log('================================');
