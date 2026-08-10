@@ -1,4 +1,4 @@
-name: Internet Test
+name: Node.js WebSocket 測試
 
 on:
   workflow_dispatch:
@@ -14,50 +14,35 @@ jobs:
         with:
           node-version: 24
 
-      - name: 顯示 Runner 網路資訊
+      - name: 顯示環境
         run: |
-          echo "=== Public IP ==="
-          curl -4 https://api.ipify.org
-          echo
+          node -v
+          npm -v
+          uname -a
+          hostname
 
-          echo "=== Network ==="
-          ip addr
-
-          echo "=== Route ==="
-          ip route
-
-          echo "=== Listening ports ==="
-          ss -lntp
-
-      - name: 啟動 Node.js Server
+      - name: WebSocket 連線 PC2
         run: |
           node -e "
-          const http = require('http');
+          const ws = new WebSocket('ws://1.170.101.67:18080');
 
-          const server = http.createServer((req, res) => {
-            console.log('收到請求:', req.socket.remoteAddress);
-            res.writeHead(200, {'Content-Type': 'text/plain'});
-            res.end('Hello from GitHub Actions\\n');
-          });
+          ws.onopen = () => {
+              console.log('================================');
+              console.log('已連線到 PC2 WebSocket Server');
+              console.log('================================');
 
-          server.listen(8080, '0.0.0.0', () => {
-            console.log('Server started on port 8080');
-          });
-          " > server.log 2>&1 &
+              ws.send('Hello from GitHub Actions');
+          };
 
-          sleep 2
+          ws.onmessage = event => {
+              console.log('收到 PC2:', event.data);
+          };
 
-          cat server.log
+          ws.onerror = error => {
+              console.error('WebSocket 錯誤:', error);
+          };
 
-      - name: 確認 8080
-        run: |
-          ss -lntp | grep 8080
-
-      - name: Runner 自己測試
-        run: |
-          curl -v http://127.0.0.1:8080
-
-      - name: 持續等待外部測試
-        run: |
-          echo "等待 Internet 外部連線..."
-          sleep 600
+          ws.onclose = () => {
+              console.log('PC2 WebSocket 連線關閉');
+          };
+          "
