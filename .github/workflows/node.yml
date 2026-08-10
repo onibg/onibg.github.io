@@ -1,4 +1,4 @@
-name: Node.js 考驗
+name: Node.js 考試
 
 on:
   workflow_dispatch:
