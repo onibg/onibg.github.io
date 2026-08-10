@@ -1,4 +1,4 @@
-name: Node.js 考試
+name: Node.js 好的
 
 on:
   workflow_dispatch:
@@ -14,5 +14,12 @@ jobs:
         with:
           node-version: 24
 
+      - name: 顯示環境
+        run: |
+          node -v
+          npm -v
+          uname -a
+          hostname
+
       - name: Hello World
-        run: node -e "console.log('Hello World 456')"
+        run: node -e "console.log('Hello World 789')"
