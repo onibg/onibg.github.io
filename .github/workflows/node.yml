@@ -1,4 +1,4 @@
-name: 測試 Actions 最大執行時間
+name: 早！測試 Actions 最大執行時間
 on:
  workflow_dispatch:
 jobs:
