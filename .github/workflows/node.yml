@@ -1,8 +1,9 @@
 name: 測試 Actions 4的倍數整點觸發
 on:
- workflow_dispatch: #手動觸發
+#workflow_dispatch: #手動觸發
  schedule:
   - cron: '0 0,4,8,12,16,20 * * *' #分鐘=0;小時=0,4,8,12,16,20;每天 每月 每星期 (UTC時間)
+  - cron: '20 0 * * *'             #每天 UTC 00:20 也觸發
 jobs:
  test:
   runs-on: ubuntu-latest
