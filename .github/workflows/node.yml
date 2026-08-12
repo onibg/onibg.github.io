@@ -17,5 +17,11 @@ jobs:
        const m=Math.floor((seconds%3600)/60)
        const s=seconds%60
        console.log('已執行:',h+' 小時',m+' 分',s+' 秒')
+       ws.send('Hello from Github Actions')
       },60000)
+      const ws=new WebSocket('wss://w-i-w.onrender.com')
+      ws.onopen=()=>console.log('WebSocket已連線')
+      ws.onmessage=event=>console.log('Render Server回覆:',event.data)
+      ws.onerror=err=>console.error('WebSocket錯誤:',err)
+      ws.onclose=event=>console.log('WebSocket關閉:',event)
       EOF
