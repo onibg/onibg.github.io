@@ -8,20 +8,28 @@ jobs:
    - name: 持續執行
      run: |
       node<<'EOF'
-      const start=Date.now();
+      const start=Date.now()
       console.log('開始:',new Date(start).toISOString())
-      setInterval(()=>{
+      let ws;connect()
+      function connect(){
+       ws=new WebSocket('wss://w-i-w.onrender.com')
+       ws.onopen=()=>console.log('WebSocket已連線')
+       ws.onmessage=event=>console.log('Render Server回覆:',event.data)
+       ws.onerror=err=>console.error('WebSocket錯誤:',err)
+       ws.onclose=event=>{
+        console.log('WebSocket關閉:',event)
+        setTimeout(connect,1000)
+       }
+      }
+      setInterval(() => {
        const elapsed=Date.now()-start
        const seconds=Math.floor(elapsed/1000)
        const h=Math.floor(seconds/3600)
        const m=Math.floor((seconds%3600)/60)
        const s=seconds%60
        console.log('已執行:',h+' 小時',m+' 分',s+' 秒')
-       ws.send('Hello from Github Actions')
+       if(ws?.readyState===WebSocket.OPEN){
+        ws.send('Hello from Github Actions')
+       }else console.log('WebSocket尚未連線，略過此次傳送')
       },60000)
-      const ws=new WebSocket('wss://w-i-w.onrender.com')
-      ws.onopen=()=>console.log('WebSocket已連線')
-      ws.onmessage=event=>console.log('Render Server回覆:',event.data)
-      ws.onerror=err=>console.error('WebSocket錯誤:',err)
-      ws.onclose=event=>console.log('WebSocket關閉:',event)
       EOF
