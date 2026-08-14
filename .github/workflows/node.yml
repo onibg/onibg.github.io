@@ -1,4 +1,4 @@
-name: 測試 cron-job 4的倍數整點觸發
+name: cron-job 3的倍數整點觸發
 on:
  workflow_dispatch: #手動觸發
 jobs:
