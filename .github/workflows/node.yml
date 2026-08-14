@@ -10,7 +10,7 @@ jobs:
   steps:
    - run: |
       node<<'EOF'
-      console.log('開始:',new Date().toLocaleString('zh-TW',{timeZone:'Asia/Taipei'}))
+      console.log('開始:',new Date().toLocaleString('zh-CN',{timeZone:'Asia/Taipei'}))
       let ws;connect()
       function connect(){
        ws=new WebSocket('wss://w-i-w.onrender.com')
@@ -24,7 +24,7 @@ jobs:
       }
       setInterval(()=>{
        if(ws?.readyState===WebSocket.OPEN){
-        console.log(new Date().toLocaleString('zh-TW',{timeZone:'Asia/Taipei'}),'ws.send()')
+        console.log(new Date().toLocaleString('zh-CN',{timeZone:'Asia/Taipei'}),'ws.send()')
         ws.send('我是Github Actions')
        }else console.log('WebSocket尚未連線，略過此次ws.send()')
       },60000)
