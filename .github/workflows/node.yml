@@ -9,6 +9,10 @@ jobs:
   runs-on: ubuntu-latest
   steps:
    - run: |
+      echo "CPU詳細資訊:"
+      lscpu | grep -E 'Model name|CPU\(s\)|Thread|Core|Socket'
+      echo "Memory:"
+      free -h
       node<<'EOF'
       console.log('開始:',new Date().toLocaleString('zh-CN',{timeZone:'Asia/Taipei'}))
       let ws;connect()
