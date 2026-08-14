@@ -3,13 +3,14 @@ on:
  workflow_dispatch: #手動觸發
 jobs:
  test:
+  strategy:
+   matrix:
+    n: [1,2,3,4,5,6,7,8,9,10]
   runs-on: ubuntu-latest
   steps:
-   - name: 持續執行
-     run: |
+   - run: |
       node<<'EOF'
-      const start=Date.now()
-      console.log('開始:',new Date(start).toISOString())
+      console.log('開始:',new Date().toLocaleString('zh-TW',{timeZone:'Asia/Taipei'}))
       let ws;connect()
       function connect(){
        ws=new WebSocket('wss://w-i-w.onrender.com')
@@ -21,15 +22,10 @@ jobs:
         setTimeout(connect,1000)
        }
       }
-      setInterval(() => {
-       const elapsed=Date.now()-start
-       const seconds=Math.floor(elapsed/1000)
-       const h=Math.floor(seconds/3600)
-       const m=Math.floor((seconds%3600)/60)
-       const s=seconds%60
-       console.log('已執行:',h+' 小時',m+' 分',s+' 秒')
+      setInterval(()=>{
        if(ws?.readyState===WebSocket.OPEN){
-        ws.send('Hello from Github Actions')
-       }else console.log('WebSocket尚未連線，略過此次傳送')
+        console.log(new Date().toLocaleString('zh-TW',{timeZone:'Asia/Taipei'}),'ws.send()')
+        ws.send('我是Github Actions')
+       }else console.log('WebSocket尚未連線，略過此次ws.send()')
       },60000)
       EOF
