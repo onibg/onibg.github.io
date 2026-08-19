@@ -1,4 +1,4 @@
-name: cron-job 3的倍數整點觸發
+name: 開啟多個jobs、WebSocket、印硬體資訊
 on:
  workflow_dispatch: #手動觸發
 jobs:
@@ -8,6 +8,7 @@ jobs:
     n: [1,2,3,4,5,6,7,8,9,10]
   runs-on: ubuntu-latest
   steps:
+
    - run: |
       echo "CPU詳細資訊:"
       lscpu|grep -E 'Model name|CPU\(s\)|Thread|Core|Socket'
