@@ -18,7 +18,7 @@ jobs:
       console.log('開始:',new Date().toLocaleString('zh-CN',{timeZone:'Asia/Taipei'}))
       let ws;connect()
       function connect(){
-       ws=new WebSocket('wss://w-i-w.onrender.com')
+       ws=new WebSocket('${{secrets.js}}')
        ws.onopen=()=>console.log('WebSocket已連線')
        ws.onmessage=event=>console.log('Render Server回覆:',event.data)
        ws.onerror=err=>console.error('WebSocket錯誤:',err)
