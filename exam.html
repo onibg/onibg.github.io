@@ -5,9 +5,9 @@
 <form method="POST">
 <!--請求url：<input name="url" size="51" value="https://school.tc.edu.tw/score-manage/score-query/get-score-data"><br>-->
 <!--請求cookie：<input name="cookie" size="32" value="PHPSESSID=orsel9hnbbll19v9b19d1a2sfp"><br>-->
-學期編號：<input name="semester_id" value="32"><br>
-班級編號：<input name="class_id" value="1152" readonly="readonly" style="color:gray" size="2">　<input name="class_number" value="110" size="10"><br>
-階段編號：<input name="test_sort" value="3"><br>
+學期編號：<input name="semester_id" value="33"><br>
+班級編號：<input name="class_id" value="1195" readonly="readonly" style="color:gray" size="2">　<input name="class_number" value="210" size="10"><br>
+階段編號：<input name="test_sort" value="1"><br>
 顯示模式：<input name="show_mode" value="mode_1"><br>
 加權運算：<input name="show_rate" value="0"><br>
 顯示調出及畢業學生：<input name="show_old_student" value="0"><br>
@@ -21,9 +21,13 @@
 <!--document.getElementsByName("class_number")[0].select();-->
 <input type="submit" value="提交表單" onclick='
 var class_id={
-101:"1143",102:"1144",103:"1145",104:"1146",105:"1147",106:"1148",107:"1149",108:"1150",109:"1151",110:"1152",111:"1153",
-201:"1154",202:"1155",203:"1156",204:"1157",205:"1158",206:"1159",207:"1160",208:"1161",209:"1162",210:"1163",
-301:"1164",302:"1165",303:"1166",304:"1167",305:"1168",306:"1169",307:"1170",308:"1171",309:"1172",310:"1173",311:"1174"}
+101:"1175",102:"1176",103:"1177",104:"1178",105:"1179",106:"1180",107:"1181",108:"1182",
+201:"1186",202:"1187",203:"1188",204:"1189",205:"1190",206:"1191",207:"1192",208:"1193",209:"1194",210:"1195",211:"1207",
+301:"1196",302:"1197",303:"1198",304:"1199",305:"1200",306:"1201",307:"1202",308:"1203",309:"1204",310:"1205",311:"1206"}
+var student_id={
+1:"5430",2:"5431",3:"5432",4:"5433",5:"5434",6:"5435",7:"5436",8:"5437",9:"5438",10:"5439",
+11:"5440",12:"5441",13:"5442",14:"5443",15:"5444",16:"5445",17:"5446",18:"5447",19:"5448",20:"5449",
+21:"5450",22:"5451",23:"5452",24:"5453",25:"5454",26:"5455",27:"5456",28:"5521",29:"5534"}
 document.getElementsByName("class_id")[0].value=class_id[document.getElementsByName("class_number")[0].value];
 if(document.getElementsByName("radio")[0].checked){show();return false}'>
 <textarea rows="6" cols="52" style="resize:none"></textarea>
