@@ -78,11 +78,11 @@ xhr.onload=function(){
             const student_id=[5430,5431,5432,5433,5434,5435,5436,5437,5438,5439,
                               5440,5441,5442,5443,5444,5445,5446,5447,5448,5449,
                               5450,5451,5452,5453,5454,5455,5456,5521,5534];
-            [...tbody.children].forEach((tr,index)=>tr.children[1].onclick=()=>
+            [...tbody.children].forEach((tr,index)=>{tr.children[1].style.cursor='pointer';tr.children[1].onclick=()=>
              open('https://call-oa.onrender.com/?url='+
                   'https://school.tc.edu.tw/tutor/tutor-reward-list/get-reward-data?is_current_semester=0&included_cancel_record=0&print_mode=3&id='+student_id[index]+'&url='+
                   'https://school.tc.edu.tw/tutor/tutor-service-total/show-detail?id='+student_id[index])
-            )
+            })
            }
            function checkAll(){t.value=""
            for(let y=0;y<tbody.children.length;y++)
