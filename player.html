@@ -83,7 +83,7 @@
  var lastTime
  video.ontimeupdate=function(){
   const intTime=Math.floor(video.currentTime)
-  if(intTime!=lastTime){lastTime=intTime;localStorage.setItem(video.src.split('/').pop(),intTime)}
+  if(intTime!=lastTime){lastTime=intTime;localStorage.setItem(globalId,intTime)}
  }
  document.addEventListener("webkitfullscreenchange",function(){//只能偵測到video，不能偵測到div的改變
   if(document.webkitIsFullScreen){
