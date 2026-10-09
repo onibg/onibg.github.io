@@ -81,7 +81,8 @@ xhr.onload=function(){
             [...tbody.children].forEach((tr,index)=>{tr.children[1].style.cursor='pointer';tr.children[1].onclick=()=>
              open('https://call-oa.onrender.com/?url='+
                   'https://school.tc.edu.tw/tutor/tutor-reward-list/get-reward-data?is_current_semester=0&included_cancel_record=0&print_mode=3&id='+student_id[index]+'&url='+
-                  'https://school.tc.edu.tw/tutor/tutor-service-total/show-detail?id='+student_id[index])
+                  'https://school.tc.edu.tw/tutor/tutor-service-total/show-detail?id='+student_id[index]+'&url='+
+                  'https://school.tc.edu.tw/tutor/tutor-absent-detail/get-student-data?start_date=2026-07-24&end_date=2027-01-31&select_stu_all=1&id='+student_id[index])
             })
            }
            function checkAll(){t.value=""
